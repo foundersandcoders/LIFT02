@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with employers, promoting a more inclusive workplace environment. See `FUNCTIONAL.md` for detailed requirements.
+A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment. See `FUNCTIONAL.md` for detailed requirements.
 
 ## Tech Stack
 

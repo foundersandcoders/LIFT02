@@ -23,7 +23,7 @@ A digital version of Islington Council's workplace passport to support neurodive
   - My role as a parent or carer
   - My religion or beliefs
   - My experience as someone with a disability or long-term health condition
-  - Workplace adjustments and support
+  - Workplace actions and support
   - Additional information and resources
 - Navigation between categories via tabs, cards, or scrolling
 - Help/instructional elements accessible from dashboard
@@ -33,6 +33,7 @@ A digital version of Islington Council's workplace passport to support neurodive
 - Non-mandatory question answering for each section
 - Option to explicitly skip questions
 - Free text input for responses
+- Response versioning to track changes over time
 - Privacy controls for each response (public, private)
 - Follow-up action assignment after answers:
   - Physical sensory environment adjustment
@@ -42,16 +43,20 @@ A digital version of Islington Council's workplace passport to support neurodive
   - Work style/pattern adjustment
   - Other (free form text)
 
-### Workplace Adjustments Management
+### Workplace Actions Management
 - Aggregated view of all assigned actions
-- Ability to add additional adjustments manually
-- Categorization of adjustments
+- Ability to add additional actions manually
+- Categorization of actions by type
+- Version history for actions to track changes over time
 
-### Sharing and Export
-- Email sharing with managers
-- Downloadable summary document of responses
+### Sharing with Line Managers
+- Email sharing with line manager
+- Content includes all visible answers (with questions) and actions
+- Complete version history of shared content
+- Ability to view exactly what was shared in previous sharing events
 - User control over what information is shared through visibility settings
 - Option to exclude skipped questions from shared content
+- Tracking of which specific versions of responses were shared
 
 ### Resources
 - Links to additional external resources

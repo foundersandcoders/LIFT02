@@ -68,20 +68,26 @@ Supabase tables:
    - employer_name   # For MVP: plain text field
    - employer_id (FK, nullable)  # For future: reference to employers table
    - line_manager_name  # For MVP: plain text field
-   - line_manager_email
-   - line_manager_id (FK, nullable)  # For future: reference to line_managers table
+   - line_manager_email  # For MVP: plain text field
+   - line_manager_user_id (FK, nullable)  # For future: self-reference to another user's profile
 
 > **Note on users/profiles separation**: We maintain separate tables for users and profiles to follow best practices with Supabase. The `users` table is managed by Supabase Auth and handles authentication concerns, while the `profiles` table contains application-specific user data. This separation provides better security through row-level security policies, allows for independent schema evolution, and keeps authentication data separate from application data.
 
-> **Note on future employer/line manager centralization**: The database structure includes preparation for future centralization:
-> - For the MVP, employer and line manager information is stored as plain text
-> - The `employer_id` and `line_manager_id` fields are included but remain NULL in the MVP
-> - In the future implementation, employers and line managers will be centralized in their own tables
-> - Each user has one employer and one line manager (which can be null initially)
-> - Line managers work for companies (employers)
+> **Note on line manager relationship**: 
+> - The profiles table uses a self-referencing relationship to represent line management
+> - For the MVP, line manager information is stored as plain text (name and email)
+> - The `line_manager_user_id` field is included but remains NULL in the MVP
+> - In the future implementation, this field will reference another user's profile
+> - This allows any user to be someone else's line manager
+> - This approach provides a standard hierarchical relationship model
+
+> **Note on future employer centralization**: 
+> - For the MVP, employer information is stored as plain text
+> - The `employer_id` field is included but remains NULL in the MVP
+> - In the future, employers will be centralized in their own table
 > - This approach minimizes migration complexity when the feature is added
 
-### Future Centralization Tables (Not Implemented in MVP)
+### Future Employers Table (Not Implemented in MVP)
 
 ```
 employers
@@ -90,14 +96,6 @@ employers
   - address
   - contact_email
   - contact_phone
-  - created_at
-  - updated_at
-
-line_managers
-  - id (PK)
-  - name
-  - email
-  - employer_id (FK)  # Line managers belong to a company
   - created_at
   - updated_at
 ```
@@ -115,28 +113,61 @@ line_managers
    - response_text
    - status (enum: 'answered', 'skipped')
    - visibility (enum: 'public', 'private')
+   - version (integer)  # Identifies this response's version number
+   - is_latest (boolean)  # Flag to easily identify the most recent version
    - created_at
    - updated_at
 
-> **Note on response status and visibility**: 
-> - The `status` field allows users to explicitly skip questions they don't feel comfortable answering, while still tracking that the question was considered.
-> - The `visibility` field gives users control over who can see their responses when sharing the passport, supporting the requirement that users control what information is shared.
+> **Note on response versioning**: 
+> - Each answer version is stored as a separate row in the responses table
+> - Multiple responses with the same question_id but different version numbers represent the history of changes
+> - The `is_latest` flag makes it easy to query only the most recent versions
+> - When a user updates a response, a new row is created with incremented version number and is_latest=true
+> - The previous version's is_latest flag is set to false
+> - The `visibility` field gives users control over what information is shared
 
-5. **adjustments**
+5. **actions**
    - id (PK)
    - user_id (FK)
    - response_id (FK, nullable)
    - type (enum)
    - description
+   - version (integer)  # Identifies this action's version number
+   - is_latest (boolean)  # Flag to easily identify the most recent version
    - created_at
    - updated_at
+
+> **Note on action versioning**:
+> - Actions use the same versioning approach as responses
+> - Each version is stored as a separate row
+> - The is_latest flag identifies current versions
+> - This ensures consistent historical tracking for both responses and actions
 
 6. **sharing_events**
    - id (PK)
    - user_id (FK)
-   - recipient_email
+   - recipient_email  # Line manager's email
    - shared_at
-   - message
+   - message  # Optional message to accompany the sharing
+
+7. **sharing_event_responses**
+   - id (PK)
+   - sharing_event_id (FK)
+   - response_id (FK)  # Points to the specific response version
+
+8. **sharing_event_actions**
+   - id (PK)
+   - sharing_event_id (FK)
+   - action_id (FK)
+
+> **Note on sharing and versioning**: 
+> - Each sharing event represents an email sent from a user to their line manager
+> - The `sharing_event_responses` junction table links specific response rows (including their versions) to sharing events
+> - The `sharing_event_actions` junction table links actions to sharing events
+> - This creates a true point-in-time snapshot of what was shared without duplicating content
+> - When querying for the current state of responses, filter by is_latest=true
+> - When retrieving a historical shared passport, join with the junction tables to get the exact content shared
+> - This approach provides a complete audit trail while maintaining data normalization
 
 ## Authentication Flow
 
