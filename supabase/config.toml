@@ -1,7 +1,0 @@
-[dev]
-project_id = "pxdblrlgxtmulkpmjjzi"
-db_url = "postgresql://postgres:[YOUR_PASSWORD]@db.pxdblrlgxtmulkpmjjzi.supabase.co:5432/postgres"
-
-[prod]
-project_id = "your-prod-project-id"
-db_url = "postgresql://postgres:[YOUR_PASSWORD]@db.your-prod-project.supabase.co:5432/postgres"
