@@ -53,6 +53,8 @@ A digital workplace passport application that helps neurodivergent employees doc
 
    You can find your project reference in the Supabase dashboard URL: `https://supabase.com/dashboard/project/<project-reference>`.
 
+   > **IMPORTANT**: When prompted, you'll need to create `supabase/config.toml` with your database password. This file contains sensitive information and is already added to `.gitignore` to prevent it from being committed.
+
 ## Database Management
 
 ### Pushing Schema Changes

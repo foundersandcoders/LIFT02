@@ -70,3 +70,6 @@ lerna-debug.log*
 # Project-specific
 .turbo
 .cache
+
+# Supabase
+/supabase/config.toml
