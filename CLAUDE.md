@@ -13,7 +13,9 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Styling: TailwindCSS
 - Data: Supabase (PostgreSQL)
 - Authentication: Supabase Magic Link
+- Testing: Vitest
 - Hosting: Vercel
+- Development: Supabase environments (no local instances)
 
 ## Code Style & Conventions
 
@@ -55,6 +57,8 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Test frameworks: Vitest for unit tests, Playwright for E2E
 - Coverage requirements: 80% for critical paths
 - Test naming conventions: `describe('Component/Function')`, `it('should do something')`
+- Component testing: Vitest with @testing-library/svelte
+- API testing: Vitest with mocked Supabase client
 
 ## Environment Setup
 
@@ -64,6 +68,11 @@ A digital workplace passport application that helps neurodivergent employees doc
   - `SUPABASE_SERVICE_KEY` (server-only)
   - `EMAIL_SERVICE_KEY` (for sending emails)
 
+- Supabase environments:
+  - Development, staging, and production projects in Supabase
+  - No local Supabase instance required
+  - Environment-specific database and auth settings
+
 - Setup commands:
   ```bash
   # Install dependencies
@@ -72,7 +81,7 @@ A digital workplace passport application that helps neurodivergent employees doc
   # Copy environment template
   cp .env.example .env.local
   
-  # Fill in environment variables
+  # Fill in environment variables with appropriate Supabase project keys
   ```
 
 ## Common Commands
@@ -82,13 +91,15 @@ A digital workplace passport application that helps neurodivergent employees doc
 npm run build
 
 # Test command
-npm run test
+npm run test        # Run all Vitest tests
+npm run test:unit   # Run unit tests only
+npm run test:e2e    # Run Playwright E2E tests
 
 # Lint command
 npm run lint
 
 # Check command
-npm run check
+npm run check       # TypeScript type checking
 
 # Development server
 npm run dev

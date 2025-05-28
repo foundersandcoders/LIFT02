@@ -1,131 +1,38 @@
+# sv
 
-## Table of Contents
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-- [Workshop](#workshop)
-  - [Overview](#overview)
-  - [What to Expect](#what-to-expect)
-  - [Getting Started](#getting-started)
-- [Task](#task)
-- [Human-AI Pair-Programming: A Rough Guide](#human-ai-pair-programming-a-rough-guide)
-  - [IQRE Process](#iqre-process)
-  - [Workshop Phases](#workshop-phases)
-    - [Conception](#conception)
-    - [Environment & Tasks](#environment--tasks)
-    - [Implementation](#implementation)
-    - [Context Management](#context-management)
-    - [Presentation](#presentation)
-  - [Key Guidelines](#key-guidelines)
-    - [AI Collaboration](#ai-collaboration)
-    - [Quality Assurance](#quality-assurance)
-    - [Success Criteria](#success-criteria)
+## Creating a project
 
+If you're seeing this, you've probably already done this step. Congrats!
 
+```bash
+# create a new project in the current directory
+npx sv create
 
-## Task
+# create a new project in my-app
+npx sv create my-app
+```
 
-Details of the task are contained in the [brief]Brief_Docs/Project Brief.txt.
+## Developing
 
-## Human-AI Pair-Programming: A Rough Guide
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-### IQRE Process
+```bash
+npm run dev
 
-Follow these four steps consistently throughout the workshop:
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-1. **Iterate**: Share ideas/request code from AI and develop specifications or features through iteration.
-2. **Question**: Review AI proposal, identify gaps, and refine through follow-up questions.
-3. **Accept**: If AI proposal is acceptable, allow it to generate the code or specs.
-4. **Review/Create**: Understand generated code/specs. If inspired, create a new, enhanced solution based on AI's output.
-5. **Explain**: Present outputs to teammates, emphasising clear foundations and alignment.
+## Building
 
----
+To create a production version of your app:
 
-### Workshop Phases
+```bash
+npm run build
+```
 
-> [!NOTE]
-> All prompts referred to in the below section are available [here](PROMPTS.md).
+You can preview the production build with `npm run preview`.
 
-#### CONCEPTION
-
-- **Formation**: Form 3 developers team
-- **Specification Development**:
-  - Initialise a new instance of Claude Code. Use the GENERATE SPECS prompt to have a conversation with Claude and determine the specifications of your project.
-  - Use SPEC WRAP-UP prompt - this should create `FUNCTIONAL.md`, `ARCHITECTURE.md`, and `CLAUDE.md` files.
-
-> **Output**: Initial documentation pushed to repo
-
-#### ENVIRONMENT & TASKS
-
-> [!WARNING]  
-> Set up your environment, install your dependencies etc. **manually**. AI can be terrible at this and using AI for setup could add a lot of config issues to your project before you can even get started.
-
-- Use the GENERATE TO-DO prompt to create `TO-DO.md`. Remember to follow the IQRE methodology! Check that your tasks actually make sense so that you don't end up with a lot of vague, impossibly scoped tasks that no one could follow!
-- Set up environment, frameworks, folder structure, install dependencies
-
-- Review tasks for dependencies and overlaps
-
-> **Output**: Ready-to-code environment with structured to-do list
-
-#### IMPLEMENTATION
-
-**Per Task Process**:
-
-1. Use KICKOFF/REFRESH MEMORY prompt
-2. Implement features
-3. Make sure to review constantly
-4. Use CONTEXT RESET after task completion
-
-**Between Sessions**:
-
-- Coordinate dependencies with teammate
-- Update `CLAUDE.md` with learned standards
-
-> **Output**: Incremental feature completion
-
-#### CONTEXT MANAGEMENT
-
-- Use `HISTORY.md` for context summaries
-- Reset Claude's context window after each task
-- Maintain clean workspace
-
-> **Output**: Archived context for reference, clean workspace
-
-#### PRESENTATION
-
-- Demo your project
-- Show AI collaboration examples
-- Present evolved standards
-- Reflect on deliberate architectural decisions
-
-> **Output**: 5-minute presentation with examples and demo
-
----
-
-### Key Guidelines
-
-#### AI Collaboration
-
-- **Explicit Prompting**: Always tell Claude which files to reference (it won't do this automatically)
-- **Context Management**: Use CONTEXT RESET prompt to maintain clarity
-- **Standards Evolution**: Update `CLAUDE.md` when discovering new patterns
-
-#### Quality Assurance
-
-- **Follow IQRE**: Apply the four steps consistently
-- **Review Obsessively**: You need to know everything the AI is generating
-- **Maintain Standards**: Keep `CLAUDE.md` current and concise
-
-#### Success Criteria
-
-- Effective AI collaboration patterns
-- Evolved standards documented in `CLAUDE.md`
-- Clear architectural decisions
-
-#### Common Pitfalls
-
-AI code generators often struggle with:
-- Anything to do with setting up projects, installing dependencies
-- Being too ambitious, agreeing to everything
-- Staying inside the scope when working on a task
-- Using outdated tech stack, outdated versions of dependencies
-
-**Remember**: You're the human-in-the-loop. Guide the AI, don't just accept its output.
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

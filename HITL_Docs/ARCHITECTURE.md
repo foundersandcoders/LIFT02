@@ -6,11 +6,13 @@
 - **Framework**: Svelte 5 with SvelteKit
 - **Styling**: TailwindCSS
 - **State Management**: Svelte stores
+- **Testing**: Vitest with @testing-library/svelte
 
 ### Backend
 - **Data Storage**: Supabase
 - **Authentication**: Supabase Magic Link
 - **API**: SvelteKit server routes + Supabase client
+- **Testing**: Vitest with mocked Supabase client
 
 ### Infrastructure
 - **Hosting**: Vercel
@@ -18,9 +20,12 @@
   - Development
   - Staging
   - Production
+- **Database**: Supabase environments (no local instances required)
+  - Separate Supabase projects for each environment
+  - Environment-specific configuration and credentials
 
 ## Project Structure
-Ultra-minimal SvelteKit project structure:
+SvelteKit project structure:
 
 ```
 project-root/

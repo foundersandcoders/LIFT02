@@ -103,6 +103,12 @@ A digital version of Islington Council's workplace passport to support neurodive
 - Data encryption
 - Regular security audits
 
+### Testing
+- Unit testing with Vitest
+- Component testing with @testing-library/svelte
+- End-to-end testing with Playwright
+- 80% test coverage for critical paths
+
 ## Timeline
 - Development: 12 developer days / 2 weeks (2nd half of May)
 - User testing: After week 1 of development
@@ -110,6 +116,8 @@ A digital version of Islington Council's workplace passport to support neurodive
 
 ## Integrations
 - Supabase for data storage and authentication
+  - Using environment-specific Supabase projects
+  - No local instance required for development
 - Email service for sharing functionality
 - PDF generation for downloadable summaries
 
