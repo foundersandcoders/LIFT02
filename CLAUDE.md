@@ -16,6 +16,7 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Testing: Vitest
 - Hosting: Vercel
 - Development: Supabase environments (no local instances)
+- Database Management: Supabase CLI
 
 ## Code Style & Conventions
 

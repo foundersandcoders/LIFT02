@@ -18,6 +18,7 @@
 - **Authentication**: Supabase Magic Link
 - **API**: SvelteKit server routes + Supabase client
 - **Testing**: Vitest with mocked Supabase client
+- **Database Management**: Supabase CLI for schema migrations and seeding
 
 ### Infrastructure
 
