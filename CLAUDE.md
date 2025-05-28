@@ -1,80 +1,117 @@
 **IMPORTANT FOR CLAUDE: Reference this file before implementing anything**
 
-# Project: [Project Name]
+# Project: LIFT Digital Workplace Passport
 
 ## Project Overview
 
-A brief description of the project, its purpose, and key goals.
+A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with employers, promoting a more inclusive workplace environment. See `FUNCTIONAL.md` for detailed requirements.
 
 ## Tech Stack
 
-- Languages: [list primary languages]
-- Frameworks: [list frameworks]
-- Tools: [list tools]
+- Languages: TypeScript
+- Frameworks: Svelte 5, SvelteKit
+- Styling: TailwindCSS
+- Data: Supabase (PostgreSQL)
+- Authentication: Supabase Magic Link
+- Hosting: Vercel
 
 ## Code Style & Conventions
 
 ### Import/Module Standards
 
-- [Specify import standards]
+- Group imports by type: Svelte, external libraries, internal modules
+- Avoid wildcard imports
+- Use relative paths for imports within the same feature
+- Use absolute imports (@lib) for shared code
 
 ### Naming Conventions
 
-- [Functions naming convention]
-- [Classes/Components naming convention]
-- [Constants naming convention]
-- [Files naming convention]
+- Functions: camelCase, verb-first (e.g., `handleSubmit`, `fetchData`)
+- Components: PascalCase (e.g., `ProfileCard.svelte`, `LoginForm.svelte`)
+- Stores: camelCase, noun-based (e.g., `userStore`, `responsesStore`)
+- Constants: UPPER_SNAKE_CASE for true constants, camelCase for config objects
+- Files: PascalCase for components, camelCase for utilities and services
+- Database columns: snake_case
 
 ### Patterns to Follow
 
-- [Key architectural patterns]
-- [Error handling approaches]
-- [Code organisation principles]
+- Flat component structure (all in `/lib/components`)
+- Ultra-minimal routing (just login and dashboard)
+- All categories in a single dashboard view with navigation
+- Use Svelte stores for global state management
+- SvelteKit server endpoints directly in page files
+- HTTP-only cookies for auth token storage
+- Component composition over inheritance
+- Prefer native form validation when possible
 
 ## Development Workflow
 
-- Branch strategy
-- Commit message format
-- PR requirements
+- Branch strategy: feature/fix-description
+- Commit message format: `type(scope): description` (e.g., `feat(auth): add magic link login`)
+- PR requirements: Reference issue, pass all checks, meet accessibility standards
 
 ## Testing Strategy
 
-- Test frameworks
-- Coverage requirements
-- Test naming conventions
+- Test frameworks: Vitest for unit tests, Playwright for E2E
+- Coverage requirements: 80% for critical paths
+- Test naming conventions: `describe('Component/Function')`, `it('should do something')`
 
 ## Environment Setup
 
-- Required environment variables
-- Setup commands
-- Local development server
+- Required environment variables:
+  - `PUBLIC_SUPABASE_URL`
+  - `PUBLIC_SUPABASE_ANON_KEY`
+  - `SUPABASE_SERVICE_KEY` (server-only)
+  - `EMAIL_SERVICE_KEY` (for sending emails)
+
+- Setup commands:
+  ```bash
+  # Install dependencies
+  npm install
+  
+  # Copy environment template
+  cp .env.example .env.local
+  
+  # Fill in environment variables
+  ```
 
 ## Common Commands
 
 ```bash
 # Build command
-[command]
+npm run build
 
 # Test command
-[command]
+npm run test
 
 # Lint command
-[command]
+npm run lint
 
 # Check command
-[command]
+npm run check
 
 # Development server
-[command]
+npm run dev
 ```
 
 ## Project Structure
 
 Key directories and their purpose:
 
-- `/src` - [description]
-- `/tests` - [description]
-- [other important directories]
+- `/src` - Main source code
+  - `/routes` - SvelteKit pages and layouts
+    - `+layout.svelte` - Main app layout
+    - `+layout.server.ts` - Auth protection
+    - `+page.svelte` - Landing/login page
+    - `/dashboard/+page.svelte` - Single dashboard with all categories
+    - `/auth/callback` - Magic Link handling
+  - `/lib` - Shared code
+    - `/components` - All UI components
+    - `/stores` - Svelte stores
+    - `/services` - External service integrations
+    - `utils.ts` - Helper functions
+- `/static` - Static assets (images, icons)
+- `/tests` - Test files
 
 ## Review Process Guidelines
 
@@ -93,6 +130,7 @@ Before submitting any code, ensure the following steps are completed:
    - Error handling
    - Test coverage
    - Documentation
+   - Accessibility (WCAG 2.2 AA)
 
 4. **Self-review checklist**:
    - [ ] Code follows defined patterns
@@ -100,11 +138,18 @@ Before submitting any code, ensure the following steps are completed:
    - [ ] Error handling implemented
    - [ ] Tests written and passing
    - [ ] Documentation updated
+   - [ ] Accessibility checked
 
 ## Known Issues & Workarounds
 
-Document any current limitations or workarounds Claude should be aware of.
+- Supabase has limited support for transactions - use client-side data validation as additional protection
+- Magic Link emails may be delayed - implement clear user feedback about checking email
+- Refer to `FUNCTIONAL.md` and `ARCHITECTURE.md` for more details on implementation
 
 ## References
 
-Links to relevant external documentation, design docs, or resources.
+- [Svelte Documentation](https://svelte.dev/docs)
+- [SvelteKit Documentation](https://kit.svelte.dev/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Supabase Documentation](https://supabase.io/docs)
+- [WCAG 2.2 Guidelines](https://www.w3.org/TR/WCAG22/)

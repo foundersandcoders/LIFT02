@@ -22,7 +22,7 @@ These are the prompts you can use to do so:
 > Resist the urge of being too ambitious here, remember you are aiming to finish building this and fully understand, be able to explain it by the end of the day.
 
 ```markdown
-We're going to discuss the specification for a software project. The project details are contained in `Project BRIEF.pdf` and workshop details are in `README.md`.
+We're going to discuss the specification for a software project. The project details are contained in `Brief_Docs/Project Brief.txt`
 
 Ask me one question at a time so we can develop thorough, step-by-step specs. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. This will be built in only a few hours so try and keep the conversation short, apply KISS principles and use logical inference based on previous answers when possible.
 

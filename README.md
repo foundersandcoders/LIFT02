@@ -1,6 +1,3 @@
-# AI Assisted Development
-
-![Screenshot 2025-05-19 at 16 18 02](https://github.com/user-attachments/assets/885d196b-e9b8-47ee-84de-d4533c42f3b7)
 
 ## Table of Contents
 
@@ -22,19 +19,11 @@
     - [Quality Assurance](#quality-assurance)
     - [Success Criteria](#success-criteria)
 
-## Workshop
 
-### Overview
-
-In this workshop, you'll work in human-AI pairs to build a travel planning application using Claude Code as your AI partner. The focus is on practicing effective AI-assisted development, improving prompt hygiene, and fostering human oversight while collaborating with AI.
-
-### Getting Started
-
-Create a new repository [using this repository as a template](https://github.com/new?template_name=fac-ws_ai_assisted_development&template_owner=TandemCreativeDev).
 
 ## Task
 
-Details of the task are contained in the [brief](BRIEF.md).
+Details of the task are contained in the [brief]Brief_Docs/Project Brief.txt.
 
 ## Human-AI Pair-Programming: A Rough Guide
 
@@ -57,8 +46,7 @@ Follow these four steps consistently throughout the workshop:
 
 #### CONCEPTION
 
-- **Pair Formation**: Form teams (1 frontend + 1 backend developer)
-- **Repository Setup**: Following [Getting Started](#getting-started)
+- **Formation**: Form 3 developers team
 - **Specification Development**:
   - Initialise a new instance of Claude Code. Use the GENERATE SPECS prompt to have a conversation with Claude and determine the specifications of your project.
   - Use SPEC WRAP-UP prompt - this should create `FUNCTIONAL.md`, `ARCHITECTURE.md`, and `CLAUDE.md` files.
