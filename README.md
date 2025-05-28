@@ -62,7 +62,11 @@ A digital workplace passport application that helps neurodivergent employees doc
 To push database schema changes to your Supabase project:
 
 ```bash
-supabase db push
+# Push schema to development environment
+npx supabase db push --env dev
+
+# Push schema to production environment
+npx supabase db push --env prod
 ```
 
 ### Generating Types

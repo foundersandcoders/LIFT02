@@ -73,3 +73,6 @@ lerna-debug.log*
 
 # Supabase
 /supabase/config.toml
+/supabase/*.env
+/supabase/dev.env
+/supabase/prod.env

@@ -7,3 +7,5 @@ config.toml
 .env.keys
 .env.local
 .env.*.local
+dev.env
+prod.env
