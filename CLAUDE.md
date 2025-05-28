@@ -54,11 +54,27 @@ A digital workplace passport application that helps neurodivergent employees doc
 
 ## Testing Strategy
 
-- Test frameworks: Vitest for unit tests, Playwright for E2E
+- Test framework: Vitest for all tests
 - Coverage requirements: 80% for critical paths
 - Test naming conventions: `describe('Component/Function')`, `it('should do something')`
 - Component testing: Vitest with @testing-library/svelte
 - API testing: Vitest with mocked Supabase client
+
+See `TESTING.md` for detailed examples and best practices. Basic pattern for component tests:
+
+```typescript
+import { describe, test, expect } from 'vitest';
+import '@testing-library/jest-dom/vitest';
+import { render, screen } from '@testing-library/svelte';
+import MyComponent from './MyComponent.svelte';
+
+describe('MyComponent', () => {
+  test('renders correctly', () => {
+    render(MyComponent);
+    expect(screen.getByText('Expected text')).toBeInTheDocument();
+  });
+});
+```
 
 ## Environment Setup
 
@@ -92,8 +108,7 @@ npm run build
 
 # Test command
 npm run test        # Run all Vitest tests
-npm run test:unit   # Run unit tests only
-npm run test:e2e    # Run Playwright E2E tests
+npm run test:unit   # Run tests in watch mode
 
 # Lint command
 npm run lint

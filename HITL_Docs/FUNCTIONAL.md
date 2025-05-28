@@ -106,7 +106,7 @@ A digital version of Islington Council's workplace passport to support neurodive
 ### Testing
 - Unit testing with Vitest
 - Component testing with @testing-library/svelte
-- End-to-end testing with Playwright
+- Integration testing with mocked Supabase client
 - 80% test coverage for critical paths
 
 ## Timeline
