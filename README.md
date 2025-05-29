@@ -59,7 +59,22 @@ A digital workplace passport application that helps neurodivergent employees doc
 
 ### Pushing Schema Changes
 
-To push database schema changes to your Supabase project:
+To push database schema changes to your Supabase project, you can use the provided scripts:
+
+```bash
+# First, make scripts executable (only needed once)
+chmod +x supabase/scripts/*.sh
+
+# Push schema to development environment
+./supabase/scripts/push-dev.sh
+
+# Push schema to production environment (runs in dry-run mode by default)
+./supabase/scripts/push-prod.sh
+```
+
+> **Note**: The scripts use environment variables from `supabase/dev.env` and `supabase/prod.env` files. The production script runs in dry-run mode by default for safety - edit the script to remove the `--dry-run` flag when you're ready to actually push to production.
+
+Alternatively, you can use the Supabase CLI directly:
 
 ```bash
 # Push schema to development environment

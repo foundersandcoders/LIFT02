@@ -18,7 +18,7 @@
 - **Authentication**: Supabase Magic Link
 - **API**: SvelteKit server routes + Supabase client
 - **Testing**: Vitest with mocked Supabase client
-- **Database Management**: Supabase CLI for schema migrations (`npx supabase db push --env dev`) and seeding
+- **Database Management**: Supabase CLI for schema migrations (via `./supabase/scripts/push-dev.sh` scripts) and seeding
 
 ### Infrastructure
 

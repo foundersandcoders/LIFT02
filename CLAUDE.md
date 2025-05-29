@@ -121,7 +121,8 @@ npm run check       # TypeScript type checking
 npm run dev
 
 # Database commands
-npx supabase db push --env dev  # Push schema to development environment
+./supabase/scripts/push-dev.sh  # Push schema to development environment
+./supabase/scripts/push-prod.sh # Push schema to production environment
 npx supabase db reset           # Reset and seed database
 ```
 
