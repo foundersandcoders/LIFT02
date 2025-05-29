@@ -12,5 +12,6 @@
       "Bash(git restore:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": false
 }
