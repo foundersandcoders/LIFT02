@@ -18,16 +18,17 @@
 - **Authentication**: Supabase Magic Link
 - **API**: SvelteKit server routes + Supabase client
 - **Testing**: Vitest with mocked Supabase client
-- **Database Management**: Supabase CLI for schema migrations (via `./supabase/scripts/push-dev.sh` scripts) and seeding
+- **Database Management**: Supabase CLI for schema migrations and local development
 
 ### Infrastructure
 
 - **Hosting**: Vercel
 - **Environments**:
-  - Development
-  - Production
-- **Database**: Supabase environments (no local instances required)
-  - Separate Supabase projects for each environment
+  - **Development**: Local Supabase instance via Docker
+  - **Production**: Remote Supabase project
+- **Database**: 
+  - Local development uses Docker-based Supabase stack
+  - Production uses remote Supabase project
   - Environment-specific configuration and credentials
 
 ## Project Structure

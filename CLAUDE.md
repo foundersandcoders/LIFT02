@@ -15,7 +15,7 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Authentication: Supabase Magic Link
 - Testing: Vitest
 - Hosting: Vercel
-- Development: Supabase environments (no local instances)
+- Development: Local Supabase instance via Docker
 - Database Management: Supabase CLI
 
 ## Code Style & Conventions
@@ -79,26 +79,35 @@ describe('MyComponent', () => {
 
 ## Environment Setup
 
-- Required environment variables:
-  - `PUBLIC_SUPABASE_URL`
-  - `PUBLIC_SUPABASE_ANON_KEY`
-  - `SUPABASE_SERVICE_KEY` (server-only)
+- Required environment variables (for local development):
+  - `PUBLIC_SUPABASE_URL=http://127.0.0.1:54321`
+  - `PUBLIC_SUPABASE_ANON_KEY` (from supabase status)
+  - `SUPABASE_SERVICE_KEY` (from supabase status, server-only)
   - `EMAIL_SERVICE_KEY` (for sending emails)
 
 - Supabase environments:
-  - Development, staging, and production projects in Supabase
-  - No local Supabase instance required
-  - Environment-specific database and auth settings
+  - **Development**: Local Supabase instance via Docker
+  - **Production**: Remote Supabase project
+  - Local instance provides full Supabase stack including Auth, Database, Storage, and Email testing
 
 - Setup commands:
   ```bash
   # Install dependencies
   npm install
   
-  # Copy environment template
+  # Install Supabase CLI globally
+  npm install -g supabase
+  
+  # Start local Supabase instance
+  supabase start
+  
+  # Copy environment template and configure for local development
   cp .env.example .env.local
   
-  # Fill in environment variables with appropriate Supabase project keys
+  # Set local environment variables:
+  # PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+  # PUBLIC_SUPABASE_ANON_KEY=[anon key from supabase status]
+  # SUPABASE_SERVICE_KEY=[service_role key from supabase status]
   ```
 
 ## Common Commands
@@ -120,10 +129,12 @@ npm run check       # TypeScript type checking
 # Development server
 npm run dev
 
-# Database commands
-./supabase/scripts/push-dev.sh  # Push schema to development environment
-./supabase/scripts/push-prod.sh # Push schema to production environment
-npx supabase db reset           # Reset and seed database
+# Local Supabase commands
+supabase start                  # Start local Supabase instance
+supabase stop                   # Stop local Supabase instance
+supabase status                 # Check status and get keys
+supabase db reset               # Reset and seed local database
+supabase db push                # Push schema changes to production
 ```
 
 ## Project Structure
