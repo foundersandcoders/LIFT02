@@ -14,7 +14,8 @@
       "Bash(supabase stop:*)",
       "Bash(supabase start:*)",
       "Bash(grep:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   },
