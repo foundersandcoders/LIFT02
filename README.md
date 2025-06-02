@@ -1,6 +1,6 @@
 # LIFT Digital Workplace Passport
 
-A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
+> A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
 
 ## Technology Stack
 
@@ -43,17 +43,20 @@ Before starting development, ensure you have the following installed:
 ## Development Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/foundersandcoders/LIFT02.git
    cd LIFT02
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Set up environment variables:
+
    ```bash
    cp .env.example .env.local
    ```
@@ -61,6 +64,7 @@ Before starting development, ensure you have the following installed:
    **Note**: The `.env.example` already contains the correct local development keys that Supabase always uses.
 
 4. Install Supabase CLI:
+
    ```bash
    # Using npm
    npm install -g supabase
@@ -312,8 +316,8 @@ The project follows a standard SvelteKit structure:
 
 ## Documentation
 
-For more detailed information, see:
-
 - [FUNCTIONAL.md](./HITL_Docs/FUNCTIONAL.md) - Functional requirements
 - [ARCHITECTURE.md](./HITL_Docs/ARCHITECTURE.md) - Technical architecture
 - [TESTING.md](./HITL_Docs/TESTING.md) - Testing guide
+
+Explore this codebase on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
