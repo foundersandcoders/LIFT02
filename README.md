@@ -81,7 +81,7 @@ Before starting development, ensure you have the following installed:
    ```
 
    **First time setup notes**:
-   - This will download several Docker images (~2-3GB total)
+   - If Supabase Docker containers are not already downloaded, this command will automatically download them (~2-3GB total)
    - The download may take 5-15 minutes depending on your internet connection
    - Docker Desktop must be running before executing this command
    - All database migrations will be automatically applied
