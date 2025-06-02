@@ -15,7 +15,7 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Authentication: Supabase Magic Link
 - Testing: Vitest
 - Hosting: Vercel
-- Development: Supabase environments (no local instances)
+- Development: Local Supabase instance via Docker
 - Database Management: Supabase CLI
 
 ## Code Style & Conventions
@@ -79,26 +79,40 @@ describe('MyComponent', () => {
 
 ## Environment Setup
 
-- Required environment variables:
-  - `PUBLIC_SUPABASE_URL`
-  - `PUBLIC_SUPABASE_ANON_KEY`
-  - `SUPABASE_SERVICE_KEY` (server-only)
+- Required environment variables (for local development):
+  - `PUBLIC_SUPABASE_URL=http://127.0.0.1:54321`
+  - `PUBLIC_SUPABASE_ANON_KEY` (from supabase status)
+  - `SUPABASE_SERVICE_KEY` (from supabase status, server-only)
   - `EMAIL_SERVICE_KEY` (for sending emails)
 
 - Supabase environments:
-  - Development, staging, and production projects in Supabase
-  - No local Supabase instance required
-  - Environment-specific database and auth settings
+  - **Development**: Local Supabase instance via Docker
+  - **Production**: Remote Supabase project
+  - Local instance provides full Supabase stack including Auth, Database, Storage, and Email testing
+
+- Database seeding strategy:
+  - `supabase/seed.sql`: Real questions data (auto-runs with `supabase db reset`)
+  - `supabase/test_data_seed.sql`: Fake test data (run separately with script)
+  - `scripts/seed-test-data.sh`: Environment-aware script for adding test data
 
 - Setup commands:
   ```bash
   # Install dependencies
   npm install
   
-  # Copy environment template
+  # Install Supabase CLI globally
+  npm install -g supabase
+  
+  # Start local Supabase instance
+  supabase start
+  
+  # Copy environment template and configure for local development
   cp .env.example .env.local
   
-  # Fill in environment variables with appropriate Supabase project keys
+  # Set local environment variables:
+  # PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+  # PUBLIC_SUPABASE_ANON_KEY=[anon key from supabase status]
+  # SUPABASE_SERVICE_KEY=[service_role key from supabase status]
   ```
 
 ## Common Commands
@@ -120,10 +134,17 @@ npm run check       # TypeScript type checking
 # Development server
 npm run dev
 
-# Database commands
-./supabase/scripts/push-dev.sh  # Push schema to development environment
-./supabase/scripts/push-prod.sh # Push schema to production environment
-npx supabase db reset           # Reset and seed database
+# Local Supabase commands
+supabase start                  # Start local Supabase instance
+supabase stop                   # Stop local Supabase instance
+supabase status                 # Check status and get keys
+supabase db reset               # Reset and seed local database with questions
+supabase db push                # Push schema changes to production
+
+# Database seeding commands
+./scripts/seed-test-data.sh     # Add test data (works local and production)
+                               # Local: uses default postgres password
+                               # Vercel: requires DATABASE_URL environment variable
 ```
 
 ## Project Structure
@@ -171,6 +192,31 @@ Before submitting any code, ensure the following steps are completed:
    - [ ] Tests written and passing
    - [ ] Documentation updated
    - [ ] Accessibility checked
+
+## Deployment (Vercel)
+
+### Environment Variables Setup
+
+Set these environment variables in Vercel dashboard (Settings > Environment Variables):
+
+**Required for application:**
+- `PUBLIC_SUPABASE_URL` - Your production Supabase project URL
+- `PUBLIC_SUPABASE_ANON_KEY` - Your production Supabase anon key  
+- `SUPABASE_SERVICE_KEY` - Your production Supabase service role key
+- `EMAIL_SERVICE_KEY` - For sending emails
+
+**Optional for test data seeding:**
+- `DATABASE_URL` - Full PostgreSQL connection string (get from Supabase > Settings > Database)
+  - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
+
+### Seeding Test Data in Production
+
+```bash
+# After deploying to Vercel, if you want to add test data:
+# 1. Set DATABASE_URL environment variable in Vercel
+# 2. Run locally with production env vars, or
+# 3. Use Vercel CLI: vercel env pull && ./scripts/seed-test-data.sh
+```
 
 ## Known Issues & Workarounds
 
