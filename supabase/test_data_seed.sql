@@ -121,7 +121,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
 -- Updated version of the same question
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest, created_at) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440001b'::uuid,
+  '660e8400-e29b-41d4-a716-446655440003'::uuid,
   '550e8400-e29b-41d4-a716-446655440001'::uuid,
   q.id,
   'I have ADHD which significantly impacts my concentration and executive function. Open office environments are particularly challenging due to auditory processing sensitivity. I work most effectively with noise-cancelling headphones, scheduled breaks every 90 minutes, and advance notice of any changes to my routine.',
@@ -146,7 +146,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440003'::uuid,
+  '660e8400-e29b-41d4-a716-446655440005'::uuid,
   '550e8400-e29b-41d4-a716-446655440001'::uuid,
   q.id,
   'On difficult days, I struggle with focus and can become easily overwhelmed by interruptions or unexpected changes. I may appear restless or fidgety, have difficulty sitting through long meetings, and need more time to process verbal instructions.',
@@ -356,7 +356,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440041'::uuid,
+  '660e8400-e29b-41d4-a716-446655440043'::uuid,
   '550e8400-e29b-41d4-a716-446655440004'::uuid,
   q.id,
   'On good days, I''m strategic, organized, and great at facilitating team discussions. I can balance multiple projects effectively and provide clear direction to development teams.',
@@ -369,7 +369,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
 -- Updated version of good days response
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest, created_at) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440041b'::uuid,
+  '660e8400-e29b-41d4-a716-446655440041'::uuid,
   '550e8400-e29b-41d4-a716-446655440004'::uuid,
   q.id,
   'On good days, I''m strategic, organized, and excellent at facilitating team discussions. I can balance multiple projects effectively, provide clear direction to development teams, and I''m particularly good at stakeholder management and roadmap planning.',
@@ -383,7 +383,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
 -- Latest version
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440041c'::uuid,
+  '660e8400-e29b-41d4-a716-446655440042'::uuid,
   '550e8400-e29b-41d4-a716-446655440004'::uuid,
   q.id,
   'On good days, I''m strategic, organized, and excellent at facilitating team discussions and stakeholder meetings. I can balance multiple projects effectively, provide clear direction to development teams, and excel at roadmap planning. I''m energetic and collaborative, often helping to solve cross-team challenges.',
@@ -395,7 +395,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440042'::uuid,
+  '660e8400-e29b-41d4-a716-446655440044'::uuid,
   '550e8400-e29b-41d4-a716-446655440004'::uuid,
   q.id,
   'On difficult days, I may need to step away to manage my blood sugar levels or may have lower energy due to depression. I try not to let it show, but I might be less talkative or need more time to make decisions.',
@@ -408,7 +408,7 @@ FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
 -- Disability barriers
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
-  '660e8400-e29b-41d4-a716-446655440043'::uuid,
+  '660e8400-e29b-41d4-a716-446655440045'::uuid,
   '550e8400-e29b-41d4-a716-446655440004'::uuid,
   q.id,
   'I need to monitor my blood sugar regularly and sometimes need to eat during meetings or step away briefly. Long meetings without breaks can be challenging.',
@@ -500,33 +500,33 @@ FROM questions q WHERE q.category = 'personal_Introduction' AND q."order" = 14;
 
 -- Actions for Alex Thompson (ADHD accommodations)
 INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest) VALUES
-  ('770e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001b'::uuid, 'workplace_adjustment', 'Provide noise-cancelling headphones and assign desk in quieter area of office', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001b'::uuid, 'schedule_adjustment', 'Allow 15-minute breaks every 90 minutes to help with focus', 1, true),
+  ('770e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'workplace_adjustment', 'Provide noise-cancelling headphones and assign desk in quieter area of office', 1, true),
+  ('770e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'schedule_adjustment', 'Allow 15-minute breaks every 90 minutes to help with focus', 1, true),
   ('770e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440004'::uuid, 'communication', 'Provide written instructions and meeting agendas in advance', 1, true),
   ('770e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440010'::uuid, 'schedule_flexibility', 'Flexible hours for parent care responsibilities and medical appointments', 1, true);
 
 -- Actions for Jordan Martinez (Anxiety + Chronic Fatigue)
 INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest, created_at) VALUES
   ('770e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid, 'communication', 'Provide 48-hour advance notice for any project changes when possible', 1, false, NOW() - INTERVAL '3 weeks'),
-  ('770e8400-e29b-41d4-a716-446655440010b'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid, 'communication', 'Provide 48-hour advance notice for project changes and avoid scheduling back-to-back meetings', 2, true, NOW() - INTERVAL '1 week'),
-  ('770e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440024'::uuid, 'workload_management', 'Flexible working hours and option to work from home on low-energy days', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid, 'religious_accommodation', 'Flexible prayer times during Ramadan and consideration for fasting schedules', 1, true);
+  ('770e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid, 'communication', 'Provide 48-hour advance notice for project changes and avoid scheduling back-to-back meetings', 2, true, NOW() - INTERVAL '1 week'),
+  ('770e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440024'::uuid, 'workload_management', 'Flexible working hours and option to work from home on low-energy days', 1, true, NOW()),
+  ('770e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid, 'religious_accommodation', 'Flexible prayer times during Ramadan and consideration for fasting schedules', 1, true, NOW());
 
 -- Actions for Sam Chen (Autism accommodations)
-INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest) VALUES
-  ('770e8400-e29b-41d4-a716-446655440020'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440030'::uuid, 'workplace_adjustment', 'Provide desk lamp to reduce fluorescent lighting and minimize sudden noise interruptions', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440021'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid, 'communication', 'Prefer email communication over verbal instructions for important tasks', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440022'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid, 'schedule_flexibility', 'Flexible hours for child-related responsibilities', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest, created_at) VALUES
+  ('770e8400-e29b-41d4-a716-446655440020'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440030'::uuid, 'workplace_adjustment', 'Provide desk lamp to reduce fluorescent lighting and minimize sudden noise interruptions', 1, true, NOW()),
+  ('770e8400-e29b-41d4-a716-446655440021'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid, 'communication', 'Prefer email communication over verbal instructions for important tasks', 1, true, NOW()),
+  ('770e8400-e29b-41d4-a716-446655440022'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid, 'schedule_flexibility', 'Flexible hours for child-related responsibilities', 1, true, NOW());
 
 -- Actions for Priya Patel (Diabetes + Depression accommodations)
-INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest) VALUES
-  ('770e8400-e29b-41d4-a716-446655440030'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'health_accommodation', 'Allow regular blood sugar monitoring breaks and eating during meetings when needed', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440031'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'schedule_adjustment', 'Ensure meeting breaks every 90 minutes for health management', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest, created_at) VALUES
+  ('770e8400-e29b-41d4-a716-446655440030'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'health_accommodation', 'Allow regular blood sugar monitoring breaks and eating during meetings when needed', 1, true, NOW()),
+  ('770e8400-e29b-41d4-a716-446655440031'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'schedule_adjustment', 'Ensure meeting breaks every 90 minutes for health management', 1, true, NOW());
 
 -- Actions for Taylor Adams (Dyslexia accommodations)
-INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest) VALUES
-  ('770e8400-e29b-41d4-a716-446655440040'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440054'::uuid, 'workplace_adjustment', 'Provide access to advanced spell-check tools and collaborative editing software', 1, true),
-  ('770e8400-e29b-41d4-a716-446655440041'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440055'::uuid, 'communication', 'Encourage verbal presentations and visual aids over lengthy written reports', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, version, is_latest, created_at) VALUES
+  ('770e8400-e29b-41d4-a716-446655440040'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440054'::uuid, 'workplace_adjustment', 'Provide access to advanced spell-check tools and collaborative editing software', 1, true, NOW()),
+  ('770e8400-e29b-41d4-a716-446655440041'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440055'::uuid, 'communication', 'Encourage verbal presentations and visual aids over lengthy written reports', 1, true, NOW());
 
 -- Insert comprehensive fake sharing events
 INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
@@ -540,7 +540,7 @@ INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VA
 
 -- Alex Thompson sharing (ADHD + wellbeing + parental)
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES
-  ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001b'::uuid),  -- Latest wellbeing response
+  ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440003'::uuid),  -- Latest wellbeing response
   ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid),   -- Good days
   ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440003'::uuid),   -- Bad days
   ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440012'::uuid);   -- Support needs
@@ -560,7 +560,7 @@ INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES
 -- Priya Patel sharing (Depression + Diabetes)
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES
   ('880e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid),   -- Wellbeing
-  ('880e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440041c'::uuid),  -- Latest good days
+  ('880e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid),  -- Latest good days
   ('880e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid);   -- Disability barriers
 
 -- Taylor Adams sharing (Dyslexia + Communication preferences)
@@ -580,7 +580,7 @@ INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES
 
 -- Jordan Martinez actions shared
 INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES
-  ('880e8400-e29b-41d4-a716-446655440002'::uuid, '770e8400-e29b-41d4-a716-446655440010b'::uuid),  -- Latest communication action
+  ('880e8400-e29b-41d4-a716-446655440002'::uuid, '770e8400-e29b-41d4-a716-446655440013'::uuid),  -- Latest communication action
   ('880e8400-e29b-41d4-a716-446655440002'::uuid, '770e8400-e29b-41d4-a716-446655440011'::uuid);   -- Flexible hours
 
 -- Sam Chen actions shared
