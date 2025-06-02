@@ -90,6 +90,11 @@ describe('MyComponent', () => {
   - **Production**: Remote Supabase project
   - Local instance provides full Supabase stack including Auth, Database, Storage, and Email testing
 
+- Database seeding strategy:
+  - `supabase/seed.sql`: Real questions data (auto-runs with `supabase db reset`)
+  - `supabase/test_data_seed.sql`: Fake test data (run separately with script)
+  - `scripts/seed-test-data.sh`: Environment-aware script for adding test data
+
 - Setup commands:
   ```bash
   # Install dependencies
@@ -133,8 +138,13 @@ npm run dev
 supabase start                  # Start local Supabase instance
 supabase stop                   # Stop local Supabase instance
 supabase status                 # Check status and get keys
-supabase db reset               # Reset and seed local database
+supabase db reset               # Reset and seed local database with questions
 supabase db push                # Push schema changes to production
+
+# Database seeding commands
+./scripts/seed-test-data.sh     # Add test data (works local and production)
+                               # Local: uses default postgres password
+                               # Vercel: requires DATABASE_URL environment variable
 ```
 
 ## Project Structure
@@ -182,6 +192,31 @@ Before submitting any code, ensure the following steps are completed:
    - [ ] Tests written and passing
    - [ ] Documentation updated
    - [ ] Accessibility checked
+
+## Deployment (Vercel)
+
+### Environment Variables Setup
+
+Set these environment variables in Vercel dashboard (Settings > Environment Variables):
+
+**Required for application:**
+- `PUBLIC_SUPABASE_URL` - Your production Supabase project URL
+- `PUBLIC_SUPABASE_ANON_KEY` - Your production Supabase anon key  
+- `SUPABASE_SERVICE_KEY` - Your production Supabase service role key
+- `EMAIL_SERVICE_KEY` - For sending emails
+
+**Optional for test data seeding:**
+- `DATABASE_URL` - Full PostgreSQL connection string (get from Supabase > Settings > Database)
+  - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
+
+### Seeding Test Data in Production
+
+```bash
+# After deploying to Vercel, if you want to add test data:
+# 1. Set DATABASE_URL environment variable in Vercel
+# 2. Run locally with production env vars, or
+# 3. Use Vercel CLI: vercel env pull && ./scripts/seed-test-data.sh
+```
 
 ## Known Issues & Workarounds
 

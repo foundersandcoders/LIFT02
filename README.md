@@ -104,12 +104,62 @@ supabase start
 # Check status and get connection details
 supabase status
 
-# Reset local database (clears data and re-applies migrations)
+# Reset local database (clears data and re-applies migrations + questions seed)
 supabase db reset
 
 # Stop the local instance
 supabase stop
 ```
+
+### Database Seeding
+
+The project uses a two-tier seeding strategy to separate real data from test data:
+
+#### 1. Questions Seed (Production Data)
+- **File**: `supabase/seed.sql`
+- **Content**: Real workplace passport questions
+- **Auto-runs**: Automatically applied when you run `supabase db reset`
+- **Purpose**: Contains the actual questions users will answer
+
+#### 2. Test Data Seed (Development/Testing)
+- **File**: `supabase/test_data_seed.sql`
+- **Content**: Fake users, responses, actions, and sharing events
+- **Manual**: Run separately when you need test data
+- **Purpose**: Provides realistic test data for development and testing
+
+#### Adding Test Data to Local Database
+
+After resetting your database, add test data for development:
+
+```bash
+# Reset database (includes questions)
+supabase db reset
+
+# Add test data (5 fake users with comprehensive responses)
+./scripts/seed-test-data.sh
+```
+
+**What the test data includes:**
+- 5 fake users with diverse profiles
+- Multiple responses across all question categories
+- Some questions answered multiple times (different versions)
+- Mix of answered and skipped questions
+- Workplace adjustments and actions linked to responses
+- Sample sharing events with line managers
+
+#### Environment-Smart Seeding Script
+
+The `seed-test-data.sh` script automatically detects your environment:
+
+**Local Development:**
+- Detects local Supabase instance
+- Uses default `postgres` password (no prompts)
+- Connects to `127.0.0.1:54322`
+
+**Production/Vercel:**
+- Uses environment variables from Vercel dashboard
+- Requires `DATABASE_URL` to be set
+- Connects to production Supabase instance
 
 ### Production Deployment
 
@@ -119,6 +169,28 @@ When ready to deploy schema changes to production:
 # Push local schema changes to production Supabase project
 supabase db push
 ```
+
+#### Seeding Test Data in Production
+
+If you need test data in your production environment (e.g., for demos or testing):
+
+1. **Set environment variables in Vercel dashboard:**
+   - Go to your Vercel project → Settings → Environment Variables
+   - Add `DATABASE_URL` with your production Supabase connection string
+   - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
+
+2. **Run the seeding script:**
+   ```bash
+   # Option 1: Run locally with production env vars
+   vercel env pull .env.production
+   source .env.production
+   ./scripts/seed-test-data.sh
+   
+   # Option 2: Run with environment variables directly
+   DATABASE_URL="your-production-url" ./scripts/seed-test-data.sh
+   ```
+
+⚠️ **Warning**: Only add test data to production if you need it for demos or testing. Real user data should come through the application interface.
 
 ### Generating Types
 
