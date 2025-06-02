@@ -1,6 +1,6 @@
 # LIFT Digital Workplace Passport
 
-A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
+> A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
 
 ## Technology Stack
 
@@ -167,8 +167,8 @@ The project follows a standard SvelteKit structure:
 
 ## Documentation
 
-For more detailed information, see:
-
 - [FUNCTIONAL.md](./HITL_Docs/FUNCTIONAL.md) - Functional requirements
 - [ARCHITECTURE.md](./HITL_Docs/ARCHITECTURE.md) - Technical architecture
 - [TESTING.md](./HITL_Docs/TESTING.md) - Testing guide
+
+Explore this codebase on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
