@@ -13,17 +13,20 @@ A digital workplace passport application that helps neurodivergent employees doc
 ## Development Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/foundersandcoders/LIFT02.git
    cd LIFT02
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Set up environment variables:
+
    ```bash
    cp .env.example .env.local
    ```
@@ -31,6 +34,7 @@ A digital workplace passport application that helps neurodivergent employees doc
    Fill in the `.env.local` file with your Supabase project details.
 
 4. Install Supabase CLI:
+
    ```bash
    # Using npm
    npm install -g supabase
@@ -42,11 +46,13 @@ A digital workplace passport application that helps neurodivergent employees doc
    For other installation options, see the [Supabase CLI docs](https://supabase.com/docs/guides/cli/getting-started).
 
 5. Login to Supabase:
+
    ```bash
    supabase login
    ```
 
 6. Link your local project to Supabase:
+
    ```bash
    supabase link --project-ref <your-project-reference>
    ```
