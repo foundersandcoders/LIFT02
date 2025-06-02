@@ -40,6 +40,19 @@ Before starting development, ensure you have the following installed:
    git --version
    ```
 
+4. **PostgreSQL Client** (Required for Linux, particularly Ubuntu)
+   ```bash
+   # Check if installed
+   psql --version
+   
+   # If not installed (Ubuntu/Debian)
+   sudo apt-get update && sudo apt-get install postgresql-client
+   
+   # If not installed (Fedora/RHEL)
+   sudo dnf install postgresql
+   ```
+   This is needed for the seed scripts to work correctly with Supabase.
+
 ## Development Setup
 
 1. Clone the repository:
