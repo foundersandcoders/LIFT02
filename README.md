@@ -247,6 +247,44 @@ When running locally, you can access:
    - Consider running setup during good internet connectivity
    - Images are cached after first download
 
+6. **First time setup prompts**
+   - When running `supabase start` for the first time, you may be prompted to run `supabase init` first
+   - Run `supabase init` as instructed
+   - When prompted if you want to set up Edge Functions with Deno, answer "No"
+   - After initialization is complete, run `supabase start` again
+
+7. **Docker Architecture Mismatch**
+   - If you see errors like `exec /usr/bin/sh: exec format error`, it means you're trying to run Docker containers built for a different CPU architecture
+
+   **For Apple Silicon (M1/M2) users**: 
+   ```bash
+   # Force pull ARM64 images
+   docker pull --platform=linux/arm64 supabase/postgres:15.1.0
+   docker pull --platform=linux/arm64 supabase/edge-runtime:v1
+   # (add other images as needed)
+   ```
+
+   **For Intel/AMD users**:
+   ```bash
+   # Force pull AMD64 images
+   docker pull --platform=linux/amd64 supabase/postgres:15.1.0
+   docker pull --platform=linux/amd64 supabase/edge-runtime:v1
+   # (add other images as needed)
+   ```
+
+   You may need to specify the platform in your Docker configuration:
+   ```bash
+   # Example adding platform to supabase start
+   DOCKER_DEFAULT_PLATFORM=linux/amd64 supabase start  # For Intel/AMD
+   # or
+   DOCKER_DEFAULT_PLATFORM=linux/arm64 supabase start  # For Apple Silicon
+   ```
+
+   If you continue having issues, try:
+   1. Remove existing containers: `supabase stop && docker system prune -a`
+   2. Set the default platform before starting: `export DOCKER_DEFAULT_PLATFORM=linux/[your-arch]`
+   3. Restart Supabase: `supabase start`
+
 ### Getting Help
 
 If you encounter issues not covered here:
