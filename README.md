@@ -17,10 +17,12 @@ Before starting development, ensure you have the following installed:
 ### Required Software
 
 1. **Node.js** (v18 or higher)
+
    ```bash
    # Check your version
    node --version
    ```
+
    Download from [nodejs.org](https://nodejs.org/) if needed.
 
 2. **Docker Desktop**
@@ -35,6 +37,7 @@ Before starting development, ensure you have the following installed:
    ```
 
 3. **Git**
+
    ```bash
    # Check if installed
    git --version
@@ -67,7 +70,7 @@ Before starting development, ensure you have the following installed:
 
    ```bash
    # Using npm
-   npm install -g supabase
+   npm install supabase --save-dev
 
    # Using Homebrew (macOS)
    brew install supabase/tap/supabase
@@ -76,6 +79,7 @@ Before starting development, ensure you have the following installed:
    For other installation options, see the [Supabase CLI docs](https://supabase.com/docs/guides/cli/getting-started).
 
 5. Start local Supabase instance:
+
    ```bash
    supabase start
    ```
@@ -87,6 +91,7 @@ Before starting development, ensure you have the following installed:
    - All database migrations will be automatically applied
 
 6. Verify setup:
+
    ```bash
    # Start the development server
    npm run dev
@@ -120,12 +125,14 @@ supabase stop
 The project uses a two-tier seeding strategy to separate real data from test data:
 
 #### 1. Questions Seed (Production Data)
+
 - **File**: `supabase/seed.sql`
 - **Content**: Real workplace passport questions
 - **Auto-runs**: Automatically applied when you run `supabase db reset`
 - **Purpose**: Contains the actual questions users will answer
 
 #### 2. Test Data Seed (Development/Testing)
+
 - **File**: `supabase/test_data_seed.sql`
 - **Content**: Fake users, responses, actions, and sharing events
 - **Manual**: Run separately when you need test data
@@ -144,6 +151,7 @@ supabase db reset
 ```
 
 **What the test data includes:**
+
 - 5 fake users with diverse profiles
 - Multiple responses across all question categories
 - Some questions answered multiple times (different versions)
@@ -156,11 +164,13 @@ supabase db reset
 The `seed-test-data.sh` script automatically detects your environment:
 
 **Local Development:**
+
 - Detects local Supabase instance
 - Uses default `postgres` password (no prompts)
 - Connects to `127.0.0.1:54322`
 
 **Production/Vercel:**
+
 - Uses environment variables from Vercel dashboard
 - Requires `DATABASE_URL` to be set
 - Connects to production Supabase instance
@@ -184,6 +194,7 @@ If you need test data in your production environment (e.g., for demos or testing
    - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
 
 2. **Run the seeding script:**
+
    ```bash
    # Option 1: Run locally with production env vars
    vercel env pull .env.production
@@ -208,10 +219,10 @@ supabase gen types typescript --local > src/lib/types/supabase.ts
 
 When running locally, you can access:
 
-- **API**: http://127.0.0.1:54321
-- **Database**: postgresql://postgres:postgres@127.0.0.1:54322/postgres  
-- **Studio**: http://127.0.0.1:54323
-- **Email Testing (Inbucket)**: http://127.0.0.1:54324
+- **API**: `http://127.0.0.1:54321`
+- **Database**: `postgresql://postgres:postgres@127.0.0.1:54322/postgres`
+- **Studio**: `http://127.0.0.1:54323`
+- **Email Testing (Inbucket)**: `http://127.0.0.1:54324`
 
 ## Troubleshooting
 
@@ -223,6 +234,7 @@ When running locally, you can access:
    - On Windows: Make sure you're using PowerShell or Command Prompt as Administrator
 
 2. **Port conflicts (ports 54321-54327 already in use)**
+
    ```bash
    # Stop any existing Supabase instances
    supabase stop
@@ -232,6 +244,7 @@ When running locally, you can access:
    ```
 
 3. **Migration errors or missing tables**
+
    ```bash
    # Reset and reapply all migrations
    supabase db reset
@@ -250,6 +263,7 @@ When running locally, you can access:
 ### Getting Help
 
 If you encounter issues not covered here:
+
 1. Check `supabase status` for service health
 2. Check `docker ps` to see running containers
 3. Check the [Supabase CLI docs](https://supabase.com/docs/guides/cli)
