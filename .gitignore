@@ -76,3 +76,4 @@ lerna-debug.log*
 /supabase/*.env
 /supabase/dev.env
 /supabase/prod.env
+.vscode/settings.json
