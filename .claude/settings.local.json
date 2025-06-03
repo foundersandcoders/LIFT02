@@ -12,7 +12,10 @@
       "Bash(git restore:*)",
       "Bash(supabase status:*)",
       "Bash(supabase stop:*)",
-      "Bash(supabase start:*)"
+      "Bash(supabase start:*)",
+      "Bash(grep:*)",
+      "Bash(sed:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   },
