@@ -70,45 +70,49 @@ import { render, screen } from '@testing-library/svelte';
 import MyComponent from './MyComponent.svelte';
 
 describe('MyComponent', () => {
-  test('renders correctly', () => {
-    render(MyComponent);
-    expect(screen.getByText('Expected text')).toBeInTheDocument();
-  });
+	test('renders correctly', () => {
+		render(MyComponent);
+		expect(screen.getByText('Expected text')).toBeInTheDocument();
+	});
 });
 ```
 
 ## Environment Setup
 
 - Required environment variables (for local development):
+
   - `PUBLIC_SUPABASE_URL=http://127.0.0.1:54321`
   - `PUBLIC_SUPABASE_ANON_KEY` (from supabase status)
   - `SUPABASE_SERVICE_KEY` (from supabase status, server-only)
   - `EMAIL_SERVICE_KEY` (for sending emails)
 
 - Supabase environments:
+
   - **Development**: Local Supabase instance via Docker
   - **Production**: Remote Supabase project
   - Local instance provides full Supabase stack including Auth, Database, Storage, and Email testing
 
 - Database seeding strategy:
+
   - `supabase/seed.sql`: Real questions data (auto-runs with `supabase db reset`)
   - `supabase/test_data_seed.sql`: Fake test data (run separately with script)
   - `scripts/seed-test-data.sh`: Environment-aware script for adding test data
 
 - Setup commands:
+
   ```bash
   # Install dependencies
   npm install
-  
+
   # Install Supabase CLI globally
   npm install -g supabase
-  
+
   # Start local Supabase instance
   supabase start
-  
+
   # Copy environment template and configure for local development
   cp .env.example .env.local
-  
+
   # Set local environment variables:
   # PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
   # PUBLIC_SUPABASE_ANON_KEY=[anon key from supabase status]
@@ -200,12 +204,14 @@ Before submitting any code, ensure the following steps are completed:
 Set these environment variables in Vercel dashboard (Settings > Environment Variables):
 
 **Required for application:**
+
 - `PUBLIC_SUPABASE_URL` - Your production Supabase project URL
-- `PUBLIC_SUPABASE_ANON_KEY` - Your production Supabase anon key  
+- `PUBLIC_SUPABASE_ANON_KEY` - Your production Supabase anon key
 - `SUPABASE_SERVICE_KEY` - Your production Supabase service role key
 - `EMAIL_SERVICE_KEY` - For sending emails
 
 **Optional for test data seeding:**
+
 - `DATABASE_URL` - Full PostgreSQL connection string (get from Supabase > Settings > Database)
   - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
 

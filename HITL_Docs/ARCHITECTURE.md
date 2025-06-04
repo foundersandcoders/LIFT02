@@ -26,7 +26,7 @@
 - **Environments**:
   - **Development**: Local Supabase instance via Docker
   - **Production**: Remote Supabase project
-- **Database**: 
+- **Database**:
   - Local development uses Docker-based Supabase stack
   - Production uses remote Supabase project
   - Environment-specific configuration and credentials
