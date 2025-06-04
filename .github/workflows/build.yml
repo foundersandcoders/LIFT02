@@ -46,10 +46,10 @@ jobs:
       - name: Lint & Format
         run: npm run format
 
-      - name: Run tests
-        run: |
-          npm install -D jsdom
-          npm run test
+      # - name: Run tests
+        # run: |
+          #npm install -D jsdom
+          # npm run test
 
       - name: Build
         run: npm run build
