@@ -47,7 +47,9 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test
+        run: |
+          npm install -D jsdom
+          npm run test
 
       - name: Build
         run: npm run build
