@@ -26,6 +26,7 @@ Before starting development, ensure you have the following installed:
    Download from [nodejs.org](https://nodejs.org/) if needed.
 
 2. **Docker Desktop**
+
    - **macOS**: Download from [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
    - **Windows**: Download from [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
    - **Linux**: Follow [Docker Engine installation](https://docs.docker.com/engine/install/) for your distribution
@@ -44,16 +45,18 @@ Before starting development, ensure you have the following installed:
    ```
 
 4. **PostgreSQL Client** (Required for Linux, particularly Ubuntu)
+
    ```bash
    # Check if installed
    psql --version
-   
+
    # If not installed (Ubuntu/Debian)
    sudo apt-get update && sudo apt-get install postgresql-client
-   
+
    # If not installed (Fedora/RHEL)
    sudo dnf install postgresql
    ```
+
    This is needed for the seed scripts to work correctly with Supabase.
 
 ## Development Setup
@@ -98,6 +101,7 @@ Before starting development, ensure you have the following installed:
    ```
 
    **First time setup notes**:
+
    - If Supabase Docker containers are not already downloaded, this command will automatically download them (~2-3GB total)
    - The download may take 5-15 minutes depending on your internet connection
    - Docker Desktop must be running before executing this command
@@ -108,7 +112,7 @@ Before starting development, ensure you have the following installed:
    ```bash
    # Start the development server
    npm run dev
-   
+
    # In another terminal, check Supabase Studio
    open http://127.0.0.1:54323
    ```
@@ -202,6 +206,7 @@ supabase db push
 If you need test data in your production environment (e.g., for demos or testing):
 
 1. **Set environment variables in Vercel dashboard:**
+
    - Go to your Vercel project → Settings → Environment Variables
    - Add `DATABASE_URL` with your production Supabase connection string
    - Format: `postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres`
@@ -213,7 +218,7 @@ If you need test data in your production environment (e.g., for demos or testing
    vercel env pull .env.production
    source .env.production
    ./scripts/seed-test-data.sh
-   
+
    # Option 2: Run with environment variables directly
    DATABASE_URL="your-production-url" ./scripts/seed-test-data.sh
    ```
@@ -242,6 +247,7 @@ When running locally, you can access:
 ### Common Issues
 
 1. **"Docker not found" error**
+
    - Ensure Docker Desktop is installed and running
    - Try restarting Docker Desktop
    - On Windows: Make sure you're using PowerShell or Command Prompt as Administrator
@@ -251,7 +257,7 @@ When running locally, you can access:
    ```bash
    # Stop any existing Supabase instances
    supabase stop
-   
+
    # If that doesn't work, find and kill processes using the ports
    lsof -ti:54321 | xargs kill -9
    ```
@@ -264,25 +270,30 @@ When running locally, you can access:
    ```
 
 4. **VS Code Supabase extension can't connect**
+
    - Use URL: `http://127.0.0.1:54321` (not https)
    - Get anon key from `supabase status`
    - Try reloading VS Code window
 
 5. **Slow Docker image downloads**
+
    - Initial setup downloads ~2-3GB of Docker images
    - Consider running setup during good internet connectivity
    - Images are cached after first download
 
 6. **First time setup prompts**
+
    - When running `supabase start` for the first time, you may be prompted to run `supabase init` first
    - Run `supabase init` as instructed
    - When prompted if you want to set up Edge Functions with Deno, answer "No"
    - After initialization is complete, run `supabase start` again
 
 7. **Docker Architecture Mismatch**
+
    - If you see errors like `exec /usr/bin/sh: exec format error`, it means you're trying to run Docker containers built for a different CPU architecture
 
-   **For Apple Silicon (M1/M2) users**: 
+   **For Apple Silicon (M1/M2) users**:
+
    ```bash
    # Force pull ARM64 images
    docker pull --platform=linux/arm64 supabase/postgres:15.1.0
@@ -291,6 +302,7 @@ When running locally, you can access:
    ```
 
    **For Intel/AMD users**:
+
    ```bash
    # Force pull AMD64 images
    docker pull --platform=linux/amd64 supabase/postgres:15.1.0
@@ -299,6 +311,7 @@ When running locally, you can access:
    ```
 
    You may need to specify the platform in your Docker configuration:
+
    ```bash
    # Example adding platform to supabase start
    DOCKER_DEFAULT_PLATFORM=linux/amd64 supabase start  # For Intel/AMD
@@ -307,6 +320,7 @@ When running locally, you can access:
    ```
 
    If you continue having issues, try:
+
    1. Remove existing containers: `supabase stop && docker system prune -a`
    2. Set the default platform before starting: `export DOCKER_DEFAULT_PLATFORM=linux/[your-arch]`
    3. Restart Supabase: `supabase start`
