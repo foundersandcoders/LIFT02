@@ -44,6 +44,7 @@ Before starting development, ensure you have the following installed:
    ```
 
 4. **PostgreSQL Client** (Required for Linux, particularly Ubuntu)
+
    ```bash
    # Check if installed
    psql --version
@@ -54,6 +55,7 @@ Before starting development, ensure you have the following installed:
    # If not installed (Fedora/RHEL)
    sudo dnf install postgresql
    ```
+
    This is needed for the seed scripts to work correctly with Supabase.
 
 ## Development Setup
@@ -282,7 +284,8 @@ When running locally, you can access:
 7. **Docker Architecture Mismatch**
    - If you see errors like `exec /usr/bin/sh: exec format error`, it means you're trying to run Docker containers built for a different CPU architecture
 
-   **For Apple Silicon (M1/M2) users**: 
+   **For Apple Silicon (M1/M2) users**:
+
    ```bash
    # Force pull ARM64 images
    docker pull --platform=linux/arm64 supabase/postgres:15.1.0
@@ -291,6 +294,7 @@ When running locally, you can access:
    ```
 
    **For Intel/AMD users**:
+
    ```bash
    # Force pull AMD64 images
    docker pull --platform=linux/amd64 supabase/postgres:15.1.0
@@ -299,6 +303,7 @@ When running locally, you can access:
    ```
 
    You may need to specify the platform in your Docker configuration:
+
    ```bash
    # Example adding platform to supabase start
    DOCKER_DEFAULT_PLATFORM=linux/amd64 supabase start  # For Intel/AMD
