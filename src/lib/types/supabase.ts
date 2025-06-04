@@ -41,6 +41,7 @@ export type Database = {
           id: string
           is_latest: boolean | null
           response_id: string | null
+          status: string
           type: string
           updated_at: string | null
           user_id: string | null
@@ -52,10 +53,11 @@ export type Database = {
           id?: string
           is_latest?: boolean | null
           response_id?: string | null
+          status?: string
           type: string
           updated_at?: string | null
           user_id?: string | null
-          version: number
+          version?: number
         }
         Update: {
           created_at?: string | null
@@ -63,6 +65,7 @@ export type Database = {
           id?: string
           is_latest?: boolean | null
           response_id?: string | null
+          status?: string
           type?: string
           updated_at?: string | null
           user_id?: string | null
@@ -89,7 +92,7 @@ export type Database = {
           line_manager_name: string | null
           line_manager_user_id: string | null
           name: string | null
-          pronouns: string | null
+          pronouns: string[] | null
           updated_at: string | null
           user_id: string | null
         }
@@ -103,7 +106,7 @@ export type Database = {
           line_manager_name?: string | null
           line_manager_user_id?: string | null
           name?: string | null
-          pronouns?: string | null
+          pronouns?: string[] | null
           updated_at?: string | null
           user_id?: string | null
         }
@@ -117,7 +120,7 @@ export type Database = {
           line_manager_name?: string | null
           line_manager_user_id?: string | null
           name?: string | null
-          pronouns?: string | null
+          pronouns?: string[] | null
           updated_at?: string | null
           user_id?: string | null
         }
@@ -155,7 +158,7 @@ export type Database = {
           updated_at: string | null
           user_id: string | null
           version: number
-          visibility: string | null
+          visibility: string
         }
         Insert: {
           created_at?: string | null
@@ -166,8 +169,8 @@ export type Database = {
           status?: string | null
           updated_at?: string | null
           user_id?: string | null
-          version: number
-          visibility?: string | null
+          version?: number
+          visibility?: string
         }
         Update: {
           created_at?: string | null
@@ -179,7 +182,7 @@ export type Database = {
           updated_at?: string | null
           user_id?: string | null
           version?: number
-          visibility?: string | null
+          visibility?: string
         }
         Relationships: [
           {
