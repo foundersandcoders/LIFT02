@@ -305,7 +305,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440032'::uuid,
   '550e8400-e29b-41d4-a716-446655440003'::uuid,
   q.id,
-  NULL
+  NULL,
   'skipped',
   'public',
   1,
@@ -451,7 +451,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440052'::uuid,
   '550e8400-e29b-41d4-a716-446655440005'::uuid,
   q.id,
-  NULL
+  NULL,
   'skipped',
   'public',
   1,
@@ -463,7 +463,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440053'::uuid,
   '550e8400-e29b-41d4-a716-446655440005'::uuid,
   q.id,
-  NULL
+  NULL,
   'skipped',
   'public',
   1,

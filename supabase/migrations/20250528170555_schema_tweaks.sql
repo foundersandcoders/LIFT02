@@ -1,22 +1,22 @@
 -- 1. Auth: No Changes
 
--- 2. Profiles
+-- 2. Profiles: Pronoun Arrays
   -- Pronouns
     -- Change pronouns to text array with exactly 3 elements
       -- This means we can assign pronouns intelligently
       -- ["he", "him", "his"]
       -- ["they", "them", "theirs"]
     alter table profiles
-      alter column pronouns type text[] using array[pronouns, "", ""],
+      alter column pronouns type text[] using array[pronouns, '', ''],
       add constraint pronouns_length_check check (array_length(pronouns, 1) = 3);
 
--- 3. Questions
+-- 3. Questions: Unique Order Numbers
   -- Order
     -- Make order column unique
     alter table questions
       add constraint questions_order_unique unique ("order");
 
--- 4. Responses
+-- 4. Responses: Default Privacy & Version Sequences
   -- Visibility
     -- Make visibility not null with default 'private'
     alter table responses
@@ -44,7 +44,7 @@
         (status = 'answered' and version is not null)
       );
 
--- 5. Actions
+-- 5. Actions: Status (Active/Archived) & Version Sequences
   -- Status
     -- Add status column with active/archived options
     alter table actions
