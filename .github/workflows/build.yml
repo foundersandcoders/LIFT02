@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+      PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+
     steps:
 
       - name: Check out code
@@ -25,6 +29,11 @@ jobs:
             then echo "Error: No lock file found! Ensure you have committed a lock file."
           exit 1
           fi
+      
+      - name: Create .env file
+        run: |
+          echo "PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }}" >> .env
+          echo "PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}" >> .env
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
