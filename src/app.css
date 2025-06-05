@@ -1,3 +1,23 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+@import '@fontsource/metropolis';
+
+@theme {
+	--pink: #d600a8;
+	--black: #000000;
+	--white: #ffffff;
+	--light-pink: #ff2ed2;
+	--teal: #00a7a8;
+	--yellow: #ffcb00;
+	--orange: #ec5d2a;
+	--green: #29e2a3;
+	--purple: #7900d6;
+	--bright-blue: #2235e2;
+	--dark-purple: #4d1b9b;
+	--font-family-sans: Metropolis, Arial;
+}
+
+body {
+	background-color: var(--white);
+	color: var(--black);
+	font-family: var(--font-family-sans);
+}
