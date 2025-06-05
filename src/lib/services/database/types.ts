@@ -4,7 +4,7 @@ export type {
   Tables,
   TablesInsert,
   TablesUpdate
-} from '$lib/types/supabase';
+} from '$lib/types/typesSupabase';
 
 // Common response types
 export type DbResult<T> = Promise<{
