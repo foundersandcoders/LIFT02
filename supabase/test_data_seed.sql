@@ -92,11 +92,11 @@ INSERT INTO auth.users (
 
 -- Insert fake profiles
 INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_name, line_manager_name, line_manager_email) VALUES
-  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alex Thompson', 'they/them', 'Software Developer', 'TechCorp Ltd', 'Sarah Wilson', 'sarah.wilson@techcorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', 'she/her', 'UX Designer', 'Creative Agency', 'Mike Johnson', 'mike.johnson@creative.com'),
-  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', 'he/him', 'Data Analyst', 'DataFlow Inc', 'Lisa Brown', 'lisa.brown@dataflow.com'),
-  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', 'she/her', 'Product Manager', 'InnovateCorp', 'David Kim', 'david.kim@innovatecorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', 'he/him', 'Marketing Specialist', 'BrandWorks', 'Emma Rodriguez', 'emma.rodriguez@brandworks.com');
+  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alex Thompson', ARRAY['they', 'them', 'theirs'], 'Software Developer', 'TechCorp Ltd', 'Sarah Wilson', 'sarah.wilson@techcorp.com'),
+  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', ARRAY['she', 'her', 'hers'], 'UX Designer', 'Creative Agency', 'Mike Johnson', 'mike.johnson@creative.com'),
+  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', ARRAY['he', 'him', 'his'], 'Data Analyst', 'DataFlow Inc', 'Lisa Brown', 'lisa.brown@dataflow.com'),
+  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', ARRAY['she', 'her', 'hers'], 'Product Manager', 'InnovateCorp', 'David Kim', 'david.kim@innovatecorp.com'),
+  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', ARRAY['he', 'him', 'his'], 'Marketing Specialist', 'BrandWorks', 'Emma Rodriguez', 'emma.rodriguez@brandworks.com');
 
 -- Insert comprehensive fake responses using actual question IDs from the questions table
 
@@ -239,7 +239,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440023'::uuid,
   '550e8400-e29b-41d4-a716-446655440002'::uuid,
   q.id,
-  'skipped',
+  NULL,
   'skipped',
   'public',
   1,
@@ -305,7 +305,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440032'::uuid,
   '550e8400-e29b-41d4-a716-446655440003'::uuid,
   q.id,
-  'skipped',
+  NULL,
   'skipped',
   'public',
   1,
@@ -451,7 +451,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440052'::uuid,
   '550e8400-e29b-41d4-a716-446655440005'::uuid,
   q.id,
-  'skipped',
+  NULL,
   'skipped',
   'public',
   1,
@@ -463,7 +463,7 @@ SELECT
   '660e8400-e29b-41d4-a716-446655440053'::uuid,
   '550e8400-e29b-41d4-a716-446655440005'::uuid,
   q.id,
-  'skipped',
+  NULL,
   'skipped',
   'public',
   1,
