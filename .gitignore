@@ -20,6 +20,7 @@ pnpm-lock.yaml
 # Environment variables
 .env
 .env.*
+.env.production
 !.env.example
 !.env.test
 
@@ -71,7 +72,4 @@ lerna-debug.log*
 .cache
 
 # Supabase
-/supabase/*.env
-/supabase/dev.env
-/supabase/prod.env
 .vscode/settings.json
