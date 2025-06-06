@@ -27,9 +27,9 @@ export interface Response {
   visibility: "public" | "private",
   version: number,
   is_latest: boolean,
-  // TODO: Use Temporal() to handle dates
-  created_at?: string,
-  updated_at?: string,
+  created_at?: string, // TODO: Temporal()
+  updated_at?: string, // TODO: Temporal()
+  shares?: Share[] // sharing_event_responses
 }
 
 export interface Action {
@@ -41,11 +41,23 @@ export interface Action {
   version: number,
   is_latest: boolean,
   status: "draft" | "active" | "archived",
-  // TODO: Use Temporal() to handle dates
-  created_at?: string,
-  updated_at?: string
+  created_at?: string, // TODO: Temporal()
+  updated_at?: string // TODO: Temporal(),
+  shares?: Share[] // sharing_event_actions
 }
 
 export interface Share {
-  name: string
+  id?: string,
+  user_id: string,
+  recipient_email?: string,
+  /* note: Recipient Email
+    This makes sense for now, as the manager email is just a prop on the Profile
+    However, there's a line manager id prop earmarked for later use
+
+    If a table is implemented for Line Managers, this prop should be replaced by a foreign key to it
+    */
+  message?: string,
+  responses?: Response[], // sharing_event_responses
+  actions?: Action[], // sharing_event_actions
+  shared_at?: string // TODO: Temporal()
 }
