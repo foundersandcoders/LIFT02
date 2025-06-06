@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getQuestionById } from '$lib/services/database';
+	import { getQuestionById, updateQuestion } from '$lib/services/database';
 
 	interface Props {
 		questionId: string;
@@ -36,6 +36,10 @@
 		};
 	};
 	getQuestion();
+
+	function handleSubmit(responseInput, actionsInput) {
+		updateQuestion(questionId, data);
+	}
 </script>
 
 {#await getQuestion() then question}
@@ -67,7 +71,7 @@
 		</div>
 
 		<div class="flex justify-around">
-			<button type="button" onclick={handleSkip} class="rounded-2xl border p-4">Skip</button>
+			<button type="button" onclick={handleSubmit} class="rounded-2xl border p-4">Skip</button>
 			<button type="button" onclick={handleSubmit} class="rounded-2xl border p-4">Submit</button>
 		</div>
 	</div>
