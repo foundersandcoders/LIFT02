@@ -33,7 +33,17 @@ export interface Response {
 }
 
 export interface Action {
-  name: string
+  id?: string,
+  user_id: string,
+  response_id?: string,
+  type: string,
+  description?: string,
+  version: number,
+  is_latest: boolean,
+  status: "draft" | "active" | "archived",
+  // TODO: Use Temporal() to handle dates
+  created_at?: string,
+  updated_at?: string
 }
 
 export interface Share {
