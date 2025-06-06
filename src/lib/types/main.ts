@@ -2,7 +2,7 @@ import type {
   User,
   Employer,
   Pronouns
-} from "./typesSub";
+} from "./sub";
 
 export type Input = Profile | Question | Response | Action | Share;
 
