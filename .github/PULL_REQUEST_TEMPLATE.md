@@ -7,6 +7,13 @@
 
 ---
 
+## TL;DR
+<!-- TLDR Guide
+  List any steps devs have to take after pulling this down
+  -->
+
+---
+
 ## Gallery
 <!-- Gallery Guide
   Delete if irrelevant
