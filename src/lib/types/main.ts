@@ -1,8 +1,4 @@
-import type {
-  User,
-  Employer,
-  Pronouns
-} from "./sub";
+import type { User, Employer, Pronouns } from "./sub";
 
 export type Input = Profile | Question | Response | Action | Share;
 
@@ -23,7 +19,17 @@ export interface Question {
 }
 
 export interface Response {
-  name: string
+  id?: string,
+  user_id: string,
+  question_id: string,
+  response_text: string,
+  status?: "answered" | "skipped",
+  visibility: "public" | "private",
+  version: number,
+  is_latest: boolean,
+  // TODO: Use Temporal() to handle dates
+  created_at?: string,
+  updated_at?: string,
 }
 
 export interface Action {
