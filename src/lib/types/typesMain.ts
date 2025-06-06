@@ -16,7 +16,10 @@ export interface Profile {
 }
 
 export interface Question {
-  name: string
+  id?: string,
+  category: string,
+  question_text: string,
+  order: number
 }
 
 export interface Response {
