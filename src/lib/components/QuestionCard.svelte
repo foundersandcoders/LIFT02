@@ -3,8 +3,12 @@
 	import SubmitButton from './SubmitButton.svelte';
 	import type { DbResult } from '$lib/services/database/types';
 	import type { Database } from '$lib/types/supabase';
+	import { getLatestResponses } from '$lib/services/database/responses';
 
 	type Question = Database['public']['Tables']['questions']['Row'];
+
+	//Delete later --> for development only
+	const user_id = '550e8400-e29b-41d4-a716-446655440003';
 
 	interface Props {
 		questionId: string;
@@ -12,26 +16,44 @@
 
 	let { questionId }: Props = $props();
 
-	let responseInput = $state('');
 	let actionsInput = $state('');
 	let actionType = $state('');
 	$inspect(actionType);
 
-	const getQuestion = async (): DbResult<Question> => {
-		return await getQuestionById(questionId);
+	const getData = async () => {
+		const question = await getQuestionById(questionId);
+		const previousResponse = await getLatestResponse();
+
+		if (previousResponse) responseInput = previousResponse;
+
+		return {
+			question: question || null,
+			previousResponse: previousResponse || null
+		};
 	};
+
+	const getLatestResponse = async () => {
+		const response = await getLatestResponses(user_id);
+		if (response?.data) {
+			const questionResponse = response.data.find((r) => r.question_id === questionId);
+			return questionResponse?.response_text;
+		}
+		return null;
+	};
+	getLatestResponse();
+	let responseInput = $state('');
 </script>
 
-{#await getQuestion() then question}
-	{#if question.data}
+{#await getData() then response}
+	{#if response.question && response.question.data}
 		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
 			<header>
-				<h1 class="text-center text-2xl">{question.data.category}</h1>
+				<h1 class="text-center text-2xl">{response.question.data.category}</h1>
 			</header>
 
 			<div class="flex flex-col">
 				<label for="response-{questionId}" class="text-xl"
-					>{question.data.question_text || 'Question'}</label
+					>{response.question.data.question_text || 'Question'}</label
 				>
 				<textarea
 					id="response-{questionId}"

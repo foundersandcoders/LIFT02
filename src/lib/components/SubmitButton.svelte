@@ -3,7 +3,8 @@
 	import { createResponse } from '$lib/services/database/responses';
 
 	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440001';
+	const user_id = '550e8400-e29b-41d4-a716-446655440003';
+	const questionId = '0211af06-9dfb-47ec-9424-363be6869010';
 
 	interface Props {
 		text: string;
@@ -15,7 +16,7 @@
 	let { text, responseInput, actionsInput, actionType }: Props = $props();
 
 	function handleSubmit() {
-		createResponse(user_id, { response_text: responseInput });
+		createResponse(user_id, { response_text: responseInput, question_id: questionId });
 		createAction(user_id, { type: actionType, description: actionsInput });
 	}
 </script>
