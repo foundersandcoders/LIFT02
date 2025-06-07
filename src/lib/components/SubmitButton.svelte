@@ -9,13 +9,14 @@
 		text: string;
 		responseInput: string;
 		actionsInput: string;
+		actionType: string;
 	}
 
-	let { text, responseInput, actionsInput }: Props = $props();
+	let { text, responseInput, actionsInput, actionType }: Props = $props();
 
 	function handleSubmit() {
 		createResponse(user_id, { response_text: responseInput });
-		createAction(user_id, { type: 'test_action', description: actionsInput });
+		createAction(user_id, { type: actionType, description: actionsInput });
 	}
 </script>
 

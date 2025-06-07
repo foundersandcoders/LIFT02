@@ -14,6 +14,8 @@
 
 	let responseInput = $state('');
 	let actionsInput = $state('');
+	let actionType = $state('');
+	$inspect(actionType);
 
 	const getQuestion = async (): DbResult<Question> => {
 		return await getQuestionById(questionId);
@@ -28,7 +30,7 @@
 			</header>
 
 			<div class="flex flex-col">
-				<label for="response-{questionId}" class=""
+				<label for="response-{questionId}" class="text-xl"
 					>{question.data.question_text || 'Question'}</label
 				>
 				<textarea
@@ -40,20 +42,32 @@
 				></textarea>
 			</div>
 
-			<div class="flex flex-col">
-				<label for="actions-{questionId}">Actions needed:</label>
-				<textarea
-					id="actions-{questionId}"
-					bind:value={actionsInput}
-					placeholder="Enter your response here..."
-					rows="3"
-					class="text-area"
-				></textarea>
+			<div>
+				<h2 class="text-xl">A description of what actions are for</h2>
+				<label for="cars">Action type:</label>
+				<select id="action-type-{questionId}" bind:value={actionType}>
+					<option>Action type</option>
+					<option value="workplace_adjustment">Workplace adjustment</option>
+					<option value="schedule_adjustment">Schedule adjustment</option>
+					<option value="communication">Communication</option>
+					<option value="schedule_flexibility">Schedule flexibility</option>
+				</select>
+
+				<div class="flex flex-col">
+					<label for="actions-{questionId}">Actions needed:</label>
+					<textarea
+						id="actions-{questionId}"
+						bind:value={actionsInput}
+						placeholder="Enter your response here..."
+						rows="3"
+						class="text-area"
+					></textarea>
+				</div>
 			</div>
 
 			<div class="flex justify-around">
-				<SubmitButton text="Skip" {responseInput} {actionsInput} />
-				<SubmitButton text="Submit" {responseInput} {actionsInput} />
+				<SubmitButton text="Skip" {responseInput} {actionsInput} {actionType} />
+				<SubmitButton text="Submit" {responseInput} {actionsInput} {actionType} />
 			</div>
 		</div>
 	{:else}
