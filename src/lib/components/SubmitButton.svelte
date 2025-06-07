@@ -11,12 +11,17 @@
 		responseInput: string;
 		actionsInput: string;
 		actionType: string;
+		status: string;
 	}
 
-	let { text, responseInput, actionsInput, actionType }: Props = $props();
+	let { text, responseInput, actionsInput, actionType, status }: Props = $props();
 
 	function handleSubmit() {
-		createResponse(user_id, { response_text: responseInput, question_id: questionId });
+		createResponse(user_id, {
+			response_text: responseInput,
+			question_id: questionId,
+			status: status
+		});
 		createAction(user_id, { type: actionType, description: actionsInput });
 	}
 </script>

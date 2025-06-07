@@ -88,8 +88,8 @@
 			</div>
 
 			<div class="flex justify-around">
-				<SubmitButton text="Skip" {responseInput} {actionsInput} {actionType} />
-				<SubmitButton text="Submit" {responseInput} {actionsInput} {actionType} />
+				<SubmitButton text="Skip" status="skipped" {responseInput} {actionsInput} {actionType} />
+				<SubmitButton text="Submit" status="answered" {responseInput} {actionsInput} {actionType} />
 			</div>
 		</div>
 	{:else}
