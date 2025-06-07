@@ -24,18 +24,12 @@ body {
 
 .dev {
 	margin: 1rem;
-	outline: 2px dashed var(--color-purple-dark);
+	outline: 2px dashed var(--color-teal);
 	padding: 1rem;
 }
 
-.tile {
-	outline: 3px dashed var(--color-purple);
-}
+.tile { outline-color: var(--color-blue-bright); }
 
-.list {
-	outline: 1px dashed var(--color-pink);
-}
+.list { outline-color: var(--color-purple); }
 
-.button {
-	outline: 2px dashed var(--color-pink-light);
-}
+.button { outline-color: var(--color-pink); }
