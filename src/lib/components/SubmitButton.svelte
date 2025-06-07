@@ -12,15 +12,17 @@
 		actionsInput: string;
 		actionType: string;
 		status: string;
+		isPublic: string;
 	}
 
-	let { text, responseInput, actionsInput, actionType, status }: Props = $props();
+	let { text, responseInput, actionsInput, actionType, status, isPublic }: Props = $props();
 
 	function handleSubmit() {
 		createResponse(user_id, {
 			response_text: responseInput,
 			question_id: questionId,
-			status: status
+			status: status,
+			visibility: isPublic
 		});
 		createAction(user_id, { type: actionType, description: actionsInput });
 	}

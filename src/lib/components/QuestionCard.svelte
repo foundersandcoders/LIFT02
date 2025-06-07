@@ -5,6 +5,7 @@
 	import type { Database } from '$lib/types/supabase';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getLatestActions } from '$lib/services/database';
+	import ToggleStatus from './ToggleStatus.svelte';
 
 	type Question = Database['public']['Tables']['questions']['Row'];
 
@@ -16,9 +17,6 @@
 	}
 
 	let { questionId }: Props = $props();
-
-	let actionType = $state('');
-	$inspect(actionType);
 
 	const getData = async () => {
 		const question = await getQuestionById(questionId);
@@ -37,7 +35,10 @@
 		if (response?.data) {
 			const questionResponse = response.data.find((r) => r.question_id === questionId);
 			const previousAction = await getLatestAction(questionResponse?.id);
-			if (previousAction) actionsInput = previousAction;
+			if (previousAction?.description) {
+				actionsInput = previousAction.description;
+				actionType = previousAction.type;
+			}
 			return questionResponse?.response_text;
 		}
 		return null;
@@ -48,11 +49,18 @@
 		const response = await getLatestActions(user_id);
 		if (response?.data) {
 			const actionResponse = response.data.find((r) => r.response_id === response_Id);
-			return actionResponse?.description;
+			return actionResponse;
 		}
 		return null;
 	};
+	let actionType = $state('');
 	let actionsInput = $state('');
+	let isPublic = $state('private');
+	$inspect(isPublic);
+
+	const toggleVisibility = () => {
+		isPublic = isPublic === 'public' ? 'private' : 'public';
+	};
 </script>
 
 {#await getData() then response}
@@ -61,6 +69,8 @@
 			<header>
 				<h1 class="text-center text-2xl">{response.question.data.category}</h1>
 			</header>
+
+			<ToggleStatus {isPublic} {toggleVisibility} />
 
 			<div class="flex flex-col">
 				<label for="response-{questionId}" class="text-xl"
@@ -99,8 +109,22 @@
 			</div>
 
 			<div class="flex justify-around">
-				<SubmitButton text="Skip" status="skipped" {responseInput} {actionsInput} {actionType} />
-				<SubmitButton text="Submit" status="answered" {responseInput} {actionsInput} {actionType} />
+				<SubmitButton
+					text="Skip"
+					status="skipped"
+					{responseInput}
+					{actionsInput}
+					{actionType}
+					{isPublic}
+				/>
+				<SubmitButton
+					text="Submit"
+					status="answered"
+					{responseInput}
+					{actionsInput}
+					{actionType}
+					{isPublic}
+				/>
 			</div>
 		</div>
 	{:else}
