@@ -4,11 +4,12 @@
 	import type { DbResult } from '$lib/services/database/types';
 	import type { Database } from '$lib/types/supabase';
 	import { getLatestResponses } from '$lib/services/database/responses';
+	import { getLatestActions } from '$lib/services/database';
 
 	type Question = Database['public']['Tables']['questions']['Row'];
 
 	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440003';
+	const user_id = '550e8400-e29b-41d4-a716-446655440001';
 
 	interface Props {
 		questionId: string;
@@ -16,7 +17,6 @@
 
 	let { questionId }: Props = $props();
 
-	let actionsInput = $state('');
 	let actionType = $state('');
 	$inspect(actionType);
 
@@ -36,12 +36,23 @@
 		const response = await getLatestResponses(user_id);
 		if (response?.data) {
 			const questionResponse = response.data.find((r) => r.question_id === questionId);
+			const previousAction = await getLatestAction(questionResponse?.id);
+			if (previousAction) actionsInput = previousAction;
 			return questionResponse?.response_text;
 		}
 		return null;
 	};
-	getLatestResponse();
 	let responseInput = $state('');
+
+	const getLatestAction = async (response_Id: string | undefined) => {
+		const response = await getLatestActions(user_id);
+		if (response?.data) {
+			const actionResponse = response.data.find((r) => r.response_id === response_Id);
+			return actionResponse?.description;
+		}
+		return null;
+	};
+	let actionsInput = $state('');
 </script>
 
 {#await getData() then response}
