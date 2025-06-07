@@ -3,8 +3,8 @@
 	import { createResponse } from '$lib/services/database/responses';
 
 	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440001';
-	const questionId = '68934e75-14b6-47ed-9e27-2d7fae9e579a';
+	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+	const questionId = 'bacc6ffa-b589-4bdc-8eb8-d29eeef7f153';
 
 	interface Props {
 		text: string;
@@ -13,9 +13,11 @@
 		actionType: string;
 		status: string;
 		isPublic: string;
+		responseId: string;
 	}
 
-	let { text, responseInput, actionsInput, actionType, status, isPublic }: Props = $props();
+	let { text, responseInput, actionsInput, actionType, status, isPublic, responseId }: Props =
+		$props();
 
 	function handleSubmit() {
 		createResponse(user_id, {
@@ -24,7 +26,7 @@
 			status: status,
 			visibility: isPublic
 		});
-		createAction(user_id, { type: actionType, description: actionsInput });
+		createAction(user_id, { type: actionType, description: actionsInput, response_id: responseId });
 	}
 </script>
 

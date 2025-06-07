@@ -10,7 +10,7 @@
 	type Question = Database['public']['Tables']['questions']['Row'];
 
 	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440001';
+	const user_id = '550e8400-e29b-41d4-a716-446655440005';
 
 	interface Props {
 		questionId: string;
@@ -39,11 +39,14 @@
 				actionsInput = previousAction.description;
 				actionType = previousAction.type;
 			}
+			if (questionResponse?.visibility) isPublic = questionResponse?.visibility;
+			if (questionResponse?.id) responseId = questionResponse?.id;
 			return questionResponse?.response_text;
 		}
 		return null;
 	};
 	let responseInput = $state('');
+	let responseId = $state('');
 
 	const getLatestAction = async (response_Id: string | undefined) => {
 		const response = await getLatestActions(user_id);
@@ -116,6 +119,7 @@
 					{actionsInput}
 					{actionType}
 					{isPublic}
+					{responseId}
 				/>
 				<SubmitButton
 					text="Submit"
@@ -124,6 +128,7 @@
 					{actionsInput}
 					{actionType}
 					{isPublic}
+					{responseId}
 				/>
 			</div>
 		</div>

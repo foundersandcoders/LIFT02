@@ -5,6 +5,7 @@
 <div class="flex items-center gap-3">
 	<div class="relative inline-block h-5 w-11">
 		<input
+			checked={toggleVisibility}
 			onclick={toggleVisibility}
 			id="switch-component"
 			type="checkbox"
