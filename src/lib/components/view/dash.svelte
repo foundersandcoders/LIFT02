@@ -1,12 +1,32 @@
 <script lang="ts">
 	import { setView } from "$lib/components/logic/view.svelte";
-	import { setListNum, setTileNum, getTileNum } from "$lib/components/logic/dev.svelte";
-	import { randomNum } from "$lib/utils/random";
+	import { setListNum } from "$lib/components/logic/dev.svelte";
+	import { getQuestions } from "$lib/services/database/questions";
 
-	setTileNum(randomNum());
+	let query = $state(getQuestions());
 
-	const tileCountNum = getTileNum();
-	const tileCountText = tileCountNum === 1 ? "tile" : "tiles";
+	function getCategories(questions: any) {
+		interface Question {
+			id: string;
+			question_text: string;
+			category: string;
+		};
+
+		const categories = questions.map(
+			// Extract the Categories
+			(question:Question) => question.category
+		).map(
+			// Convert to Title Case
+			(category:string) => category.split('_').map(
+				word => word.charAt(0).toUpperCase() + word.slice(1)
+			).join(' ')
+		);
+
+		// Remove Duplicates
+		const categoriesUnique = [...new Set(categories)];
+
+		return categoriesUnique;
+	}
 
 	const onclick = (listNum: number) => {
 		setListNum(listNum);
@@ -17,13 +37,19 @@
 <div class="dev">
 	<h1>view/dash</h1>
 
-	<p>There should be {tileCountNum} {tileCountText}</p>
-
-	{#each [...Array(tileCountNum)] as _, i}
-		{@const thisList = randomNum()}
-		<button on:click={() => onclick(thisList)} class="dev tile">
-			<p>Tile {i + 1}</p>
-			<p>{thisList} Entries</p>
-		</button>
-	{/each}
+	{#await query}
+		<p>Loading...</p>
+	{:then data}
+		{#if data.data}
+			{#each getCategories(data.data) as category}
+				<button class="dev tile" onclick={() => onclick(1)}>
+					<p>{category}</p>
+				</button>
+			{/each}
+		{:else}
+			<p>No categories found</p>
+		{/if}
+	{:catch error}
+		<p>Error: {error.message}</p>
+	{/await}
 </div>
