@@ -3,7 +3,8 @@
 	import QuestionCard from '$lib/components/QuestionCard.svelte';
 	import { getQuestionById, getQuestions } from '$lib/services/database/questions';
 
-	const questionId = '8b771be1-c38a-4242-8287-ec760cc96b6e';
+	//Delete later --> This needs to manually updated every time you db reset
+	const questionId = 'd2f4c7f3-590c-44b4-8ca2-0d9f3b9067ba';
 </script>
 
 <QuestionCard {questionId} />
