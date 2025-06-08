@@ -1,15 +1,21 @@
 <script lang="ts">
-	import { setView } from "$lib/components/logic/view.svelte";
+	import type { View } from "$lib/types/ui";
+	import { getContext } from 'svelte';
 
-	const onBackClick = () => {
-		setView("list");
-	};
+	const setView = getContext<(view:View) => void>('setView');
+
+	const onBackClick = () => { setView("list") };
 </script>
 
 <div class="dev">
-	<h1>view/detail</h1>
+	<div id="detail-header" class="dev flex flex-row justify-between">
+		<h2 class="dev">Detail View</h2>
 
-	<button onclick={onBackClick} class="dev button">
-		Back
-	</button>
+		<button onclick={onBackClick} class="dev button">
+			Back
+		</button>
+	</div>
+
+	<div id="detail-content" class="dev">
+	</div>
 </div>

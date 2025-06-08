@@ -1,40 +1,17 @@
 <script lang="ts">
-	import { setView } from "$lib/components/logic/view.svelte";
 	import { setListNum } from "$lib/components/logic/dev.svelte";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
-	import type { ActionCheck } from "$lib/types/ui";
+	import type { View } from "$lib/types/ui";
+	import { getContext } from 'svelte';
 
-	let devMode = $state(true);
-	const toggleDevMode = () => { devMode = !devMode };
+	const getProfileId = getContext<() => string>('profileId');
+	let profileId = $derived(getProfileId());
 
-	let actions = $state({ exist: false, count: 0 });
+	const setView = getContext<(view: View) => void>('setView');
+
 	let queryQuestions = $state(getQuestions());
-
-	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : "");
 	let queryActions = $derived(profileId != "" ? getUserActions(profileId) : null);
-
-	async function countActions(profileId:string):Promise<ActionCheck> {
-		let actionsNum = 0;
-		let isError = false;
-
-		const { data, error } = await getUserActions(profileId);
-
-		if (error) {
-			console.error(error);
-			isError = true;
-		} else if (data) {
-			actionsNum = data.length;
-		}
-
-		!isError && actionsNum > 0 ? actions.exist = true : actions.exist = false;
-
-		return {
-			isError: isError,
-			exist: !isError && actionsNum > 0,
-			count: actionsNum
-		};
-	}
 
 	function getCategories(questions: any) {
 		interface Question {
@@ -59,27 +36,15 @@
 		return categoriesUnique;
 	}
 
-	const onclick = (listNum: number) => {
+	const setViewList = (listNum: number) => {
 		setListNum(listNum);
 		setView("list");
 	};
 </script>
 
 <div class="dev">
-	<div id="dash-header" class="dev">
-		<h1>view/dash</h1>
-		
-		<button
-			class="dev {devMode ? 'button' : 'inactive'}"
-			onclick={() => toggleDevMode()}
-		>
-			<p>Turn {devMode ? 'Off' : 'On'} Dev Mode</p>
-		</button>
-	</div>
-
-	<div id="dev-info" class="dev">
-		<p>Dev Mode: {devMode}</p>
-		<p>Profile ID: {profileId}</p>
+	<div id="dash-header" class="dev flex flex-row justify-between">
+		<h2>Dashboard View</h2>
 	</div>
 
 	<div id="dash-tiles" class="dev">
@@ -87,11 +52,11 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button class="dev tile" onclick={() => onclick(1)}>
+				<button class="dev tile" onclick={() => setViewList(1)}>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<button class="dev inactive" onclick={() => onclick(1)}>
+				<button class="dev inactive">
 					<p>0 Actions</p>
 				</button>
 			{/if}
@@ -104,7 +69,7 @@
 		{:then result}
 			{#if result.data}
 				{#each getCategories(result.data) as category}
-					<button class="dev tile" onclick={() => onclick(1)}>
+					<button class="dev tile" onclick={() => setViewList(1)}>
 						<p>{category}</p>
 					</button>
 				{/each}
