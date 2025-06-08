@@ -48,7 +48,9 @@
   -- Status
     -- Add status column with active/archived options
     alter table actions
-      add column status text not null default 'active' check (status in ('active', 'archived'));
+      add column status text not null default 'draft' check (
+        status in ('draft', 'active', 'archived')
+      );
   
   -- Version
     -- Create a sequence that increments by 1 when edited

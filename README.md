@@ -395,8 +395,8 @@ The project follows a standard SvelteKit structure:
 
 ## Documentation
 
-- [FUNCTIONAL.md](./HITL_Docs/FUNCTIONAL.md) - Functional requirements
-- [ARCHITECTURE.md](./HITL_Docs/ARCHITECTURE.md) - Technical architecture
-- [TESTING.md](./HITL_Docs/TESTING.md) - Testing guide
+- [FUNCTIONAL.md](./docs/HITL_Docs/FUNCTIONAL.md) - Functional requirements
+- [ARCHITECTURE.md](./docs/HITL_Docs/ARCHITECTURE.md) - Technical architecture
+- [TESTING.md](./docs/HITL_Docs/TESTING.md) - Testing guide
 
 Explore this codebase on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
