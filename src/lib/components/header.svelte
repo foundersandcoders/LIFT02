@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import Button from './button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
 	const onToggleDevMode = () => {
@@ -19,15 +20,21 @@
 			<h1 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Neacons</h1>
 		</div>
 
-		<!-- Dev Mode Toggle (Development Only) -->
-		<button
-			onclick={onToggleDevMode}
-			class="dev button inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
-			type="button"
-			aria-label="Toggle development mode"
-		>
-			<span class="sr-only">Toggle</span>
-			Dev Mode
-		</button>
+		<!-- Action Buttons -->
+		<div class="flex items-center space-x-3">
+			<!-- Dev Mode Toggle (Development Only) -->
+			<button
+				onclick={onToggleDevMode}
+				class="dev button inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+				type="button"
+				aria-label="Toggle development mode"
+			>
+				<span class="sr-only">Toggle</span>
+				Dev Mode
+			</button>
+
+			<!-- Profile Button -->
+			<Button text="Profile" variant="primary" onclick={() => {}} />
+		</div>
 	</div>
 </header>
