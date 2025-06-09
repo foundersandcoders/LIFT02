@@ -3,7 +3,8 @@
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import { getContext } from 'svelte';
-
+	import ListItem from "$lib/components/cards/ListItem.svelte";
+	
 	const setView = getContext<(view:View) => void>('setView');
 
 	const getList = getContext<() => ListCategory>('getList');
@@ -53,9 +54,7 @@
 			{:then result}
 				{#if result.data}
 					{#each result.data as question}
-						<button onclick={onListClick} class="dev list">
-							{question.preview}
-						</button>
+						<ListItem {question} />
 					{/each}
 				{/if}
 			{:catch error}

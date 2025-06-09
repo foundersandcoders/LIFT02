@@ -34,6 +34,8 @@ body {
 
 .button { outline-color: var(--color-pink); }
 
+.text { margin: 0; padding: 0 1rem; }
+
 .inactive {
 	outline-color: var(--color-black);
 	font-style: italic;
