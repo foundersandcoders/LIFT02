@@ -22,7 +22,8 @@
 		...restProps
 	}: Props = $props();
 
-	const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+	const baseClasses =
+		'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
 	const sizeClasses = {
 		sm: 'px-3 py-1.5 text-sm',
@@ -44,30 +45,18 @@
 	};
 
 	const buttonClasses = $derived(
-		[
-			baseClasses,
-			sizeClasses[size],
-			getVariantClasses(variant),
-			className
-		].join(' ')
+		[baseClasses, sizeClasses[size], getVariantClasses(variant), className].join(' ')
 	);
 
 	const buttonStyle = $derived(
 		variant === 'primary'
 			? `background-color: ${color}; --tw-ring-color: ${color};`
 			: variant === 'outline'
-			? `border-color: ${color}; color: ${color}; --tw-ring-color: ${color};`
-			: ''
+				? `border-color: ${color}; color: ${color}; --tw-ring-color: ${color};`
+				: ''
 	);
 </script>
 
-<button
-	{type}
-	{disabled}
-	class={buttonClasses}
-	style={buttonStyle}
-	onclick={onclick}
-	{...restProps}
->
+<button {type} {disabled} class={buttonClasses} style={buttonStyle} {onclick} {...restProps}>
 	{text}
 </button>
