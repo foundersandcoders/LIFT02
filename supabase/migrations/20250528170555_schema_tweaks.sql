@@ -1,14 +1,10 @@
 -- 1. Auth: No Changes
 
 -- 2. Profiles: Pronoun Arrays
-  -- Pronouns
-    -- Change pronouns to text array with exactly 3 elements
-      -- This means we can assign pronouns intelligently
-      -- ["he", "him", "his"]
-      -- ["they", "them", "theirs"]
-    alter table profiles
-      alter column pronouns type text[] using array[pronouns, '', ''],
-      add constraint pronouns_length_check check (array_length(pronouns, 1) = 3);
+  -- Change pronouns to text array with exactly 3 elements
+  alter table profiles
+    alter column pronouns type text[] using array[pronouns, '', ''],
+    add constraint pronouns_length_check check (array_length(pronouns, 1) = 3);
 
 -- 3. Questions: Unique Order Numbers
   -- Order

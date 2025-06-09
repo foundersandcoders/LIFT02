@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ListCategory, View } from "$lib/types/ui";
 	import { getUserActions } from "$lib/services/database/actions";
-	import { getQuestions } from "$lib/services/database/questions";
+	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import { getContext } from 'svelte';
 
 	const setView = getContext<(view:View) => void>('setView');
@@ -14,7 +14,7 @@
 	let profileId = $derived(getProfileId());
 
 	let queryActions = $derived(getUserActions(profileId));
-	let queryQuestions = $state(getQuestions());
+	let queryQuestions = $derived(getQuestionsByCategory(list.raw));
 
 	const onBackClick = () => {
 		setView("dash");
