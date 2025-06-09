@@ -12,16 +12,19 @@
 	//Delete later --> This needs to manually updated every time you db reset
 	// const questionId = 'bacc6ffa-b589-4bdc-8eb8-d29eeef7f153';
 
-	const getView = getContext<() => View>('view');
+	const getView = getContext<() => View>('getView');
+	let view = $derived(getView());
 </script>
 
 <main id="view" class="dev">
-	{#if getView() === "dash"}
+	{#if view === "dash"}
 		<Dash />
-	{:else if getView() === "list"}
+	{:else if view === "list"}
 		<List />
-	{:else if getView() === "detail"}
+	{:else if view === "detail"}
 		<Detail />
+	{:else}
+		<div>No view selected</div>
 	{/if}
 </main>
 

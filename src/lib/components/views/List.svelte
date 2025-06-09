@@ -1,13 +1,25 @@
 <script lang="ts">
-	import { getListNum } from "$lib/components/logic/dev.svelte";
-	import type { View } from "$lib/types/ui";
+	import type { ListCategory, View } from "$lib/types/ui";
+	import { getUserActions } from "$lib/services/database/actions";
+	import { getQuestions } from "$lib/services/database/questions";
 	import { getContext } from 'svelte';
 
 	const setView = getContext<(view:View) => void>('setView');
 
-	let entries = $state(getListNum());
+	const getList = getContext<() => ListCategory>('getList');
+	const setList = getContext<(list:ListCategory) => void>('setList');
+	let list = $derived(getList());
 
-	const onBackClick = () => { setView("dash") };
+	const getProfileId = getContext<() => string>('getProfileId');
+	let profileId = $derived(getProfileId());
+
+	let queryActions = $derived(getUserActions(profileId));
+	let queryQuestions = $state(getQuestions());
+
+	const onBackClick = () => {
+		setView("dash");
+		setList({ raw: "", format: "" });
+	};
 	const onListClick = () => { setView("detail") };
 </script>
 
@@ -20,11 +32,39 @@
 		</button>
 	</div>
 
-	<div id="list-items" class="dev flex flex-row justify-left">
-		{#each [...Array(entries)] as _, i}
-			<button onclick={onListClick} class="dev list">
-				List Item {i + 1}
-			</button>
-		{/each}
+	<div id="list-items" class="dev flex flex-col justify-left">
+		{#if list.raw == "actions"}
+			{#await queryActions}
+				<p>Loading...</p>
+			{:then result}
+				{#if result.data}
+					{#each result.data as action}
+						<button onclick={onListClick} class="dev list">
+							{action.description}
+						</button>
+					{/each}
+				{/if}
+			{:catch error}
+				<p>Error: {error.message}</p>
+			{/await}
+		{:else if list.raw}
+			{#await queryQuestions}
+				<p>Loading...</p>
+			{:then result}
+				{#if result.data}
+					{#each result.data as question}
+						<button onclick={onListClick} class="dev list">
+							{question.question_text}
+						</button>
+					{/each}
+				{/if}
+			{:catch error}
+				<p>Error: {error.message}</p>
+			{/await}
+		{:else}
+			<div class="dev list">
+				<p>No list selected</p>
+			</div>
+		{/if}
 	</div>
 </div>

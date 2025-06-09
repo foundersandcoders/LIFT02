@@ -2,42 +2,43 @@
 	import { setListNum } from "$lib/components/logic/dev.svelte";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
-	import type { View } from "$lib/types/ui";
+	import type { ListCategory, View } from "$lib/types/ui";
 	import { getContext } from 'svelte';
 
-	const getProfileId = getContext<() => string>('profileId');
+	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
 
 	const setView = getContext<(view: View) => void>('setView');
+	const setList = getContext<(list: ListCategory) => void>('setList');
 
 	let queryQuestions = $state(getQuestions());
 	let queryActions = $derived(profileId != "" ? getUserActions(profileId) : null);
 
-	function getCategories(questions: any) {
+	function getCategories(questions: any): ListCategory[] {
 		interface Question {
 			id: string;
 			question_text: string;
 			category: string;
 		};
 
-		const categories = questions.map(
-			// Extract the Categories
+		const categoriesRaw:string[] = questions.map(
 			(question:Question) => question.category
-		).map(
-			// Convert to Title Case
-			(category:string) => category.split('_').map(
-				word => word.charAt(0).toUpperCase() + word.slice(1)
-			).join(' ')
 		);
 
-		// Remove Duplicates
-		const categoriesUnique = [...new Set(categories)];
+		const categoriesUnique = [...new Set(categoriesRaw)];
+		
+		const categoriesFormatted:ListCategory[] = Array.from(categoriesUnique).map((category:string) => ({
+			raw: category,
+			format: category.split('_').map(
+				word => word.charAt(0).toUpperCase() + word.slice(1)
+			).join(' ')
+		}));
 
-		return categoriesUnique;
+		return categoriesFormatted;
 	}
 
-	const setViewList = (listNum: number) => {
-		setListNum(listNum);
+	const setViewList = (category:ListCategory) => {
+		setList(category);
 		setView("list");
 	};
 </script>
@@ -52,7 +53,7 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button class="dev tile" onclick={() => setViewList(1)}>
+				<button class="dev tile" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -69,8 +70,8 @@
 		{:then result}
 			{#if result.data}
 				{#each getCategories(result.data) as category}
-					<button class="dev tile" onclick={() => setViewList(1)}>
-						<p>{category}</p>
+					<button class="dev tile" onclick={() => setViewList(category)}>
+						<p>{category.format}</p>
 					</button>
 				{/each}
 			{:else}
