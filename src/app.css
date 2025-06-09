@@ -24,7 +24,7 @@ body {
 
 .dev {
 	margin: 1rem;
-	outline: 2px dashed var(--color-teal);
+	outline: 2px solid var(--color-teal);
 	padding: 1rem;
 }
 
