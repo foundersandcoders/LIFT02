@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from "$lib/components/header.svelte";
-	import Footer from "$lib/components/footer.svelte";
+	import Header from "$lib/components/layouts/Header.svelte";
+	import Footer from "$lib/components/layouts/Footer.svelte";
 	import { setContext } from 'svelte';
 	import type { View } from "$lib/types/ui";
 

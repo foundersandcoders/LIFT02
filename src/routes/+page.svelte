@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import Dash from "$lib/components/view/dash.svelte";
-	import List from "$lib/components/view/list.svelte";
-	import Detail from "$lib/components/view/detail.svelte";
+	import Dash from "$lib/components/views/Dash.svelte";
+	import List from "$lib/components/views/List.svelte";
+	import Detail from "$lib/components/views/Detail.svelte";
 	import type { View } from "$lib/types/ui";
 
 	// import '$lib/components/QuestionCard.svelte';
