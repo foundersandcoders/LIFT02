@@ -16,6 +16,7 @@ export interface Question {
 	category: string;
 	question_text: string;
 	order: number;
+	preview: string;
 }
 
 export interface Response {

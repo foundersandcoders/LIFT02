@@ -14,7 +14,8 @@
 		"format:check": "prettier . --check",
 		"format": "prettier . --write",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"db:reset": "supabase db reset && ./scripts/seed-test-data.sh"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

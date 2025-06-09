@@ -54,7 +54,7 @@
 				{#if result.data}
 					{#each result.data as question}
 						<button onclick={onListClick} class="dev list">
-							{question.question_text}
+							{question.preview}
 						</button>
 					{/each}
 				{/if}

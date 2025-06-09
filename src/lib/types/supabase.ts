@@ -132,18 +132,21 @@ export type Database = {
           id: string
           order: number
           question_text: string
+          preview: string
         }
         Insert: {
           category: string
           id?: string
           order: number
           question_text: string
+          preview: string
         }
-        Update: {
+        Update: { 
           category?: string
           id?: string
           order?: number
           question_text?: string
+          preview?: string
         }
         Relationships: []
       }

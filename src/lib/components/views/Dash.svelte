@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { setListNum } from "$lib/components/logic/dev.svelte";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
 	import type { ListCategory, View } from "$lib/types/ui";
