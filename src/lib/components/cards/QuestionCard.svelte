@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { getQuestionById } from '$lib/services/database';
-	import SubmitButton from '../buttons/SubmitButton.svelte';
+	import SubmitButton from '../ui/SubmitButton.svelte';
 	import type { DbResult } from '$lib/services/database/types';
 	import type { Database } from '$lib/types/supabase';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getLatestActions } from '$lib/services/database';
-	import ToggleStatus from '../buttons/ToggleStatus.svelte';
+	import ToggleStatus from '../ui/ToggleStatus.svelte';
 
 	type Question = Database['public']['Tables']['questions']['Row'];
 

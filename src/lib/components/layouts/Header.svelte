@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import Button from './button.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
 	const onToggleDevMode = () => { toggleDevMode() };
