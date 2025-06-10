@@ -22,19 +22,20 @@ body {
 	font-family: var(--font-family-sans);
 }
 
+/* === Temporary Dev Styles === */
+
 .dev {
 	margin: 1rem;
-	outline: 2px solid var(--color-teal);
 	padding: 1rem;
 }
 
-.tile { outline-color: var(--color-blue-bright); }
+.dev-div { outline: 2px solid var(--color-teal); }
+.dev-tile { outline: 2px solid var(--color-blue-bright); }
+.dev-list { outline: 2px solid var(--color-purple); }
+.dev-button { outline: 2px solid var(--color-pink); }
+.dev-text { margin: 0; padding: 0 1rem; }
 
-.list { outline-color: var(--color-purple); }
-
-.button { outline-color: var(--color-pink); }
-
-.inactive {
+.dev-inactive {
 	outline-color: var(--color-black);
 	font-style: italic;
 }
