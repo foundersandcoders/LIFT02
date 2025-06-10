@@ -7,15 +7,15 @@
 	const onBackClick = () => { setView("list") };
 </script>
 
-<div class="dev">
-	<div id="detail-header" class="dev flex flex-row justify-between">
-		<h2 class="dev">Detail View</h2>
+<div class="dev dev-div">
+	<div id="detail-header" class="dev dev-div flex flex-row justify-between">
+		<h2 class="dev dev-div">Detail View</h2>
 
-		<button onclick={onBackClick} class="dev button">
+		<button onclick={onBackClick} class="dev dev-div dev-button">
 			Back
 		</button>
 	</div>
 
-	<div id="detail-content" class="dev">
+	<div id="detail-content" class="dev dev-div">
 	</div>
 </div>

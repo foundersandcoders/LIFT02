@@ -13,8 +13,8 @@
   };
 </script>
 
-<div class="dev flex flex-row justify-between" {onclick} {onkeydown} role="button" tabindex="0">
-  <div class="dev text"><pre>status</pre></div>
-	<div class="dev text">{question.preview}</div>
-  <div class="dev text"><pre>actions</pre></div>
+<div class="dev dev-div flex flex-row justify-between" {onclick} {onkeydown} role="button" tabindex="0">
+  <div class="dev dev-div dev-text"><pre>status</pre></div>
+	<div class="dev dev-div dev-text">{question.preview}</div>
+  <div class="dev dev-div dev-text"><pre>actions</pre></div>
 </div>

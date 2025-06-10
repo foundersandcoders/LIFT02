@@ -24,23 +24,23 @@
 	const onListClick = () => { setView("detail") };
 </script>
 
-<div class="dev">
-	<div id="list-header" class="dev flex flex-row justify-between">
-		<h2 class="dev">List View</h2>
+<div class="dev dev-div">
+	<div id="list-header" class="dev dev-div flex flex-row justify-between">
+		<h2 class="dev dev-div">List View</h2>
 
-		<button onclick={onBackClick} class="dev button">
+		<button onclick={onBackClick} class="dev dev-div dev-button">
 			Back
 		</button>
 	</div>
 
-	<div id="list-items" class="dev flex flex-col justify-left">
+	<div id="list-items" class="dev dev-div flex flex-col justify-left">
 		{#if list.raw == "actions"}
 			{#await queryActions}
 				<p>Loading...</p>
 			{:then result}
 				{#if result.data}
 					{#each result.data as action}
-						<button onclick={onListClick} class="dev list">
+						<button onclick={onListClick} class="dev dev-div dev-list">
 							{action.description}
 						</button>
 					{/each}
@@ -61,7 +61,7 @@
 				<p>Error: {error.message}</p>
 			{/await}
 		{:else}
-			<div class="dev list">
+			<div class="dev dev-div dev-list">
 				<p>No list selected</p>
 			</div>
 		{/if}
