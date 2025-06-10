@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import Button from './Button.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
-	const onToggleDevMode = () => {
-		toggleDevMode();
-	};
+	const onToggleDevMode = () => { toggleDevMode() };
 </script>
 
 <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
@@ -25,7 +23,7 @@
 			<!-- Dev Mode Toggle (Development Only) -->
 			<button
 				onclick={onToggleDevMode}
-				class="dev button inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+				class="button inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
 				type="button"
 				aria-label="Toggle development mode"
 			>

@@ -116,7 +116,7 @@ SELECT
   1,
   false,
   NOW() - INTERVAL '2 months'
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 -- Updated version of the same question
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest, created_at) 
@@ -130,7 +130,7 @@ SELECT
   2,
   true,
   NOW() - INTERVAL '2 weeks'
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -142,7 +142,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -154,7 +154,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 3;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -166,7 +166,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 4;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 4;
 
 -- Parental responsibilities
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -179,7 +179,7 @@ SELECT
   'private',
   1,
   true
-FROM questions q WHERE q.category = 'parental' AND q."order" = 6;
+FROM questions q WHERE q.category = 'my_responsibilities' AND q."order" = 6;
 
 -- Support needs
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -192,7 +192,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'employer_Support' AND q."order" = 13;
+FROM questions q WHERE q.category = 'my_support_needs' AND q."order" = 13;
 
 -- ===========================================
 -- JORDAN MARTINEZ - UX Designer (Anxiety + Chronic Fatigue)
@@ -208,7 +208,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -220,7 +220,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -232,7 +232,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 3;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -244,7 +244,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 4;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 4;
 
 -- Disability details
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -257,7 +257,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'disability' AND q."order" = 10;
+FROM questions q WHERE q.category = 'my_conditions' AND q."order" = 10;
 
 -- Religious needs
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -270,7 +270,7 @@ SELECT
   'private',
   1,
   true
-FROM questions q WHERE q.category = 'religious' AND q."order" = 8;
+FROM questions q WHERE q.category = 'my_religion' AND q."order" = 8;
 
 -- ===========================================
 -- SAM CHEN - Data Analyst (Autism)
@@ -286,7 +286,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -298,7 +298,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -310,7 +310,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 3;
 
 -- Parental responsibilities  
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -323,7 +323,7 @@ SELECT
   'private',
   1,
   true
-FROM questions q WHERE q.category = 'parental' AND q."order" = 6;
+FROM questions q WHERE q.category = 'my_responsibilities' AND q."order" = 6;
 
 -- Personal introduction
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -336,7 +336,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'personal_Introduction' AND q."order" = 14;
+FROM questions q WHERE q.category = 'about_me' AND q."order" = 14;
 
 -- ===========================================
 -- PRIYA PATEL - Product Manager (Depression + Diabetes)
@@ -352,7 +352,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -364,7 +364,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 -- Updated version of good days response
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest, created_at) 
@@ -378,7 +378,7 @@ SELECT
   2,
   false,
   NOW() - INTERVAL '1 week'
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 -- Latest version
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -391,7 +391,7 @@ SELECT
   'public',
   3,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -403,7 +403,7 @@ SELECT
   'private',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 3;
 
 -- Disability barriers
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -416,7 +416,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'disability' AND q."order" = 11;
+FROM questions q WHERE q.category = 'my_conditions' AND q."order" = 11;
 
 -- ===========================================
 -- TAYLOR ADAMS - Marketing Specialist (Dyslexia)
@@ -432,7 +432,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 1;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 1;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -444,7 +444,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 2;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 2;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -456,7 +456,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 3;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 3;
 
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
 SELECT 
@@ -468,7 +468,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'wellbeing' AND q."order" = 4;
+FROM questions q WHERE q.category = 'my_wellbeing' AND q."order" = 4;
 
 -- Support needs
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -481,7 +481,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'employer_Support' AND q."order" = 13;
+FROM questions q WHERE q.category = 'my_support_needs' AND q."order" = 13;
 
 -- Colleague information
 INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
@@ -494,7 +494,7 @@ SELECT
   'public',
   1,
   true
-FROM questions q WHERE q.category = 'personal_Introduction' AND q."order" = 14;
+FROM questions q WHERE q.category = 'about_me' AND q."order" = 14;
 
 -- Insert comprehensive fake actions linked to responses
 
