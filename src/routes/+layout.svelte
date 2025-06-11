@@ -3,32 +3,52 @@
 	import Header from "$lib/components/layouts/Header.svelte";
 	import Footer from "$lib/components/layouts/Footer.svelte";
 	import { setContext } from 'svelte';
-	import type { ListCategory, View } from "$lib/types/ui";
+	import type { App, Detail, DetailItem, List, ListCategory, Table, View, ViewName } from "$lib/types/ui";
 
 	let devMode = $state<boolean>(true);
+	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : "");
+
+	let app = $state<App>({
+		view: {
+			name: "dash"
+		},
+		list: {
+			table: null,
+			category: {
+				raw: null,
+				format: null
+			}
+		},
+		detail: {
+			table: null,
+			item: {
+				rowId: null
+			}
+		}
+	});
+
+	setContext('getDetailItem', () => app.detail.item.rowId);
+	setContext('getDetailTable', () => app.detail.table);
 	setContext('getDevMode', () => devMode);
+	setContext('getListCategory', () => app.list.category);
+	setContext('getListTable', () => app.list.table);
+	setContext('getProfileId', () => profileId);
+	setContext('getViewName', () => app.view.name);
+
+	setContext('setDetailTable', (newTable:Table) => { app.detail.table = newTable });
+	setContext('setDetailItem', (newDbId:string) => { app.detail.item.rowId = newDbId });
+	setContext("setListCategory", (newCategory:ListCategory) => { app.list.category = newCategory });
+	setContext("setListTable", (newTable:Table) => { app.list.table = newTable });
+	setContext('setViewName', (newView:ViewName) => { app.view.name = newView });
 	setContext('toggleDevMode', () => { devMode = !devMode });
 
-	/* todo: Profile ID
-		This will need to be replaced by the authentication system
-		*/
-	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : "");
-	setContext('getProfileId', () => profileId);
-
-	let view = $state<View>("dash");
-	setContext('getView', () => view);
-	setContext('setView', (newView: View) => { view = newView });
-
-	let list = $state<ListCategory>({ raw: "", format: "" });
-	setContext('getList', () => list);
-	setContext('setList', (newList: ListCategory) => { list = newList });
-
 	let { children } = $props();
-
+	
+	$inspect(app.view).with((type, value) => console.log(`${type} view: ${value}`));
+	$inspect(app.list).with((type, value) => console.log(`${type} list: ${value}`));
+	$inspect(app.detail).with((type, value) => console.log(`${type} detail: ${value}`));
 	$inspect(devMode).with((type, value) => console.log(`${type} devMode: ${value}`));
 	$inspect(profileId).with((type, value) => console.log(`${type} profileId: ${value}`));
-	$inspect(view).with((type, value) => console.log(`${type} view: ${value}`));
-	$inspect(list).with((type, value) => console.log(`${type} list: ${value.raw}`));
 </script>
 
 <Header />

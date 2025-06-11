@@ -6,25 +6,33 @@
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getLatestActions } from '$lib/services/database';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
+	import { getContext } from 'svelte';
 
 	type Question = Database['public']['Tables']['questions']['Row'];
 
 	//Delete later --> for development only
 	const user_id = '550e8400-e29b-41d4-a716-446655440005';
 
-	interface Props {
-		questionId: string;
-	}
+	// interface Props {
+	// 	questionId: string;
+	// }
 
-	let { questionId }: Props = $props();
+	const getQuestionId = getContext<() => string>('getQuestionId');
+	let questionId = $derived(getQuestionId());
+	// let { questionId }: Props = $props();
 
 	const getData = async () => {
+		console.groupCollapsed(`getData`);
 		const question = await getQuestionById(questionId);
+		console.log('question', question);
 		const previousResponse = await getLatestResponse();
 
 		if (previousResponse) responseInput = previousResponse;
 
+		console.groupEnd();
+
 		return {
+			queryId: questionId,
 			question: question || null,
 			previousResponse: previousResponse || null
 		};
@@ -66,7 +74,9 @@
 	};
 </script>
 
-{#await getData() then response}
+{#await getData()}
+	<p>Loading...</p>
+{:then response}
 	{#if response.question && response.question.data}
 		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
 			<header>
@@ -134,9 +144,12 @@
 		</div>
 	{:else}
 		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
-			Sorry! We can't load you're questions right now. Please try again later.
+			<!-- Sorry! We can't load you're questions right now. Please try again later. -->
+			 No question found with ID {response.queryId}
 		</div>
 	{/if}
+{:catch error}
+	<p>DB Query Error: {error.message}</p>
 {/await}
 
 <style>

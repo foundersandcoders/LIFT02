@@ -1,18 +1,22 @@
 <script lang="ts">
-	import type { ListCategory, View } from "$lib/types/ui";
+	import type { ListCategory, ViewName } from "$lib/types/ui";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import { getContext } from 'svelte';
 	import ListItem from "$lib/components/cards/ListItem.svelte";
-	
-	const setView = getContext<(view:View) => void>('setView');
 
-	const getList = getContext<() => ListCategory>('getList');
-	const setList = getContext<(list:ListCategory) => void>('setList');
-	let list = $derived(getList());
+	const setViewName = getContext<(view:ViewName) => void>('setViewName');
+
+	const getListCategory = getContext<() => ListCategory>('getListCategory');
+	const setListCategory = getContext<(list:ListCategory) => void>('setListCategory');
+	let list = $derived(getListCategory());
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
+	
+	const getItemId = getContext<() => string>('getDetailItem');
+	const setItemId = getContext<(questionId:string) => void>('setDetailItem');
+	let questionId = $derived(getItemId());
 
 	let queryActions = $derived(getUserActions(profileId));
 	let queryQuestions = $derived(getQuestionsByCategory(list.raw));
@@ -21,7 +25,14 @@
 		setView("dash");
 		setList({ raw: "", format: "" });
 	};
-	const onListClick = () => { setView("detail") };
+	const onListClick = (item:any) => {
+		setView("detail");
+		if (item.raw != "action") {
+			console.log(`item.question_id: ${item.question_id}`);
+			console.log(`Question ID: ${questionId}`);
+			setQuestionId(item.question_id);
+		};
+	};
 </script>
 
 <div class="dev dev-div">
