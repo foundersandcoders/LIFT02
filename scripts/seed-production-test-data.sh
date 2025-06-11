@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Script to seed only questions data to production
-# This seeds the real questions without test user data
-# Uses the same approach as deploy-db.sh
+# Script to seed test data to production
+# This seeds fake test users and responses for development/testing
+# Uses the same approach as deploy-db.sh and seed-production-questions.sh
 
 set -e  # Exit on any error
 
@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}🌱 Seeding questions data to production...${NC}"
+echo -e "${GREEN}🌱 Seeding test data to production...${NC}"
 
 # Check if .env.production exists
 if [ ! -f ".env.production" ]; then
@@ -50,8 +50,12 @@ fi
 echo -e "${YELLOW}🔗 Linking to production project...${NC}"
 npx supabase link --project-ref "$SUPABASE_PROJECT_ID" || true
 
-# Execute the seed file directly (no migration history pollution)
-echo -e "${YELLOW}📤 Applying questions seed data...${NC}"
-./scripts/execute-sql-production.sh supabase/seed.sql
+# Execute the test data file directly (no migration history pollution)
+echo -e "${YELLOW}📤 Applying test data...${NC}"
+./scripts/execute-sql-production.sh supabase/test_data_seed.sql
 
-echo -e "${GREEN}✅ Questions seeded successfully in production!${NC}"
+echo -e "${GREEN}✅ Test data seeded successfully in production!${NC}"
+echo -e "${YELLOW}   - 5 fake users with profiles${NC}"
+echo -e "${YELLOW}   - Sample responses across different categories${NC}"
+echo -e "${YELLOW}   - Workplace adjustments and actions${NC}"
+echo -e "${YELLOW}   - Sharing events with line managers${NC}"
