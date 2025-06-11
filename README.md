@@ -164,6 +164,8 @@ After resetting your database, add test data for development:
 supabase db reset
 
 # Add test data (5 fake users with comprehensive responses)
+# Make script executable first (if needed)
+chmod +x ./scripts/seed-test-data.sh
 ./scripts/seed-test-data.sh
 ```
 
@@ -220,11 +222,26 @@ If this is your first time pushing to production, you need to link your local pr
 
 #### Subsequent Deployments
 
-Once linked, you can push schema changes directly:
+Once linked, you can push schema changes using one of these methods:
 
+**Option 1: Direct command with password**
 ```bash
 # Push local schema changes to production Supabase project
-supabase db push
+npx supabase db push --password 'YOUR_DB_PASSWORD'
+```
+
+**Option 2: Use the deployment script (recommended)**
+```bash
+# Make script executable first (if needed)
+chmod +x ./scripts/deploy-db.sh
+# Uses environment variables from .env.production
+./scripts/deploy-db.sh
+```
+
+**Option 3: Traditional interactive prompt**
+```bash
+# Push local schema changes to production Supabase project
+npx supabase db push
 ```
 
 #### Seeding Test Data in Production
@@ -240,6 +257,9 @@ If you need test data in your production environment (e.g., for demos or testing
 2. **Run the seeding script:**
 
    ```bash
+   # Make script executable first (if needed)
+   chmod +x ./scripts/seed-test-data.sh
+   
    # Option 1: Run locally with production env vars
    vercel env pull .env.production
    source .env.production

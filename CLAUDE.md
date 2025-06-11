@@ -144,8 +144,14 @@ supabase stop                   # Stop local Supabase instance
 supabase status                 # Check status and get keys
 supabase db reset               # Reset and seed local database with questions
 supabase db push                # Push schema changes to production
+./scripts/deploy-db.sh          # Automated deployment using .env.production
+                               # (run chmod +x ./scripts/deploy-db.sh if needed)
 
 # Database seeding commands
+# Make scripts executable first (if needed)
+chmod +x ./scripts/seed-test-data.sh
+chmod +x ./scripts/deploy-db.sh
+
 ./scripts/seed-test-data.sh     # Add test data (works local and production)
                                # Local: uses default postgres password
                                # Vercel: requires DATABASE_URL environment variable

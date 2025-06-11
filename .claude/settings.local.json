@@ -16,7 +16,10 @@
       "Bash(grep:*)",
       "Bash(sed:*)",
       "Bash(find:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(supabase projects:*)",
+      "Bash(npx supabase link:*)",
+      "Bash(npx supabase db push:*)"
     ],
     "deny": []
   },
