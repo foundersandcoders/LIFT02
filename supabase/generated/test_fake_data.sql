@@ -3,6 +3,16 @@
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 -- ===========================================
+-- EMPLOYERS
+-- ===========================================
+
+INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd');
+INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency');
+INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc');
+INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp');
+INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks');
+
+-- ===========================================
 -- AUTH USERS (for local testing only)
 -- ===========================================
 
@@ -151,17 +161,167 @@ INSERT INTO auth.users (
     '',
     ''
 );
+INSERT INTO auth.users (
+    instance_id,
+    id,
+    aud,
+    role,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    confirmation_token,
+    email_change,
+    email_change_token_new,
+    recovery_token
+) VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    '550e8400-e29b-41d4-a716-446655440010'::uuid,
+    'authenticated',
+    'authenticated',
+    'sarah.wilson@techcorp.com',
+    '$2a$10$7Z1234567890abcdefghijklmnopqrstuvwxyz',
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+);
+INSERT INTO auth.users (
+    instance_id,
+    id,
+    aud,
+    role,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    confirmation_token,
+    email_change,
+    email_change_token_new,
+    recovery_token
+) VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    '550e8400-e29b-41d4-a716-446655440011'::uuid,
+    'authenticated',
+    'authenticated',
+    'mike.johnson@creative.com',
+    '$2a$10$7Z1234567890abcdefghijklmnopqrstuvwxyz',
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+);
+INSERT INTO auth.users (
+    instance_id,
+    id,
+    aud,
+    role,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    confirmation_token,
+    email_change,
+    email_change_token_new,
+    recovery_token
+) VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    '550e8400-e29b-41d4-a716-446655440012'::uuid,
+    'authenticated',
+    'authenticated',
+    'lisa.brown@dataflow.com',
+    '$2a$10$7Z1234567890abcdefghijklmnopqrstuvwxyz',
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+);
+INSERT INTO auth.users (
+    instance_id,
+    id,
+    aud,
+    role,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    confirmation_token,
+    email_change,
+    email_change_token_new,
+    recovery_token
+) VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    '550e8400-e29b-41d4-a716-446655440013'::uuid,
+    'authenticated',
+    'authenticated',
+    'david.kim@innovatecorp.com',
+    '$2a$10$7Z1234567890abcdefghijklmnopqrstuvwxyz',
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+);
+INSERT INTO auth.users (
+    instance_id,
+    id,
+    aud,
+    role,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    confirmation_token,
+    email_change,
+    email_change_token_new,
+    recovery_token
+) VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    '550e8400-e29b-41d4-a716-446655440014'::uuid,
+    'authenticated',
+    'authenticated',
+    'emma.rodriguez@brandworks.com',
+    '$2a$10$7Z1234567890abcdefghijklmnopqrstuvwxyz',
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+);
 
 -- ===========================================
 -- PROFILES
 -- ===========================================
 
-INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_name, line_manager_name, line_manager_email) VALUES
-  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alexander', ARRAY['they', 'them', 'theirs'], 'Software Developer', 'TechCorp Ltd', 'Sarah Wilson', 'sarah.wilson@techcorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', ARRAY['she', 'her', 'hers'], 'UX Designer', 'Creative Agency', 'Mike Johnson', 'mike.johnson@creative.com'),
-  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', ARRAY['he', 'him', 'his'], 'Data Analyst', 'DataFlow Inc', 'Lisa Brown', 'lisa.brown@dataflow.com'),
-  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', ARRAY['she', 'her', 'hers'], 'Product Manager', 'InnovateCorp', 'David Kim', 'david.kim@innovatecorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', ARRAY['he', 'him', 'his'], 'Marketing Specialist', 'BrandWorks', 'Emma Rodriguez', 'emma.rodriguez@brandworks.com');
+INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_id, employer_name, line_manager_id, line_manager_name, line_manager_email) VALUES
+  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alexander', ARRAY['they', 'them', 'theirs'], 'Software Developer', '990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd', '550e8400-e29b-41d4-a716-446655440010'::uuid, 'Sarah Wilson', 'sarah.wilson@techcorp.com'),
+  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', ARRAY['she', 'her', 'hers'], 'UX Designer', '990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency', '550e8400-e29b-41d4-a716-446655440011'::uuid, 'Mike Johnson', 'mike.johnson@creative.com'),
+  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', ARRAY['he', 'him', 'his'], 'Data Analyst', '990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc', '550e8400-e29b-41d4-a716-446655440012'::uuid, 'Lisa Brown', 'lisa.brown@dataflow.com'),
+  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', ARRAY['she', 'her', 'hers'], 'Product Manager', '990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp', '550e8400-e29b-41d4-a716-446655440013'::uuid, 'David Kim', 'david.kim@innovatecorp.com'),
+  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', ARRAY['he', 'him', 'his'], 'Marketing Specialist', '990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks', '550e8400-e29b-41d4-a716-446655440014'::uuid, 'Emma Rodriguez', 'emma.rodriguez@brandworks.com'),
+  ('550e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440010'::uuid, 'Sarah Wilson', ARRAY['she', 'her', 'hers'], 'Engineering Manager', '990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd', null, null, null),
+  ('550e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440011'::uuid, 'Mike Johnson', ARRAY['he', 'him', 'his'], 'Design Director', '990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency', null, null, null),
+  ('550e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440012'::uuid, 'Lisa Brown', ARRAY['she', 'her', 'hers'], 'Analytics Lead', '990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc', null, null, null),
+  ('550e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440013'::uuid, 'David Kim', ARRAY['he', 'him', 'his'], 'Product Director', '990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp', null, null, null),
+  ('550e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440014'::uuid, 'Emma Rodriguez', ARRAY['she', 'her', 'hers'], 'Marketing Director', '990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks', null, null, null);
 
 -- ===========================================
 -- RESPONSES

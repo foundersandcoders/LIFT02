@@ -18,9 +18,9 @@ export type Database = {
       graphql: {
         Args: {
           operationName?: string
-          query?: string
-          variables?: Json
           extensions?: Json
+          variables?: Json
+          query?: string
         }
         Returns: Json
       }
@@ -45,7 +45,7 @@ export type Database = {
           type: string
           updated_at: string | null
           user_id: string | null
-          version: number
+          version: number | null
         }
         Insert: {
           created_at?: string | null
@@ -57,7 +57,7 @@ export type Database = {
           type: string
           updated_at?: string | null
           user_id?: string | null
-          version?: number
+          version?: number | null
         }
         Update: {
           created_at?: string | null
@@ -69,7 +69,7 @@ export type Database = {
           type?: string
           updated_at?: string | null
           user_id?: string | null
-          version?: number
+          version?: number | null
         }
         Relationships: [
           {
@@ -81,6 +81,27 @@ export type Database = {
           },
         ]
       }
+      employers: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           employer_id: string | null
@@ -89,8 +110,8 @@ export type Database = {
           inserted_at: string | null
           job_title: string | null
           line_manager_email: string | null
+          line_manager_id: string | null
           line_manager_name: string | null
-          line_manager_user_id: string | null
           name: string | null
           pronouns: string[] | null
           updated_at: string | null
@@ -103,8 +124,8 @@ export type Database = {
           inserted_at?: string | null
           job_title?: string | null
           line_manager_email?: string | null
+          line_manager_id?: string | null
           line_manager_name?: string | null
-          line_manager_user_id?: string | null
           name?: string | null
           pronouns?: string[] | null
           updated_at?: string | null
@@ -117,36 +138,44 @@ export type Database = {
           inserted_at?: string | null
           job_title?: string | null
           line_manager_email?: string | null
+          line_manager_id?: string | null
           line_manager_name?: string | null
-          line_manager_user_id?: string | null
           name?: string | null
           pronouns?: string[] | null
           updated_at?: string | null
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_employer_id_fkey"
+            columns: ["employer_id"]
+            isOneToOne: false
+            referencedRelation: "employers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       questions: {
         Row: {
           category: string
           id: string
           order: number
+          preview: string | null
           question_text: string
-          preview: string
         }
         Insert: {
           category: string
           id?: string
           order: number
+          preview?: string | null
           question_text: string
-          preview: string
         }
-        Update: { 
+        Update: {
           category?: string
           id?: string
           order?: number
+          preview?: string | null
           question_text?: string
-          preview?: string
         }
         Relationships: []
       }
@@ -160,7 +189,7 @@ export type Database = {
           status: string | null
           updated_at: string | null
           user_id: string | null
-          version: number
+          version: number | null
           visibility: string
         }
         Insert: {
@@ -172,7 +201,7 @@ export type Database = {
           status?: string | null
           updated_at?: string | null
           user_id?: string | null
-          version?: number
+          version?: number | null
           visibility?: string
         }
         Update: {
@@ -184,7 +213,7 @@ export type Database = {
           status?: string | null
           updated_at?: string | null
           user_id?: string | null
-          version?: number
+          version?: number | null
           visibility?: string
         }
         Relationships: [

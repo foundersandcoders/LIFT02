@@ -1,4 +1,26 @@
 {
+	"employers": [
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440001",
+			"name": "TechCorp Ltd"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440002", 
+			"name": "Creative Agency"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440003",
+			"name": "DataFlow Inc"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440004",
+			"name": "InnovateCorp"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440005",
+			"name": "BrandWorks"
+		}
+	],
 	"users": [
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440001",
@@ -6,7 +28,9 @@
 			"name": "Alexander",
 			"pronouns": ["they", "them", "theirs"],
 			"job_title": "Software Developer",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440001",
 			"employer_name": "TechCorp Ltd",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440010",
 			"line_manager_name": "Sarah Wilson",
 			"line_manager_email": "sarah.wilson@techcorp.com"
 		},
@@ -16,7 +40,9 @@
 			"name": "Jordan Martinez",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "UX Designer",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440002",
 			"employer_name": "Creative Agency",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440011",
 			"line_manager_name": "Mike Johnson",
 			"line_manager_email": "mike.johnson@creative.com"
 		},
@@ -26,7 +52,9 @@
 			"name": "Sam Chen",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Data Analyst",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440003",
 			"employer_name": "DataFlow Inc",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440012",
 			"line_manager_name": "Lisa Brown",
 			"line_manager_email": "lisa.brown@dataflow.com"
 		},
@@ -36,7 +64,9 @@
 			"name": "Priya Patel",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "Product Manager",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440004",
 			"employer_name": "InnovateCorp",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440013",
 			"line_manager_name": "David Kim",
 			"line_manager_email": "david.kim@innovatecorp.com"
 		},
@@ -46,9 +76,71 @@
 			"name": "Taylor Adams",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Marketing Specialist",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440005",
 			"employer_name": "BrandWorks",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440014",
 			"line_manager_name": "Emma Rodriguez",
 			"line_manager_email": "emma.rodriguez@brandworks.com"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440010",
+			"email": "sarah.wilson@techcorp.com",
+			"name": "Sarah Wilson",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Engineering Manager",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440001",
+			"employer_name": "TechCorp Ltd",
+			"line_manager_id": null,
+			"line_manager_name": null,
+			"line_manager_email": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440011",
+			"email": "mike.johnson@creative.com",
+			"name": "Mike Johnson",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Design Director",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440002",
+			"employer_name": "Creative Agency",
+			"line_manager_id": null,
+			"line_manager_name": null,
+			"line_manager_email": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440012",
+			"email": "lisa.brown@dataflow.com",
+			"name": "Lisa Brown",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Analytics Lead",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440003",
+			"employer_name": "DataFlow Inc",
+			"line_manager_id": null,
+			"line_manager_name": null,
+			"line_manager_email": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440013",
+			"email": "david.kim@innovatecorp.com",
+			"name": "David Kim",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Product Director",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440004",
+			"employer_name": "InnovateCorp",
+			"line_manager_id": null,
+			"line_manager_name": null,
+			"line_manager_email": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440014",
+			"email": "emma.rodriguez@brandworks.com",
+			"name": "Emma Rodriguez",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Marketing Director",
+			"employer_id": "990e8400-e29b-41d4-a716-446655440005",
+			"employer_name": "BrandWorks",
+			"line_manager_id": null,
+			"line_manager_name": null,
+			"line_manager_email": null
 		}
 	],
 	"responses": [

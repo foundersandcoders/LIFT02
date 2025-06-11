@@ -34,7 +34,8 @@
       "Bash(./scripts/seed-test-data-local.sh:*)",
       "Bash(./scripts/delete-test-data-local.sh:*)",
       "Bash(./scripts/local-seed-test-data.sh:*)",
-      "Bash(./scripts/local-delete-test-data.sh:*)"
+      "Bash(./scripts/local-delete-test-data.sh:*)",
+      "Bash(supabase db reset:*)"
     ],
     "deny": []
   },

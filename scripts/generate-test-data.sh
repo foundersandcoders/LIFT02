@@ -70,10 +70,20 @@ cat > supabase/generated/test_fake_data.sql << 'EOF'
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 -- ===========================================
--- AUTH USERS (for local testing only)
+-- EMPLOYERS
 -- ===========================================
 
 EOF
+
+# Add employers
+echo "$TEST_DATA" | jq -r '.employers[] | 
+"INSERT INTO employers (id, name) VALUES (\u0027" + .id + "\u0027::uuid, \u0027" + .name + "\u0027);"' >> supabase/generated/test_fake_data.sql
+
+echo "" >> supabase/generated/test_fake_data.sql
+echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
+echo "-- AUTH USERS (for local testing only)" >> supabase/generated/test_fake_data.sql
+echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
+echo "" >> supabase/generated/test_fake_data.sql
 
 # Add auth users
 echo "$TEST_DATA" | jq -r '.users[] | 
@@ -113,11 +123,11 @@ echo "-- PROFILES" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
 echo "" >> supabase/generated/test_fake_data.sql
 
-# Add profiles
-echo "INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_name, line_manager_name, line_manager_email) VALUES" >> supabase/generated/test_fake_data.sql
+# Add profiles  
+echo "INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_id, employer_name, line_manager_id, line_manager_name, line_manager_email) VALUES" >> supabase/generated/test_fake_data.sql
 
 echo "$TEST_DATA" | jq -r '.users | length as $len | to_entries | map(
-  "  (\u0027" + .value.id + "\u0027::uuid, \u0027" + .value.id + "\u0027::uuid, \u0027" + .value.name + "\u0027, ARRAY[" + (.value.pronouns | map("\u0027" + . + "\u0027") | join(", ")) + "], \u0027" + .value.job_title + "\u0027, \u0027" + .value.employer_name + "\u0027, \u0027" + .value.line_manager_name + "\u0027, \u0027" + .value.line_manager_email + "\u0027)" + (if (.key == ($len - 1)) then ";" else "," end)
+  "  (\u0027" + .value.id + "\u0027::uuid, \u0027" + .value.id + "\u0027::uuid, \u0027" + .value.name + "\u0027, ARRAY[" + (.value.pronouns | map("\u0027" + . + "\u0027") | join(", ")) + "], \u0027" + .value.job_title + "\u0027, \u0027" + .value.employer_id + "\u0027::uuid, \u0027" + .value.employer_name + "\u0027, " + (if .value.line_manager_id != null then "\u0027" + .value.line_manager_id + "\u0027::uuid" else "null" end) + ", " + (if .value.line_manager_name != null then "\u0027" + .value.line_manager_name + "\u0027" else "null" end) + ", " + (if .value.line_manager_email != null then "\u0027" + .value.line_manager_email + "\u0027" else "null" end) + ")" + (if (.key == ($len - 1)) then ";" else "," end)
 ) | join("\n")' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
@@ -273,6 +283,17 @@ echo "$TEST_DATA" | jq -r '.users | map("    \u0027" + .id + "\u0027::uuid") | j
 cat >> supabase/generated/delete_test_fake_data.sql << 'EOF'
 );
 
+-- 7. Delete test employers (only those used in test data)
+DELETE FROM employers 
+WHERE id IN (
+EOF
+
+# Add employer IDs for deletion
+echo "$TEST_DATA" | jq -r '.employers | map("    \u0027" + .id + "\u0027::uuid") | join(",\n")' >> supabase/generated/delete_test_fake_data.sql
+
+cat >> supabase/generated/delete_test_fake_data.sql << 'EOF'
+);
+
 -- Reset sequences to ensure clean state
 SELECT setval('response_version_seq', 1, false);
 SELECT setval('action_version_seq', 1, false);
@@ -293,6 +314,8 @@ SELECT 'sharing_event_responses', COUNT(*) FROM sharing_event_responses
 UNION ALL
 SELECT 'sharing_event_actions', COUNT(*) FROM sharing_event_actions
 UNION ALL
+SELECT 'employers', COUNT(*) FROM employers
+UNION ALL
 SELECT 'questions', COUNT(*) FROM questions;
 */
 EOF
@@ -301,12 +324,14 @@ echo -e "${GREEN}✅ Generated supabase/generated/delete_test_fake_data.sql${NC}
 
 echo -e "${YELLOW}📊 Summary:${NC}"
 QUESTION_COUNT=$(echo "$QUESTIONS_DATA" | jq '.questions | length')
+EMPLOYER_COUNT=$(echo "$TEST_DATA" | jq '.employers | length')
 USER_COUNT=$(echo "$TEST_DATA" | jq '.users | length')
 RESPONSE_COUNT=$(echo "$TEST_DATA" | jq '.responses | length') 
 ACTION_COUNT=$(echo "$TEST_DATA" | jq '.actions | length')
 SHARING_COUNT=$(echo "$TEST_DATA" | jq '.sharing_events | length')
 
 echo "   - Questions: $QUESTION_COUNT"
+echo "   - Employers: $EMPLOYER_COUNT"
 echo "   - Users: $USER_COUNT"
 echo "   - Responses: $RESPONSE_COUNT"
 echo "   - Actions: $ACTION_COUNT"
