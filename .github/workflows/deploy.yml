@@ -1,0 +1,54 @@
+name: BuDeployild
+
+on:
+  push:
+    branches: [deploy]
+
+  pull_request:
+    branches: [deploy]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Check for Lock File
+        run: |
+          if [ ! -f package-lock.json ] && [ ! -f npm-shrinkwrap.json ] && [ ! -f yarn.lock ];
+            then echo "Error: No lock file found! Ensure you have committed a lock file."
+          exit 1
+          fi
+
+      #   - name: Create .env file
+      #     env:
+      #       PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+      #       PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+      #     run: |
+      #       echo "PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }}" >> .env
+      #       echo "PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}" >> .env
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # LTS version of Node
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type checking
+        run: npm run check
+
+      - name: Lint & Format
+        run: npm run format
+
+      # - name: Run tests
+      # run: |
+      #npm install -D jsdom
+      # npm run test
+
+      - name: Build
+        run: npm run build
