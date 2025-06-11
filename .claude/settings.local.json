@@ -20,7 +20,21 @@
       "Bash(supabase projects:*)",
       "Bash(npx supabase link:*)",
       "Bash(npx supabase db push:*)",
-      "Bash(npx supabase:*)"
+      "Bash(npx supabase:*)",
+      "Bash(chmod:*)",
+      "Bash(./scripts/delete-test-data-api.sh:*)",
+      "Bash(./scripts/seed-production-test-data-api.sh:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(./scripts/generate-test-data.sh:*)",
+      "Bash(./scripts/seed-test-data-production.sh:*)",
+      "Bash(./scripts/delete-test-data-production.sh:*)",
+      "Bash(./scripts/seed-questions-production.sh:*)",
+      "Bash(mkdir:*)",
+      "Bash(./scripts/seed-test-data-local.sh:*)",
+      "Bash(./scripts/delete-test-data-local.sh:*)",
+      "Bash(./scripts/local-seed-test-data.sh:*)",
+      "Bash(./scripts/local-delete-test-data.sh:*)"
     ],
     "deny": []
   },

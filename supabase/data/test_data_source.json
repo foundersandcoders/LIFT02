@@ -1,0 +1,178 @@
+{
+	"users": [
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440001",
+			"email": "alex.thompson@example.com",
+			"name": "Alexander",
+			"pronouns": ["they", "them", "theirs"],
+			"job_title": "Software Developer",
+			"employer_name": "TechCorp Ltd",
+			"line_manager_name": "Sarah Wilson",
+			"line_manager_email": "sarah.wilson@techcorp.com"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440002",
+			"email": "jordan.martinez@example.com",
+			"name": "Jordan Martinez",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "UX Designer",
+			"employer_name": "Creative Agency",
+			"line_manager_name": "Mike Johnson",
+			"line_manager_email": "mike.johnson@creative.com"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440003",
+			"email": "sam.chen@example.com",
+			"name": "Sam Chen",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Data Analyst",
+			"employer_name": "DataFlow Inc",
+			"line_manager_name": "Lisa Brown",
+			"line_manager_email": "lisa.brown@dataflow.com"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440004",
+			"email": "priya.patel@example.com",
+			"name": "Priya Patel",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Product Manager",
+			"employer_name": "InnovateCorp",
+			"line_manager_name": "David Kim",
+			"line_manager_email": "david.kim@innovatecorp.com"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440005",
+			"email": "taylor.adams@example.com",
+			"name": "Taylor Adams",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Marketing Specialist",
+			"employer_name": "BrandWorks",
+			"line_manager_name": "Emma Rodriguez",
+			"line_manager_email": "emma.rodriguez@brandworks.com"
+		}
+	],
+	"responses": [
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I have ADHD which significantly impacts my concentration and executive function. Open office environments are particularly challenging due to auditory processing sensitivity.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 2,
+			"question_category": "my_wellbeing",
+			"response_text": "On good days, I am energetic, creative, and able to hyperfocus on tasks. I communicate clearly and enjoy collaborating with the team.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440003",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 3,
+			"question_category": "my_wellbeing",
+			"response_text": "On difficult days, I may appear restless or fidgety, have difficulty sitting through long meetings, and need more time to process verbal instructions.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440020",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I have generalized anxiety disorder and chronic fatigue syndrome. Unexpected changes in deadlines or project scope can trigger anxiety episodes.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440021",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 2,
+			"question_category": "my_wellbeing",
+			"response_text": "On good days, I am creative, collaborative, and detail-oriented. I can engage fully in brainstorming sessions and provide thoughtful design feedback.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440030",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I am autistic and have sensory processing sensitivities. Bright fluorescent lights and sudden loud noises can be overwhelming.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		}
+	],
+	"actions": [
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440001",
+			"type": "workplace_adjustment",
+			"description": "Provide noise-cancelling headphones and assign desk in quieter area of office",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440002",
+			"type": "schedule_adjustment",
+			"description": "Allow 15-minute breaks every 90 minutes to help with focus",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440010",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440020",
+			"type": "communication",
+			"description": "Provide 48-hour advance notice for project changes when possible",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		}
+	],
+	"sharing_events": [
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "sarah.wilson@techcorp.com",
+			"message": "Hi Sarah, I wanted to share my workplace passport with you so you can better understand my needs and how to support me in my role.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440001",
+				"660e8400-e29b-41d4-a716-446655440002"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440001", "770e8400-e29b-41d4-a716-446655440002"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "mike.johnson@creative.com",
+			"message": "Hi Mike, here is my workplace passport with information about my needs and how we can work together effectively.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440020",
+				"660e8400-e29b-41d4-a716-446655440021"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440010"]
+		}
+	]
+}

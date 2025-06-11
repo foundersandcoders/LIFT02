@@ -165,8 +165,8 @@ supabase db reset
 
 # Add test data (5 fake users with comprehensive responses)
 # Make script executable first (if needed)
-chmod +x ./scripts/seed-test-data.sh
-./scripts/seed-test-data.sh
+chmod +x ./scripts/local-seed-test-data.sh
+./scripts/local-seed-test-data.sh
 ```
 
 **What the test data includes:**
@@ -180,7 +180,7 @@ chmod +x ./scripts/seed-test-data.sh
 
 #### Environment-Smart Seeding Script
 
-The `seed-test-data.sh` script automatically detects your environment:
+The `prod-seed-test-data.sh` script automatically detects your environment:
 
 **Local Development:**
 
@@ -233,9 +233,9 @@ npx supabase db push --password 'YOUR_DB_PASSWORD'
 **Option 2: Use the deployment script (recommended)**
 ```bash
 # Make script executable first (if needed)
-chmod +x ./scripts/deploy-db.sh
+chmod +x ./scripts/prod-run-migrations.sh
 # Uses environment variables from .env.production
-./scripts/deploy-db.sh
+./scripts/prod-run-migrations.sh
 ```
 
 **Option 3: Traditional interactive prompt**
@@ -258,15 +258,15 @@ If you need test data in your production environment (e.g., for demos or testing
 
    ```bash
    # Make script executable first (if needed)
-   chmod +x ./scripts/seed-test-data.sh
+   chmod +x ./scripts/prod-seed-test-data.sh
    
    # Option 1: Run locally with production env vars
    vercel env pull .env.production
    source .env.production
-   ./scripts/seed-test-data.sh
+   ./scripts/prod-seed-test-data.sh
 
    # Option 2: Run with environment variables directly
-   DATABASE_URL="your-production-url" ./scripts/seed-test-data.sh
+   DATABASE_URL="your-production-url" ./scripts/prod-seed-test-data.sh
    ```
 
 ⚠️ **Warning**: Only add test data to production if you need it for demos or testing. Real user data should come through the application interface.
