@@ -19,7 +19,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(supabase projects:*)",
       "Bash(npx supabase link:*)",
-      "Bash(npx supabase db push:*)"
+      "Bash(npx supabase db push:*)",
+      "Bash(npx supabase:*)"
     ],
     "deny": []
   },

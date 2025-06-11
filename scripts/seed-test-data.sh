@@ -14,8 +14,8 @@ if [ -f ".env.local" ] && [ -d "supabase" ]; then
     echo "📍 Detected local development environment"
     
     # Check if Supabase is running locally
-    if ! supabase status &> /dev/null; then
-        echo "❌ Local Supabase is not running. Start it with 'supabase start'"
+    if ! npx supabase status &> /dev/null; then
+        echo "❌ Local Supabase is not running. Start it with 'npx supabase start'"
         exit 1
     fi
     
