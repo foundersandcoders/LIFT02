@@ -5,8 +5,12 @@ export interface App {
   detail: Detail;
 }
 
-export interface Profile { id: RowId }
-export interface View { name: ViewName }
+export interface Profile {
+  id: RowId
+}
+export interface View {
+  name: ViewName
+}
 export interface List {
   table: TableName;
   category: ListCategory;
@@ -20,7 +24,9 @@ export interface ListCategory {
   raw: RowName;
   format: RowName;
 }
-export interface DetailItem { rowId: RowId }
+export interface DetailItem {
+  rowId: RowId
+}
 
 export type RowId = null | string;
 export type RowName = null | string;

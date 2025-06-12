@@ -1,42 +1,54 @@
 <script lang="ts">
-	import type { ListCategory, ViewName } from "$lib/types/appState";
+	import { getContext } from 'svelte';
+	import type { App, Detail, ListCategory, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { ListEntry } from "$lib/types/tableMain";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
-	import { getContext } from 'svelte';
 	import ListItem from "$lib/components/cards/ListItem.svelte";
 
-	const setViewName = getContext<(view:ViewName) => void>('setViewName');
-
-	const getListCategory = getContext<() => ListCategory>('getListCategory');
-	const setListCategory = getContext<(list:ListCategory) => void>('setListCategory');
-	let list = $derived(getListCategory());
-
-	const getProfileId = getContext<() => string>('getProfileId');
-	let profileId = $derived(getProfileId());
+	// App State
+	const getApp = getContext<() => App>('getApp');
+	const app = $derived(getApp());
 	
-	const getItemId = getContext<() => string>('getDetailItem');
-	const setItemId = getContext<(questionId:string) => void>('setDetailItem');
-	let questionId = $derived(getItemId());
+	let category:ListCategory = $derived(app.list.category);
+	let item:Detail = $derived(app.detail);
+	let profile:Profile = $derived(app.profile);
+	let table:TableName = $derived(app.list.table);
 
-	let queryActions = $derived(getUserActions(profileId));
-	let queryQuestions = $derived(getQuestionsByCategory(list.raw));
+	const setCategory = getContext<(list:ListCategory) => void>('setListCategory');
+	const setDetailItemId = getContext<(dbId:RowId) => void>('setDetailItem');
+	const setDetailTable = getContext<(table:TableName) => void>('setDetailItem');
+	const setView = getContext<(view:ViewName) => void>('setViewName');
 
+	// DB Queries
+	let queryActions = $derived((table == "actions" && profile.id != null)
+		? getUserActions(profile.id)
+		: null
+	);
+	let queryQuestions = $derived((table == "questions" && category.raw != null)
+		? getQuestionsByCategory(category.raw)
+		: null
+	);
+
+	// Event Handlers
 	const onBackClick = () => {
 		setView("dash");
-		setList({ raw: "", format: "" });
+		setCategory({
+			raw: null,
+			format: null
+		});
 	};
-	const onListClick = (item:any) => {
+	const onListClick = (dTable:TableName, dItem:ListEntry) => {
 		setView("detail");
-		if (item.raw != "action") {
-			console.log(`item.question_id: ${item.question_id}`);
-			console.log(`Question ID: ${questionId}`);
-			setQuestionId(item.question_id);
+		if (dTable == "questions" && dItem.id) {
+			setDetailTable(dTable);
+			setDetailItemId(dItem.id);
 		};
 	};
 </script>
 
 <div class="dev dev-div">
-	<div id="list-header" class="dev dev-div flex flex-row justify-between">
+	<div class="dev dev-div flex flex-row justify-between">
 		<h2 class="dev dev-div">List View</h2>
 
 		<button onclick={onBackClick} class="dev dev-div dev-button">
@@ -44,37 +56,46 @@
 		</button>
 	</div>
 
-	<div id="list-items" class="dev dev-div flex flex-col justify-left">
-		{#if list.raw == "actions"}
-			{#await queryActions}
-				<p>Loading...</p>
+	<div class="dev dev-div flex flex-col justify-left">
+		{#if table == "actions"}
+			{#await queryActions} <p>Loading...</p>
 			{:then result}
-				{#if result.data}
+				{#if result?.data}
 					{#each result.data as action}
-						<button onclick={onListClick} class="dev dev-div dev-list">
-							{action.description}
-						</button>
+						<ListItem {action} 
+							table={table}
+							on:itemClick={(entry) => onListClick(
+								entry.detail.table,
+								entry.detail.item
+							)}
+						/>
+					{:else} <p>No actions found</p>
 					{/each}
 				{/if}
-			{:catch error}
-				<p>Error: {error.message}</p>
+			{:catch error} <p>Error: {error.message}</p>
 			{/await}
-		{:else if list.raw}
+		{:else if table == "questions" && category.raw}
 			{#await queryQuestions}
 				<p>Loading...</p>
 			{:then result}
-				{#if result.data}
+				{#if result?.data}
 					{#each result.data as question}
-						<ListItem {question} />
+						<ListItem {question} 
+							table={table}
+							on:itemClick={(entry) => onListClick(
+								entry.detail.table,
+								entry.detail.item
+							)}
+						/>
+					{:else}
+						No questions found
 					{/each}
 				{/if}
 			{:catch error}
 				<p>Error: {error.message}</p>
 			{/await}
 		{:else}
-			<div class="dev dev-div dev-list">
-				<p>No list selected</p>
-			</div>
+			<p>No list selected</p>
 		{/if}
 	</div>
 </div>

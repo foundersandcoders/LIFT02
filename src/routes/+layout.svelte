@@ -65,11 +65,9 @@
 
 {@render children()}
 
-<Footer {devMode} {profileId}/>
+{#if devMode} <StateTable /> {/if}
 
-{#if devMode}
-	<StateTable />
-{/if}
+<Footer {devMode} {profileId}/>
 
 <!-- note: Header/Footer Components
  	It might be overkill to have the header & footer as separate components as they only appear here, but I'll do it that way for now as future-proofing

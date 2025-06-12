@@ -6,7 +6,6 @@ export function makePretty(
   format: TextFormat
 ):string {
   let output: string;
-
   switch (`${source} ${format}`) {
     case "table tile":
       output = toCaseTitle(cleanUnderscores(input));
@@ -14,7 +13,7 @@ export function makePretty(
     default:
       output = input;
   }
-
+  
   return output;
 }
 
