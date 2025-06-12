@@ -42,12 +42,16 @@ if psql "$DB_URL" -f supabase/generated/delete_test_fake_data.sql > /dev/null 2>
     echo -e "${YELLOW}📊 Data summary after cleanup:${NC}"
     
     # Count records in each table
+    ORGANIZATIONS_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM organizations;" 2>/dev/null | xargs)
+    LINE_MANAGERS_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM line_managers;" 2>/dev/null | xargs)
     PROFILES_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM profiles;" 2>/dev/null | xargs)
     RESPONSES_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM responses;" 2>/dev/null | xargs)
     ACTIONS_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM actions;" 2>/dev/null | xargs)
     SHARING_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM sharing_events;" 2>/dev/null | xargs)
     QUESTIONS_COUNT=$(psql "$DB_URL" -t -c "SELECT COUNT(*) FROM questions;" 2>/dev/null | xargs)
     
+    echo "   - Organizations: ${ORGANIZATIONS_COUNT:-0}"
+    echo "   - Line Managers: ${LINE_MANAGERS_COUNT:-0}"
     echo "   - Profiles: ${PROFILES_COUNT:-0}"
     echo "   - Responses: ${RESPONSES_COUNT:-0}"
     echo "   - Actions: ${ACTIONS_COUNT:-0}"

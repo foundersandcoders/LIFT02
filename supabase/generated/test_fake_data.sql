@@ -3,14 +3,14 @@
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 -- ===========================================
--- EMPLOYERS
+-- ORGANIZATIONS
 -- ===========================================
 
-INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd');
-INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency');
-INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc');
-INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp');
-INSERT INTO employers (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks');
+INSERT INTO organizations (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd');
+INSERT INTO organizations (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency');
+INSERT INTO organizations (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc');
+INSERT INTO organizations (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp');
+INSERT INTO organizations (id, name) VALUES ('990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks');
 
 -- ===========================================
 -- AUTH USERS (for local testing only)
@@ -308,20 +308,40 @@ INSERT INTO auth.users (
 );
 
 -- ===========================================
--- PROFILES
+-- PROFILES (step 1: without line_manager FK)
 -- ===========================================
 
-INSERT INTO profiles (id, user_id, name, pronouns, job_title, employer_id, employer_name, line_manager_id, line_manager_name, line_manager_email) VALUES
-  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alexander', ARRAY['they', 'them', 'theirs'], 'Software Developer', '990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd', '550e8400-e29b-41d4-a716-446655440010'::uuid, 'Sarah Wilson', 'sarah.wilson@techcorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', ARRAY['she', 'her', 'hers'], 'UX Designer', '990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency', '550e8400-e29b-41d4-a716-446655440011'::uuid, 'Mike Johnson', 'mike.johnson@creative.com'),
-  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', ARRAY['he', 'him', 'his'], 'Data Analyst', '990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc', '550e8400-e29b-41d4-a716-446655440012'::uuid, 'Lisa Brown', 'lisa.brown@dataflow.com'),
-  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', ARRAY['she', 'her', 'hers'], 'Product Manager', '990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp', '550e8400-e29b-41d4-a716-446655440013'::uuid, 'David Kim', 'david.kim@innovatecorp.com'),
-  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', ARRAY['he', 'him', 'his'], 'Marketing Specialist', '990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks', '550e8400-e29b-41d4-a716-446655440014'::uuid, 'Emma Rodriguez', 'emma.rodriguez@brandworks.com'),
-  ('550e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440010'::uuid, 'Sarah Wilson', ARRAY['she', 'her', 'hers'], 'Engineering Manager', '990e8400-e29b-41d4-a716-446655440001'::uuid, 'TechCorp Ltd', null, null, null),
-  ('550e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440011'::uuid, 'Mike Johnson', ARRAY['he', 'him', 'his'], 'Design Director', '990e8400-e29b-41d4-a716-446655440002'::uuid, 'Creative Agency', null, null, null),
-  ('550e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440012'::uuid, 'Lisa Brown', ARRAY['she', 'her', 'hers'], 'Analytics Lead', '990e8400-e29b-41d4-a716-446655440003'::uuid, 'DataFlow Inc', null, null, null),
-  ('550e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440013'::uuid, 'David Kim', ARRAY['he', 'him', 'his'], 'Product Director', '990e8400-e29b-41d4-a716-446655440004'::uuid, 'InnovateCorp', null, null, null),
-  ('550e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440014'::uuid, 'Emma Rodriguez', ARRAY['she', 'her', 'hers'], 'Marketing Director', '990e8400-e29b-41d4-a716-446655440005'::uuid, 'BrandWorks', null, null, null);
+INSERT INTO profiles (id, user_id, name, pronouns, job_title, is_line_manager) VALUES
+  ('550e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'Alexander', ARRAY['they', 'them', 'theirs'], 'Software Developer', false),
+  ('550e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'Jordan Martinez', ARRAY['she', 'her', 'hers'], 'UX Designer', false),
+  ('550e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'Sam Chen', ARRAY['he', 'him', 'his'], 'Data Analyst', false),
+  ('550e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'Priya Patel', ARRAY['she', 'her', 'hers'], 'Product Manager', false),
+  ('550e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'Taylor Adams', ARRAY['he', 'him', 'his'], 'Marketing Specialist', false),
+  ('550e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440010'::uuid, 'Sarah Wilson', ARRAY['she', 'her', 'hers'], 'Engineering Manager', true),
+  ('550e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440011'::uuid, 'Mike Johnson', ARRAY['he', 'him', 'his'], 'Design Director', true),
+  ('550e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440012'::uuid, 'Lisa Brown', ARRAY['she', 'her', 'hers'], 'Analytics Lead', true),
+  ('550e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440013'::uuid, 'David Kim', ARRAY['he', 'him', 'his'], 'Product Director', true),
+  ('550e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440014'::uuid, 'Emma Rodriguez', ARRAY['she', 'her', 'hers'], 'Marketing Director', true);
+
+-- ===========================================
+-- LINE MANAGERS
+-- ===========================================
+
+INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES ('440e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440010'::uuid, '990e8400-e29b-41d4-a716-446655440001'::uuid, 'sarah.wilson@techcorp.com');
+INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES ('440e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440011'::uuid, '990e8400-e29b-41d4-a716-446655440002'::uuid, 'mike.johnson@creative.com');
+INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES ('440e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440012'::uuid, '990e8400-e29b-41d4-a716-446655440003'::uuid, 'lisa.brown@dataflow.com');
+INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES ('440e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440013'::uuid, '990e8400-e29b-41d4-a716-446655440004'::uuid, 'david.kim@innovatecorp.com');
+INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES ('440e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440014'::uuid, '990e8400-e29b-41d4-a716-446655440005'::uuid, 'emma.rodriguez@brandworks.com');
+
+-- ===========================================
+-- PROFILES (step 2: update line_manager FK)
+-- ===========================================
+
+UPDATE profiles SET line_manager = '440e8400-e29b-41d4-a716-446655440001'::uuid WHERE id = '550e8400-e29b-41d4-a716-446655440001'::uuid;
+UPDATE profiles SET line_manager = '440e8400-e29b-41d4-a716-446655440002'::uuid WHERE id = '550e8400-e29b-41d4-a716-446655440002'::uuid;
+UPDATE profiles SET line_manager = '440e8400-e29b-41d4-a716-446655440003'::uuid WHERE id = '550e8400-e29b-41d4-a716-446655440003'::uuid;
+UPDATE profiles SET line_manager = '440e8400-e29b-41d4-a716-446655440004'::uuid WHERE id = '550e8400-e29b-41d4-a716-446655440004'::uuid;
+UPDATE profiles SET line_manager = '440e8400-e29b-41d4-a716-446655440005'::uuid WHERE id = '550e8400-e29b-41d4-a716-446655440005'::uuid;
 
 -- ===========================================
 -- RESPONSES

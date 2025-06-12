@@ -91,6 +91,32 @@ curl -s -X DELETE "$API_URL/profiles?$USER_FILTER" \
     -H "$AUTH_HEADER" \
     -H "$APIKEY_HEADER" > /dev/null
 
+echo "Deleting line managers..."
+# Extract line manager IDs from JSON
+LINE_MANAGER_IDS_JSON=$(echo "$TEST_DATA" | jq -r '.line_managers[].id')
+declare -a LINE_MANAGER_IDS
+while IFS= read -r line; do
+    LINE_MANAGER_IDS+=("$line")
+done <<< "$LINE_MANAGER_IDS_JSON"
+
+LINE_MANAGER_FILTER="id.in.($(IFS=,; echo "${LINE_MANAGER_IDS[*]}"))"
+curl -s -X DELETE "$API_URL/line_managers?$LINE_MANAGER_FILTER" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" > /dev/null
+
+echo "Deleting organizations..."
+# Extract organization IDs from JSON  
+ORG_IDS_JSON=$(echo "$TEST_DATA" | jq -r '.organizations[].id')
+declare -a ORG_IDS
+while IFS= read -r line; do
+    ORG_IDS+=("$line")
+done <<< "$ORG_IDS_JSON"
+
+ORG_FILTER="id.in.($(IFS=,; echo "${ORG_IDS[*]}"))"
+curl -s -X DELETE "$API_URL/organizations?$ORG_FILTER" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" > /dev/null
+
 echo -e "${YELLOW}🗑️  Deleting test users from auth...${NC}"
 
 # Extract test emails from JSON
@@ -127,6 +153,14 @@ echo -e "${GREEN}✅ Test data cleanup completed!${NC}"
 # Verify cleanup
 echo -e "${YELLOW}📊 Verifying cleanup...${NC}"
 
+ORG_COUNT=$(curl -s -X GET "$API_URL/organizations?select=count" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" | grep -o '"count":[0-9]*' | cut -d':' -f2)
+
+LINE_MANAGER_COUNT=$(curl -s -X GET "$API_URL/line_managers?select=count" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" | grep -o '"count":[0-9]*' | cut -d':' -f2)
+
 PROFILE_COUNT=$(curl -s -X GET "$API_URL/profiles?select=count" \
     -H "$AUTH_HEADER" \
     -H "$APIKEY_HEADER" | grep -o '"count":[0-9]*' | cut -d':' -f2)
@@ -140,6 +174,8 @@ QUESTION_COUNT=$(curl -s -X GET "$API_URL/questions?select=count" \
     -H "$APIKEY_HEADER" | grep -o '"count":[0-9]*' | cut -d':' -f2)
 
 echo "📊 Database status after cleanup:"
+echo "   - Organizations: ${ORG_COUNT:-0}"
+echo "   - Line Managers: ${LINE_MANAGER_COUNT:-0}"
 echo "   - Profiles: ${PROFILE_COUNT:-0}"
 echo "   - Responses: ${RESPONSE_COUNT:-0}" 
 echo "   - Questions: ${QUESTION_COUNT:-0} (preserved)"

@@ -84,18 +84,35 @@ for user_data in "${TEST_USERS[@]}"; do
     fi
 done
 
-echo -e "${YELLOW}📤 Step 2: Creating profiles via API...${NC}"
+echo -e "${YELLOW}📤 Step 2: Creating organizations via API...${NC}"
 
-# Create profiles using the data from JSON source
+# Create organizations using the data from JSON source
+ORGANIZATIONS_JSON=$(echo "$TEST_DATA" | jq '.organizations')
+
+ORG_RESPONSE=$(curl -s -X POST "$API_URL/organizations" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" \
+    -H "$CONTENT_HEADER" \
+    -H "$PREFER_HEADER" \
+    -d "$ORGANIZATIONS_JSON")
+
+if echo "$ORG_RESPONSE" | grep -q "error\|Error\|violates"; then
+    echo -e "${RED}❌ Organization creation failed: $ORG_RESPONSE${NC}"
+    exit 1
+else
+    echo -e "${GREEN}✅ Organizations created successfully${NC}"
+fi
+
+echo -e "${YELLOW}📤 Step 3: Creating profiles (without line_manager FK) via API...${NC}"
+
+# Create profiles using the data from JSON source (without line_manager FK first)
 PROFILES_JSON=$(echo "$TEST_DATA" | jq '[.users[] | {
     id: .id,
     user_id: .id,
     name: .name,
     pronouns: .pronouns,
     job_title: .job_title,
-    employer_name: .employer_name,
-    line_manager_name: .line_manager_name,
-    line_manager_email: .line_manager_email
+    is_line_manager: .is_line_manager
 }]')
 
 PROFILE_RESPONSE=$(curl -s -X POST "$API_URL/profiles" \
@@ -112,7 +129,43 @@ else
     echo -e "${GREEN}✅ Profiles created successfully${NC}"
 fi
 
-echo -e "${YELLOW}📤 Step 3: Creating responses via API...${NC}"
+echo -e "${YELLOW}📤 Step 4: Creating line managers via API...${NC}"
+
+# Create line managers using the data from JSON source
+LINE_MANAGERS_JSON=$(echo "$TEST_DATA" | jq '.line_managers')
+
+LM_RESPONSE=$(curl -s -X POST "$API_URL/line_managers" \
+    -H "$AUTH_HEADER" \
+    -H "$APIKEY_HEADER" \
+    -H "$CONTENT_HEADER" \
+    -H "$PREFER_HEADER" \
+    -d "$LINE_MANAGERS_JSON")
+
+if echo "$LM_RESPONSE" | grep -q "error\|Error\|violates"; then
+    echo -e "${RED}❌ Line manager creation failed: $LM_RESPONSE${NC}"
+    exit 1
+else
+    echo -e "${GREEN}✅ Line managers created successfully${NC}"
+fi
+
+echo -e "${YELLOW}📤 Step 5: Updating profiles with line_manager FK via API...${NC}"
+
+# Update profiles to set line_manager FK for users who have one
+echo "$TEST_DATA" | jq -c '.users[] | select(.line_manager != null)' | while read -r user; do
+    USER_ID=$(echo "$user" | jq -r '.id')
+    LINE_MANAGER_ID=$(echo "$user" | jq -r '.line_manager')
+    
+    curl -s -X PATCH "$API_URL/profiles?id=eq.$USER_ID" \
+        -H "$AUTH_HEADER" \
+        -H "$APIKEY_HEADER" \
+        -H "$CONTENT_HEADER" \
+        -H "$PREFER_HEADER" \
+        -d "{\"line_manager\": \"$LINE_MANAGER_ID\"}" > /dev/null
+    
+    echo "✅ Updated profile $USER_ID with line manager"
+done
+
+echo -e "${YELLOW}📤 Step 6: Creating responses via API...${NC}"
 
 # Create responses with dynamic question lookup
 echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
@@ -153,7 +206,7 @@ echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
     fi
 done
 
-echo -e "${YELLOW}📤 Step 4: Creating actions via API...${NC}"
+echo -e "${YELLOW}📤 Step 7: Creating actions via API...${NC}"
 
 # Create actions
 echo "$TEST_DATA" | jq -c '.actions[]' | while read -r action; do
@@ -170,7 +223,7 @@ echo "$TEST_DATA" | jq -c '.actions[]' | while read -r action; do
     echo "✅ Created action: $ACTION_TYPE"
 done
 
-echo -e "${YELLOW}📤 Step 5: Creating sharing events via API...${NC}"
+echo -e "${YELLOW}📤 Step 8: Creating sharing events via API...${NC}"
 
 # Create sharing events and their relationships
 echo "$TEST_DATA" | jq -c '.sharing_events[]' | while read -r sharing_event; do
@@ -224,10 +277,14 @@ done
 
 echo -e "${GREEN}✅ Comprehensive test data seeded successfully!${NC}"
 echo -e "${YELLOW}   📊 Created from JSON source:${NC}"
+ORG_COUNT=$(echo "$TEST_DATA" | jq '.organizations | length')
+LINE_MANAGER_COUNT=$(echo "$TEST_DATA" | jq '.line_managers | length')
 USER_COUNT=$(echo "$TEST_DATA" | jq '.users | length')
 RESPONSE_COUNT=$(echo "$TEST_DATA" | jq '.responses | length') 
 ACTION_COUNT=$(echo "$TEST_DATA" | jq '.actions | length')
 SHARING_COUNT=$(echo "$TEST_DATA" | jq '.sharing_events | length')
+echo -e "${YELLOW}   - $ORG_COUNT organizations${NC}"
+echo -e "${YELLOW}   - $LINE_MANAGER_COUNT line managers${NC}"
 echo -e "${YELLOW}   - $USER_COUNT diverse user profiles${NC}"
 echo -e "${YELLOW}   - $RESPONSE_COUNT response entries${NC}"
 echo -e "${YELLOW}   - $ACTION_COUNT workplace adjustments and actions${NC}"

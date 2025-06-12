@@ -115,8 +115,18 @@ WHERE id IN (
     '550e8400-e29b-41d4-a716-446655440014'::uuid
 );
 
--- 7. Delete test employers (only those used in test data)
-DELETE FROM employers 
+-- 7. Delete test line managers
+DELETE FROM line_managers 
+WHERE id IN (
+    '440e8400-e29b-41d4-a716-446655440001'::uuid,
+    '440e8400-e29b-41d4-a716-446655440002'::uuid,
+    '440e8400-e29b-41d4-a716-446655440003'::uuid,
+    '440e8400-e29b-41d4-a716-446655440004'::uuid,
+    '440e8400-e29b-41d4-a716-446655440005'::uuid
+);
+
+-- 8. Delete test organizations (only those used in test data)
+DELETE FROM organizations 
 WHERE id IN (
     '990e8400-e29b-41d4-a716-446655440001'::uuid,
     '990e8400-e29b-41d4-a716-446655440002'::uuid,
@@ -145,7 +155,9 @@ SELECT 'sharing_event_responses', COUNT(*) FROM sharing_event_responses
 UNION ALL
 SELECT 'sharing_event_actions', COUNT(*) FROM sharing_event_actions
 UNION ALL
-SELECT 'employers', COUNT(*) FROM employers
+SELECT 'line_managers', COUNT(*) FROM line_managers
+UNION ALL
+SELECT 'organizations', COUNT(*) FROM organizations
 UNION ALL
 SELECT 'questions', COUNT(*) FROM questions;
 */

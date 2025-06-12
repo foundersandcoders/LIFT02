@@ -38,6 +38,14 @@ fi
 echo -e "${GREEN}✅ Environment variables loaded${NC}"
 echo -e "${YELLOW}📡 Project ID: $SUPABASE_PROJECT_ID${NC}"
 
+# Check if npx is available
+if ! command -v npx >/dev/null 2>&1; then
+    echo -e "${RED}❌ Error: npx command not found${NC}"
+    echo -e "${YELLOW}💡 Run this script in your regular Terminal app (not VS Code)${NC}"
+    echo -e "${YELLOW}💡 Or install Node.js/npm to make npx available${NC}"
+    exit 127
+fi
+
 # Login to Supabase (if not already logged in)
 echo -e "${YELLOW}🔐 Checking Supabase authentication...${NC}"
 if ! npx supabase projects list >/dev/null 2>&1; then
