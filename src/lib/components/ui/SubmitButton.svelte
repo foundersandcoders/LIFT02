@@ -11,10 +11,11 @@
 		text: string;
 		status: string;
 		visibility: string;
+		actionType: string;
 		details: QuestionDetails;
 	}
 
-	let { text, status, details, visibility }: Props = $props();
+	let { text, status, details, actionType, visibility }: Props = $props();
 
 	function handleSubmit() {
 		createResponse(user_id, {
@@ -24,7 +25,7 @@
 			visibility: visibility
 		});
 		createAction(user_id, {
-			type: details.actionType,
+			type: actionType,
 			description: details.actionsInput,
 			response_id: details.responseId
 		});

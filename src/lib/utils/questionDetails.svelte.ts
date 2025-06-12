@@ -13,7 +13,7 @@ export const getQuestionDetails = async (
 	return {
 		responseInput: questionResponse?.response_text || null,
 		actionsInput: previousAction?.description || null,
-		actionType: previousAction?.type || null,
+		actionType: previousAction?.type || '',
 		responseId: questionResponse?.id || null
 	};
 };

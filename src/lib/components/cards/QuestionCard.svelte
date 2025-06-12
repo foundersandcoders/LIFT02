@@ -2,10 +2,18 @@
 	import { getQuestionById } from '$lib/services/database';
 	import SubmitButton from '../ui/SubmitButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import { getQuestionDetails } from '$lib/utils/questionDetails';
+	import { getQuestionDetails } from '$lib/utils/questionDetails.svelte';
 
 	//Delete later --> for development only
 	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+
+	let actionType = $state('');
+	let questionDetails = $state<QuestionDetails>({
+		responseInput: null,
+		actionsInput: null,
+		actionType: '',
+		responseId: null
+	});
 
 	interface Props {
 		questionId: string;
@@ -14,7 +22,7 @@
 	export interface QuestionDetails {
 		responseInput: string | null;
 		actionsInput: string | null;
-		actionType: string | null;
+		actionType: string;
 		responseId: string | null;
 	}
 
@@ -22,11 +30,13 @@
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
-		const questionDetails = await getQuestionDetails(user_id, questionId);
+		const details = await getQuestionDetails(user_id, questionId);
+		questionDetails = details;
+		if (details.actionType !== '') actionType = details.actionType;
 
 		return {
 			question: question || null,
-			details: questionDetails || null
+			details: details || null
 		};
 	};
 
@@ -51,7 +61,7 @@
 				>
 				<textarea
 					id="response-{questionId}"
-					bind:value={response.details.responseInput}
+					bind:value={questionDetails.responseInput}
 					placeholder="Enter your response here..."
 					rows="4"
 					class="text-area"
@@ -61,7 +71,7 @@
 			<div>
 				<h2 class="text-xl">A description of what actions are for</h2>
 				<label for="cars">Action type:</label>
-				<select id="action-type-{questionId}" bind:value={response.details.actionType}>
+				<select id="action-type-{questionId}" bind:value={actionType}>
 					<option>Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
@@ -73,7 +83,7 @@
 					<label for="actions-{questionId}">Actions needed:</label>
 					<textarea
 						id="actions-{questionId}"
-						bind:value={response.details.actionsInput}
+						bind:value={questionDetails.actionsInput}
 						placeholder="Enter your response here..."
 						rows="3"
 						class="text-area"
@@ -85,13 +95,15 @@
 				<SubmitButton
 					text="Skip"
 					status="skipped"
-					{response.details}
+					{actionType}
+					details={questionDetails}
 					{visibility}
 				/>
 				<SubmitButton
 					text="Submit"
 					status="answered"
-					{response.details}
+					{actionType}
+					details={questionDetails}
 					{visibility}
 				/>
 			</div>
