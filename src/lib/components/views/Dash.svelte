@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getUserActions } from "$lib/services/database/actions";
-	import { getQuestions } from "$lib/services/database/questions";
-	import type { ListCategory, View } from "$lib/types/ui";
+	import { getUserActions } from '$lib/services/database/actions';
+	import { getQuestions } from '$lib/services/database/questions';
+	import type { ListCategory, View } from '$lib/types/ui';
 	import { getContext } from 'svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
@@ -11,34 +11,35 @@
 	const setList = getContext<(list: ListCategory) => void>('setList');
 
 	let queryQuestions = $state(getQuestions());
-	let queryActions = $derived(profileId != "" ? getUserActions(profileId) : null);
+	let queryActions = $derived(profileId != '' ? getUserActions(profileId) : null);
 
 	function getCategories(questions: any): ListCategory[] {
 		interface Question {
 			id: string;
 			question_text: string;
 			category: string;
-		};
+		}
 
-		const categoriesRaw:string[] = questions.map(
-			(question:Question) => question.category
-		);
+		const categoriesRaw: string[] = questions.map((question: Question) => question.category);
 
 		const categoriesUnique = [...new Set(categoriesRaw)];
-		
-		const categoriesFormatted:ListCategory[] = Array.from(categoriesUnique).map((category:string) => ({
-			raw: category,
-			format: category.split('_').map(
-				word => word.charAt(0).toUpperCase() + word.slice(1)
-			).join(' ')
-		}));
+
+		const categoriesFormatted: ListCategory[] = Array.from(categoriesUnique).map(
+			(category: string) => ({
+				raw: category,
+				format: category
+					.split('_')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ')
+			})
+		);
 
 		return categoriesFormatted;
 	}
 
-	const setViewList = (category:ListCategory) => {
+	const setViewList = (category: ListCategory) => {
 		setList(category);
-		setView("list");
+		setView('list');
 	};
 </script>
 
@@ -52,7 +53,10 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button class="dev dev-div dev-tile" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
+				<button
+					class="dev dev-div dev-tile"
+					onclick={() => setViewList({ raw: 'actions', format: 'Actions' })}
+				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}

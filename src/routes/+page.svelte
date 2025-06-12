@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import Dash from "$lib/components/views/Dash.svelte";
-	import List from "$lib/components/views/List.svelte";
-	import Detail from "$lib/components/views/Detail.svelte";
-	import type { View } from "$lib/types/ui";
+	import Dash from '$lib/components/views/Dash.svelte';
+	import List from '$lib/components/views/List.svelte';
+	import Detail from '$lib/components/views/Detail.svelte';
+	import type { View } from '$lib/types/ui';
 
 	// import '$lib/components/QuestionCard.svelte';
 	// import QuestionCard from '$lib/components/QuestionCard.svelte';
@@ -17,11 +17,11 @@
 </script>
 
 <main id="view" class="dev dev-div">
-	{#if view === "dash"}
+	{#if view === 'dash'}
 		<Dash />
-	{:else if view === "list"}
+	{:else if view === 'list'}
 		<List />
-	{:else if view === "detail"}
+	{:else if view === 'detail'}
 		<Detail />
 	{:else}
 		<div>No view selected</div>

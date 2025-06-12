@@ -203,16 +203,19 @@ When ready to deploy schema changes to production:
 If this is your first time pushing to production, you need to link your local project:
 
 1. **Login to Supabase CLI:**
+
    ```bash
    supabase login
    ```
+
    This will open a browser window for authentication.
 
 2. **Link your local project to the remote Supabase project:**
+
    ```bash
    supabase link --project-ref YOUR_PROJECT_REF --password "YOUR_DB_PASSWORD"
    ```
-   
+
    **Important**: When prompted to "Enter your database password (or leave blank to skip):", press **Enter** to skip. This avoids IPv6 connection issues while still linking the project successfully.
 
 3. **Push schema changes:**
@@ -225,12 +228,14 @@ If this is your first time pushing to production, you need to link your local pr
 Once linked, you can push schema changes using one of these methods:
 
 **Option 1: Direct command with password**
+
 ```bash
 # Push local schema changes to production Supabase project
 npx supabase db push --password 'YOUR_DB_PASSWORD'
 ```
 
 **Option 2: Use the deployment script (recommended)**
+
 ```bash
 # Make script executable first (if needed)
 chmod +x ./scripts/prod-run-migrations.sh
@@ -239,6 +244,7 @@ chmod +x ./scripts/prod-run-migrations.sh
 ```
 
 **Option 3: Traditional interactive prompt**
+
 ```bash
 # Push local schema changes to production Supabase project
 npx supabase db push
@@ -259,7 +265,7 @@ If you need test data in your production environment (e.g., for demos or testing
    ```bash
    # Make script executable first (if needed)
    chmod +x ./scripts/prod-seed-test-data.sh
-   
+
    # Option 1: Run locally with production env vars
    vercel env pull .env.production
    source .env.production

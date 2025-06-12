@@ -29,11 +29,22 @@ body {
 	padding: 1rem;
 }
 
-.dev-div { outline: 2px solid var(--color-teal); }
-.dev-tile { outline: 2px solid var(--color-blue-bright); }
-.dev-list { outline: 2px solid var(--color-purple); }
-.dev-button { outline: 2px solid var(--color-pink); }
-.dev-text { margin: 0; padding: 0 1rem; }
+.dev-div {
+	outline: 2px solid var(--color-teal);
+}
+.dev-tile {
+	outline: 2px solid var(--color-blue-bright);
+}
+.dev-list {
+	outline: 2px solid var(--color-purple);
+}
+.dev-button {
+	outline: 2px solid var(--color-pink);
+}
+.dev-text {
+	margin: 0;
+	padding: 0 1rem;
+}
 
 .dev-inactive {
 	outline-color: var(--color-black);

@@ -3,7 +3,9 @@
 	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
-	const onToggleDevMode = () => { toggleDevMode() };
+	const onToggleDevMode = () => {
+		toggleDevMode();
+	};
 </script>
 
 <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">

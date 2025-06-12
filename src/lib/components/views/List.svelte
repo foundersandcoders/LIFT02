@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { ListCategory, View } from "$lib/types/ui";
-	import { getUserActions } from "$lib/services/database/actions";
-	import { getQuestionsByCategory } from "$lib/services/database/questions";
+	import type { ListCategory, View } from '$lib/types/ui';
+	import { getUserActions } from '$lib/services/database/actions';
+	import { getQuestionsByCategory } from '$lib/services/database/questions';
 	import { getContext } from 'svelte';
-	import ListItem from "$lib/components/cards/ListItem.svelte";
-	
-	const setView = getContext<(view:View) => void>('setView');
+	import ListItem from '$lib/components/cards/ListItem.svelte';
+
+	const setView = getContext<(view: View) => void>('setView');
 
 	const getList = getContext<() => ListCategory>('getList');
-	const setList = getContext<(list:ListCategory) => void>('setList');
+	const setList = getContext<(list: ListCategory) => void>('setList');
 	let list = $derived(getList());
 
 	const getProfileId = getContext<() => string>('getProfileId');
@@ -18,23 +18,23 @@
 	let queryQuestions = $derived(getQuestionsByCategory(list.raw));
 
 	const onBackClick = () => {
-		setView("dash");
-		setList({ raw: "", format: "" });
+		setView('dash');
+		setList({ raw: '', format: '' });
 	};
-	const onListClick = () => { setView("detail") };
+	const onListClick = () => {
+		setView('detail');
+	};
 </script>
 
 <div class="dev dev-div">
 	<div id="list-header" class="dev dev-div flex flex-row justify-between">
 		<h2 class="dev dev-div">List View</h2>
 
-		<button onclick={onBackClick} class="dev dev-div dev-button">
-			Back
-		</button>
+		<button onclick={onBackClick} class="dev dev-div dev-button"> Back </button>
 	</div>
 
-	<div id="list-items" class="dev dev-div flex flex-col justify-left">
-		{#if list.raw == "actions"}
+	<div id="list-items" class="dev dev-div justify-left flex flex-col">
+		{#if list.raw == 'actions'}
 			{#await queryActions}
 				<p>Loading...</p>
 			{:then result}

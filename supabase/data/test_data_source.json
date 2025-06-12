@@ -5,7 +5,7 @@
 			"name": "TechCorp Ltd"
 		},
 		{
-			"id": "990e8400-e29b-41d4-a716-446655440002", 
+			"id": "990e8400-e29b-41d4-a716-446655440002",
 			"name": "Creative Agency"
 		},
 		{
@@ -813,16 +813,18 @@
 				"660e8400-e29b-41d4-a716-446655440006",
 				"660e8400-e29b-41d4-a716-446655440007"
 			],
-			"action_ids": ["770e8400-e29b-41d4-a716-446655440003", "770e8400-e29b-41d4-a716-446655440004", "770e8400-e29b-41d4-a716-446655440005"]
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440003",
+				"770e8400-e29b-41d4-a716-446655440004",
+				"770e8400-e29b-41d4-a716-446655440005"
+			]
 		},
 		{
 			"id": "880e8400-e29b-41d4-a716-446655440004",
 			"user_id": "550e8400-e29b-41d4-a716-446655440001",
 			"recipient_email": "facilities@techcorp.com",
 			"message": "Hi Facilities team, these are my workspace requirements for optimal productivity.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440007"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440007"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440005", "770e8400-e29b-41d4-a716-446655440006"]
 		},
 		{
@@ -886,9 +888,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440003",
 			"recipient_email": "facilities@dataflow.com",
 			"message": "Hi Facilities, requesting workspace adjustments for sensory sensitivities.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440035"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440035"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440024", "770e8400-e29b-41d4-a716-446655440025"]
 		},
 		{
@@ -907,9 +907,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440004",
 			"recipient_email": "product-team@innovatecorp.com",
 			"message": "Team, here's my availability info for project planning around school pickups.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440042"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440042"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440033"]
 		},
 		{
@@ -921,7 +919,11 @@
 				"660e8400-e29b-41d4-a716-446655440040",
 				"660e8400-e29b-41d4-a716-446655440043"
 			],
-			"action_ids": ["770e8400-e29b-41d4-a716-446655440030", "770e8400-e29b-41d4-a716-446655440031", "770e8400-e29b-41d4-a716-446655440034"]
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440030",
+				"770e8400-e29b-41d4-a716-446655440031",
+				"770e8400-e29b-41d4-a716-446655440034"
+			]
 		},
 		{
 			"id": "880e8400-e29b-41d4-a716-446655440014",
@@ -943,16 +945,18 @@
 				"660e8400-e29b-41d4-a716-446655440051",
 				"660e8400-e29b-41d4-a716-446655440052"
 			],
-			"action_ids": ["770e8400-e29b-41d4-a716-446655440042", "770e8400-e29b-41d4-a716-446655440043", "770e8400-e29b-41d4-a716-446655440044"]
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440042",
+				"770e8400-e29b-41d4-a716-446655440043",
+				"770e8400-e29b-41d4-a716-446655440044"
+			]
 		},
 		{
 			"id": "880e8400-e29b-41d4-a716-446655440016",
 			"user_id": "550e8400-e29b-41d4-a716-446655440005",
 			"recipient_email": "events@brandworks.com",
 			"message": "Hi Events team, sharing dietary requirements for all company events.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440051"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440051"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440042", "770e8400-e29b-41d4-a716-446655440043"]
 		},
 		{
@@ -971,9 +975,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440001",
 			"recipient_email": "alex.mentor@techcorp.com",
 			"message": "Hi Alex, sharing my communication style preferences as we start our mentoring relationship.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440008"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440008"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440004"]
 		},
 		{
@@ -981,9 +983,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440002",
 			"recipient_email": "client-services@creative.com",
 			"message": "Hi Client Services, sharing my energy level patterns for client meeting scheduling.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440028"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440028"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440014"]
 		},
 		{
@@ -1002,9 +1002,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440003",
 			"recipient_email": "accessibility@dataflow.com",
 			"message": "Hi Accessibility team, sharing my sensory needs for workspace design input.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440034"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440034"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440023"]
 		},
 		{
@@ -1012,9 +1010,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440003",
 			"recipient_email": "sam.colleague@dataflow.com",
 			"message": "Hi colleague, sharing my communication preferences for our upcoming project collaboration.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440033"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440033"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440022"]
 		},
 		{
@@ -1022,9 +1018,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440004",
 			"recipient_email": "childcare@innovatecorp.com",
 			"message": "Hi Childcare support, sharing my parental responsibilities for emergency planning.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440041"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440041"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440032"]
 		},
 		{
@@ -1032,9 +1026,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440004",
 			"recipient_email": "occupational-health@innovatecorp.com",
 			"message": "Hi Occupational Health, requesting assessment for back pain management equipment.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440043"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440043"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440034"]
 		},
 		{
@@ -1042,9 +1034,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440005",
 			"recipient_email": "imam.local@mosque.org",
 			"message": "Sharing my workplace accommodation needs with religious advisor for guidance.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440050"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440050"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440040"]
 		},
 		{
@@ -1063,9 +1053,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440001",
 			"recipient_email": "dev-team@techcorp.com",
 			"message": "Team, sharing my focus patterns and break needs for sprint planning.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440002"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440002"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440002"]
 		},
 		{
@@ -1073,9 +1061,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440002",
 			"recipient_email": "support-group@creative.com",
 			"message": "Sharing with peer support group for carer resource sharing.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440025"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440025"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440012"]
 		},
 		{
@@ -1083,9 +1069,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440003",
 			"recipient_email": "neurodiversity-network@dataflow.com",
 			"message": "Sharing with neurodiversity employee network for peer support.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440031"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440031"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440021"]
 		},
 		{
@@ -1104,9 +1088,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440005",
 			"recipient_email": "mentorship@brandworks.com",
 			"message": "Hi Mentorship team, sharing my communication style for mentor matching.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440052"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440052"],
 			"action_ids": ["770e8400-e29b-41d4-a716-446655440044", "770e8400-e29b-41d4-a716-446655440045"]
 		},
 		{
@@ -1114,9 +1096,7 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440001",
 			"recipient_email": "buddy@techcorp.com",
 			"message": "Hi work buddy, sharing my ADHD info so you can support me during busy periods.",
-			"response_ids": [
-				"660e8400-e29b-41d4-a716-446655440004"
-			],
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440004"],
 			"action_ids": []
 		}
 	]
