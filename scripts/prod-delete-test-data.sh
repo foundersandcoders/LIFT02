@@ -92,30 +92,40 @@ curl -s -X DELETE "$API_URL/profiles?$USER_FILTER" \
     -H "$APIKEY_HEADER" > /dev/null
 
 echo "Deleting line managers..."
-# Extract line manager IDs from JSON
-LINE_MANAGER_IDS_JSON=$(echo "$TEST_DATA" | jq -r '.line_managers[].id')
-declare -a LINE_MANAGER_IDS
-while IFS= read -r line; do
-    LINE_MANAGER_IDS+=("$line")
-done <<< "$LINE_MANAGER_IDS_JSON"
-
-LINE_MANAGER_FILTER="id.in.($(IFS=,; echo "${LINE_MANAGER_IDS[*]}"))"
-curl -s -X DELETE "$API_URL/line_managers?$LINE_MANAGER_FILTER" \
-    -H "$AUTH_HEADER" \
-    -H "$APIKEY_HEADER" > /dev/null
+# Delete line managers one by one to avoid filter issues
+echo "$TEST_DATA" | jq -c '.line_managers[]' | while read -r lm; do
+    LM_ID=$(echo "$lm" | jq -r '.id')
+    LM_EMAIL=$(echo "$lm" | jq -r '.email')
+    
+    echo "Deleting line manager: $LM_EMAIL ($LM_ID)"
+    LM_DELETE_RESPONSE=$(curl -s -X DELETE "$API_URL/line_managers?id=eq.$LM_ID" \
+        -H "$AUTH_HEADER" \
+        -H "$APIKEY_HEADER" 2>&1)
+    
+    if echo "$LM_DELETE_RESPONSE" | grep -q "error\|Error"; then
+        echo "⚠️  Failed to delete line manager $LM_EMAIL: $LM_DELETE_RESPONSE"
+    else
+        echo "✅ Deleted line manager: $LM_EMAIL"
+    fi
+done
 
 echo "Deleting organizations..."
-# Extract organization IDs from JSON  
-ORG_IDS_JSON=$(echo "$TEST_DATA" | jq -r '.organizations[].id')
-declare -a ORG_IDS
-while IFS= read -r line; do
-    ORG_IDS+=("$line")
-done <<< "$ORG_IDS_JSON"
-
-ORG_FILTER="id.in.($(IFS=,; echo "${ORG_IDS[*]}"))"
-curl -s -X DELETE "$API_URL/organizations?$ORG_FILTER" \
-    -H "$AUTH_HEADER" \
-    -H "$APIKEY_HEADER" > /dev/null
+# Delete organizations one by one to avoid filter issues
+echo "$TEST_DATA" | jq -c '.organizations[]' | while read -r org; do
+    ORG_ID=$(echo "$org" | jq -r '.id')
+    ORG_NAME=$(echo "$org" | jq -r '.name')
+    
+    echo "Deleting organization: $ORG_NAME ($ORG_ID)"
+    ORG_DELETE_RESPONSE=$(curl -s -X DELETE "$API_URL/organizations?id=eq.$ORG_ID" \
+        -H "$AUTH_HEADER" \
+        -H "$APIKEY_HEADER" 2>&1)
+    
+    if echo "$ORG_DELETE_RESPONSE" | grep -q "error\|Error"; then
+        echo "⚠️  Failed to delete organization $ORG_NAME: $ORG_DELETE_RESPONSE"
+    else
+        echo "✅ Deleted organization: $ORG_NAME"
+    fi
+done
 
 echo -e "${YELLOW}🗑️  Deleting test users from auth...${NC}"
 
