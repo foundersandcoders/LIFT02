@@ -1,14 +1,17 @@
 <script lang="ts">
-	import type { View } from "$lib/types/ui";
+	import type { Table, ViewName } from "$lib/types/ui";
 	import { getContext } from 'svelte';
 	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
 
 	const getQuestionId = getContext<() => string>('getQuestionId');
+	const getTable = getContext<() => Table>("getListTable")
+
+	const setViewName = getContext<(view:ViewName) => void>('setViewName');
+
+	let queryTable = $derived(getTable());
 	let questionId = $derived(getQuestionId());
 
-	const setView = getContext<(view:View) => void>('setView');
-
-	const onBackClick = () => { setView("list") };
+	const onBackClick = () => { setViewName("list") };
 </script>
 
 <div class="dev dev-div">
@@ -16,9 +19,7 @@
 		<h2 class="dev dev-div">Detail View</h2>
 
 		<div class="dev dev-div">
-			{#if}
-				{#if questionId}{questionId}{:else}No question ID{/if}
-			{/if}
+			{queryTable}
 		</div>
 
 		<button onclick={onBackClick} class="dev dev-div dev-button">
@@ -27,6 +28,12 @@
 	</div>
 
 	<div id="detail-content" class="dev dev-div">
-		<QuestionCard questionId={"1"} />
+			{#if queryTable == "questions"}
+				{#if questionId}
+					<QuestionCard />
+				{:else}
+					No question ID
+				{/if}
+			{/if}
 	</div>
 </div>

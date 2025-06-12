@@ -3,12 +3,12 @@
 	import Header from "$lib/components/layouts/Header.svelte";
 	import Footer from "$lib/components/layouts/Footer.svelte";
 	import { setContext } from 'svelte';
-	import type { App, Detail, DetailItem, List, ListCategory, Table, View, ViewName } from "$lib/types/ui";
-
-	let devMode = $state<boolean>(true);
-	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : "");
+	import type { App, ListCategory, RowId, TableName, ViewName } from "$lib/types/ui";
 
 	let app = $state<App>({
+		profile: {
+			id: null
+		},
 		view: {
 			name: "dash"
 		},
@@ -27,6 +27,10 @@
 		}
 	});
 
+	let devMode = $state<boolean>(false);
+
+	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : null);
+
 	setContext('getDetailItem', () => app.detail.item.rowId);
 	setContext('getDetailTable', () => app.detail.table);
 	setContext('getDevMode', () => devMode);
@@ -35,12 +39,16 @@
 	setContext('getProfileId', () => profileId);
 	setContext('getViewName', () => app.view.name);
 
-	setContext('setDetailTable', (newTable:Table) => { app.detail.table = newTable });
-	setContext('setDetailItem', (newDbId:string) => { app.detail.item.rowId = newDbId });
+	setContext('setDetailTable', (newTable:TableName) => { app.detail.table = newTable });
+	setContext('setDetailItem', (newDbId:RowId) => { app.detail.item.rowId = newDbId });
+	setContext('setDevMode', () => {
+		devMode = !devMode;
+		app.profile.id = profileId;
+	});
 	setContext("setListCategory", (newCategory:ListCategory) => { app.list.category = newCategory });
-	setContext("setListTable", (newTable:Table) => { app.list.table = newTable });
+	setContext("setListTable", (newTable:TableName) => { app.list.table = newTable });
+	setContext("setProfileId", (newId:RowId) => { app.profile.id = newId });
 	setContext('setViewName', (newView:ViewName) => { app.view.name = newView });
-	setContext('toggleDevMode', () => { devMode = !devMode });
 
 	let { children } = $props();
 	
@@ -54,6 +62,52 @@
 <Header />
 
 {@render children()}
+
+<aside id="values" class="dev dev-div values">
+	<table class="border-collapse table-auto">
+		<thead>
+			<tr>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>value</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{#each Object.entries(app) as [key, value]}
+				{#if typeof value === 'object' && value !== null}
+					{#each Object.entries(value) as [subKey, subValue]}
+						{#if typeof subValue === 'object' && subValue !== null}
+							{#each Object.entries(subValue) as [subSubKey, subSubValue]}
+								<tr>
+									<td>{key}</td>
+									<td>{subKey}</td>
+									<td>{subSubKey}</td>
+									<td>{JSON.stringify(subSubValue)}</td>
+								</tr>
+							{/each}
+						{:else}
+							<tr>
+								<td>{key}</td>
+								<td>{subKey}</td>
+								<td> ----- </td>
+								<td>{JSON.stringify(subValue)}</td>
+							</tr>
+						{/if}
+					{/each}
+				{:else}
+					<tr>
+						<td>{key}</td>
+						<td> ----- </td>
+						<td> ----- </td>
+						<td>{JSON.stringify(value)}</td>
+					</tr>
+				{/if}
+			{/each}
+		</tbody>
+	</table>
+</aside>
 
 <Footer {devMode} {profileId}/>
 

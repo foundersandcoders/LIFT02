@@ -1,38 +1,34 @@
 export interface App {
+  profile: Profile;
   view: View;
   list: List;
   detail: Detail;
 }
 
-export interface View {
-  name: ViewName;
-}
-
-export type ViewName = "dash" | "list" | "detail";
-
+export interface Profile { id: RowId }
+export interface View { name: ViewName }
 export interface List {
-  table: Table;
+  table: TableName;
   category: ListCategory;
 }
-
-export interface ListCategory {
-  raw: null | string;
-  format: null | string;
-}
-
 export interface Detail {
-  table: Table;
+  table: TableName;
   item: DetailItem;
 }
 
-export interface DetailItem {
-  rowId: null | string;
+export interface ListCategory {
+  raw: RowName;
+  format: RowName;
 }
+export interface DetailItem { rowId: RowId }
+
+export type RowId = null | string;
+export type RowName = null | string;
+export type TableName = null | "actions" | "profiles" | "questions" | "responses" | "sharing_events";
+export type ViewName = "dash" | "list" | "detail";
 
 export interface ActionCheck {
   isError: boolean;
   exist: boolean;
   count: number;
 }
-
-export type Table = null | "actions" | "profiles" | "questions" | "responses" | "sharing_events";

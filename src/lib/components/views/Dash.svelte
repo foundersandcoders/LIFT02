@@ -1,25 +1,26 @@
 <script lang="ts">
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
-	import type { ListCategory, View } from "$lib/types/ui";
+	import type { ListCategory, ViewName } from "$lib/types/ui";
 	import { getContext } from 'svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
 
-	const setView = getContext<(view: View) => void>('setView');
-	const setList = getContext<(list: ListCategory) => void>('setList');
+	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
-	let queryQuestions = $state(getQuestions());
+	const setList = getContext<(list: ListCategory) => void>('setListCategory');
+
 	let queryActions = $derived(profileId != "" ? getUserActions(profileId) : null);
+	let queryQuestions = $state(getQuestions());
+
+	interface Question {
+		id: string;
+		question_text: string;
+		category: string;
+	};
 
 	function getCategories(questions: any): ListCategory[] {
-		interface Question {
-			id: string;
-			question_text: string;
-			category: string;
-		};
-
 		const categoriesRaw:string[] = questions.map(
 			(question:Question) => question.category
 		);
@@ -36,9 +37,9 @@
 		return categoriesFormatted;
 	}
 
-	const setViewList = (category:ListCategory) => {
+	const onClickTile = (category:ListCategory) => {
 		setList(category);
-		setView("list");
+		setViewName("list");
 	};
 </script>
 
@@ -52,7 +53,9 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button class="dev dev-div dev-tile" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
+				<button onclick={() => onClickTile({ raw: "actions", format: "Actions" })}
+					class="dev dev-div dev-tile"
+				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -69,7 +72,9 @@
 		{:then result}
 			{#if result.data}
 				{#each getCategories(result.data) as category}
-					<button class="dev dev-div dev-tile" onclick={() => setViewList(category)}>
+					<button onclick={() => onClickTile(category)}
+						class="dev dev-div dev-tile"
+					>
 						<p>{category.format}</p>
 					</button>
 				{/each}
