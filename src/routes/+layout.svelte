@@ -2,8 +2,9 @@
 	import '../app.css';
 	import Header from "$lib/components/layouts/Header.svelte";
 	import Footer from "$lib/components/layouts/Footer.svelte";
+	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { setContext } from 'svelte';
-	import type { App, ListCategory, RowId, TableName, ViewName } from "$lib/types/ui";
+	import type { App, ListCategory, RowId, TableName, ViewName } from "$lib/types/appState";
 
 	let app = $state<App>({
 		profile: {
@@ -31,12 +32,13 @@
 
 	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : null);
 
+	setContext("getApp", () => app);
 	setContext('getDetailItem', () => app.detail.item.rowId);
 	setContext('getDetailTable', () => app.detail.table);
 	setContext('getDevMode', () => devMode);
 	setContext('getListCategory', () => app.list.category);
 	setContext('getListTable', () => app.list.table);
-	setContext('getProfileId', () => profileId);
+	setContext('getProfileId', () => app.profile.id);
 	setContext('getViewName', () => app.view.name);
 
 	setContext('setDetailTable', (newTable:TableName) => { app.detail.table = newTable });
@@ -63,53 +65,11 @@
 
 {@render children()}
 
-<aside id="values" class="dev dev-div values">
-	<table class="border-collapse table-auto">
-		<thead>
-			<tr>
-				<th>1</th>
-				<th>2</th>
-				<th>3</th>
-				<th>value</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			{#each Object.entries(app) as [key, value]}
-				{#if typeof value === 'object' && value !== null}
-					{#each Object.entries(value) as [subKey, subValue]}
-						{#if typeof subValue === 'object' && subValue !== null}
-							{#each Object.entries(subValue) as [subSubKey, subSubValue]}
-								<tr>
-									<td>{key}</td>
-									<td>{subKey}</td>
-									<td>{subSubKey}</td>
-									<td>{JSON.stringify(subSubValue)}</td>
-								</tr>
-							{/each}
-						{:else}
-							<tr>
-								<td>{key}</td>
-								<td>{subKey}</td>
-								<td> ----- </td>
-								<td>{JSON.stringify(subValue)}</td>
-							</tr>
-						{/if}
-					{/each}
-				{:else}
-					<tr>
-						<td>{key}</td>
-						<td> ----- </td>
-						<td> ----- </td>
-						<td>{JSON.stringify(value)}</td>
-					</tr>
-				{/if}
-			{/each}
-		</tbody>
-	</table>
-</aside>
-
 <Footer {devMode} {profileId}/>
+
+{#if devMode}
+	<StateTable />
+{/if}
 
 <!-- note: Header/Footer Components
  	It might be overkill to have the header & footer as separate components as they only appear here, but I'll do it that way for now as future-proofing

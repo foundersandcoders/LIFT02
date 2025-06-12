@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Table, ViewName } from "$lib/types/ui";
+	import type { Table, ViewName } from "$lib/types/appState";
 	import { getContext } from 'svelte';
 	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
 

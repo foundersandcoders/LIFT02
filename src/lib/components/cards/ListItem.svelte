@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { View } from "$lib/types/ui";
-	import type { Question } from "$lib/types/main";
+	import type { View } from "$lib/types/appState";
+	import type { Question } from "$lib/types/tableMain";
 	import { getContext } from 'svelte';
 
 	export let question: Question;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ListCategory, ViewName } from "$lib/types/ui";
+	import type { ListCategory, ViewName } from "$lib/types/appState";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import { getContext } from 'svelte';

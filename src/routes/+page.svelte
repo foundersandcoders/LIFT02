@@ -3,7 +3,7 @@
 	import Dash from "$lib/components/views/Dash.svelte";
 	import List from "$lib/components/views/List.svelte";
 	import Detail from "$lib/components/views/Detail.svelte";
-	import type { ViewName } from "$lib/types/ui";
+	import type { ViewName } from "$lib/types/appState";
 
 	const getViewName = getContext<() => ViewName>('getViewName');
 

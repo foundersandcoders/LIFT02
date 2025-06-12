@@ -1,44 +1,36 @@
 <script lang="ts">
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
-	import type { ListCategory, ViewName } from "$lib/types/ui";
+	import type { Question } from "$lib/types/tableMain";
+	import type { App, ListCategory, ViewName } from "$lib/types/appState";
+	import { makePretty } from "$lib/utils/textTools";
 	import { getContext } from 'svelte';
 
-	const getProfileId = getContext<() => string>('getProfileId');
-	let profileId = $derived(getProfileId());
+	// App State
+	const getApp = getContext<() => App>('getApp');
+	const app = $derived(getApp());
+	// const getProfileId = getContext<() => string>('getProfileId');
+	// let profileId = $derived(getProfileId());
 
+	const setListCategory = getContext<(list:ListCategory) => void>('setListCategory');
 	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
-	const setList = getContext<(list: ListCategory) => void>('setListCategory');
-
-	let queryActions = $derived(profileId != "" ? getUserActions(profileId) : null);
+	// DB Queries
+	let queryActions = $derived(app.profile.id != null ? getUserActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
 
-	interface Question {
-		id: string;
-		question_text: string;
-		category: string;
-	};
-
-	function getCategories(questions: any): ListCategory[] {
-		const categoriesRaw:string[] = questions.map(
-			(question:Question) => question.category
-		);
-
+	function extractCategories(questions:Question[]):ListCategory[] {
+		const categoriesRaw:string[] = questions.map((question:Question) => question.category);
 		const categoriesUnique = [...new Set(categoriesRaw)];
 		
-		const categoriesFormatted:ListCategory[] = Array.from(categoriesUnique).map((category:string) => ({
+		return categoriesUnique.map((category:string) => ({
 			raw: category,
-			format: category.split('_').map(
-				word => word.charAt(0).toUpperCase() + word.slice(1)
-			).join(' ')
+			format: makePretty(category, "table", "tile")
 		}));
-
-		return categoriesFormatted;
 	}
 
 	const onClickTile = (category:ListCategory) => {
-		setList(category);
+		setListCategory(category);
 		setViewName("list");
 	};
 </script>
@@ -71,7 +63,7 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result.data}
-				{#each getCategories(result.data) as category}
+				{#each extractCategories(result.data) as category}
 					<button onclick={() => onClickTile(category)}
 						class="dev dev-div dev-tile"
 					>
