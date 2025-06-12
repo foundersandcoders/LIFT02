@@ -75,7 +75,7 @@ for user_data in "${TEST_USERS[@]}"; do
             \"email_confirm\": true,
             \"id\": \"$USER_ID\",
             \"password\": \"temp_password_123\"
-        }")
+        }" 2>/dev/null)
     
     if echo "$RESPONSE" | grep -q "error\|Error"; then
         echo "⚠️  User creation failed for $EMAIL: $RESPONSE"
@@ -94,7 +94,7 @@ ORG_RESPONSE=$(curl -s -X POST "$API_URL/organizations" \
     -H "$APIKEY_HEADER" \
     -H "$CONTENT_HEADER" \
     -H "$PREFER_HEADER" \
-    -d "$ORGANIZATIONS_JSON")
+    -d "$ORGANIZATIONS_JSON" 2>/dev/null)
 
 if echo "$ORG_RESPONSE" | grep -q "error\|Error\|violates"; then
     echo -e "${RED}❌ Organization creation failed: $ORG_RESPONSE${NC}"
@@ -120,7 +120,7 @@ PROFILE_RESPONSE=$(curl -s -X POST "$API_URL/profiles" \
     -H "$APIKEY_HEADER" \
     -H "$CONTENT_HEADER" \
     -H "$PREFER_HEADER" \
-    -d "$PROFILES_JSON")
+    -d "$PROFILES_JSON" 2>/dev/null)
 
 if echo "$PROFILE_RESPONSE" | grep -q "error\|Error\|violates"; then
     echo -e "${RED}❌ Profile creation failed: $PROFILE_RESPONSE${NC}"
@@ -139,7 +139,7 @@ LM_RESPONSE=$(curl -s -X POST "$API_URL/line_managers" \
     -H "$APIKEY_HEADER" \
     -H "$CONTENT_HEADER" \
     -H "$PREFER_HEADER" \
-    -d "$LINE_MANAGERS_JSON")
+    -d "$LINE_MANAGERS_JSON" 2>/dev/null)
 
 if echo "$LM_RESPONSE" | grep -q "error\|Error\|violates"; then
     echo -e "${RED}❌ Line manager creation failed: $LM_RESPONSE${NC}"
@@ -182,7 +182,7 @@ echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
     # Get question ID
     QUESTION_ID=$(curl -s -X GET "$API_URL/questions?category=eq.$QUESTION_CATEGORY&%22order%22=eq.$QUESTION_ORDER&select=id" \
         -H "$AUTH_HEADER" \
-        -H "$APIKEY_HEADER" | jq -r '.[0].id // empty')
+        -H "$APIKEY_HEADER" 2>/dev/null | jq -r '.[0].id // empty')
     
     if [ ! -z "$QUESTION_ID" ]; then
         curl -s -X POST "$API_URL/responses" \

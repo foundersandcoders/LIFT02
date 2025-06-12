@@ -42,9 +42,9 @@ if ! command -v psql >/dev/null 2>&1; then
     exit 127
 fi
 
-# Execute the SQL file and capture output
-SQL_OUTPUT=$(psql "$DB_URL" -f supabase/generated/test_fake_data.sql 2>&1)
-SQL_EXIT_CODE=$?
+# Execute the SQL file and capture only errors
+SQL_OUTPUT=$(psql "$DB_URL" -f supabase/generated/test_fake_data.sql 2>&1 | grep -v "^INSERT 0" | grep -v "^$")
+SQL_EXIT_CODE=${PIPESTATUS[0]}
 
 if [ $SQL_EXIT_CODE -eq 0 ]; then
     echo -e "${GREEN}✅ Test fake data seeded successfully!${NC}"

@@ -698,7 +698,59 @@ INSERT INTO actions (id, user_id, response_id, type, description, status, versio
 INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
   ('770e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid, 'schedule_adjustment', 'Allow 15-minute breaks every 90 minutes to help with focus', 'active', 1, true);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440005'::uuid, 'equipment', 'Request ergonomic keyboard and mouse to reduce sensory input', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440006'::uuid, 'communication', 'Send written agendas 24 hours before meetings', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'workplace_adjustment', 'Relocate to corner desk away from main walkway', 'draft', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440006'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'schedule_adjustment', 'Allow flexible start times between 8-10am based on focus patterns', 'active', 2, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
   ('770e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid, 'communication', 'Provide 48-hour advance notice for project changes when possible', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440022'::uuid, 'support', 'Schedule weekly 1:1 check-ins for feedback and reassurance', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid, 'schedule_adjustment', 'Allow flexible hours for carer appointments with advance notice', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440026'::uuid, 'workplace_adjustment', 'Provide access to quiet room for stress management when needed', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440028'::uuid, 'schedule_adjustment', 'Schedule important meetings before 2pm when energy levels are higher', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440015'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440029'::uuid, 'communication', 'Provide clear deadlines with built-in buffer time for quality checks', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440020'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440030'::uuid, 'workplace_adjustment', 'Install desk lamp with adjustable lighting to replace fluorescent overhead', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440021'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440032'::uuid, 'support', 'Create signal system for when quiet time is needed (do not disturb sign)', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440022'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid, 'communication', 'Send all work instructions via email rather than verbal communication', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440023'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid, 'schedule_adjustment', 'Provide 48-hour notice for any schedule changes or meeting rearrangements', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440024'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'workplace_adjustment', 'Relocate to quieter area near window for natural light', 'draft', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440025'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'equipment', 'Provide noise-cancelling headphones for focus periods', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440030'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid, 'equipment', 'Provide adjustable standing desk to manage back pain', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440031'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid, 'workplace_adjustment', 'Allow regular position changes and walking breaks throughout the day', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440032'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440041'::uuid, 'schedule_adjustment', 'Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440033'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid, 'remote_work', 'Allow work from home when children are unwell (with advance notice)', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440034'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'equipment', 'Provide ergonomic chair with proper lumbar support', 'active', 2, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440040'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid, 'schedule_adjustment', 'Allow 30-minute break on Fridays between 12-2pm for prayers', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440041'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid, 'support', 'Adjust workload expectations during Ramadan fasting period', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440042'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid, 'event_planning', 'Ensure halal food options at all team events and social gatherings', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440043'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid, 'communication', 'Provide advance notice of team events to arrange appropriate meals', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440044'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'communication', 'Schedule direct face-to-face discussions for important concerns rather than email', 'active', 1, true);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
+  ('770e8400-e29b-41d4-a716-446655440045'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'development', 'Provide opportunities to mentor junior developers on projects', 'draft', 1, true);
 
 -- ===========================================
 -- SHARING EVENTS
@@ -708,14 +760,167 @@ INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VA
   ('880e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'sarah.wilson@techcorp.com', 'Hi Sarah, I wanted to share my workplace passport with you so you can better understand my needs and how to support me in my role.', NOW());
 INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
   ('880e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'mike.johnson@creative.com', 'Hi Mike, here is my workplace passport with information about my needs and how we can work together effectively.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'hr@techcorp.com', 'Sharing my updated workplace passport with HR for accommodation planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'facilities@techcorp.com', 'Hi Facilities team, these are my workspace requirements for optimal productivity.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'sarah.wilson@techcorp.com', 'Hi Sarah, sharing my carer responsibilities information so you''re aware of my occasional need for flexibility.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440006'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'design-team@creative.com', 'Team, sharing my workplace needs to help with project planning and meeting schedules.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440007'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'hr@creative.com', 'Hi HR, sharing my anxiety and chronic fatigue information for accommodation planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440008'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'lisa.brown@dataflow.com', 'Hi Lisa, sharing my autism-related workplace needs to ensure smooth collaboration.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440009'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'data-team@dataflow.com', 'Team, here are my communication preferences and sensory needs for our work together.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'facilities@dataflow.com', 'Hi Facilities, requesting workspace adjustments for sensory sensitivities.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'david.kim@innovatecorp.com', 'Hi David, sharing my parental responsibilities and back pain accommodation needs.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'product-team@innovatecorp.com', 'Team, here''s my availability info for project planning around school pickups.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'hr@innovatecorp.com', 'Hi HR, sharing my chronic pain information for ergonomic equipment requests.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'emma.rodriguez@brandworks.com', 'Hi Emma, sharing my religious observance requirements for team planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440015'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'marketing-team@brandworks.com', 'Team, here are my dietary requirements and communication preferences for our projects.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440016'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'events@brandworks.com', 'Hi Events team, sharing dietary requirements for all company events.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440017'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'project-leads@techcorp.com', 'Hi Project Leads, sharing my ADHD accommodations for meeting planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440018'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'alex.mentor@techcorp.com', 'Hi Alex, sharing my communication style preferences as we start our mentoring relationship.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440019'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'client-services@creative.com', 'Hi Client Services, sharing my energy level patterns for client meeting scheduling.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440020'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'wellbeing@creative.com', 'Hi Wellbeing team, sharing my stress indicators for early intervention support.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440021'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'accessibility@dataflow.com', 'Hi Accessibility team, sharing my sensory needs for workspace design input.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440022'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'sam.colleague@dataflow.com', 'Hi colleague, sharing my communication preferences for our upcoming project collaboration.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440023'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'childcare@innovatecorp.com', 'Hi Childcare support, sharing my parental responsibilities for emergency planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440024'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'occupational-health@innovatecorp.com', 'Hi Occupational Health, requesting assessment for back pain management equipment.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440025'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'imam.local@mosque.org', 'Sharing my workplace accommodation needs with religious advisor for guidance.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440026'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'diversity@brandworks.com', 'Hi Diversity team, sharing religious accommodation needs for inclusion planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440027'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'dev-team@techcorp.com', 'Team, sharing my focus patterns and break needs for sprint planning.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440028'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, 'support-group@creative.com', 'Sharing with peer support group for carer resource sharing.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440029'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, 'neurodiversity-network@dataflow.com', 'Sharing with neurodiversity employee network for peer support.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440030'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, 'working-parents@innovatecorp.com', 'Sharing with working parents network for schedule coordination tips.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440031'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, 'mentorship@brandworks.com', 'Hi Mentorship team, sharing my communication style for mentor matching.', NOW());
+INSERT INTO sharing_events (id, user_id, recipient_email, message, shared_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440032'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, 'buddy@techcorp.com', 'Hi work buddy, sharing my ADHD info so you can support me during busy periods.', NOW());
 
 -- Link responses to sharing events
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid);
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid);
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid);
 INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440021'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440005'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440006'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440026'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440006'::uuid, '660e8400-e29b-41d4-a716-446655440022'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440006'::uuid, '660e8400-e29b-41d4-a716-446655440028'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440007'::uuid, '660e8400-e29b-41d4-a716-446655440027'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440007'::uuid, '660e8400-e29b-41d4-a716-446655440029'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440008'::uuid, '660e8400-e29b-41d4-a716-446655440030'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440008'::uuid, '660e8400-e29b-41d4-a716-446655440032'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440009'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440009'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440009'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440010'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440011'::uuid, '660e8400-e29b-41d4-a716-446655440041'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440011'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440012'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440013'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440013'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440014'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440014'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440015'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440015'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440016'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440017'::uuid, '660e8400-e29b-41d4-a716-446655440003'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440017'::uuid, '660e8400-e29b-41d4-a716-446655440004'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440018'::uuid, '660e8400-e29b-41d4-a716-446655440008'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440019'::uuid, '660e8400-e29b-41d4-a716-446655440028'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440020'::uuid, '660e8400-e29b-41d4-a716-446655440023'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440020'::uuid, '660e8400-e29b-41d4-a716-446655440024'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440021'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440022'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440023'::uuid, '660e8400-e29b-41d4-a716-446655440041'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440024'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440025'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440026'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440026'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440027'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440028'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440029'::uuid, '660e8400-e29b-41d4-a716-446655440031'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440030'::uuid, '660e8400-e29b-41d4-a716-446655440041'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440030'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440031'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid);
+INSERT INTO sharing_event_responses (sharing_event_id, response_id) VALUES ('880e8400-e29b-41d4-a716-446655440032'::uuid, '660e8400-e29b-41d4-a716-446655440004'::uuid);
 
 -- Link actions to sharing events
 INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440001'::uuid, '770e8400-e29b-41d4-a716-446655440001'::uuid);
 INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440001'::uuid, '770e8400-e29b-41d4-a716-446655440002'::uuid);
 INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440002'::uuid, '770e8400-e29b-41d4-a716-446655440010'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '770e8400-e29b-41d4-a716-446655440003'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '770e8400-e29b-41d4-a716-446655440004'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440003'::uuid, '770e8400-e29b-41d4-a716-446655440005'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440004'::uuid, '770e8400-e29b-41d4-a716-446655440005'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440004'::uuid, '770e8400-e29b-41d4-a716-446655440006'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440005'::uuid, '770e8400-e29b-41d4-a716-446655440012'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440005'::uuid, '770e8400-e29b-41d4-a716-446655440013'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440006'::uuid, '770e8400-e29b-41d4-a716-446655440011'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440006'::uuid, '770e8400-e29b-41d4-a716-446655440014'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440007'::uuid, '770e8400-e29b-41d4-a716-446655440015'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440008'::uuid, '770e8400-e29b-41d4-a716-446655440020'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440008'::uuid, '770e8400-e29b-41d4-a716-446655440021'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440009'::uuid, '770e8400-e29b-41d4-a716-446655440022'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440009'::uuid, '770e8400-e29b-41d4-a716-446655440023'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440010'::uuid, '770e8400-e29b-41d4-a716-446655440024'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440010'::uuid, '770e8400-e29b-41d4-a716-446655440025'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440011'::uuid, '770e8400-e29b-41d4-a716-446655440032'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440011'::uuid, '770e8400-e29b-41d4-a716-446655440033'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440012'::uuid, '770e8400-e29b-41d4-a716-446655440033'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440013'::uuid, '770e8400-e29b-41d4-a716-446655440030'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440013'::uuid, '770e8400-e29b-41d4-a716-446655440031'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440013'::uuid, '770e8400-e29b-41d4-a716-446655440034'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440014'::uuid, '770e8400-e29b-41d4-a716-446655440040'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440014'::uuid, '770e8400-e29b-41d4-a716-446655440041'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440015'::uuid, '770e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440015'::uuid, '770e8400-e29b-41d4-a716-446655440043'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440015'::uuid, '770e8400-e29b-41d4-a716-446655440044'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440016'::uuid, '770e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440016'::uuid, '770e8400-e29b-41d4-a716-446655440043'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440017'::uuid, '770e8400-e29b-41d4-a716-446655440002'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440018'::uuid, '770e8400-e29b-41d4-a716-446655440004'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440019'::uuid, '770e8400-e29b-41d4-a716-446655440014'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440020'::uuid, '770e8400-e29b-41d4-a716-446655440013'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440021'::uuid, '770e8400-e29b-41d4-a716-446655440023'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440022'::uuid, '770e8400-e29b-41d4-a716-446655440022'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440023'::uuid, '770e8400-e29b-41d4-a716-446655440032'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440024'::uuid, '770e8400-e29b-41d4-a716-446655440034'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440025'::uuid, '770e8400-e29b-41d4-a716-446655440040'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440026'::uuid, '770e8400-e29b-41d4-a716-446655440041'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440026'::uuid, '770e8400-e29b-41d4-a716-446655440042'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440027'::uuid, '770e8400-e29b-41d4-a716-446655440002'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440028'::uuid, '770e8400-e29b-41d4-a716-446655440012'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440029'::uuid, '770e8400-e29b-41d4-a716-446655440021'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440030'::uuid, '770e8400-e29b-41d4-a716-446655440032'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440030'::uuid, '770e8400-e29b-41d4-a716-446655440033'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440031'::uuid, '770e8400-e29b-41d4-a716-446655440044'::uuid);
+INSERT INTO sharing_event_actions (sharing_event_id, action_id) VALUES ('880e8400-e29b-41d4-a716-446655440031'::uuid, '770e8400-e29b-41d4-a716-446655440045'::uuid);
