@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { isPublic, toggleVisibility } = $props();
+	let { visibility, toggleVisibility } = $props();
 </script>
 
 <div class="flex items-center gap-3">
@@ -17,5 +17,5 @@
 		>
 		</label>
 	</div>
-	<span class=" text-sm font-medium">{isPublic}</span>
+	<span class=" text-sm font-medium">{visibility}</span>
 </div>
