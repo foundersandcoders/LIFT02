@@ -1,5 +1,5 @@
 {
-	"employers": [
+	"organizations": [
 		{
 			"id": "990e8400-e29b-41d4-a716-446655440001",
 			"name": "TechCorp Ltd"
@@ -21,6 +21,38 @@
 			"name": "BrandWorks"
 		}
 	],
+	"line_managers": [
+		{
+			"id": "lm0e8400-e29b-41d4-a716-446655440001",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440010",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440001",
+			"email": "sarah.wilson@techcorp.com"
+		},
+		{
+			"id": "lm0e8400-e29b-41d4-a716-446655440002",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440011",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440002",
+			"email": "mike.johnson@creative.com"
+		},
+		{
+			"id": "lm0e8400-e29b-41d4-a716-446655440003",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440012",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440003",
+			"email": "lisa.brown@dataflow.com"
+		},
+		{
+			"id": "lm0e8400-e29b-41d4-a716-446655440004",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440013",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440004",
+			"email": "david.kim@innovatecorp.com"
+		},
+		{
+			"id": "lm0e8400-e29b-41d4-a716-446655440005",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440014",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440005",
+			"email": "emma.rodriguez@brandworks.com"
+		}
+	],
 	"users": [
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440001",
@@ -28,11 +60,8 @@
 			"name": "Alexander",
 			"pronouns": ["they", "them", "theirs"],
 			"job_title": "Software Developer",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440001",
-			"employer_name": "TechCorp Ltd",
-			"line_manager_id": "550e8400-e29b-41d4-a716-446655440010",
-			"line_manager_name": "Sarah Wilson",
-			"line_manager_email": "sarah.wilson@techcorp.com"
+			"is_line_manager": false,
+			"line_manager": "lm0e8400-e29b-41d4-a716-446655440001"
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440002",
@@ -40,11 +69,8 @@
 			"name": "Jordan Martinez",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "UX Designer",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440002",
-			"employer_name": "Creative Agency",
-			"line_manager_id": "550e8400-e29b-41d4-a716-446655440011",
-			"line_manager_name": "Mike Johnson",
-			"line_manager_email": "mike.johnson@creative.com"
+			"is_line_manager": false,
+			"line_manager": "lm0e8400-e29b-41d4-a716-446655440002"
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440003",
@@ -52,11 +78,8 @@
 			"name": "Sam Chen",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Data Analyst",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440003",
-			"employer_name": "DataFlow Inc",
-			"line_manager_id": "550e8400-e29b-41d4-a716-446655440012",
-			"line_manager_name": "Lisa Brown",
-			"line_manager_email": "lisa.brown@dataflow.com"
+			"is_line_manager": false,
+			"line_manager": "lm0e8400-e29b-41d4-a716-446655440003"
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440004",
@@ -64,11 +87,8 @@
 			"name": "Priya Patel",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "Product Manager",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440004",
-			"employer_name": "InnovateCorp",
-			"line_manager_id": "550e8400-e29b-41d4-a716-446655440013",
-			"line_manager_name": "David Kim",
-			"line_manager_email": "david.kim@innovatecorp.com"
+			"is_line_manager": false,
+			"line_manager": "lm0e8400-e29b-41d4-a716-446655440004"
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440005",
@@ -76,11 +96,8 @@
 			"name": "Taylor Adams",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Marketing Specialist",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440005",
-			"employer_name": "BrandWorks",
-			"line_manager_id": "550e8400-e29b-41d4-a716-446655440014",
-			"line_manager_name": "Emma Rodriguez",
-			"line_manager_email": "emma.rodriguez@brandworks.com"
+			"is_line_manager": false,
+			"line_manager": "lm0e8400-e29b-41d4-a716-446655440005"
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440010",
@@ -88,11 +105,8 @@
 			"name": "Sarah Wilson",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "Engineering Manager",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440001",
-			"employer_name": "TechCorp Ltd",
-			"line_manager_id": null,
-			"line_manager_name": null,
-			"line_manager_email": null
+			"is_line_manager": true,
+			"line_manager": null
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440011",
@@ -100,11 +114,8 @@
 			"name": "Mike Johnson",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Design Director",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440002",
-			"employer_name": "Creative Agency",
-			"line_manager_id": null,
-			"line_manager_name": null,
-			"line_manager_email": null
+			"is_line_manager": true,
+			"line_manager": null
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440012",
@@ -112,11 +123,8 @@
 			"name": "Lisa Brown",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "Analytics Lead",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440003",
-			"employer_name": "DataFlow Inc",
-			"line_manager_id": null,
-			"line_manager_name": null,
-			"line_manager_email": null
+			"is_line_manager": true,
+			"line_manager": null
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440013",
@@ -124,11 +132,8 @@
 			"name": "David Kim",
 			"pronouns": ["he", "him", "his"],
 			"job_title": "Product Director",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440004",
-			"employer_name": "InnovateCorp",
-			"line_manager_id": null,
-			"line_manager_name": null,
-			"line_manager_email": null
+			"is_line_manager": true,
+			"line_manager": null
 		},
 		{
 			"id": "550e8400-e29b-41d4-a716-446655440014",
@@ -136,11 +141,8 @@
 			"name": "Emma Rodriguez",
 			"pronouns": ["she", "her", "hers"],
 			"job_title": "Marketing Director",
-			"employer_id": "990e8400-e29b-41d4-a716-446655440005",
-			"employer_name": "BrandWorks",
-			"line_manager_id": null,
-			"line_manager_name": null,
-			"line_manager_email": null
+			"is_line_manager": true,
+			"line_manager": null
 		}
 	],
 	"responses": [
