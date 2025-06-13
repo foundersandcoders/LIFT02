@@ -9,6 +9,7 @@
   --color-primary: #d600a8;
   --color-secondary: #ff2ed2;
   --color-accent: #00a7a8;
+  --border-radius: 5px;
 }
 
 @plugin "daisyui/theme" {
@@ -17,6 +18,8 @@
   --color-primary: #d600a8;
   --color-secondary: #ff2ed2;
   --color-accent: #00a7a8;
+  --border-radius: 5px;
+
 }
 
 /* @theme {

@@ -33,7 +33,7 @@
 		</button>
 	</div>
 
-	<div id="list-items" class="dev dev-div flex flex-col justify-left">
+	<div id="list-items" class="flex flex-col justify-left">
 		{#if list.raw == "actions"}
 			{#await queryActions}
 				<p>Loading...</p>
