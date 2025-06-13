@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import Dash from "$lib/components/views/Dash.svelte";
-	import List from "$lib/components/views/List.svelte";
-	import Detail from "$lib/components/views/Detail.svelte";
 	import type { ViewName } from "$lib/types/appState";
+	import Dash from "$lib/components/views/Dash.svelte";
+	// import Detail from "$lib/components/views/Detail.svelte";
+	import List from "$lib/components/views/List.svelte";
 
 	const getViewName = getContext<() => ViewName>('getViewName');
 
@@ -15,8 +15,8 @@
 		<Dash />
 	{:else if view === "list"}
 		<List />
-	{:else if view === "detail"}
-		<Detail />
+	<!-- {:else if view === "detail"}
+		<Detail /> -->
 	{:else}
 		<div>No view selected</div>
 	{/if}

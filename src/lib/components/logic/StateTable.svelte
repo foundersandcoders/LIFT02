@@ -1,18 +1,34 @@
-<script>
+<script lang="ts">
   import { getContext } from "svelte";
+	import type { AppState, RowId } from "$lib/types/appState";
 
-	const getApp = getContext('getApp');
-	const app = $derived(getApp());
+	const getApp = getContext<() => AppState>('getApp');
+	const getProfileId = getContext<() => RowId>('getProfileId');
+	
+	const app:AppState = $derived(getApp());
+	const profileId:RowId = $derived(getProfileId());
+
+	const setProfileId = getContext<(profileId:RowId) => void>('setProfileId');
+
+	const onclick = () => {
+		setProfileId(profileId ? null : "550e8400-e29b-41d4-a716-446655440001");
+	};
 </script>
 
-<div id="values" class="dev dev-div values">
-	<table class="border-collapse table-auto">
+<section id="dev-menu" class="dev dev-div values">
+	<div class="dev dev-div">
+		<button class="dev dev-button" {onclick}>
+			Log {profileId ? "Out" : "In"}
+		</button>
+	</div>
+
+	<table class="border-collapse dev-table">
 		<thead>
 			<tr>
-				<th>1</th>
-				<th>2</th>
-				<th>3</th>
-				<th>value</th>
+				<th>Key 1</th>
+				<th>Key 2</th>
+				<th>Key 3</th>
+				<th>Value</th>
 			</tr>
 		</thead>
 
@@ -49,4 +65,4 @@
 			{/each}
 		</tbody>
 	</table>
-</div>
+</section>

@@ -1,23 +1,35 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { TableName, ViewName } from "$lib/types/appState";
-	import type { ListEntry } from "$lib/types/tableMain";
+	import type { App, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { Action, Question } from "$lib/types/tableMain";
 
-	export let item:ListEntry;
-	export let table:TableName;
+	// App State
+	const getApp = getContext<() => App>('getApp');
+	const app = $derived(getApp());
 
-	const setView = getContext<(view:ViewName) => void>('setViewName');
+	// Component Props
+	let {item, table} = $props<{item:Action | Question, table:TableName}>();
 
+	// Context Pulls
+	const setDetailItemId = getContext<(dbId:RowId) => void>('setDetailItem');
+	const setDetailTable = getContext<(table:TableName) => void>('setDetailItem');
+	const setViewName = getContext<(view:ViewName) => void>('setViewName');
+
+	// Event Handlers
 	const onclick = () => {
-		setView("detail");
-
-		const listEntry:ListEntry = { id: item.id };
-		
+		setViewName("detail");
 		const event = new CustomEvent('itemClick', {
-			detail: { table, item: listEntry }
+			detail: { table, item: { id: item.id } }
 		});
-
 		dispatchEvent(event);
+	};
+
+	const onListClick = (dTable:TableName, dItem:Action | Question) => {
+		setViewName("detail");
+		if (dTable == "questions" && dItem.id) {
+			setDetailTable(dTable);
+			setDetailItemId(dItem.id);
+		};
 	};
 
 	const onkeydown = (press:KeyboardEvent) => {
@@ -25,8 +37,19 @@
 	};
 </script>
 
-<div class="dev dev-div flex flex-row justify-between" {onclick} {onkeydown} role="button" tabindex="0">
-	<div class="dev dev-div dev-text"><pre>status</pre></div>
-	<div class="dev dev-div dev-text">{listitem.preview}</div>
+<div role="button" {onclick} {onkeydown} class="dev dev-div flex flex-row justify-between" tabindex="0">
+	<div class="dev dev-div dev-text">
+		<pre>status</pre>
+	</div>
+
+	<div class="dev dev-div dev-text">
+		{#if app.detail.table == "actions"}
+			<p>Coming soon, you fuck</p>
+		{:else if item}
+			<p>{item}</p>
+		{:else}
+			<p>No idea how you got here</p>
+		{/if}
+	</div>
 	<div class="dev dev-div dev-text"><pre>actions</pre></div>
 </div>

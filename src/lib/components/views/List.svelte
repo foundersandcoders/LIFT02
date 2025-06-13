@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { App, Detail, ListCategory, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
-	import type { ListEntry } from "$lib/types/tableMain";
+	import type { Action, Question } from "$lib/types/tableMain";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import ListItem from "$lib/components/cards/ListItem.svelte";
@@ -38,17 +38,10 @@
 			format: null
 		});
 	};
-	const onListClick = (dTable:TableName, dItem:ListEntry) => {
-		setView("detail");
-		if (dTable == "questions" && dItem.id) {
-			setDetailTable(dTable);
-			setDetailItemId(dItem.id);
-		};
-	};
 </script>
 
 <div class="dev dev-div">
-	<div class="dev dev-div flex flex-row justify-between">
+	<div id="list-header" class="dev dev-div flex flex-row justify-between">
 		<h2 class="dev dev-div">List View</h2>
 
 		<button onclick={onBackClick} class="dev dev-div dev-button">
@@ -56,23 +49,20 @@
 		</button>
 	</div>
 
-	<div class="dev dev-div flex flex-col justify-left">
+	<div id="list-body" class="dev dev-div flex flex-col justify-left">
 		{#if table == "actions"}
-			{#await queryActions} <p>Loading...</p>
+			{#await queryActions}
+				<p>Loading...</p>
 			{:then result}
 				{#if result?.data}
 					{#each result.data as action}
-						<ListItem {action} 
-							table={table}
-							on:itemClick={(entry) => onListClick(
-								entry.detail.table,
-								entry.detail.item
-							)}
-						/>
-					{:else} <p>No actions found</p>
+						<ListItem item={action as Action} {table} />
 					{/each}
+				{:else}
+					<p>No actions found</p>
 				{/if}
-			{:catch error} <p>Error: {error.message}</p>
+			{:catch error}
+				<p>Error: {error.message}</p>
 			{/await}
 		{:else if table == "questions" && category.raw}
 			{#await queryQuestions}
@@ -80,16 +70,10 @@
 			{:then result}
 				{#if result?.data}
 					{#each result.data as question}
-						<ListItem {question} 
-							table={table}
-							on:itemClick={(entry) => onListClick(
-								entry.detail.table,
-								entry.detail.item
-							)}
-						/>
-					{:else}
-						No questions found
+						<ListItem item={question as Question} {table} />
 					{/each}
+				{:else}
+					<p>No questions found</p>
 				{/if}
 			{:catch error}
 				<p>Error: {error.message}</p>

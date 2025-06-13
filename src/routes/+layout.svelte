@@ -4,9 +4,9 @@
 	import Footer from "$lib/components/layouts/Footer.svelte";
 	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { setContext } from 'svelte';
-	import type { App, ListCategory, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, ListCategory, RowId, TableName, ViewName } from "$lib/types/appState";
 
-	let app = $state<App>({
+	let app = $state<AppState>({
 		profile: {
 			id: null
 		},

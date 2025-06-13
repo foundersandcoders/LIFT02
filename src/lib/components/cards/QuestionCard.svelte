@@ -28,6 +28,8 @@
 
 	let { questionId }: Props = $props();
 
+	export default QuestionCard;
+
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
 		const details = await getQuestionDetails(user_id, questionId);
