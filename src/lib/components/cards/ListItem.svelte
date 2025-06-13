@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { App, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, RowId, TableName, ViewName } from "$lib/types/appState";
 	import type { Action, Question } from "$lib/types/tableMain";
 
 	// App State
-	const getApp = getContext<() => App>('getApp');
+	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 
 	// Component Props

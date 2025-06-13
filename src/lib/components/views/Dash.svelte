@@ -2,34 +2,32 @@
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
 	import type { Question } from "$lib/types/tableMain";
-	import type { App, ListCategory, ViewName } from "$lib/types/appState";
+	import type { AppState, ListCategory, ViewName } from "$lib/types/appState";
 	import { makePretty } from "$lib/utils/textTools";
 	import { getContext } from 'svelte';
 
-	// App State
-	const getApp = getContext<() => App>('getApp');
+	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
-	// const getProfileId = getContext<() => string>('getProfileId');
-	// let profileId = $derived(getProfileId());
 
 	const setListCategory = getContext<(list:ListCategory) => void>('setListCategory');
 	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
-	// DB Queries
 	let queryActions = $derived(app.profile.id != null ? getUserActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
 
 	function extractCategories(questions:Question[]):ListCategory[] {
+		// TODO: Move extractCategories() to a utils file
 		const categoriesRaw:string[] = questions.map((question:Question) => question.category);
 		const categoriesUnique = [...new Set(categoriesRaw)];
 		
 		return categoriesUnique.map((category:string) => ({
 			raw: category,
-			format: makePretty(category, "table", "tile")
+			format: makePretty(category, "db-table-name", "tile-text")
 		}));
 	}
 
-	const onClickTile = (category:ListCategory) => {
+	const onclick = (category:ListCategory) => {
+		// TODO: Create a utils file for regular view transitions
 		setListCategory(category);
 		setViewName("list");
 	};
@@ -45,7 +43,7 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button onclick={() => onClickTile({ raw: "actions", format: "Actions" })}
+				<button onclick={() => onclick({ raw: "actions", format: "Actions" })}
 					class="dev dev-div dev-tile"
 				>
 					<p>{result.data.length} Actions</p>
@@ -64,7 +62,7 @@
 		{:then result}
 			{#if result.data}
 				{#each extractCategories(result.data) as category}
-					<button onclick={() => onClickTile(category)}
+					<button onclick={() => onclick(category)}
 						class="dev dev-div dev-tile"
 					>
 						<p>{category.format}</p>

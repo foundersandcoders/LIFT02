@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { App, Detail, ListCategory, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, Detail, ListCategory, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
 	import type { Action, Question } from "$lib/types/tableMain";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
 	import ListItem from "$lib/components/cards/ListItem.svelte";
 
 	// App State
-	const getApp = getContext<() => App>('getApp');
+	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 	
 	let category:ListCategory = $derived(app.list.category);
