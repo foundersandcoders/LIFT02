@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @plugin 'daisyui'{
-  themes: light --default, dark --prefersdark, cupcake;
+  themes: light --default, dark --prefersdark;
 }
 @plugin "daisyui/theme" {
   name: "light";
@@ -9,16 +9,17 @@
   --color-primary: #d600a8;
   --color-secondary: #ff2ed2;
   --color-accent: #00a7a8;
-  --border-radius: 5px;
+  --color-primary-content: #ffffffß
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
-  default: true;
+  prefersdark: true;
   --color-primary: #d600a8;
   --color-secondary: #ff2ed2;
   --color-accent: #00a7a8;
-  --border-radius: 5px;
+  --color-primary-content: #ffffff;
+  --color-base-300: oklch(90% 0 0);
 
 }
 

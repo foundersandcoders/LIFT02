@@ -2,7 +2,7 @@
 	let { devMode, profileId } = $props();
 </script>
 
-<footer class="w-full bg-primary text-base-100">
+<footer class="w-full bg-primary footer footer-center">
   <div id="dev-info" class="flex justify-between">
 
     <div class="p-4">

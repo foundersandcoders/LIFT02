@@ -6,7 +6,7 @@
 	const onToggleDevMode = () => { toggleDevMode() };
 </script>
 
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-base-300">
 	<div class="p-0 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
 		<!-- Logo and App Name. Forcing uppercase for consistency -->
 		<div class="flex items-center space-x-3">
@@ -23,7 +23,7 @@
 			<!-- Dev Mode Toggle (Development Only) -->
 			<button
 				onclick={onToggleDevMode}
-				class="btn btn-primary text-base-100"
+				class="btn btn-primary text-primary-content"
 				type="button"
 				aria-label="Toggle development mode"
 			>

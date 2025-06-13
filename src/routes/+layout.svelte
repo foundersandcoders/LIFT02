@@ -37,7 +37,6 @@
 		{@render children()}
 	</main>
 	
-	<footer class="footer footer-center">
+
 		<Footer {devMode} {profileId}/>
-	</footer>
 </div>
