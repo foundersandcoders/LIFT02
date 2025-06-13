@@ -7,7 +7,7 @@
 	import { getContext } from 'svelte';
 
 	const getApp = getContext<() => AppState>('getApp');
-	
+
 	const app = $derived(getApp());
 
 	const setList = getContext<(list:List) => void>('setList');
@@ -46,11 +46,11 @@
 			{#if result && result.data}
 				{@const table = "actions"}
 				{@const category = { raw: "actions", format: "Actions" }}
-				<button onclick={() => onclick(table, category)} class="dev dev-tile">
+				<button onclick={() => onclick(table, category)} class="dev dev-state-active dev-tile">
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<button class="dev dev-div dev-inactive">
+				<button class="dev dev-tile dev-state-inactive">
 					<p>0 Actions</p>
 				</button>
 			{/if}
@@ -64,7 +64,7 @@
 			{#if result.data}
 				{#each extractCategories(result.data) as category}
 					{@const table = "questions"}
-					<button onclick={() => onclick(table, category)} class="dev dev-tile">
+					<button onclick={() => onclick(table, category)} class="dev dev-state-active dev-tile">
 						<p>{category.format}</p>
 					</button>
 				{/each}

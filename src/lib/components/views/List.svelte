@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, Detail, ListCategory, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, Detail, ItemCategory, List, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
 	import type { Action, Question } from "$lib/types/tableMain";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
@@ -10,18 +10,19 @@
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 	
-	let category:ListCategory = $derived(app.list.category);
+	let category:ItemCategory = $derived(app.list.category);
 	let item:Detail = $derived(app.detail);
 	let profile:Profile = $derived(app.profile);
-	let table:TableName = $derived(app.list.table);
+	let table:TableName | null = $derived(app.list.table);
 
-	const setCategory = getContext<(list:ListCategory) => void>('setListCategory');
+	const setCategory = getContext<(list:ItemCategory) => void>('setListCategory');
 	const setDetailItemId = getContext<(dbId:RowId) => void>('setDetailItem');
 	const setDetailTable = getContext<(table:TableName) => void>('setDetailItem');
+	const setList = getContext<(list:List) => void>('setList');
 	const setView = getContext<(view:ViewName) => void>('setViewName');
 
 	// DB Queries
-	let queryActions = $derived((table == "actions" && profile.id != null)
+	let queryActions = $derived((table == "actions" && profile.id)
 		? getUserActions(profile.id)
 		: null
 	);
@@ -31,11 +32,11 @@
 	);
 
 	// Event Handlers
-	const onBackClick = () => {
+	const onclick = () => {
 		setView("dash");
-		setCategory({
-			raw: null,
-			format: null
+		setList({
+			table: null,
+			category: { raw: null, format: null }
 		});
 	};
 </script>
@@ -44,7 +45,7 @@
 	<div id="list-header" class="dev dev-div flex flex-row justify-between">
 		<h2 class="dev dev-div">List View</h2>
 
-		<button onclick={onBackClick} class="dev dev-div dev-button">
+		<button {onclick} class="dev dev-div dev-button">
 			Back
 		</button>
 	</div>

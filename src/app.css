@@ -4,6 +4,7 @@
 @theme {
 	--color-black: #000000;
 	--color-blue-bright: #2235e2;
+	--color-grey: #808080;
 	--color-green: #29e2a3;
 	--color-orange: #ec5d2a;
 	--color-pink: #d600a8;
@@ -24,19 +25,27 @@ body {
 
 /* === Temporary Dev Styles === */
 
+.dev-button {
+	outline: 2px solid var(--color-pink);
+	padding: 0.5rem 1rem;
+}
 .dev-div {
 	margin: 1rem;
 	outline: 2px solid var(--color-teal);
 	padding: 1rem;
 }
-.dev-inactive {
-	outline-color: var(--color-black);
-	font-style: italic;
+.dev-list {
+	outline: 2px solid var(--color-purple);
 }
-.dev-list { outline: 2px solid var(--color-purple); }
-.dev-button {
-	outline: 2px solid var(--color-pink);
-	padding: 0.5rem 1rem;
+.dev-state-active {
+	outline-style: solid;
+	color: var(--color-black);
+	font-style: normal;
+}
+.dev-state-inactive {
+	outline-style: dashed;
+	color: var(--color-grey);
+	font-style: italic;
 }
 .dev-table {
   display: table;
@@ -67,4 +76,9 @@ body {
 	margin: 0;
 	padding: 0 1rem;
 }
-.dev-tile { outline: 2px solid var(--color-blue-bright); }
+.dev-tile {
+	margin: 0.5rem;
+	outline-width: 2px;
+	outline-color: var(--color-blue-bright);
+	padding: 0.5rem;
+}

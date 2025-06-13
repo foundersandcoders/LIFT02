@@ -4,7 +4,7 @@
 	import Footer from "$lib/components/layouts/Footer.svelte";
 	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { setContext } from 'svelte';
-	import type { AppState, Detail, List, QuestionCategory, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, Detail, List, ItemCategory, RowId, TableName, ViewName } from "$lib/types/appState";
 
 	let app = $state<AppState>({
 		profile: {
@@ -51,7 +51,7 @@
 		app.profile.id = profileId;
 	});
 	setContext('setList', (newList:List) => { app.list = newList });
-	setContext("setListCategory", (newCategory:Category) => { app.list.category = newCategory });
+	setContext("setListCategory", (newCategory:ItemCategory) => { app.list.category = newCategory });
 	setContext("setListTable", (newTable:TableName) => { app.list.table = newTable });
 	setContext("setProfileId", (newId:RowId) => { app.profile.id = newId });
 	setContext('setViewName', (newView:ViewName) => { app.view.name = newView });
