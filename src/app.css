@@ -1,7 +1,7 @@
 @import 'tailwindcss';
-@import '@fontsource/metropolis';
+@plugin 'daisyui';
 
-@theme {
+/* @theme {
 	--color-black: #000000;
 	--color-blue-bright: #2235e2;
 	--color-green: #29e2a3;
@@ -14,13 +14,13 @@
 	--color-white: #ffffff;
 	--color-yellow: #ffcb00;
 	--font-family-sans: Metropolis, Arial;
-}
+} */
 
-body {
+/* body {
 	background-color: var(--color-white);
 	color: var(--color-black);
 	font-family: var(--font-family-sans);
-}
+} */
 
 /* === Temporary Dev Styles === */
 
@@ -29,11 +29,22 @@ body {
 	padding: 1rem;
 }
 
-.dev-div { outline: 2px solid var(--color-teal); }
-.dev-tile { outline: 2px solid var(--color-blue-bright); }
-.dev-list { outline: 2px solid var(--color-purple); }
-.dev-button { outline: 2px solid var(--color-pink); }
-.dev-text { margin: 0; padding: 0 1rem; }
+.dev-div {
+	outline: 2px solid var(--color-teal);
+}
+.dev-tile {
+	outline: 2px solid var(--color-blue-bright);
+}
+.dev-list {
+	outline: 2px solid var(--color-purple);
+}
+.dev-button {
+	outline: 2px solid var(--color-pink);
+}
+.dev-text {
+	margin: 0;
+	padding: 0 1rem;
+}
 
 .dev-inactive {
 	outline-color: var(--color-black);
