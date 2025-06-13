@@ -1,13 +1,14 @@
-import type { TextFormat, TextSource } from "$lib/types/utilText"
+import type { TextDestination, TextSource } from "$lib/types/utilText"
 
 export function makePretty(
   input: string,
   source: TextSource,
-  format: TextFormat
+  destination: TextDestination
 ):string {
   let output: string;
-  switch (`${source} ${format}`) {
-    case "table tile":
+  
+  switch (`${source} ${destination}`) {
+    case "db-table-name tile-text":
       output = toCaseTitle(cleanUnderscores(input));
       break;
     default:
