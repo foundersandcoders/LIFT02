@@ -24,11 +24,11 @@
 	const onListClick = () => { setView("detail") };
 </script>
 
-<div class="dev dev-div">
-	<div id="list-header" class="dev dev-div flex flex-row justify-between">
-		<h2 class="dev dev-div">List View</h2>
+<div class="">
+	<div id="list-header" class="flex justify-between">
+		<h2 class="">List View</h2>
 
-		<button onclick={onBackClick} class="dev dev-div dev-button">
+		<button onclick={onBackClick} class="btn btn-primary">
 			Back
 		</button>
 	</div>
