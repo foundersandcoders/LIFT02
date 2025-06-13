@@ -2,12 +2,14 @@
 	import { getQuestionById } from '$lib/services/database';
 	import SubmitButton from '../ui/SubmitButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
+	import type { QuestionDetails } from '$lib/utils/questionDetails.svelte';
 	import { getQuestionDetails } from '$lib/utils/questionDetails.svelte';
 
 	//Delete later --> for development only
 	const user_id = '550e8400-e29b-41d4-a716-446655440005';
 
 	let actionType = $state('');
+	
 	let questionDetails = $state<QuestionDetails>({
 		responseInput: null,
 		actionsInput: null,
@@ -19,16 +21,7 @@
 		questionId: string;
 	}
 
-	export interface QuestionDetails {
-		responseInput: string | null;
-		actionsInput: string | null;
-		actionType: string;
-		responseId: string | null;
-	}
-
 	let { questionId }: Props = $props();
-
-	export default QuestionCard;
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
@@ -61,10 +54,10 @@
 			<ToggleStatus {visibility} {toggleVisibility} />
 
 			<div class="flex flex-col">
-				<label for="response-{questionId}" class="text-xl"
-					>{response.question.data.question_text || 'Question'}</label
-					rows="4"
-				></textarea>
+				<label for="response-{questionId}" class="text-xl">
+					{response.question.data.question_text || 'Question'}
+				</label>
+				<textarea id="response-{questionId}" class="text-area"rows="4"></textarea>
 			</div>
 
 			<div>

@@ -1,6 +1,13 @@
 import { getLatestResponses } from '$lib/services/database/responses';
 import { getLatestActions } from '$lib/services/database';
-import type { QuestionDetails } from '$lib/components/cards/QuestionCard.svelte';
+
+export interface QuestionDetails {
+	responseInput: string | null;
+	actionsInput: string | null;
+	actionType: string;
+	responseId: string | null;
+}
+
 
 export const getQuestionDetails = async (
 	user_id: string,

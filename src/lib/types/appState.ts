@@ -16,7 +16,7 @@ export interface Detail {
   item: DetailItem;
 }
 export interface DetailItem {
-  rowId: null | RowId
+  id: null | RowId
 }
 
 export interface ItemCategory {

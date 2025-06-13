@@ -21,7 +21,7 @@
 		setDetail({
 			table: table,
 			item: {
-				rowId: item ? (item.id || null) : null
+				id: item ? (item.id || null) : null
 			}
 		});
 		// if (dTable == "questions" && dItem.id) {
