@@ -24,30 +24,47 @@ body {
 
 /* === Temporary Dev Styles === */
 
-.dev {
+.dev-div {
 	margin: 1rem;
+	outline: 2px solid var(--color-teal);
 	padding: 1rem;
 }
-
-.dev-div { outline: 2px solid var(--color-teal); }
-.dev-list { outline: 2px solid var(--color-purple); }
-.dev-button { outline: 2px solid var(--color-pink); }
-.dev-table {
-  display: flex;
-  justify-content: center;
-  /* margin: 0 auto; */
-  width: 100%;
-}
-.dev-text { margin: 0; padding: 0 1rem; }
-.dev-tile { outline: 2px solid var(--color-blue-bright); }
-
-th, td {
-	margin: 1rem;
-	outline: 1px solid var(--color-orange);
-	padding: 0.5rem 1rem;
-}
-
 .dev-inactive {
 	outline-color: var(--color-black);
 	font-style: italic;
 }
+.dev-list { outline: 2px solid var(--color-purple); }
+.dev-button {
+	outline: 2px solid var(--color-pink);
+	padding: 0.5rem 1rem;
+}
+.dev-table {
+  display: table;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  border-collapse: collapse;
+	table-layout: fixed;
+}
+.dev-table th, .dev-table td {
+  margin: 0;
+  outline: 1px solid var(--color-orange);
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+.dev-table th:nth-child(1),
+.dev-table td:nth-child(1),
+.dev-table th:nth-child(2),
+.dev-table td:nth-child(2),
+.dev-table th:nth-child(3),
+.dev-table td:nth-child(3) {
+  width: 15%;
+}
+.dev-table th:nth-child(4),
+.dev-table td:nth-child(4) {
+  width: 55%;
+}
+.dev-text {
+	margin: 0;
+	padding: 0 1rem;
+}
+.dev-tile { outline: 2px solid var(--color-blue-bright); }
