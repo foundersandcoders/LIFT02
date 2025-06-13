@@ -1,3 +1,9 @@
+// export interface ActionCheck {
+//   isError: boolean;
+//   exist: boolean;
+//   count: number;
+// }
+
 export interface AppState {
   profile: Profile;
   view: View;
@@ -5,36 +11,36 @@ export interface AppState {
   detail: Detail;
 }
 
-export interface Profile {
-  id: RowId
+export interface Detail {
+  table: null | TableName;
+  item: DetailItem;
 }
+export interface DetailItem {
+  rowId: null | RowId
+}
+
+export interface ItemCategory {
+	raw: null | RowName;
+	format: null | RowName;
+}
+
+export interface List {
+  table: null | TableName;
+  category: ItemCategory;
+}
+
+export interface Profile {
+  id: null | RowId
+}
+
+export type RowId = string;
+
+export type RowName = string;
+
+export type TableName = "actions" | "profiles" | "questions" | "responses" | "sharing_events";
+
 export interface View {
   name: ViewName
 }
-export interface List {
-  table: TableName;
-  category: ListCategory;
-}
-export interface Detail {
-  table: TableName;
-  item: DetailItem;
-}
 
-export interface ListCategory {
-  raw: RowName;
-  format: RowName;
-}
-export interface DetailItem {
-  rowId: RowId
-}
-
-export type RowId = null | string;
-export type RowName = null | string;
-export type TableName = null | "actions" | "profiles" | "questions" | "responses" | "sharing_events";
 export type ViewName = "dash" | "list" | "detail";
-
-export interface ActionCheck {
-  isError: boolean;
-  exist: boolean;
-  count: number;
-}

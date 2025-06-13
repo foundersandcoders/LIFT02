@@ -2,20 +2,21 @@
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
 	import type { Question } from "$lib/types/tableMain";
-	import type { AppState, ListCategory, ViewName } from "$lib/types/appState";
+	import type { AppState, ItemCategory, List, TableName, ViewName } from "$lib/types/appState";
 	import { makePretty } from "$lib/utils/textTools";
 	import { getContext } from 'svelte';
 
 	const getApp = getContext<() => AppState>('getApp');
+	
 	const app = $derived(getApp());
 
-	const setListCategory = getContext<(list:ListCategory) => void>('setListCategory');
+	const setList = getContext<(list:List) => void>('setList');
 	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
-	let queryActions = $derived(app.profile.id != null ? getUserActions(app.profile.id) : null);
+	let queryActions = $derived(app.profile.id ? getUserActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
 
-	function extractCategories(questions:Question[]):ListCategory[] {
+	function extractCategories(questions:Question[]):ItemCategory[] {
 		// TODO: Move extractCategories() to a utils file
 		const categoriesRaw:string[] = questions.map((question:Question) => question.category);
 		const categoriesUnique = [...new Set(categoriesRaw)];
@@ -26,9 +27,9 @@
 		}));
 	}
 
-	const onclick = (category:ListCategory) => {
+	const onclick = (table:TableName, category:ItemCategory) => {
 		// TODO: Create a utils file for regular view transitions
-		setListCategory(category);
+		setList({ table, category });
 		setViewName("list");
 	};
 </script>
@@ -43,9 +44,9 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button onclick={() => onclick({ raw: "actions", format: "Actions" })}
-					class="dev dev-div dev-tile"
-				>
+				{@const table = "actions"}
+				{@const category = { raw: "actions", format: "Actions" }}
+				<button onclick={() => onclick(table, category)} class="dev dev-tile">
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -62,9 +63,8 @@
 		{:then result}
 			{#if result.data}
 				{#each extractCategories(result.data) as category}
-					<button onclick={() => onclick(category)}
-						class="dev dev-div dev-tile"
-					>
+					{@const table = "questions"}
+					<button onclick={() => onclick(table, category)} class="dev dev-tile">
 						<p>{category.format}</p>
 					</button>
 				{/each}

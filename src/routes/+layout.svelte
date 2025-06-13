@@ -4,7 +4,7 @@
 	import Footer from "$lib/components/layouts/Footer.svelte";
 	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { setContext } from 'svelte';
-	import type { AppState, ListCategory, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, Detail, List, QuestionCategory, RowId, TableName, ViewName } from "$lib/types/appState";
 
 	let app = $state<AppState>({
 		profile: {
@@ -33,21 +33,25 @@
 	let profileId = $derived(devMode ? "550e8400-e29b-41d4-a716-446655440001" : null);
 
 	setContext("getApp", () => app);
+	setContext('getDetail', () => app.detail);
 	setContext('getDetailItem', () => app.detail.item.rowId);
 	setContext('getDetailTable', () => app.detail.table);
 	setContext('getDevMode', () => devMode);
+	setContext('getList', () => app.list);
 	setContext('getListCategory', () => app.list.category);
 	setContext('getListTable', () => app.list.table);
 	setContext('getProfileId', () => app.profile.id);
 	setContext('getViewName', () => app.view.name);
 
+	setContext('setDetail', (newDetail:Detail) => { app.detail = newDetail });
 	setContext('setDetailTable', (newTable:TableName) => { app.detail.table = newTable });
 	setContext('setDetailItem', (newDbId:RowId) => { app.detail.item.rowId = newDbId });
 	setContext('setDevMode', () => {
 		devMode = !devMode;
 		app.profile.id = profileId;
 	});
-	setContext("setListCategory", (newCategory:ListCategory) => { app.list.category = newCategory });
+	setContext('setList', (newList:List) => { app.list = newList });
+	setContext("setListCategory", (newCategory:Category) => { app.list.category = newCategory });
 	setContext("setListTable", (newTable:TableName) => { app.list.table = newTable });
 	setContext("setProfileId", (newId:RowId) => { app.profile.id = newId });
 	setContext('setViewName', (newView:ViewName) => { app.view.name = newView });

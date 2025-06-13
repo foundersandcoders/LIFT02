@@ -40,7 +40,7 @@
 	};
 </script>
 
-<div class="dev dev-div">
+<div id="list-view" class="dev dev-div">
 	<div id="list-header" class="dev dev-div flex flex-row justify-between">
 		<h2 class="dev dev-div">List View</h2>
 
