@@ -3,22 +3,22 @@
 	import type { AppState, RowId } from "$lib/types/appState";
 
 	const getApp = getContext<() => AppState>('getApp');
-	const getProfileId = getContext<() => RowId>('getProfileId');
-	
 	const app:AppState = $derived(getApp());
-	const profileId:RowId = $derived(getProfileId());
 
-	const setProfileId = getContext<(profileId:RowId) => void>('setProfileId');
+	// const getProfileId = getContext<() => RowId >('getProfileId');
+	// const profileId:RowId = $derived(getProfileId());
+
+	const setProfileId = getContext<(profileId:null|RowId) => void>('setProfileId');
 
 	const onclick = () => {
-		setProfileId(profileId ? null : "550e8400-e29b-41d4-a716-446655440001");
+		setProfileId(app.profile.id ? null : "550e8400-e29b-41d4-a716-446655440001");
 	};
 </script>
 
 <section id="dev-menu" class="dev dev-div values">
 	<div class="dev dev-div">
 		<button class="dev dev-button" {onclick}>
-			Log {profileId ? "Out" : "In"}
+			Log {app.profile.id ? "Out" : "In"}
 		</button>
 	</div>
 

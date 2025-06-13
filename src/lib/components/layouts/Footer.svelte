@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { RowId } from "$lib/types/appState";
+
 	let { devMode, profileId } = $props();
 </script>
 
