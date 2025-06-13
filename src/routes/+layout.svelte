@@ -31,9 +31,7 @@
 	$inspect(list).with((type, value) => console.log(`${type} list: ${value.raw}`));
 </script>
 <div class="min-h-screen flex flex-col">
-	<header class="navbar bg-base-100 sticky top-0">
 		<Header />
-	</header>
 
 	<main class="flex-1">
 		{@render children()}
