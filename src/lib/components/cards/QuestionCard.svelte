@@ -48,7 +48,7 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
+		<div class="w-fill flex flex-col justify-around rounded-3xl p-5 border">
 			<header>
 				<h1 class="text-center text-2xl">{response.question.data.category}</h1>
 			</header>

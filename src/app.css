@@ -1,5 +1,23 @@
 @import 'tailwindcss';
-@plugin 'daisyui';
+@plugin 'daisyui'{
+  themes: light --default, dark --prefersdark, cupcake;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-base-100: #ffffff;
+  --color-primary: #d600a8;
+  --color-secondary: #ff2ed2;
+  --color-accent: #00a7a8;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #d600a8;
+  --color-secondary: #ff2ed2;
+  --color-accent: #00a7a8;
+}
 
 /* @theme {
 	--color-black: #000000;
@@ -16,11 +34,9 @@
 	--font-family-sans: Metropolis, Arial;
 } */
 
-/* body {
-	background-color: var(--color-white);
-	color: var(--color-black);
-	font-family: var(--font-family-sans);
-} */
+body {
+	max-height: 100vh
+}
 
 /* === Temporary Dev Styles === */
 
