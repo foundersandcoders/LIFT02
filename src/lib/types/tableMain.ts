@@ -1,7 +1,6 @@
 import type { User, Employer, Pronouns } from './tableSub';
 
 export type Input = Action | Profile | Question | Response | Share;
-export type ListEntry = Action | Question;
 
 export interface Action {
 	id?: string;

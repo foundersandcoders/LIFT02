@@ -1,4 +1,4 @@
-export interface App {
+export interface AppState {
   profile: Profile;
   view: View;
   list: List;
