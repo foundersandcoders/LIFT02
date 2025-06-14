@@ -1,3 +1,3 @@
 export function randomNum() {
-  return Math.ceil(Math.random() * 10);
+	return Math.ceil(Math.random() * 10);
 }

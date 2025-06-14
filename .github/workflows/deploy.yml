@@ -1,11 +1,8 @@
-name: Build
+name: Deploy to Vercel
 
 on:
   push:
-    branches: [main]
-
-  pull_request:
-    branches: [main]
+    branches: [deploy]
 
 jobs:
   build:
@@ -22,14 +19,6 @@ jobs:
           exit 1
           fi
 
-      - name: Create .env file
-        env:
-          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
-        run: |
-          echo "PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }}" >> .env
-          echo "PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}" >> .env
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -42,13 +31,8 @@ jobs:
       - name: Run type checking
         run: npm run check
 
-      - name: Lint & Format
-        run: npm run format
-
-      # - name: Run tests
-      # run: |
-      #npm install -D jsdom
-      # npm run test
+      - name: Lint & Format Check
+        run: npm run lint
 
       - name: Build
         run: npm run build

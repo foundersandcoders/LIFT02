@@ -12,12 +12,16 @@ function makeGrammar(name: string, pronouns: string[]): User {
 			obj: pronouns[1],
 			pos: pronouns[2]
 		},
-		responses: [ /* from the DB */ ],
-		manager: [ /* from the DB */ ]
+		responses: [
+			/* from the DB */
+		],
+		manager: [
+			/* from the DB */
+		]
 	};
 }
 
-function craftEmail(user:User) {
+function craftEmail(user: User) {
 	return `Dear ${user.manager},
     
     ${user.name} has chosen to share ${user.pro.pos} latest responses with you.
@@ -31,8 +35,12 @@ function craftEmail(user:User) {
 interface User {
 	name: string;
 	pro: Pronouns;
-	responses: [ /* from the DB */ ],
-	manager: [ /* from the DB */ ]
+	responses: [
+		/* from the DB */
+	];
+	manager: [
+		/* from the DB */
+	];
 }
 
 interface Pronouns {

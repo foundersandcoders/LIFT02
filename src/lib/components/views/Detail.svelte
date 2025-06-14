@@ -8,18 +8,13 @@
 	const onBackClick = () => {
 		setView('list');
 	};
-
 	const questionId = 'bacc6ffa-b589-4bdc-8eb8-d29eeef7f153';
 </script>
 
-<div class="dev dev-div">
-	<div id="detail-header" class="dev dev-div flex flex-row justify-between">
-		<h2 class="dev dev-div">Detail View</h2>
+<div class="p-0 bg-base-200">
+	<button onclick={onBackClick} class="btn btn-primary ml-4 mt-2 text-primary-content"> Back </button>
 
-		<button onclick={onBackClick} class="dev dev-div dev-button"> Back </button>
-	</div>
-
-	<div id="detail-content" class="dev dev-div">
+	<div id="detail-content" class="">
 		<QuestionCard {questionId} />
 	</div>
 </div>

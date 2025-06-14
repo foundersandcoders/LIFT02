@@ -48,15 +48,16 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
-			<header>
-				<h1 class="text-center text-2xl">{response.question.data.category}</h1>
+		<div class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
+			<header class="mb-4 bg-base-100 rounded-xl shadow p-2">
+				<h1 class="text-center text-2xl mb-2">{response.question.data.category}</h1>
+				
+				<ToggleStatus {visibility} {toggleVisibility} />
 			</header>
 
-			<ToggleStatus {visibility} {toggleVisibility} />
 
-			<div class="flex flex-col">
-				<label for="response-{questionId}" class="text-xl"
+			<div class="flex flex-col bg-base-100 rounded-xl shadow p-2">
+				<label for="response-{questionId}" class="text-lg mb-1"
 					>{response.question.data.question_text || 'Question'}</label
 				>
 				<textarea
@@ -67,12 +68,11 @@
 					class="text-area"
 				></textarea>
 			</div>
-
-			<div>
-				<h2 class="text-xl">A description of what actions are for</h2>
-				<label for="cars">Action type:</label>
-				<select id="action-type-{questionId}" bind:value={actionType}>
-					<option>Action type</option>
+			<div class="bg-base-100 rounded-xl shadow p-2">
+				<h2 class="text-lg mb-1">A description of what actions are for</h2>
+				<label for="action-type-{questionId}" class="text-md">Action type:</label>
+				<select id="action-type-{questionId}" bind:value={actionType} class="border-2 border-primary rounded p-2 mb-2 focus:border-accent outline-none">
+					<option value="default" selected >Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
 					<option value="communication">Communication</option>
@@ -80,7 +80,6 @@
 				</select>
 
 				<div class="flex flex-col">
-					<label for="actions-{questionId}">Actions needed:</label>
 					<textarea
 						id="actions-{questionId}"
 						bind:value={questionDetails.actionsInput}
@@ -117,13 +116,13 @@
 
 <style>
 	.text-area {
-		border: solid 2px var(--pink);
+		border: solid 2px var(--color-primary);
 		border-radius: 10px;
 		padding: 10px;
 		outline: none;
 	}
 
 	.text-area:focus {
-		border: solid 2px var(--teal);
+		border: solid 2px var(--color-accent);
 	}
 </style>

@@ -1,5 +1,6 @@
 -- Seed data for questions table
--- This file populates the questions table with initial data
+-- This file is auto-generated from data/questions.json
+-- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 INSERT INTO questions (category, question_text, "order", preview) VALUES
   ('my_wellbeing', 'Is there anything either inside or outside of work that may affect your wellbeing, that you think we should know about?', 1, 'External Wellbeing Factors'),
