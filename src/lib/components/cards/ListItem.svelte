@@ -15,14 +15,8 @@
 	};
 </script>
 
-<div
-	class="dev dev-div flex flex-row justify-between"
-	{onclick}
-	{onkeydown}
-	role="button"
-	tabindex="0"
->
-	<div class="dev dev-div dev-text"><pre>status</pre></div>
-	<div class="dev dev-div dev-text">{question.preview}</div>
-	<div class="dev dev-div dev-text"><pre>actions</pre></div>
+<div class="p-4 m-2 flex justify-between border border-primary rounded" {onclick} {onkeydown} role="button" tabindex="0">
+  <div><pre>status</pre></div>
+	<div>{question.preview}</div>
+  <div><pre>actions</pre></div>
 </div>

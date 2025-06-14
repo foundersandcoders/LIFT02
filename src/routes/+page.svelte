@@ -16,8 +16,8 @@
 	let view = $derived(getView());
 </script>
 
-<main id="view" class="dev dev-div">
-	{#if view === 'dash'}
+<main id="view" class="">
+	{#if view === "dash"}
 		<Dash />
 	{:else if view === 'list'}
 		<List />

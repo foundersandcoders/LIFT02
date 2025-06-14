@@ -26,15 +26,17 @@
 	};
 </script>
 
-<div class="dev dev-div">
-	<div id="list-header" class="dev dev-div flex flex-row justify-between">
-		<h2 class="dev dev-div">List View</h2>
+<div class="">
+	<div id="list-header" class="flex justify-between">
+		<h2 class="">List View</h2>
 
-		<button onclick={onBackClick} class="dev dev-div dev-button"> Back </button>
+		<button onclick={onBackClick} class="btn btn-primary">
+			Back
+		</button>
 	</div>
 
-	<div id="list-items" class="dev dev-div justify-left flex flex-col">
-		{#if list.raw == 'actions'}
+	<div id="list-items" class="flex flex-col justify-left m-2 p-2">
+		{#if list.raw == "actions"}
 			{#await queryActions}
 				<p>Loading...</p>
 			{:then result}

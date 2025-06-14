@@ -8,8 +8,8 @@
 	};
 </script>
 
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
-	<div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-base-300">
+	<div class="p-0 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
 		<!-- Logo and App Name. Forcing uppercase for consistency -->
 		<div class="flex items-center space-x-3">
 			<img
@@ -25,7 +25,7 @@
 			<!-- Dev Mode Toggle (Development Only) -->
 			<button
 				onclick={onToggleDevMode}
-				class="button inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+				class="btn btn-primary text-primary-content"
 				type="button"
 				aria-label="Toggle development mode"
 			>
@@ -33,8 +33,9 @@
 				Dev Mode
 			</button>
 
-			<!-- Profile Button -->
-			<Button text="Profile" variant="primary" onclick={() => {}} />
+			<!-- Profile Button - to replace dev-mode button
+			<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
+		-->
 		</div>
 	</div>
 </header>

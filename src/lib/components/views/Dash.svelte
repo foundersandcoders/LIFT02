@@ -44,23 +44,20 @@
 </script>
 
 <div class="dev dev-div">
-	<div id="dash-header" class="dev dev-div flex flex-row justify-between">
+	<div id="dash-header" class="flex flex-row justify-between">
 		<h2>Dashboard View</h2>
 	</div>
 
-	<div id="dash-tiles" class="dev dev-div">
+	<div id="dash-tiles" class="">
 		{#await queryActions}
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button
-					class="dev dev-div dev-tile"
-					onclick={() => setViewList({ raw: 'actions', format: 'Actions' })}
-				>
+				<button class="border border-primary rounded p-4 m-2 w-full" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<button class="dev dev-div dev-inactive">
+				<button class="border border-primary rounded p-4 m-2 w-full">
 					<p>0 Actions</p>
 				</button>
 			{/if}
@@ -73,7 +70,7 @@
 		{:then result}
 			{#if result.data}
 				{#each getCategories(result.data) as category}
-					<button class="dev dev-div dev-tile" onclick={() => setViewList(category)}>
+					<button class="border border-primary rounded p-4 m-2 w-full" onclick={() => setViewList(category)}>
 						<p>{category.format}</p>
 					</button>
 				{/each}
