@@ -10,3 +10,5 @@ export type ListCategory = {
 };
 
 export type View = 'dash' | 'list' | 'detail';
+
+export type Detail = 'none' | 'response' | 'email' | 'action';

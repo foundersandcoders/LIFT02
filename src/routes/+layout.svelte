@@ -3,7 +3,7 @@
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
 	import { setContext } from 'svelte';
-	import type { ListCategory, View } from '$lib/types/ui';
+	import type { ListCategory, View, Detail } from '$lib/types/ui';
 
 	let devMode = $state<boolean>(true);
 	setContext('getDevMode', () => devMode);
@@ -29,20 +29,27 @@
 		list = newList;
 	});
 
+	let detail = $state<Detail>('none');
+	setContext('getDetail', () => detail);
+	setContext('setDetail', (newDetail: Detail) => {
+		detail = newDetail;
+	});
+
 	let { children } = $props();
 
 	$inspect(devMode).with((type, value) => console.log(`${type} devMode: ${value}`));
 	$inspect(profileId).with((type, value) => console.log(`${type} profileId: ${value}`));
 	$inspect(view).with((type, value) => console.log(`${type} view: ${value}`));
 	$inspect(list).with((type, value) => console.log(`${type} list: ${value.raw}`));
+	$inspect(detail).with((type, value) => console.log(`${type} detail: ${value}`));
 </script>
-<div class="min-h-screen flex flex-col">
-		<Header />
+
+<div class="flex min-h-screen flex-col">
+	<Header />
 
 	<main class="flex-1">
 		{@render children()}
 	</main>
-	
 
-		<Footer {devMode} {profileId}/>
+	<Footer {devMode} {profileId} />
 </div>
