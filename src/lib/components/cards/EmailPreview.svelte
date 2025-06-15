@@ -1,5 +1,15 @@
 <script lang="ts">
+	import { generateEmailPreview } from '$lib/services/emailBuilder';
+
+	//Delete later --> for development only
+	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+
 	let emailContent = $state('Loading email preview...');
+
+	// Generate email content on component load
+	generateEmailPreview(user_id).then((content) => {
+		emailContent = content;
+	});
 </script>
 
 <div class="w-fill m-2 flex flex-col justify-around space-y-4 p-2">
