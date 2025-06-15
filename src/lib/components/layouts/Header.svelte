@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import type { View, Detail } from '$lib/types/ui';
 	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
 	const onToggleDevMode = () => {
 		toggleDevMode();
 	};
+
+	const setView = getContext<(view: View) => void>('setView');
+	const setDetail = getContext<(detail: Detail) => void>('setDetail');
 </script>
 
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-base-300">
-	<div class="p-0 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+<header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
+	<div class="flex h-16 items-center justify-between p-0 px-4 sm:px-6 lg:px-8">
 		<!-- Logo and App Name. Forcing uppercase for consistency -->
 		<div class="flex items-center space-x-3">
 			<img
@@ -35,6 +39,7 @@
 
 			<!-- Profile Button - to replace dev-mode button
 			<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
+
 		-->
 		</div>
 	</div>
