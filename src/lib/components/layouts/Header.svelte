@@ -4,12 +4,15 @@
 	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('toggleDevMode');
+	const setView = getContext<(view: View) => void>('setView');
+	const setDetail = getContext<(detail: Detail) => void>('setDetail');
 	const onToggleDevMode = () => {
 		toggleDevMode();
 	};
-
-	const setView = getContext<(view: View) => void>('setView');
-	const setDetail = getContext<(detail: Detail) => void>('setDetail');
+	const onEmailClick = () => {
+		setDetail('email');
+		setView('detail');
+	};
 </script>
 
 <header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
@@ -41,6 +44,7 @@
 			<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
 
 		-->
+			<Button text="Email Preview" variant="secondary" onclick={onEmailClick} />
 		</div>
 	</div>
 </header>
