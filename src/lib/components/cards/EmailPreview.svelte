@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { generateEmailPreview } from '$lib/services/emailBuilder';
+	import { getContext } from 'svelte';
 
-	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+	const getProfileId = getContext<() => string>('getProfileId');
+	let profileId = $derived(getProfileId());
 
 	let emailContent = $state('Loading email preview...');
 
-	// Generate email content on component load
-	generateEmailPreview(user_id).then((content) => {
-		emailContent = content;
+	// Generate email content when profileId is available
+	$effect(() => {
+		if (profileId) {
+			generateEmailPreview(profileId).then((content) => {
+				emailContent = content;
+			});
+		}
 	});
 </script>
 
