@@ -17,22 +17,39 @@ export async function generateEmailPreview(userId: string): Promise<string> {
 	let emailContent =
 		'Subject: My Workplace Passport\n\nDear Line Manager,\n\nHere are my workplace needs and accommodations:\n\n';
 
-	// Build tree structure for each response
+	// Group responses by category
+	const categoryGroups: { [category: string]: Array<{ question: any; response: any }> } = {};
+
+	// First, collect all questions and responses, grouped by category
 	for (const response of responses) {
-		// Get the question for this response
 		if (!response.question_id) continue;
 
 		const questionResult = await getQuestionById(response.question_id);
 		if (questionResult.error || !questionResult.data) continue;
 
 		const question = questionResult.data;
+		const category = question.category;
 
-		// Add question and response to email
-		emailContent += `**${question.category}**\n`;
-		emailContent += `Q: ${question.question_text}\n`;
-		emailContent += `A: ${response.response_text}\n`;
+		if (!categoryGroups[category]) {
+			categoryGroups[category] = [];
+		}
 
-		// TODO: Get related actions for this response
+		categoryGroups[category].push({ question, response });
+	}
+
+	// Build email content grouped by category
+	for (const [category, items] of Object.entries(categoryGroups)) {
+		emailContent += `${category.toUpperCase()}\n`;
+		emailContent += '='.repeat(category.length) + '\n\n';
+
+		for (const { question, response } of items) {
+			emailContent += `Q: ${question.question_text}\n`;
+			emailContent += `A: ${response.response_text}\n`;
+			
+			// TODO: Get related actions for this response
+			emailContent += '\n';
+		}
+
 		emailContent += '\n';
 	}
 
