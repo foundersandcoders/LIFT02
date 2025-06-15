@@ -23,6 +23,6 @@
 	</header>
 
 	<div class="bg-base-100 rounded-xl p-4 shadow">
-		<pre>{emailContent}</pre>
+		<div class="whitespace-pre-wrap break-words font-mono text-sm">{emailContent}</div>
 	</div>
 </div>
