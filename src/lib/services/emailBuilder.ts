@@ -1,13 +1,18 @@
-export function generateEmailPreview(): string {
-	return `Subject: My Workplace Passport
+import { getUserResponses } from '$lib/services/database/responses';
+import { getUserActions } from '$lib/services/database/actions';
+import { getQuestionById } from '$lib/services/database/questions';
 
-  Hello [Manager Name],
+export async function generateEmailPreview(userId: string): Promise<string> {
+	// Get all public, latest responses for user
+	const responsesResult = await getUserResponses(userId, {
+		visibility: 'public',
+		isLatest: true
+	});
 
-  I hope this email finds you well. I wanted to share my workplace passport with 
-  you to help us work together more effectively.
+	if (responsesResult.error || !responsesResult.data) {
+		return 'Error loading responses';
+	}
 
-  [This would be populated with user's responses]
-
-  Best regards,
-  [User Name]`;
+	// TODO: Build email content from responses and related actions
+	return 'Subject: My Workplace Passport\n\nLoading...';
 }
