@@ -2,6 +2,7 @@
 	import type { View, Detail } from '$lib/types/ui';
 	import { getContext } from 'svelte';
 	import QuestionCard from '$lib/components/cards/QuestionCard.svelte';
+	import EmailPreview from '../cards/EmailPreview.svelte';
 
 	const setView = getContext<(view: View) => void>('setView');
 
@@ -25,7 +26,7 @@
 		{:else if detail == 'action'}
 			<pre>Action To Do</pre>
 		{:else if detail == 'email'}
-			<pre>Email Preview To Do</pre>
+			<EmailPreview />
 		{:else}
 			<pre>No Content Loaded</pre>
 		{/if}
