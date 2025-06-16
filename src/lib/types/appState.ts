@@ -5,18 +5,18 @@
 // }
 
 export interface AppState {
-  profile: Profile;
-  view: View;
-  list: List;
-  detail: Detail;
+	profile: Profile;
+	view: View;
+	list: List;
+	detail: Detail;
 }
 
 export interface Detail {
-  table: null | TableName;
-  item: DetailItem;
+	table: null | TableName;
+	item: DetailItem;
 }
 export interface DetailItem {
-  id: null | RowId
+	id: null | RowId;
 }
 
 export interface ItemCategory {
@@ -25,12 +25,13 @@ export interface ItemCategory {
 }
 
 export interface List {
-  table: null | TableName;
-  category: ItemCategory;
+	table: null | TableName;
+	category: ItemCategory;
 }
 
 export interface Profile {
-  id: null | RowId
+	id: null | RowId;
+	name: null | string;
 }
 
 export interface QuestionDetails {
@@ -44,10 +45,10 @@ export type RowId = string;
 
 export type RowName = string;
 
-export type TableName = "actions" | "profiles" | "questions" | "responses" | "sharing_events";
+export type TableName = 'actions' | 'profiles' | 'questions' | 'responses' | 'sharing_events';
 
 export interface View {
-  name: ViewName
+	name: ViewName;
 }
 
-export type ViewName = "dash" | "list" | "detail" | "email";
+export type ViewName = 'dash' | 'list' | 'detail' | 'email';

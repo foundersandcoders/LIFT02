@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { ViewName } from '$lib/types/appState';
-	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('setDevMode');
-	const onToggleDevMode = () => { toggleDevMode() };
-	
+	const onToggleDevMode = () => {
+		toggleDevMode();
+	};
+
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 	const onEmailClick = () => {
 		setViewName('email');
@@ -42,7 +43,15 @@
 				to replace dev-mode button
 				<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
 			-->
-			<Button text="Email Preview" variant="secondary" onclick={onEmailClick} />
+			<button
+				onclick={onEmailClick}
+				class="btn btn-primary text-primary-content"
+				type="button"
+				aria-label="Send Email to Line Manager"
+			>
+				<span>Send Email</span>
+			</button>
+			<!-- <Button text="Email Preview" variant="secondary" onclick={onEmailClick} /> -->
 		</div>
 	</div>
 </header>
