@@ -33,6 +33,13 @@ export interface Profile {
   id: null | RowId
 }
 
+export interface QuestionDetails {
+	responseInput: string | null;
+	actionsInput: string | null;
+	actionType: string;
+	responseId: string | null;
+}
+
 export type RowId = string;
 
 export type RowName = string;

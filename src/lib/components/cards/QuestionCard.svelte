@@ -2,11 +2,15 @@
 	import { getQuestionById } from '$lib/services/database';
 	import SubmitButton from '../ui/SubmitButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import type { QuestionDetails } from '$lib/utils/questionDetails.svelte';
-	import { getQuestionDetails } from '$lib/utils/questionDetails.svelte';
+	import type { QuestionDetails } from '$lib/types/appState';
+	import { getQuestionDetails } from '$lib/utils/getContent.svelte';
+	import { getContext } from 'svelte';
+	import type { AppState, Profile } from '$lib/types/appState';
 
-	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+	// App State
+	const getApp = getContext<() => AppState>('getApp');
+	const app = $derived(getApp());
+	const profileId = $derived(app.profile.id );
 
 	let actionType = $state('');
 	
@@ -25,7 +29,7 @@
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
-		const details = await getQuestionDetails(user_id, questionId);
+		const details = await getQuestionDetails(profileId || "", questionId);
 		questionDetails = details;
 		if (details.actionType !== '') actionType = details.actionType;
 
