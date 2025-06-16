@@ -2,12 +2,18 @@
 	import { getQuestionById } from '$lib/services/database';
 	import SubmitButton from '../ui/SubmitButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import { getQuestionDetails } from '$lib/utils/questionDetails.svelte';
+	import type { QuestionDetails } from '$lib/types/appState';
+	import { getQuestionDetails } from '$lib/utils/getContent.svelte';
+	import { getContext } from 'svelte';
+	import type { AppState, Profile } from '$lib/types/appState';
 
-	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440005';
+	// App State
+	const getApp = getContext<() => AppState>('getApp');
+	const app = $derived(getApp());
+	const profileId = $derived(app.profile.id );
 
 	let actionType = $state('');
+	
 	let questionDetails = $state<QuestionDetails>({
 		responseInput: null,
 		actionsInput: null,
@@ -19,22 +25,18 @@
 		questionId: string;
 	}
 
-	export interface QuestionDetails {
-		responseInput: string | null;
-		actionsInput: string | null;
-		actionType: string;
-		responseId: string | null;
-	}
-
 	let { questionId }: Props = $props();
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
-		const details = await getQuestionDetails(user_id, questionId);
+		const details = await getQuestionDetails(profileId || "", questionId);
 		questionDetails = details;
 		if (details.actionType !== '') actionType = details.actionType;
 
+		console.groupEnd();
+
 		return {
+			queryId: questionId,
 			question: question || null,
 			details: details || null
 		};
@@ -57,16 +59,10 @@
 
 
 			<div class="flex flex-col bg-base-100 rounded-xl shadow p-2">
-				<label for="response-{questionId}" class="text-lg mb-1"
-					>{response.question.data.question_text || 'Question'}</label
-				>
-				<textarea
-					id="response-{questionId}"
-					bind:value={questionDetails.responseInput}
-					placeholder="Enter your response here..."
-					rows="4"
-					class="text-area"
-				></textarea>
+				<label for="response-{questionId}" class="text-lg mb-1">
+					{response.question.data.question_text || 'Question'}
+				</label>
+				<textarea id="response-{questionId}" class="text-area"rows="4"></textarea>
 			</div>
 			<div class="bg-base-100 rounded-xl shadow p-2">
 				<h2 class="text-lg mb-1">A description of what actions are for</h2>
@@ -109,9 +105,12 @@
 		</div>
 	{:else}
 		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
-			Sorry! We can't load you're questions right now. Please try again later.
+			<!-- Sorry! We can't load you're questions right now. Please try again later. -->
+			 No question found with ID {response.queryId}
 		</div>
 	{/if}
+{:catch error}
+	<p>DB Query Error: {error.message}</p>
 {/await}
 
 <style>

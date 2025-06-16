@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import * as check from './validate';
+import * as check from './tableValidate';
 
 export type User = z.infer<typeof check.User>;
 

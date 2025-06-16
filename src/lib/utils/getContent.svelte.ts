@@ -1,6 +1,6 @@
 import { getLatestResponses } from '$lib/services/database/responses';
 import { getLatestActions } from '$lib/services/database';
-import type { QuestionDetails } from '$lib/components/cards/QuestionCard.svelte';
+import type { QuestionDetails } from '$lib/types/appState';
 
 export const getQuestionDetails = async (
 	user_id: string,
@@ -24,5 +24,6 @@ const getActionDetails = async (response_Id: string | undefined, user_id: string
 		const actionResponse = response.data.find((r) => r.response_id === response_Id);
 		return actionResponse;
 	}
+	
 	return null;
 };

@@ -1,48 +1,85 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from '$lib/components/layouts/Header.svelte';
-	import Footer from '$lib/components/layouts/Footer.svelte';
 	import { setContext } from 'svelte';
-	import type { ListCategory, View } from '$lib/types/ui';
+	import Header from "$lib/components/layouts/Header.svelte";
+	import Footer from "$lib/components/layouts/Footer.svelte";
+	import StateTable from '$lib/components/logic/StateTable.svelte';
+	import type { AppState, Detail, List, ItemCategory, Profile, RowId, TableName, View, ViewName } from "$lib/types/appState";
+	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from "$lib/utils/inspector";
 
-	let devMode = $state<boolean>(true);
+	// Dev Mode
+	let devMode = $state<boolean>(false);
+	$inspect(devMode).with((type, value) => console.log(`${preDev}${type} devMode: ${value}`));
+
+	// App State
+	let appState = $state<AppState>({
+		profile: {
+			id: null
+		},
+		view: {
+			name: "dash"
+		},
+		list: {
+			table: null,
+			category: {
+				raw: null,
+				format: null
+			}
+		},
+		detail: {
+			// TODO: Remove detail table from schema
+			table: null,
+			item: {
+				id: null
+			}
+		}
+	});
+
+	$inspect(appState.profile.id).with((type, value) => console.log(`${preApp}${type} profile.id: ${value}`));
+	$inspect(appState.view.name).with((type, value) => console.log(`${preApp}${type} view.name: ${value}`));
+	$inspect(appState.list.table).with((type, value) => console.log(`${preApp}${type} list.table: ${value}`));
+	$inspect(appState.list.category.raw).with((type, value) => console.log(`${preApp}${type} list.cat.raw: ${value}`));
+	$inspect(appState.list.category.format).with((type, value) => console.log(`${preApp}${type} list.cat.format: ${value}`));
+	$inspect(appState.detail.table).with((type, value) => console.log(`${preApp}${type} detail.table: ${value}`));
+	$inspect(appState.detail.item.id).with((type, value) => console.log(`${preApp}${type} detail.item.rowId: ${value}`));
+
+	// App Context
+	setContext("getApp", () => appState);
+	setContext('getDetail', () => appState.detail);
+	setContext('getDetailItemId', () => appState.detail.item.id);
+	setContext('getDetailTable', () => appState.detail.table);
 	setContext('getDevMode', () => devMode);
-	setContext('toggleDevMode', () => {
-		devMode = !devMode;
-	});
+	setContext('getList', () => appState.list);
+	setContext('getListCategory', () => appState.list.category);
+	setContext('getListTable', () => appState.list.table);
+	setContext('getProfile', () => appState.profile);
+	setContext('getProfileId', () => appState.profile.id);
+	setContext('getView', () => appState.view);
+	setContext('getViewName', () => appState.view.name);
 
-	/* todo: Profile ID
-		This will need to be replaced by the authentication system
-		*/
-	let profileId = $derived(devMode ? '550e8400-e29b-41d4-a716-446655440001' : '');
-	setContext('getProfileId', () => profileId);
-
-	let view = $state<View>('dash');
-	setContext('getView', () => view);
-	setContext('setView', (newView: View) => {
-		view = newView;
-	});
-
-	let list = $state<ListCategory>({ raw: '', format: '' });
-	setContext('getList', () => list);
-	setContext('setList', (newList: ListCategory) => {
-		list = newList;
-	});
+	setContext('setDetail', (newDetail:Detail) => { appState.detail = newDetail });
+	setContext('setDetailTable', (newTable:null | TableName) => { appState.detail.table = newTable });
+	setContext('setDetailItemId', (newDbId:null | RowId) => { appState.detail.item.id = newDbId });
+	setContext('setDevMode', () => { devMode = !devMode });
+	setContext('setList', (newList:List) => { appState.list = newList });
+	setContext("setListCategory", (newCategory:ItemCategory) => { appState.list.category = newCategory });
+	setContext("setListTable", (newTable:null | TableName) => { appState.list.table = newTable });
+	setContext("setProfile", (newProfile:Profile) => { appState.profile = newProfile });
+	setContext("setProfileId", (newId:null | RowId) => { appState.profile.id = newId });
+	setContext("setView", (newView:View) => { appState.view = newView });
+	setContext('setViewName', (newView:ViewName) => { appState.view.name = newView });
 
 	let { children } = $props();
-
-	$inspect(devMode).with((type, value) => console.log(`${type} devMode: ${value}`));
-	$inspect(profileId).with((type, value) => console.log(`${type} profileId: ${value}`));
-	$inspect(view).with((type, value) => console.log(`${type} view: ${value}`));
-	$inspect(list).with((type, value) => console.log(`${type} list: ${value.raw}`));
 </script>
 <div class="min-h-screen flex flex-col">
-		<Header />
+	<Header />
 
 	<main class="flex-1">
 		{@render children()}
 	</main>
 	
 
-		<Footer {devMode} {profileId}/>
+	{#if devMode} <StateTable /> {/if}
+
+	<Footer {devMode} profileId={appState.profile.id}/>
 </div>
