@@ -1,6 +1,20 @@
-import type { User, Employer, Pronouns } from './sub';
+import type { User, Employer, Pronouns } from './tableSub';
 
-export type Input = Profile | Question | Response | Action | Share;
+export type Input = Action | Profile | Question | Response | Share;
+
+export interface Action {
+	id?: string;
+	user_id: string;
+	response_id?: string;
+	type: string;
+	description?: string;
+	version: number;
+	is_latest: boolean;
+	status: 'draft' | 'active' | 'archived';
+	created_at?: string; // TODO: Temporal()
+	updated_at?: string; // TODO: Temporal(),
+	shares?: Share[]; // sharing_event_actions
+}
 
 export interface Profile {
 	id?: string;
@@ -31,20 +45,6 @@ export interface Response {
 	created_at?: string; // TODO: Temporal()
 	updated_at?: string; // TODO: Temporal()
 	shares?: Share[]; // sharing_event_responses
-}
-
-export interface Action {
-	id?: string;
-	user_id: string;
-	response_id?: string;
-	type: string;
-	description?: string;
-	version: number;
-	is_latest: boolean;
-	status: 'draft' | 'active' | 'archived';
-	created_at?: string; // TODO: Temporal()
-	updated_at?: string; // TODO: Temporal(),
-	shares?: Share[]; // sharing_event_actions
 }
 
 export interface Share {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createAction } from '$lib/services/database/actions';
 	import { createResponse } from '$lib/services/database/responses';
-	import type { QuestionDetails } from '../cards/QuestionCard.svelte';
+	import type { QuestionDetails } from '$lib/types/appState';
 
 	//Delete later --> for development only
 	const user_id = '550e8400-e29b-41d4-a716-446655440005';
@@ -32,4 +32,6 @@
 	}
 </script>
 
-<button type="button" onclick={handleSubmit} class="btn btn-accent hover:btn-secondary text-base-100">{text}</button>
+<button type="button" onclick={handleSubmit} class="btn btn-accent hover:btn-secondary text-base-100">
+	{text}
+</button>

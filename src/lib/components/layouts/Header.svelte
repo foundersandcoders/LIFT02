@@ -1,18 +1,8 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { View, Detail } from '$lib/types/ui';
-	import Button from '$lib/components/ui/Button.svelte';
 
-	const toggleDevMode = getContext<() => void>('toggleDevMode');
-	const setView = getContext<(view: View) => void>('setView');
-	const setDetail = getContext<(detail: Detail) => void>('setDetail');
-	const onToggleDevMode = () => {
-		toggleDevMode();
-	};
-	const onEmailClick = () => {
-		setDetail('email');
-		setView('detail');
-	};
+	const toggleDevMode = getContext<() => void>('setDevMode');
+	const onToggleDevMode = () => { toggleDevMode() };
 </script>
 
 <header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
@@ -29,22 +19,22 @@
 
 		<!-- Action Buttons -->
 		<div class="flex items-center space-x-3">
-			<!-- Dev Mode Toggle (Development Only) -->
+			<!-- Dev Mode Toggle
+				(Development Only)
+			-->
 			<button
 				onclick={onToggleDevMode}
 				class="btn btn-primary text-primary-content"
 				type="button"
 				aria-label="Toggle development mode"
 			>
-				<span class="sr-only">Toggle</span>
-				Dev Mode
+				<span class="sr-only">Toggle Dev Mode</span>
 			</button>
 
-			<!-- Profile Button - to replace dev-mode button
-			<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
-
-		-->
-			<Button text="Email Preview" variant="secondary" onclick={onEmailClick} />
+			<!-- Profile Button
+				to replace dev-mode button
+				<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
+			-->
 		</div>
 	</div>
 </header>

@@ -1,45 +1,36 @@
 <script lang="ts">
-	import { getUserActions } from '$lib/services/database/actions';
-	import { getQuestions } from '$lib/services/database/questions';
-	import type { ListCategory, View } from '$lib/types/ui';
+	import { getUserActions } from "$lib/services/database/actions";
+	import { getQuestions } from "$lib/services/database/questions";
+	import type { Question } from "$lib/types/tableMain";
+	import type { AppState, ItemCategory, List, TableName, ViewName } from "$lib/types/appState";
+	import { makePretty } from "$lib/utils/textTools";
 	import { getContext } from 'svelte';
 
-	const getProfileId = getContext<() => string>('getProfileId');
-	let profileId = $derived(getProfileId());
+	const getApp = getContext<() => AppState>('getApp');
 
-	const setView = getContext<(view: View) => void>('setView');
-	const setList = getContext<(list: ListCategory) => void>('setList');
+	const app = $derived(getApp());
 
+	const setList = getContext<(list:List) => void>('setList');
+	const setViewName = getContext<(view:ViewName) => void>('setViewName');
+
+	let queryActions = $derived(app.profile.id ? getUserActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
-	let queryActions = $derived(profileId != '' ? getUserActions(profileId) : null);
 
-	function getCategories(questions: any): ListCategory[] {
-		interface Question {
-			id: string;
-			question_text: string;
-			category: string;
-		}
-
-		const categoriesRaw: string[] = questions.map((question: Question) => question.category);
-
+	function extractCategories(questions:Question[]):ItemCategory[] {
+		// TODO: Move extractCategories() to a utils file
+		const categoriesRaw:string[] = questions.map((question:Question) => question.category);
 		const categoriesUnique = [...new Set(categoriesRaw)];
-
-		const categoriesFormatted: ListCategory[] = Array.from(categoriesUnique).map(
-			(category: string) => ({
-				raw: category,
-				format: category
-					.split('_')
-					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-					.join(' ')
-			})
-		);
-
-		return categoriesFormatted;
+		
+		return categoriesUnique.map((category:string) => ({
+			raw: category,
+			format: makePretty(category, "db-table-name", "tile-text")
+		}));
 	}
 
-	const setViewList = (category: ListCategory) => {
-		setList(category);
-		setView('list');
+	const onclick = (table:TableName, category:ItemCategory) => {
+		// TODO: Create a utils file for regular view transitions
+		setList({ table, category });
+		setViewName("list");
 	};
 </script>
 
@@ -53,7 +44,11 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result && result.data}
-				<button class="border border-primary rounded p-4 m-2 w-full" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
+				{@const table = "actions"}
+				{@const category = { raw: "actions", format: "Actions" }}
+				<button class="border border-primary rounded p-4 m-2 w-full"
+					onclick={() => onclick(table, category)}
+				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -69,8 +64,11 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result.data}
-				{#each getCategories(result.data) as category}
-					<button class="border border-primary rounded p-4 m-2 w-full" onclick={() => setViewList(category)}>
+				{#each extractCategories(result.data) as category}
+					{@const table = "questions"}
+					<button class="border border-primary rounded p-4 m-2 w-full"
+						onclick={() => onclick(table, category)}
+					>
 						<p>{category.format}</p>
 					</button>
 				{/each}

@@ -1,71 +1,82 @@
 <script lang="ts">
-	import type { ListCategory, View } from '$lib/types/ui';
-	import { getUserActions } from '$lib/services/database/actions';
-	import { getQuestionsByCategory } from '$lib/services/database/questions';
 	import { getContext } from 'svelte';
-	import ListItem from '$lib/components/cards/ListItem.svelte';
+	import type { AppState, Detail, ItemCategory, List, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { Action, Question } from "$lib/types/tableMain";
+	import { getUserActions } from "$lib/services/database/actions";
+	import { getQuestionsByCategory } from "$lib/services/database/questions";
+	import ListItem from "$lib/components/cards/ListItem.svelte";
 
-	const setView = getContext<(view: View) => void>('setView');
+	// App State
+	const getApp = getContext<() => AppState>('getApp');
+	const app = $derived(getApp());
+	
+	let category:ItemCategory = $derived(app.list.category);
+	let profile:Profile = $derived(app.profile);
+	let table:TableName | null = $derived(app.list.table);
 
-	const getList = getContext<() => ListCategory>('getList');
-	const setList = getContext<(list: ListCategory) => void>('setList');
-	let list = $derived(getList());
+	const setList = getContext<(list:List) => void>('setList');
+	const setView = getContext<(view:ViewName) => void>('setViewName');
 
-	const getProfileId = getContext<() => string>('getProfileId');
-	let profileId = $derived(getProfileId());
+	// DB Queries
+	let queryActions = $derived((table == "actions" && profile.id)
+		? getUserActions(profile.id)
+		: null
+	);
+	let queryQuestions = $derived((table == "questions" && category.raw != null)
+		? getQuestionsByCategory(category.raw)
+		: null
+	);
 
-	let queryActions = $derived(getUserActions(profileId));
-	let queryQuestions = $derived(getQuestionsByCategory(list.raw));
-
-	const onBackClick = () => {
-		setView('dash');
-		setList({ raw: '', format: '' });
-	};
-	const onListClick = () => {
-		setView('detail');
+	// Event Handlers
+	const onclick = () => {
+		setView("dash");
+		setList({
+			table: null,
+			category: { raw: null, format: null }
+		});
 	};
 </script>
 
-<div class="">
+<div id="list-view" class="">
 	<div id="list-header" class="flex justify-between">
 		<h2 class="">List View</h2>
 
-		<button onclick={onBackClick} class="btn btn-primary">
+		<button {onclick} class="btn btn-primary">
 			Back
 		</button>
 	</div>
 
-	<div id="list-items" class="flex flex-col justify-left m-2 p-2">
-		{#if list.raw == "actions"}
+	<div id="list-body" class="flex flex-col justify-left m-2 p-2">
+		{#if table == "actions"}
 			{#await queryActions}
 				<p>Loading...</p>
 			{:then result}
-				{#if result.data}
+				{#if result?.data}
 					{#each result.data as action}
-						<button onclick={onListClick} class="dev dev-div dev-list">
-							{action.description}
-						</button>
+						<ListItem item={action as Action} {table} />
 					{/each}
+				{:else}
+					<p>No actions found</p>
 				{/if}
 			{:catch error}
 				<p>Error: {error.message}</p>
 			{/await}
-		{:else if list.raw}
+		{:else if table == "questions" && category.raw}
 			{#await queryQuestions}
 				<p>Loading...</p>
 			{:then result}
-				{#if result.data}
+				{#if result?.data}
 					{#each result.data as question}
-						<ListItem {question} />
+						<ListItem item={question as Question} {table} />
 					{/each}
+				{:else}
+					<p>No questions found</p>
 				{/if}
 			{:catch error}
 				<p>Error: {error.message}</p>
 			{/await}
 		{:else}
-			<div class="dev dev-div dev-list">
-				<p>No list selected</p>
-			</div>
+			<p>No list selected</p>
 		{/if}
 	</div>
 </div>
