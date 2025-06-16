@@ -1,8 +1,15 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import type { ViewName } from '$lib/types/appState';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	const toggleDevMode = getContext<() => void>('setDevMode');
 	const onToggleDevMode = () => { toggleDevMode() };
+	
+	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const onEmailClick = () => {
+		setViewName('email');
+	};
 </script>
 
 <header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
@@ -35,6 +42,7 @@
 				to replace dev-mode button
 				<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
 			-->
+			<Button text="Email Preview" variant="secondary" onclick={onEmailClick} />
 		</div>
 	</div>
 </header>
