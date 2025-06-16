@@ -4,6 +4,8 @@
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
+	const getProfileName = getContext<() => string | null>('getProfileName');
+	let profileName = $derived(getProfileName());
 
 	let emailContent = $state('Loading email preview...');
 
@@ -23,6 +25,6 @@
 	</header>
 
 	<div class="bg-base-100 rounded-xl p-4 shadow">
-		<div class="whitespace-pre-wrap break-words font-mono text-sm">{emailContent}</div>
+		<div class="font-mono text-sm break-words whitespace-pre-wrap">{emailContent}</div>
 	</div>
 </div>
