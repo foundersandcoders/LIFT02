@@ -1,7 +1,10 @@
 import { getUserResponses } from '$lib/services/database/responses';
 // import { getUserActions } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
-import type { Question, Response } from '$lib/types/tableMain';
+import type { Database } from '$lib/services/database/types';
+
+type Question = Database['public']['Tables']['questions']['Row'];
+type Response = Database['public']['Tables']['responses']['Row'];
 
 export async function generateEmailPreview(
 	userId: string,
