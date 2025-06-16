@@ -1,10 +1,7 @@
 import { getUserResponses } from '$lib/services/database/responses';
 // import { getUserActions } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
-import type { Database } from '$lib/services/database/types';
-
-type Question = Database['public']['Tables']['questions']['Row'];
-type Response = Database['public']['Tables']['responses']['Row'];
+import type { Question, Response } from '$lib/types/tableMain';
 
 export async function generateEmailPreview(
 	userId: string,
@@ -25,7 +22,8 @@ export async function generateEmailPreview(
 		'Subject: My Workplace Passport\n\nDear Line Manager,\n\nHere are my workplace needs and accommodations:\n\n';
 
 	// Group responses by category
-	const categoryGroups: { [category: string]: Array<{ question: Question; response: Response }> } = {};
+	const categoryGroups: { [category: string]: Array<{ question: Question; response: Response }> } =
+		{};
 
 	// First, collect all questions and responses, grouped by category
 	for (const response of responses) {

@@ -12,7 +12,7 @@
 	// Generate email content when profileId is available
 	$effect(() => {
 		if (profileId) {
-			generateEmailPreview(profileId).then((content) => {
+			generateEmailPreview(profileId, profileName).then((content) => {
 				emailContent = content;
 			});
 		}
