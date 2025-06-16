@@ -32,4 +32,4 @@
 	}
 </script>
 
-<button type="button" onclick={handleSubmit} class="rounded-2xl border p-4">{text}</button>
+<button type="button" onclick={handleSubmit} class="btn btn-accent hover:btn-secondary text-base-100">{text}</button>

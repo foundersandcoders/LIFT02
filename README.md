@@ -164,7 +164,9 @@ After resetting your database, add test data for development:
 supabase db reset
 
 # Add test data (5 fake users with comprehensive responses)
-./scripts/seed-test-data.sh
+# Make script executable first (if needed)
+chmod +x ./scripts/local-seed-test-data.sh
+./scripts/local-seed-test-data.sh
 ```
 
 **What the test data includes:**
@@ -178,7 +180,7 @@ supabase db reset
 
 #### Environment-Smart Seeding Script
 
-The `seed-test-data.sh` script automatically detects your environment:
+The `prod-seed-test-data.sh` script automatically detects your environment:
 
 **Local Development:**
 
@@ -196,9 +198,56 @@ The `seed-test-data.sh` script automatically detects your environment:
 
 When ready to deploy schema changes to production:
 
+#### First Time: Linking Your Local Project to Production
+
+If this is your first time pushing to production, you need to link your local project:
+
+1. **Login to Supabase CLI:**
+
+   ```bash
+   supabase login
+   ```
+
+   This will open a browser window for authentication.
+
+2. **Link your local project to the remote Supabase project:**
+
+   ```bash
+   supabase link --project-ref YOUR_PROJECT_REF --password "YOUR_DB_PASSWORD"
+   ```
+
+   **Important**: When prompted to "Enter your database password (or leave blank to skip):", press **Enter** to skip. This avoids IPv6 connection issues while still linking the project successfully.
+
+3. **Push schema changes:**
+   ```bash
+   supabase db push
+   ```
+
+#### Subsequent Deployments
+
+Once linked, you can push schema changes using one of these methods:
+
+**Option 1: Direct command with password**
+
 ```bash
 # Push local schema changes to production Supabase project
-supabase db push
+npx supabase db push --password 'YOUR_DB_PASSWORD'
+```
+
+**Option 2: Use the deployment script (recommended)**
+
+```bash
+# Make script executable first (if needed)
+chmod +x ./scripts/prod-run-migrations.sh
+# Uses environment variables from .env.production
+./scripts/prod-run-migrations.sh
+```
+
+**Option 3: Traditional interactive prompt**
+
+```bash
+# Push local schema changes to production Supabase project
+npx supabase db push
 ```
 
 #### Seeding Test Data in Production
@@ -214,13 +263,16 @@ If you need test data in your production environment (e.g., for demos or testing
 2. **Run the seeding script:**
 
    ```bash
+   # Make script executable first (if needed)
+   chmod +x ./scripts/prod-seed-test-data.sh
+
    # Option 1: Run locally with production env vars
    vercel env pull .env.production
    source .env.production
-   ./scripts/seed-test-data.sh
+   ./scripts/prod-seed-test-data.sh
 
    # Option 2: Run with environment variables directly
-   DATABASE_URL="your-production-url" ./scripts/seed-test-data.sh
+   DATABASE_URL="your-production-url" ./scripts/prod-seed-test-data.sh
    ```
 
 ⚠️ **Warning**: Only add test data to production if you need it for demos or testing. Real user data should come through the application interface.

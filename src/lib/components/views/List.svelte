@@ -41,16 +41,16 @@
 	};
 </script>
 
-<div id="list-view" class="dev dev-div">
-	<div id="list-header" class="dev dev-div flex flex-row justify-between">
-		<h2 class="dev dev-div">List View</h2>
+<div id="list-view" class="">
+	<div id="list-header" class="flex justify-between">
+		<h2 class="">List View</h2>
 
-		<button {onclick} class="dev dev-div dev-button">
+		<button {onclick} class="btn btn-primary">
 			Back
 		</button>
 	</div>
 
-	<div id="list-body" class="dev dev-div flex flex-col justify-left">
+	<div id="list-body" class="flex flex-col justify-left m-2 p-2">
 		{#if table == "actions"}
 			{#await queryActions}
 				<p>Loading...</p>

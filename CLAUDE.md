@@ -96,7 +96,7 @@ describe('MyComponent', () => {
 
   - `supabase/seed.sql`: Real questions data (auto-runs with `supabase db reset`)
   - `supabase/test_data_seed.sql`: Fake test data (run separately with script)
-  - `scripts/seed-test-data.sh`: Environment-aware script for adding test data
+  - `scripts/prod-seed-test-data.sh`: Production script for adding test data
 
 - Setup commands:
 
@@ -144,11 +144,23 @@ supabase stop                   # Stop local Supabase instance
 supabase status                 # Check status and get keys
 supabase db reset               # Reset and seed local database with questions
 supabase db push                # Push schema changes to production
+./scripts/prod-run-migrations.sh     # Automated deployment using .env.production
+                               # (run chmod +x ./scripts/prod-run-migrations.sh if needed)
 
 # Database seeding commands
-./scripts/seed-test-data.sh     # Add test data (works local and production)
-                               # Local: uses default postgres password
-                               # Vercel: requires DATABASE_URL environment variable
+# Make scripts executable first (if needed)
+chmod +x ./scripts/local-seed-test-data.sh
+chmod +x ./scripts/local-delete-test-data.sh
+chmod +x ./scripts/prod-seed-test-data.sh
+chmod +x ./scripts/prod-run-migrations.sh
+
+# Local development scripts
+./scripts/local-seed-test-data.sh    # Add test data to local Supabase instance
+./scripts/local-delete-test-data.sh  # Remove test data from local Supabase instance
+
+# Production scripts
+./scripts/prod-seed-test-data.sh     # Add test data to production (requires DATABASE_URL)
+./scripts/prod-run-migrations.sh    # Run migrations on production
 ```
 
 ## Project Structure
@@ -221,7 +233,7 @@ Set these environment variables in Vercel dashboard (Settings > Environment Vari
 # After deploying to Vercel, if you want to add test data:
 # 1. Set DATABASE_URL environment variable in Vercel
 # 2. Run locally with production env vars, or
-# 3. Use Vercel CLI: vercel env pull && ./scripts/seed-test-data.sh
+# 3. Use Vercel CLI: vercel env pull && ./scripts/prod-seed-test-data.sh
 ```
 
 ## Known Issues & Workarounds

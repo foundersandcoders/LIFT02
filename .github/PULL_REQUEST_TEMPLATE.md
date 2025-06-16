@@ -5,6 +5,7 @@
 ---
 
 ## TL;DR
+
 <!-- TLDR Guide
 List any steps devs have to take after pulling this down
 -->
@@ -12,6 +13,7 @@ List any steps devs have to take after pulling this down
 ---
 
 ## Gallery
+
 <!-- Gallery Guide
 Delete if irrelevant
 - Screenshots to show changes
@@ -21,6 +23,7 @@ Delete if irrelevant
 ---
 
 ## Changes
+
 <!-- Changes Guide
 Break your changes into either files or categories, depending on how wide-ranging the PR is. For example...
 -->
@@ -34,6 +37,7 @@ Brief description of changes
 ---
 
 ## Summary
+
 <!-- Summary Guide
 Describe this PR using a completely non-technical and ideally absurd metaphor
 -->

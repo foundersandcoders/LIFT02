@@ -1,0 +1,1103 @@
+{
+	"organizations": [
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440001",
+			"name": "TechCorp Ltd"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440002",
+			"name": "Creative Agency"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440003",
+			"name": "DataFlow Inc"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440004",
+			"name": "InnovateCorp"
+		},
+		{
+			"id": "990e8400-e29b-41d4-a716-446655440005",
+			"name": "BrandWorks"
+		}
+	],
+	"line_managers": [
+		{
+			"id": "440e8400-e29b-41d4-a716-446655440001",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440010",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440001",
+			"email": "sarah.wilson@techcorp.com"
+		},
+		{
+			"id": "440e8400-e29b-41d4-a716-446655440002",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440011",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440002",
+			"email": "mike.johnson@creative.com"
+		},
+		{
+			"id": "440e8400-e29b-41d4-a716-446655440003",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440012",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440003",
+			"email": "lisa.brown@dataflow.com"
+		},
+		{
+			"id": "440e8400-e29b-41d4-a716-446655440004",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440013",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440004",
+			"email": "david.kim@innovatecorp.com"
+		},
+		{
+			"id": "440e8400-e29b-41d4-a716-446655440005",
+			"line_manager_id": "550e8400-e29b-41d4-a716-446655440014",
+			"organization_id": "990e8400-e29b-41d4-a716-446655440005",
+			"email": "emma.rodriguez@brandworks.com"
+		}
+	],
+	"users": [
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440001",
+			"email": "alex.thompson@example.com",
+			"name": "Alexander",
+			"pronouns": ["they", "them", "theirs"],
+			"job_title": "Software Developer",
+			"is_line_manager": false,
+			"line_manager": "440e8400-e29b-41d4-a716-446655440001"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440002",
+			"email": "jordan.martinez@example.com",
+			"name": "Jordan Martinez",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "UX Designer",
+			"is_line_manager": false,
+			"line_manager": "440e8400-e29b-41d4-a716-446655440002"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440003",
+			"email": "sam.chen@example.com",
+			"name": "Sam Chen",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Data Analyst",
+			"is_line_manager": false,
+			"line_manager": "440e8400-e29b-41d4-a716-446655440003"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440004",
+			"email": "priya.patel@example.com",
+			"name": "Priya Patel",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Product Manager",
+			"is_line_manager": false,
+			"line_manager": "440e8400-e29b-41d4-a716-446655440004"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440005",
+			"email": "taylor.adams@example.com",
+			"name": "Taylor Adams",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Marketing Specialist",
+			"is_line_manager": false,
+			"line_manager": "440e8400-e29b-41d4-a716-446655440005"
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440010",
+			"email": "sarah.wilson@techcorp.com",
+			"name": "Sarah Wilson",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Engineering Manager",
+			"is_line_manager": true,
+			"line_manager": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440011",
+			"email": "mike.johnson@creative.com",
+			"name": "Mike Johnson",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Design Director",
+			"is_line_manager": true,
+			"line_manager": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440012",
+			"email": "lisa.brown@dataflow.com",
+			"name": "Lisa Brown",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Analytics Lead",
+			"is_line_manager": true,
+			"line_manager": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440013",
+			"email": "david.kim@innovatecorp.com",
+			"name": "David Kim",
+			"pronouns": ["he", "him", "his"],
+			"job_title": "Product Director",
+			"is_line_manager": true,
+			"line_manager": null
+		},
+		{
+			"id": "550e8400-e29b-41d4-a716-446655440014",
+			"email": "emma.rodriguez@brandworks.com",
+			"name": "Emma Rodriguez",
+			"pronouns": ["she", "her", "hers"],
+			"job_title": "Marketing Director",
+			"is_line_manager": true,
+			"line_manager": null
+		}
+	],
+	"responses": [
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I have ADHD which significantly impacts my concentration and executive function. Open office environments are particularly challenging due to auditory processing sensitivity.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 3,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 2,
+			"question_category": "my_wellbeing",
+			"response_text": "On good days, I am energetic, creative, and able to hyperfocus on tasks. I communicate clearly and enjoy collaborating with the team.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440003",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 3,
+			"question_category": "my_wellbeing",
+			"response_text": "On difficult days, I may appear restless or fidgety, have difficulty sitting through long meetings, and need more time to process verbal instructions.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440004",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 4,
+			"question_category": "my_wellbeing",
+			"response_text": "Early warning signs include increased irritability, difficulty concentrating on routine tasks, and avoiding team communications. Please approach me privately and ask how I'm doing.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440005",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 10,
+			"question_category": "my_conditions",
+			"response_text": "ADHD affects my ability to filter distractions and organize tasks. I work best in quiet environments with clear, written instructions.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440006",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 12,
+			"question_category": "my_support_needs",
+			"response_text": "I need noise-cancelling headphones, written meeting agendas in advance, and the ability to take short breaks during long meetings.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440007",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 13,
+			"question_category": "my_support_needs",
+			"response_text": "To thrive, I need a quiet workspace away from high-traffic areas, flexible working hours to accommodate my peak focus times, and regular check-ins with my manager.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 3,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440008",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"question_order": 14,
+			"question_category": "about_me",
+			"response_text": "I'm very direct in my communication style and appreciate the same in return. I prefer email over verbal instructions for important tasks.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440020",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I have generalized anxiety disorder and chronic fatigue syndrome. Unexpected changes in deadlines or project scope can trigger anxiety episodes.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440021",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 2,
+			"question_category": "my_wellbeing",
+			"response_text": "On good days, I am creative, collaborative, and detail-oriented. I can engage fully in brainstorming sessions and provide thoughtful design feedback.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440022",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 3,
+			"question_category": "my_wellbeing",
+			"response_text": "On bad days, I may seem withdrawn and struggle with decision-making. I tend to overthink and need extra reassurance about my work quality.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440023",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 4,
+			"question_category": "my_wellbeing",
+			"response_text": "Warning signs include working late frequently, declining social interactions, and appearing more stressed. A gentle check-in asking about workload helps.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440024",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 5,
+			"question_category": "my_wellbeing",
+			"response_text": "Persistent insomnia, difficulty concentrating, and feeling overwhelmed by simple tasks indicate I need time off to recover.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440025",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 6,
+			"question_category": "my_responsibilities",
+			"response_text": "I care for my elderly parent who has dementia. This sometimes requires me to attend medical appointments or handle care-related emergencies.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440026",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 7,
+			"question_category": "my_responsibilities",
+			"response_text": "I need flexibility for occasional urgent appointments and understanding that my stress levels may fluctuate based on my parent's condition.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 3,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440027",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 10,
+			"question_category": "my_conditions",
+			"response_text": "Anxiety can make me overthink creative decisions and chronic fatigue affects my energy levels, especially in the afternoons.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440028",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 11,
+			"question_category": "my_conditions",
+			"response_text": "Long meetings in the afternoon drain my energy significantly. I work best with morning meetings and afternoon focus time.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440029",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"question_order": 12,
+			"question_category": "my_support_needs",
+			"response_text": "I need clear deadlines with buffer time, regular feedback to reduce anxiety about work quality, and understanding about carer responsibilities.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440030",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I am autistic and have sensory processing sensitivities. Bright fluorescent lights and sudden loud noises can be overwhelming.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440031",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 2,
+			"question_category": "my_wellbeing",
+			"response_text": "On good days, I am highly analytical, detail-focused, and able to spot patterns others miss. I communicate best through written formats.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440032",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 3,
+			"question_category": "my_wellbeing",
+			"response_text": "On bad days, I may become overwhelmed by sensory input and need quiet space. I might appear blunt or withdrawn when overstimulated.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440033",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 10,
+			"question_category": "my_conditions",
+			"response_text": "Autism affects my social communication and sensory processing. I need predictable routines and advance notice of changes to perform well.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440034",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 11,
+			"question_category": "my_conditions",
+			"response_text": "Open office noise and fluorescent lighting make it difficult to concentrate. Last-minute meeting changes cause significant stress.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440035",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"question_order": 12,
+			"question_category": "my_support_needs",
+			"response_text": "I need a quiet workspace with natural lighting, written communication for important information, and advance notice of schedule changes.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 3,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440040",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"question_order": 1,
+			"question_category": "my_wellbeing",
+			"response_text": "I have chronic pain from a back injury which affects my ability to sit for long periods. Pain levels vary day to day.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440041",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"question_order": 6,
+			"question_category": "my_responsibilities",
+			"response_text": "I have two young children and need to do school pickup on Tuesdays and Thursdays at 3:30pm.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440042",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"question_order": 7,
+			"question_category": "my_responsibilities",
+			"response_text": "I need to leave early twice a week for school pickup and occasionally work from home when children are unwell.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440043",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"question_order": 10,
+			"question_category": "my_conditions",
+			"response_text": "Chronic back pain means I need to change positions frequently and sometimes use a standing desk to manage discomfort.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440050",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"question_order": 8,
+			"question_category": "my_religion",
+			"response_text": "I observe Friday prayers and need 30 minutes on Fridays between 12-2pm. I also fast during Ramadan which may affect my energy levels.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440051",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"question_order": 9,
+			"question_category": "my_religion",
+			"response_text": "I don't eat pork or drink alcohol. For team events, please ensure halal options are available or let me know in advance so I can arrange my own meal.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "660e8400-e29b-41d4-a716-446655440052",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"question_order": 14,
+			"question_category": "about_me",
+			"response_text": "I'm very collaborative and enjoy mentoring junior team members. I prefer to discuss any concerns directly rather than through email.",
+			"status": "answered",
+			"visibility": "public",
+			"version": 1,
+			"is_latest": true
+		}
+	],
+	"actions": [
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440001",
+			"type": "workplace_adjustment",
+			"description": "Provide noise-cancelling headphones and assign desk in quieter area of office",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440002",
+			"type": "schedule_adjustment",
+			"description": "Allow 15-minute breaks every 90 minutes to help with focus",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440003",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440005",
+			"type": "equipment",
+			"description": "Request ergonomic keyboard and mouse to reduce sensory input",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440004",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440006",
+			"type": "communication",
+			"description": "Send written agendas 24 hours before meetings",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440005",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440007",
+			"type": "workplace_adjustment",
+			"description": "Relocate to corner desk away from main walkway",
+			"status": "draft",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440006",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440007",
+			"type": "schedule_adjustment",
+			"description": "Allow flexible start times between 8-10am based on focus patterns",
+			"status": "active",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440010",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440020",
+			"type": "communication",
+			"description": "Provide 48-hour advance notice for project changes when possible",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440011",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440022",
+			"type": "support",
+			"description": "Schedule weekly 1:1 check-ins for feedback and reassurance",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440012",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440025",
+			"type": "schedule_adjustment",
+			"description": "Allow flexible hours for carer appointments with advance notice",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440013",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440026",
+			"type": "workplace_adjustment",
+			"description": "Provide access to quiet room for stress management when needed",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440014",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440028",
+			"type": "schedule_adjustment",
+			"description": "Schedule important meetings before 2pm when energy levels are higher",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440015",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"response_id": "660e8400-e29b-41d4-a716-446655440029",
+			"type": "communication",
+			"description": "Provide clear deadlines with built-in buffer time for quality checks",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440020",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440030",
+			"type": "workplace_adjustment",
+			"description": "Install desk lamp with adjustable lighting to replace fluorescent overhead",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440021",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440032",
+			"type": "support",
+			"description": "Create signal system for when quiet time is needed (do not disturb sign)",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440022",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440033",
+			"type": "communication",
+			"description": "Send all work instructions via email rather than verbal communication",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440023",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440034",
+			"type": "schedule_adjustment",
+			"description": "Provide 48-hour notice for any schedule changes or meeting rearrangements",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440024",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440035",
+			"type": "workplace_adjustment",
+			"description": "Relocate to quieter area near window for natural light",
+			"status": "draft",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440025",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"response_id": "660e8400-e29b-41d4-a716-446655440035",
+			"type": "equipment",
+			"description": "Provide noise-cancelling headphones for focus periods",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440030",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"response_id": "660e8400-e29b-41d4-a716-446655440040",
+			"type": "equipment",
+			"description": "Provide adjustable standing desk to manage back pain",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440031",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"response_id": "660e8400-e29b-41d4-a716-446655440040",
+			"type": "workplace_adjustment",
+			"description": "Allow regular position changes and walking breaks throughout the day",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440032",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"response_id": "660e8400-e29b-41d4-a716-446655440041",
+			"type": "schedule_adjustment",
+			"description": "Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440033",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"response_id": "660e8400-e29b-41d4-a716-446655440042",
+			"type": "remote_work",
+			"description": "Allow work from home when children are unwell (with advance notice)",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440034",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"response_id": "660e8400-e29b-41d4-a716-446655440043",
+			"type": "equipment",
+			"description": "Provide ergonomic chair with proper lumbar support",
+			"status": "active",
+			"version": 2,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440040",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440050",
+			"type": "schedule_adjustment",
+			"description": "Allow 30-minute break on Fridays between 12-2pm for prayers",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440041",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440050",
+			"type": "support",
+			"description": "Adjust workload expectations during Ramadan fasting period",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440042",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440051",
+			"type": "event_planning",
+			"description": "Ensure halal food options at all team events and social gatherings",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440043",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440051",
+			"type": "communication",
+			"description": "Provide advance notice of team events to arrange appropriate meals",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440044",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440052",
+			"type": "communication",
+			"description": "Schedule direct face-to-face discussions for important concerns rather than email",
+			"status": "active",
+			"version": 1,
+			"is_latest": true
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440045",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"response_id": "660e8400-e29b-41d4-a716-446655440052",
+			"type": "development",
+			"description": "Provide opportunities to mentor junior developers on projects",
+			"status": "draft",
+			"version": 1,
+			"is_latest": true
+		}
+	],
+	"sharing_events": [
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440001",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "sarah.wilson@techcorp.com",
+			"message": "Hi Sarah, I wanted to share my workplace passport with you so you can better understand my needs and how to support me in my role.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440001",
+				"660e8400-e29b-41d4-a716-446655440002"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440001", "770e8400-e29b-41d4-a716-446655440002"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440002",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "mike.johnson@creative.com",
+			"message": "Hi Mike, here is my workplace passport with information about my needs and how we can work together effectively.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440020",
+				"660e8400-e29b-41d4-a716-446655440021"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440010"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440003",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "hr@techcorp.com",
+			"message": "Sharing my updated workplace passport with HR for accommodation planning.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440005",
+				"660e8400-e29b-41d4-a716-446655440006",
+				"660e8400-e29b-41d4-a716-446655440007"
+			],
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440003",
+				"770e8400-e29b-41d4-a716-446655440004",
+				"770e8400-e29b-41d4-a716-446655440005"
+			]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440004",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "facilities@techcorp.com",
+			"message": "Hi Facilities team, these are my workspace requirements for optimal productivity.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440007"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440005", "770e8400-e29b-41d4-a716-446655440006"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440005",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "sarah.wilson@techcorp.com",
+			"message": "Hi Sarah, sharing my carer responsibilities information so you're aware of my occasional need for flexibility.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440025",
+				"660e8400-e29b-41d4-a716-446655440026"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440012", "770e8400-e29b-41d4-a716-446655440013"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440006",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "design-team@creative.com",
+			"message": "Team, sharing my workplace needs to help with project planning and meeting schedules.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440022",
+				"660e8400-e29b-41d4-a716-446655440028"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440011", "770e8400-e29b-41d4-a716-446655440014"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440007",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "hr@creative.com",
+			"message": "Hi HR, sharing my anxiety and chronic fatigue information for accommodation planning.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440027",
+				"660e8400-e29b-41d4-a716-446655440029"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440015"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440008",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "lisa.brown@dataflow.com",
+			"message": "Hi Lisa, sharing my autism-related workplace needs to ensure smooth collaboration.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440030",
+				"660e8400-e29b-41d4-a716-446655440032"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440020", "770e8400-e29b-41d4-a716-446655440021"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440009",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "data-team@dataflow.com",
+			"message": "Team, here are my communication preferences and sensory needs for our work together.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440033",
+				"660e8400-e29b-41d4-a716-446655440034",
+				"660e8400-e29b-41d4-a716-446655440035"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440022", "770e8400-e29b-41d4-a716-446655440023"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440010",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "facilities@dataflow.com",
+			"message": "Hi Facilities, requesting workspace adjustments for sensory sensitivities.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440035"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440024", "770e8400-e29b-41d4-a716-446655440025"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440011",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "david.kim@innovatecorp.com",
+			"message": "Hi David, sharing my parental responsibilities and back pain accommodation needs.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440041",
+				"660e8400-e29b-41d4-a716-446655440042"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440032", "770e8400-e29b-41d4-a716-446655440033"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440012",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "product-team@innovatecorp.com",
+			"message": "Team, here's my availability info for project planning around school pickups.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440042"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440033"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440013",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "hr@innovatecorp.com",
+			"message": "Hi HR, sharing my chronic pain information for ergonomic equipment requests.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440040",
+				"660e8400-e29b-41d4-a716-446655440043"
+			],
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440030",
+				"770e8400-e29b-41d4-a716-446655440031",
+				"770e8400-e29b-41d4-a716-446655440034"
+			]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440014",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "emma.rodriguez@brandworks.com",
+			"message": "Hi Emma, sharing my religious observance requirements for team planning.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440050",
+				"660e8400-e29b-41d4-a716-446655440051"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440040", "770e8400-e29b-41d4-a716-446655440041"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440015",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "marketing-team@brandworks.com",
+			"message": "Team, here are my dietary requirements and communication preferences for our projects.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440051",
+				"660e8400-e29b-41d4-a716-446655440052"
+			],
+			"action_ids": [
+				"770e8400-e29b-41d4-a716-446655440042",
+				"770e8400-e29b-41d4-a716-446655440043",
+				"770e8400-e29b-41d4-a716-446655440044"
+			]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440016",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "events@brandworks.com",
+			"message": "Hi Events team, sharing dietary requirements for all company events.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440051"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440042", "770e8400-e29b-41d4-a716-446655440043"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440017",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "project-leads@techcorp.com",
+			"message": "Hi Project Leads, sharing my ADHD accommodations for meeting planning.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440003",
+				"660e8400-e29b-41d4-a716-446655440004"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440002"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440018",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "alex.mentor@techcorp.com",
+			"message": "Hi Alex, sharing my communication style preferences as we start our mentoring relationship.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440008"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440004"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440019",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "client-services@creative.com",
+			"message": "Hi Client Services, sharing my energy level patterns for client meeting scheduling.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440028"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440014"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440020",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "wellbeing@creative.com",
+			"message": "Hi Wellbeing team, sharing my stress indicators for early intervention support.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440023",
+				"660e8400-e29b-41d4-a716-446655440024"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440013"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440021",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "accessibility@dataflow.com",
+			"message": "Hi Accessibility team, sharing my sensory needs for workspace design input.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440034"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440023"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440022",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "sam.colleague@dataflow.com",
+			"message": "Hi colleague, sharing my communication preferences for our upcoming project collaboration.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440033"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440022"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440023",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "childcare@innovatecorp.com",
+			"message": "Hi Childcare support, sharing my parental responsibilities for emergency planning.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440041"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440032"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440024",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "occupational-health@innovatecorp.com",
+			"message": "Hi Occupational Health, requesting assessment for back pain management equipment.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440043"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440034"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440025",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "imam.local@mosque.org",
+			"message": "Sharing my workplace accommodation needs with religious advisor for guidance.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440050"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440040"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440026",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "diversity@brandworks.com",
+			"message": "Hi Diversity team, sharing religious accommodation needs for inclusion planning.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440050",
+				"660e8400-e29b-41d4-a716-446655440051"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440041", "770e8400-e29b-41d4-a716-446655440042"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440027",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "dev-team@techcorp.com",
+			"message": "Team, sharing my focus patterns and break needs for sprint planning.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440002"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440002"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440028",
+			"user_id": "550e8400-e29b-41d4-a716-446655440002",
+			"recipient_email": "support-group@creative.com",
+			"message": "Sharing with peer support group for carer resource sharing.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440025"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440012"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440029",
+			"user_id": "550e8400-e29b-41d4-a716-446655440003",
+			"recipient_email": "neurodiversity-network@dataflow.com",
+			"message": "Sharing with neurodiversity employee network for peer support.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440031"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440021"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440030",
+			"user_id": "550e8400-e29b-41d4-a716-446655440004",
+			"recipient_email": "working-parents@innovatecorp.com",
+			"message": "Sharing with working parents network for schedule coordination tips.",
+			"response_ids": [
+				"660e8400-e29b-41d4-a716-446655440041",
+				"660e8400-e29b-41d4-a716-446655440042"
+			],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440032", "770e8400-e29b-41d4-a716-446655440033"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440031",
+			"user_id": "550e8400-e29b-41d4-a716-446655440005",
+			"recipient_email": "mentorship@brandworks.com",
+			"message": "Hi Mentorship team, sharing my communication style for mentor matching.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440052"],
+			"action_ids": ["770e8400-e29b-41d4-a716-446655440044", "770e8400-e29b-41d4-a716-446655440045"]
+		},
+		{
+			"id": "880e8400-e29b-41d4-a716-446655440032",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"recipient_email": "buddy@techcorp.com",
+			"message": "Hi work buddy, sharing my ADHD info so you can support me during busy periods.",
+			"response_ids": ["660e8400-e29b-41d4-a716-446655440004"],
+			"action_ids": []
+		}
+	]
+}

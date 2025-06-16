@@ -71,15 +71,14 @@
 
 	let { children } = $props();
 </script>
+<div class="min-h-screen flex flex-col">
+		<Header />
 
-<Header />
-
-{@render children()}
+	<main class="flex-1">
+		{@render children()}
+	</main>
+	
 
 {#if devMode} <StateTable /> {/if}
 
 <Footer {devMode} profileId={appState.profile.id}/>
-
-<!-- note: Header/Footer Components
- 	It might be overkill to have the header & footer as separate components as they only appear here, but I'll do it that way for now as future-proofing
-	-->

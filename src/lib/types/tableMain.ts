@@ -30,7 +30,7 @@ export interface Question {
 	category: string;
 	question_text: string;
 	order: number;
-	preview: string;
+	preview: string | null;
 }
 
 export interface Response {

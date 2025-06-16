@@ -10,12 +10,12 @@
 	let view = $derived(getViewName());
 </script>
 
-<main id="view" class="dev dev-div">
+<main id="view" class="">
 	{#if view === "dash"}
 		<Dash />
-	{:else if view === "list"}
+	{:else if view === 'list'}
 		<List />
-	{:else if view === "detail"}
+	{:else if view === 'detail'}
 		<Detail />
 	{:else}
 		<div>No view selected</div>

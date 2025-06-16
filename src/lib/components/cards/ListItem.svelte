@@ -49,12 +49,12 @@
 	};
 </script>
 
-<button onclick={() => onclick(table, item)} {onkeydown} tabindex="0" class="dev dev-div flex flex-row justify-between">
-	<div id="list-item-status" class="dev dev-div dev-text">
+<button onclick={() => onclick(table, item)} {onkeydown} tabindex="0" class="p-4 m-2 flex justify-between border border-primary rounded">
+	<div id="list-item-status">
 		<pre>status</pre>
 	</div>
 
-	<div id="list-item-title" class="dev dev-div dev-text">
+	<div id="list-item-title">
 		{#if table == "actions"}
 			{@const item = {id: null}}
 			<p>Coming soon, you fuck</p>
@@ -66,5 +66,5 @@
 			<p>No idea how you got here</p>
 		{/if}
 	</div>
-	<div class="dev dev-div dev-text"><pre>actions</pre></div>
+	<div><pre>actions</pre></div>
 </button>

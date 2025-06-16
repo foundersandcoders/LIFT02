@@ -4,18 +4,16 @@
 	let { devMode, profileId } = $props();
 </script>
 
-<footer class="flex flex-row justify-between sticky bottom-0 z-50 w-full border-t border-gray-200 bg-white">
-  <div class="dev dev-div"></div>
+<footer class="w-full bg-primary footer footer-center flex justify-between">
+  <div class="p-4">
+    <p>Dev Mode: {devMode}</p>
+  </div>
 
-  <div class="dev dev-div">
+  <div class="p-4">
     {#if profileId}
       <p>Profile ID: {profileId}</p>
     {:else}
       <p>Not Logged In</p>
     {/if}
-  </div>
-
-  <div class="dev dev-div">
-    <p>Dev Mode: {devMode}</p>
   </div>
 </footer>

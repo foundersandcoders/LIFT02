@@ -30,16 +30,12 @@
 </script>
 
 <div class="dev dev-div">
-	<div id="detail-header" class="dev dev-div flex flex-row justify-between">
-		<h2 class="dev dev-div">
+	<div id="detail-header" class="p-0 bg-base-200 flex flex-row justify-between">
+		<h2 class="text-2xl font-bold">
 			Detail View
 		</h2>
 
-		<div id="detail-source" class="dev dev-div">
-			<pre>{table}</pre>
-		</div>
-
-		<button {onclick} class="dev dev-div dev-button">
+		<button {onclick} class="btn btn-primary ml-4 mt-2 text-primary-content">
 			Back
 		</button>
 	</div>
