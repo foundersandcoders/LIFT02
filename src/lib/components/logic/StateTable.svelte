@@ -5,9 +5,6 @@
 	const getApp = getContext<() => AppState>('getApp');
 	const app:AppState = $derived(getApp());
 
-	// const getProfileId = getContext<() => RowId >('getProfileId');
-	// const profileId:RowId = $derived(getProfileId());
-
 	const setProfileId = getContext<(profileId:null|RowId) => void>('setProfileId');
 
 	const onclick = () => {

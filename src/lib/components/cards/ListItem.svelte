@@ -24,25 +24,7 @@
 				id: item ? (item.id || null) : null
 			}
 		});
-		// if (dTable == "questions" && dItem.id) {
-		// 	setDetailTable(dTable);
-		// 	setDetailItemId(dItem.id);
-		// };
 	};
-
-	// Event Handlers
-	// const onclick = () => {
-	// 	setViewName("detail");
-	// 	const event = new CustomEvent('itemClick', {
-	// 		detail: {
-	// 			table,
-	// 			item: {
-	// 				id: item.id
-	// 			}
-	// 		}
-	// 	});
-	// 	dispatchEvent(event);
-	// };
 
 	const onkeydown = (press:KeyboardEvent) => {
 		if (press.key === 'Enter') onclick(table, item);

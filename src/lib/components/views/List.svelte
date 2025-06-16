@@ -11,13 +11,9 @@
 	const app = $derived(getApp());
 	
 	let category:ItemCategory = $derived(app.list.category);
-	let item:Detail = $derived(app.detail);
 	let profile:Profile = $derived(app.profile);
 	let table:TableName | null = $derived(app.list.table);
 
-	const setCategory = getContext<(list:ItemCategory) => void>('setListCategory');
-	const setDetailItemId = getContext<(dbId:RowId) => void>('setDetailItem');
-	const setDetailTable = getContext<(table:TableName) => void>('setDetailItem');
 	const setList = getContext<(list:List) => void>('setList');
 	const setView = getContext<(view:ViewName) => void>('setViewName');
 

@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { RowId } from "$lib/types/appState";
-
-	let { devMode, profileId } = $props();
+  let { devMode, profileId } = $props();
 </script>
 
 <footer class="w-full bg-primary footer footer-center flex justify-between">
