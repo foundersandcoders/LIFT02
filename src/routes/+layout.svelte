@@ -72,13 +72,14 @@
 	let { children } = $props();
 </script>
 <div class="min-h-screen flex flex-col">
-		<Header />
+	<Header />
 
 	<main class="flex-1">
 		{@render children()}
 	</main>
 	
 
-{#if devMode} <StateTable /> {/if}
+	{#if devMode} <StateTable /> {/if}
 
-<Footer {devMode} profileId={appState.profile.id}/>
+	<Footer {devMode} profileId={appState.profile.id}/>
+</div>

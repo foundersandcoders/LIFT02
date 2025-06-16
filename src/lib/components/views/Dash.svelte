@@ -46,7 +46,9 @@
 			{#if result && result.data}
 				{@const table = "actions"}
 				{@const category = { raw: "actions", format: "Actions" }}
-				<button class="border border-primary rounded p-4 m-2 w-full"" onclick={() => setViewList({ raw: "actions", format: "Actions" })}>
+				<button class="border border-primary rounded p-4 m-2 w-full"
+					onclick={() => onclick(table, category)}
+				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -62,9 +64,11 @@
 			<p>Loading...</p>
 		{:then result}
 			{#if result.data}
-				{#each getCategories(result.data) as category}
+				{#each extractCategories(result.data) as category}
 					{@const table = "questions"}
-					<button class="border border-primary rounded p-4 m-2 w-full" onclick={() => setViewList(category)}>
+					<button class="border border-primary rounded p-4 m-2 w-full"
+						onclick={() => onclick(table, category)}
+					>
 						<p>{category.format}</p>
 					</button>
 				{/each}
