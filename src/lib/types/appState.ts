@@ -50,4 +50,4 @@ export interface View {
   name: ViewName
 }
 
-export type ViewName = "dash" | "list" | "detail";
+export type ViewName = "dash" | "list" | "detail" | "email";
