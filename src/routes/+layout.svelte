@@ -81,6 +81,7 @@
 	setContext('getListTable', () => appState.list.table);
 	setContext('getProfile', () => appState.profile);
 	setContext('getProfileId', () => appState.profile.id);
+	setContext('getProfileName', () => appState.profile.name);
 	setContext('getView', () => appState.view);
 	setContext('getViewName', () => appState.view.name);
 
