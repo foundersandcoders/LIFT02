@@ -24,10 +24,8 @@
 	// App State
 	let appState = $state<AppState>({
 		profile: {
-			// id: null
-			// name: null
-			id: '550e8400-e29b-41d4-a716-446655440001',
-			name: 'Perico Palotes'
+			id: null,
+			name: null
 		},
 		view: {
 			name: 'dash'
@@ -45,6 +43,10 @@
 			item: {
 				id: null
 			}
+		},
+		dev: {
+			testProfileId: '550e8400-e29b-41d4-a716-446655440001',
+			testProfileName: 'Perico Palotes'
 		}
 	});
 
