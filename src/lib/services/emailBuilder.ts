@@ -39,7 +39,7 @@ export async function generateEmailData(
 
 		categoryGroups[category].push({
 			questionText: question.question_text,
-			responseText: response.response_text
+			responseText: response.response_text || ''
 			// TODO: Add actions later
 		});
 	}
@@ -59,7 +59,7 @@ export async function generateEmailData(
 		signature: userName || '[Your name]',
 		metadata: {
 			userId,
-			userName,
+			userName: userName ?? null,
 			generatedAt: new Date().toISOString(),
 			totalResponses: responses.length,
 			totalCategories: categories.length
@@ -67,4 +67,24 @@ export async function generateEmailData(
 	};
 
 	return emailData;
+}
+
+export function renderEmailToText(emailData: EmailData): string {
+	let emailContent = `Subject: ${emailData.subject}\n\n${emailData.introduction}\n\n`;
+
+	// Add categories
+	for (const category of emailData.categories) {
+		emailContent += `${category.categoryName.toUpperCase()}\n`;
+		emailContent += '='.repeat(category.categoryName.length) + '\n\n';
+
+		for (const item of category.items) {
+			emailContent += `Q: ${item.questionText}\n`;
+			emailContent += `A: ${item.responseText}\n\n`;
+		}
+
+		emailContent += '\n';
+	}
+
+	emailContent += `\n${emailData.closing}\n${emailData.signature}`;
+	return emailContent;
 }
