@@ -89,7 +89,7 @@ export function renderEmailToHTML(emailData: EmailData): string {
 	for (const category of emailData.categories) {
 		emailHTML += `
 			<div class="category-section">
-				<h2 class="category-title text-lg font-medium text-primary-content bg-primary mb-4 py-3 px-4 uppercase tracking-wide">
+				<h2 class="category-title text-lg font-medium text-white bg-accent mb-4 py-3 px-4 uppercase tracking-wide">
 					${cleanUnderscores(category.categoryName)}
 				</h2>
 				<div class="category-items space-y-4 px-4">
