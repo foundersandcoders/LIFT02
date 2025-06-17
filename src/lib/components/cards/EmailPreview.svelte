@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateEmailData, renderEmailToText } from '$lib/services/emailBuilder';
+	import { generateEmailData, renderEmailToHTML } from '$lib/services/emailBuilder';
 	import { getContext } from 'svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
@@ -13,7 +13,7 @@
 	$effect(() => {
 		if (profileId) {
 			generateEmailData(profileId, profileName).then((emailData) => {
-				emailContent = renderEmailToText(emailData);
+				emailContent = renderEmailToHTML(emailData);
 			});
 		}
 	});
@@ -25,6 +25,6 @@
 	</header>
 
 	<div class="bg-base-100 rounded-xl p-4 shadow">
-		<div class="font-mono text-sm break-words whitespace-pre-wrap">{emailContent}</div>
+		{@html emailContent}
 	</div>
 </div>

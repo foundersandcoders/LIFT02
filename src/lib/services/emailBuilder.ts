@@ -1,6 +1,7 @@
 import { getUserResponses } from '$lib/services/database/responses';
 // import { getUserActions } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
+import { cleanUnderscores } from '$lib/utils/textTools';
 import type { EmailData, EmailCategory, EmailItem } from '$lib/utils/email';
 
 export async function generateEmailData(
@@ -44,14 +45,16 @@ export async function generateEmailData(
 	}
 
 	// Convert to EmailCategory array
-	const categories: EmailCategory[] = Object.entries(categoryGroups).map(([categoryName, items]) => ({
-		categoryName,
-		items
-	}));
+	const categories: EmailCategory[] = Object.entries(categoryGroups).map(
+		([categoryName, items]) => ({
+			categoryName,
+			items
+		})
+	);
 
 	// Build EmailData object
 	const emailData: EmailData = {
-		subject: 'My Workplace Passport',
+		subject: 'My Neacons',
 		introduction: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
 		categories,
 		closing: 'Best regards,',
@@ -69,22 +72,60 @@ export async function generateEmailData(
 	return emailData;
 }
 
-export function renderEmailToText(emailData: EmailData): string {
-	let emailContent = `Subject: ${emailData.subject}\n\n${emailData.introduction}\n\n`;
+export function renderEmailToHTML(emailData: EmailData): string {
+	let emailHTML = `
+		<div class="email-container max-w-4xl mx-auto bg-base-100">
+			<!-- Email Header -->
+			<div class="email-header mb-6 p-4">
+				<h1 class="text-xl font-semibold text-primary mb-2">${emailData.subject}</h1>
+				<div class="text-base-content/70 whitespace-pre-line">${emailData.introduction}</div>
+			</div>
+
+			<!-- Email Content -->
+			<div class="email-content space-y-6">
+	`;
 
 	// Add categories
 	for (const category of emailData.categories) {
-		emailContent += `${category.categoryName.toUpperCase()}\n`;
-		emailContent += '='.repeat(category.categoryName.length) + '\n\n';
+		emailHTML += `
+			<div class="category-section">
+				<h2 class="category-title text-lg font-medium text-primary-content bg-primary mb-4 py-3 px-4 uppercase tracking-wide">
+					${cleanUnderscores(category.categoryName)}
+				</h2>
+				<div class="category-items space-y-4 px-4">
+		`;
 
 		for (const item of category.items) {
-			emailContent += `Q: ${item.questionText}\n`;
-			emailContent += `A: ${item.responseText}\n\n`;
+			emailHTML += `
+				<div class="qa-item py-3 border-b border-base-300/50">
+					<div class="question mb-3">
+						<span class="question-label font-bold text-accent text-base">Q:</span>
+						<span class="question-text font-semibold text-base-content text-base ml-2">${item.questionText}</span>
+					</div>
+					<div class="answer mt-2">
+						<span class="answer-label font-medium text-secondary">A:</span>
+						<span class="answer-text text-base-content/80 ml-2">${item.responseText}</span>
+					</div>
+				</div>
+			`;
 		}
 
-		emailContent += '\n';
+		emailHTML += `
+				</div>
+			</div>
+		`;
 	}
 
-	emailContent += `\n${emailData.closing}\n${emailData.signature}`;
-	return emailContent;
+	emailHTML += `
+			</div>
+
+			<!-- Email Footer -->
+			<div class="email-footer mt-8 p-4 bg-base-200 rounded-lg text-base-content/70">
+				<div class="closing">${emailData.closing}</div>
+				<div class="signature font-medium text-base-content">${emailData.signature}</div>
+			</div>
+		</div>
+	`;
+
+	return emailHTML;
 }
