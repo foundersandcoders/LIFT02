@@ -2,11 +2,12 @@ import { getUserResponses } from '$lib/services/database/responses';
 // import { getUserActions } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
 import type { Question, Response } from '$lib/types/tableMain';
+import type { EmailData, EmailCategory, EmailItem } from '$lib/utils/email';
 
-export async function generateEmailPreview(
+export async function generateEmailData(
 	userId: string,
 	userName?: string | null
-): Promise<string> {
+): Promise<EmailData> {
 	// Get all public, latest responses for user
 	const responsesResult = await getUserResponses(userId, {
 		visibility: 'public',
@@ -14,16 +15,13 @@ export async function generateEmailPreview(
 	});
 
 	if (responsesResult.error || !responsesResult.data) {
-		return 'Error loading responses';
+		throw new Error('Error loading responses');
 	}
 
 	const responses = responsesResult.data;
-	let emailContent =
-		'Subject: My Workplace Passport\n\nDear Line Manager,\n\nHere are my workplace needs and accommodations:\n\n';
 
 	// Group responses by category
-	const categoryGroups: { [category: string]: Array<{ question: Question; response: Response }> } =
-		{};
+	const categoryGroups: { [category: string]: EmailItem[] } = {};
 
 	// First, collect all questions and responses, grouped by category
 	for (const response of responses) {
@@ -39,25 +37,34 @@ export async function generateEmailPreview(
 			categoryGroups[category] = [];
 		}
 
-		categoryGroups[category].push({ question, response });
+		categoryGroups[category].push({
+			questionText: question.question_text,
+			responseText: response.response_text
+			// TODO: Add actions later
+		});
 	}
 
-	// Build email content grouped by category
-	for (const [category, items] of Object.entries(categoryGroups)) {
-		emailContent += `${category.toUpperCase()}\n`;
-		emailContent += '='.repeat(category.length) + '\n\n';
+	// Convert to EmailCategory array
+	const categories: EmailCategory[] = Object.entries(categoryGroups).map(([categoryName, items]) => ({
+		categoryName,
+		items
+	}));
 
-		for (const { question, response } of items) {
-			emailContent += `Q: ${question.question_text}\n`;
-			emailContent += `A: ${response.response_text}\n`;
-
-			// TODO: Get related actions for this response
-			emailContent += '\n';
+	// Build EmailData object
+	const emailData: EmailData = {
+		subject: 'My Workplace Passport',
+		introduction: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
+		categories,
+		closing: 'Best regards,',
+		signature: userName || '[Your name]',
+		metadata: {
+			userId,
+			userName,
+			generatedAt: new Date().toISOString(),
+			totalResponses: responses.length,
+			totalCategories: categories.length
 		}
+	};
 
-		emailContent += '\n';
-	}
-
-	emailContent += `\nBest regards,\n${userName || '[Your name]'}`;
-	return emailContent;
+	return emailData;
 }
