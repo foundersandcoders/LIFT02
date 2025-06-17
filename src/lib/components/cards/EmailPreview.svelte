@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateEmailPreview } from '$lib/services/emailBuilder';
+	import { generateEmailData, renderEmailToText } from '$lib/services/emailBuilder';
 	import { getContext } from 'svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
@@ -12,8 +12,8 @@
 	// Generate email content when profileId is available
 	$effect(() => {
 		if (profileId) {
-			generateEmailPreview(profileId, profileName).then((content) => {
-				emailContent = content;
+			generateEmailData(profileId, profileName).then((emailData) => {
+				emailContent = renderEmailToText(emailData);
 			});
 		}
 	});

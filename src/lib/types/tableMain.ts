@@ -39,10 +39,8 @@ export interface Response {
 	user_id: string | null;
 	question_id: string | null;
 	response_text: string | null;
-	// status: 'answered' | 'skipped' | null;
-	status: string | null;
-	// visibility: 'public' | 'private';
-	visibility: string;
+	status: 'answered' | 'skipped' | null;
+	visibility: 'public' | 'private';
 	version: number | null;
 	is_latest: boolean | null;
 	created_at: string | null; // TODO: Temporal()
