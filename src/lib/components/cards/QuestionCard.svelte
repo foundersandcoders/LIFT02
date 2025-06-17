@@ -57,13 +57,14 @@
 				<ToggleStatus {visibility} {toggleVisibility} />
 			</header>
 
-
 			<div class="flex flex-col bg-base-100 rounded-xl shadow p-2">
 				<label for="response-{questionId}" class="text-lg mb-1">
 					{response.question.data.question_text || 'Question'}
 				</label>
+
 				<textarea id="response-{questionId}" class="text-area"rows="4"></textarea>
 			</div>
+
 			<div class="bg-base-100 rounded-xl shadow p-2">
 				<h2 class="text-lg mb-1">A description of what actions are for</h2>
 				<label for="action-type-{questionId}" class="text-md">Action type:</label>
