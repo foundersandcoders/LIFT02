@@ -9,6 +9,7 @@ export interface AppState {
 	view: View;
 	list: List;
 	detail: Detail;
+	dev: DevState;
 }
 
 export interface Detail {
@@ -27,6 +28,11 @@ export interface ItemCategory {
 export interface List {
 	table: null | TableName;
 	category: ItemCategory;
+}
+
+export interface DevState {
+	testProfileId: string | null;
+	testProfileName: string | null;
 }
 
 export interface Profile {
