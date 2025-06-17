@@ -65,6 +65,7 @@ export async function generateEmailData(
 		}
 	};
 
+	console.log('📧 Generated Email JSON:', JSON.stringify(emailData, null, 2));
 	return emailData;
 }
 

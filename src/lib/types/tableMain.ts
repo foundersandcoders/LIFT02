@@ -33,18 +33,17 @@ export interface Question {
 	preview: string | null;
 }
 
-//CHECK THIS REplaced ? -> undefined for |null to match supabase types
 export interface Response {
-	id: string | null;
-	user_id: string | null;
-	question_id: string | null;
-	response_text: string | null;
-	status: 'answered' | 'skipped' | null;
+	id?: string;
+	user_id: string;
+	question_id: string;
+	response_text: string;
+	status?: 'answered' | 'skipped';
 	visibility: 'public' | 'private';
-	version: number | null;
-	is_latest: boolean | null;
-	created_at: string | null; // TODO: Temporal()
-	updated_at: string | null; // TODO: Temporal()
+	version: number;
+	is_latest: boolean;
+	created_at?: string; // TODO: Temporal()
+	updated_at?: string; // TODO: Temporal()
 	shares?: Share[]; // sharing_event_responses
 }
 
