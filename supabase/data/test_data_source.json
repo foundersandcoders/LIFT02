@@ -186,7 +186,7 @@
 			"question_category": "my_wellbeing",
 			"response_text": "Early warning signs include increased irritability, difficulty concentrating on routine tasks, and avoiding team communications. Please approach me privately and ask how I'm doing.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -285,7 +285,7 @@
 			"question_category": "my_wellbeing",
 			"response_text": "Persistent insomnia, difficulty concentrating, and feeling overwhelmed by simple tasks indicate I need time off to recover.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -296,7 +296,7 @@
 			"question_category": "my_responsibilities",
 			"response_text": "I care for my elderly parent who has dementia. This sometimes requires me to attend medical appointments or handle care-related emergencies.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -318,7 +318,7 @@
 			"question_category": "my_conditions",
 			"response_text": "Anxiety can make me overthink creative decisions and chronic fatigue affects my energy levels, especially in the afternoons.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -373,7 +373,7 @@
 			"question_category": "my_wellbeing",
 			"response_text": "On bad days, I may become overwhelmed by sensory input and need quiet space. I might appear blunt or withdrawn when overstimulated.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 2,
 			"is_latest": true
 		},
@@ -395,7 +395,7 @@
 			"question_category": "my_conditions",
 			"response_text": "Open office noise and fluorescent lighting make it difficult to concentrate. Last-minute meeting changes cause significant stress.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -417,7 +417,7 @@
 			"question_category": "my_wellbeing",
 			"response_text": "I have chronic pain from a back injury which affects my ability to sit for long periods. Pain levels vary day to day.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -428,7 +428,7 @@
 			"question_category": "my_responsibilities",
 			"response_text": "I have two young children and need to do school pickup on Tuesdays and Thursdays at 3:30pm.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -450,7 +450,7 @@
 			"question_category": "my_conditions",
 			"response_text": "Chronic back pain means I need to change positions frequently and sometimes use a standing desk to manage discomfort.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
@@ -461,7 +461,7 @@
 			"question_category": "my_religion",
 			"response_text": "I observe Friday prayers and need 30 minutes on Fridays between 12-2pm. I also fast during Ramadan which may affect my energy levels.",
 			"status": "answered",
-			"visibility": "public",
+			"visibility": "private",
 			"version": 1,
 			"is_latest": true
 		},
