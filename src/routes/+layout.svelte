@@ -50,6 +50,17 @@
 		}
 	});
 
+	// Update profile with dev test data when devMode is enabled
+	$effect(() => {
+		if (devMode) {
+			appState.profile.id = appState.dev.testProfileId;
+			appState.profile.name = appState.dev.testProfileName;
+		} else {
+			appState.profile.id = null;
+			appState.profile.name = null;
+		}
+	});
+
 	$inspect(appState.profile.id).with((type, value) =>
 		console.log(`${preApp}${type} profile.id: ${value}`)
 	);
