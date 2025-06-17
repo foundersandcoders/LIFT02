@@ -11,6 +11,7 @@
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 	const profileId = $derived(app.profile.id );
+	const category = $derived(app.list.category);
 
 	let actionType = $state('');
 	
@@ -21,9 +22,7 @@
 		responseId: null
 	});
 
-	interface Props {
-		questionId: string;
-	}
+	interface Props { questionId: string };
 
 	let { questionId }: Props = $props();
 
@@ -50,25 +49,31 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<div class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
-			<header class="mb-4 bg-base-100 rounded-xl shadow p-2">
-				<h1 class="text-center text-2xl mb-2">{response.question.data.category}</h1>
+		<section id="question-{questionId}" class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
+			<header id="question-{questionId}-header" class="mb-4 bg-base-100 rounded-xl shadow p-2">
+				<h3 class="text-center text-2xl mb-2">{category.format}</h3>
 				
 				<ToggleStatus {visibility} {toggleVisibility} />
 			</header>
 
-			<div class="flex flex-col bg-base-100 rounded-xl shadow p-2">
-				<label for="response-{questionId}" class="text-lg mb-1">
+			<div id="question-{questionId}-response" class="flex flex-col bg-base-100 rounded-xl shadow p-2">
+				<label for="question-{questionId}-response-input" class="text-lg mb-1">
 					{response.question.data.question_text || 'Question'}
 				</label>
 
-				<textarea id="response-{questionId}" class="text-area"rows="4"></textarea>
+				<textarea id="question-{questionId}-response-input" class="text-area" rows="4"></textarea>
 			</div>
 
-			<div class="bg-base-100 rounded-xl shadow p-2">
-				<h2 class="text-lg mb-1">A description of what actions are for</h2>
-				<label for="action-type-{questionId}" class="text-md">Action type:</label>
-				<select id="action-type-{questionId}" bind:value={actionType} class="border-2 border-primary rounded p-2 mb-2 focus:border-accent outline-none">
+			<div id="question-{questionId}-actions" class="bg-base-100 rounded-xl shadow p-2">
+				<h3 class="text-lg mb-1">Actions</h3>
+
+				<label for="question-{questionId}-action-type" class="text-md">
+					Action type:
+				</label>
+
+				<select id="question-{questionId}-action-type" bind:value={actionType}
+					class="border-2 border-primary rounded p-2 mb-2 focus:border-accent outline-none"
+				>
 					<option value="default" selected >Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
@@ -87,9 +92,8 @@
 				</div>
 			</div>
 
-			<div class="flex justify-around">
-				<SubmitButton
-					text="Skip"
+			<div id="question-{questionId}-buttons" class="flex justify-around">
+				<SubmitButton text="Skip"
 					status="skipped"
 					{actionType}
 					details={questionDetails}
@@ -103,15 +107,20 @@
 					{visibility}
 				/>
 			</div>
-		</div>
+		</section>
 	{:else}
-		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
-			<!-- Sorry! We can't load you're questions right now. Please try again later. -->
-			 No question found with ID {response.queryId}
-		</div>
+		<section id="question-not-found"
+			class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
+		>
+			<p>No question found with ID {response.queryId}</p>
+		</section>
 	{/if}
 {:catch error}
-	<p>DB Query Error: {error.message}</p>
+	<section id="db-query-error"
+		class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
+	>
+		<p>DB Query Error: {error.message}</p>
+	</section>
 {/await}
 
 <style>
