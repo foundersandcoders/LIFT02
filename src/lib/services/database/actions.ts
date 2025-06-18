@@ -111,7 +111,21 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types
+	const convertedData = data?.map((dbAction) => ({
+		id: dbAction.id,
+		user_id: dbAction.user_id || '',
+		response_id: dbAction.response_id || undefined,
+		type: dbAction.type,
+		description: dbAction.description || undefined,
+		version: dbAction.version || 1,
+		is_latest: dbAction.is_latest || false,
+		status: dbAction.status as 'draft' | 'active' | 'archived',
+		created_at: dbAction.created_at || undefined,
+		updated_at: dbAction.updated_at || undefined
+	})) || null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
