@@ -154,7 +154,21 @@ export async function createAction(
 		return { data: null, error };
 	}
 
-	return { data: action, error: null };
+	// Convert database type to tableMain type
+	const convertedData = action ? {
+		id: action.id,
+		user_id: action.user_id || '',
+		response_id: action.response_id || undefined,
+		type: action.type,
+		description: action.description || undefined,
+		version: action.version || 1,
+		is_latest: action.is_latest || false,
+		status: action.status as 'draft' | 'active' | 'archived',
+		created_at: action.created_at || undefined,
+		updated_at: action.updated_at || undefined
+	} : null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
