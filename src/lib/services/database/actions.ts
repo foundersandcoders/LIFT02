@@ -225,3 +225,22 @@ export async function getLatestActions(userId: string): Results<Action> {
 
 	return { data, error: null };
 }
+
+/**
+   * Get the latest version of the action
+   for a specific response
+   */
+export async function getActionsByResponseId(responseId: string): Results<Action> {
+	const { data, error } = await supabase
+		.from('actions')
+		.select('*')
+		.eq('response_id', responseId)
+		.order('version', { ascending: false })
+		.limit(1);
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	return { data, error: null };
+}
