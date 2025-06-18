@@ -3,24 +3,27 @@
   themes: light --default, dark --prefersdark;
 }
 @plugin "daisyui/theme" {
-  name: "light";
+	name: "light";
   default: true;
-  --color-base-100: #ffffff;
-  --color-primary: #d600a8;
-  --color-secondary: #ff2ed2;
-  --color-accent: #00a7a8;
-  --color-primary-content: #ffffffß
+  --color-accent: oklch(65% 0.1 195);
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(90% 0 0);
+  --color-base-300: oklch(80% 0 0);
+  --color-primary-content: oklch(100% 0 0);
+  --color-primary: oklch(59% 0.25 341)
+  --color-secondary: oklch(69% 0.27 339);
 }
 
 @plugin "daisyui/theme" {
-  name: "dark";
+	name: "dark";
   prefersdark: true;
-  --color-primary: #d600a8;
-  --color-secondary: #ff2ed2;
-  --color-accent: #00a7a8;
-  --color-primary-content: #ffffff;
+  --color-accent: oklch(65% 0.1 195);
+	--color-base-100: oklch(70% 0 0);
+  --color-base-200: oklch(80% 0 0);
   --color-base-300: oklch(90% 0 0);
-
+  --color-primary: oklch(59% 0.25 341)
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(69% 0.27 339);
 }
 
 /* @theme {
