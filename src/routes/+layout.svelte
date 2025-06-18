@@ -3,7 +3,6 @@
 	import { setContext } from 'svelte';
 	import Header from "$lib/components/layouts/Header.svelte";
 	import Footer from "$lib/components/layouts/Footer.svelte";
-	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import type { AppState, Detail, List, ItemCategory, Profile, RowId, TableName, View, ViewName } from "$lib/types/appState";
 	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from "$lib/utils/inspector";
 
@@ -71,15 +70,13 @@
 
 	let { children } = $props();
 </script>
+
 <div class="min-h-screen flex flex-col">
 	<Header />
 
 	<main class="flex-1">
 		{@render children()}
 	</main>
-	
-
-	{#if devMode} <StateTable /> {/if}
 
 	<Footer {devMode} profileId={appState.profile.id}/>
 </div>
