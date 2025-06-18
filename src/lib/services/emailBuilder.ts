@@ -38,11 +38,6 @@ export async function generateEmailData(
 			categoryGroups[category] = [];
 		}
 
-		categoryGroups[category].push({
-			questionText: question.question_text,
-			responseText: response.response_text || ''
-		});
-
 		// Get actions for this response
 		const actionsResult = await getActionsByResponseId(response.id, {
 			isLatest: true
@@ -125,6 +120,18 @@ export function renderEmailToHTML(emailData: EmailData): string {
 						<span class="answer-label font-medium text-secondary">A:</span>
 						<span class="answer-text text-base-content/80 ml-2">${item.responseText}</span>
 					</div>
+					${item.actions && item.actions.length > 0 ? `
+						<div class="actions mt-3 ml-4">
+							<span class="actions-label font-medium text-primary text-sm">Actions:</span>
+							<ul class="actions-list ml-2 mt-1 space-y-1">
+								${item.actions.map(action => `
+									<li class="action-item text-sm text-base-content/70">
+										• ${action.description} <span class="action-status text-xs text-accent">(${action.status})</span>
+									</li>
+								`).join('')}
+							</ul>
+						</div>
+					` : ''}
 				</div>
 			`;
 		}
