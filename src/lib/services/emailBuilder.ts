@@ -39,14 +39,12 @@ export async function generateEmailData(
 		}
 
 		// Get actions for this response
-		const actionsResult = await getActionsByResponseId(response.id, {
-			isLatest: true
-		});
+		const actionsResult = await getActionsByResponseId(response.id);
 		const actions = actionsResult.data || [];
 
 		// Convert actions to EmailAction format
 		const emailActions = actions.map((action: Action) => ({
-			description: action.description,
+			description: action.description || '',
 			type: action.type,
 			status: action.status
 		}));
@@ -120,18 +118,26 @@ export function renderEmailToHTML(emailData: EmailData): string {
 						<span class="answer-label font-medium text-secondary">A:</span>
 						<span class="answer-text text-base-content/80 ml-2">${item.responseText}</span>
 					</div>
-					${item.actions && item.actions.length > 0 ? `
+					${
+						item.actions && item.actions.length > 0
+							? `
 						<div class="actions mt-3 ml-4">
 							<span class="actions-label font-medium text-primary text-sm">Actions:</span>
 							<ul class="actions-list ml-2 mt-1 space-y-1">
-								${item.actions.map(action => `
+								${item.actions
+									.map(
+										(action) => `
 									<li class="action-item text-sm text-base-content/70">
 										• ${action.description} <span class="action-status text-xs text-accent">(${action.status})</span>
 									</li>
-								`).join('')}
+								`
+									)
+									.join('')}
 							</ul>
 						</div>
-					` : ''}
+					`
+							: ''
+					}
 				</div>
 			`;
 		}

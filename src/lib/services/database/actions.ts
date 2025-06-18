@@ -7,12 +7,14 @@ import type {
 	FilterOptions
 } from './types';
 
-type Action = Database['public']['Tables']['actions']['Row'];
+// type Action = Database['public']['Tables']['actions']['Row'];
+import type { Action } from '$lib/types/tableMain';
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
 /**
  * Get all actions for a user with optional filtering
+ * TODO: Needs database → tableMain type conversion
  */
 export async function getUserActions(
 	userId: string,
@@ -53,6 +55,7 @@ export async function getUserActions(
 
 /**
  * Get a single action by ID
+ * TODO: Needs database → tableMain type conversion
  */
 export async function getActionById(id: string): Result<Action> {
 	const { data, error } = await supabase.from('actions').select('*').eq('id', id).single();
@@ -66,6 +69,7 @@ export async function getActionById(id: string): Result<Action> {
 
 /**
  * Get action history for a specific response
+ * TODO: Needs database → tableMain type conversion
  */
 export async function getActionHistory(userId: string, responseId: string): Results<Action> {
 	const { data, error } = await supabase
@@ -84,6 +88,7 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 
 /**
  * Create a new action
+ * TODO: Needs database → tableMain type conversion
  */
 export async function createAction(
 	userId: string,
@@ -112,6 +117,7 @@ export async function createAction(
 
 /**
  * Update an existing action
+ * TODO: Needs database → tableMain type conversion
  */
 export async function updateAction(
 	id: string,
@@ -163,6 +169,7 @@ export async function updateAction(
 
 /**
  * Archive an action
+ * TODO: Needs database → tableMain type conversion
  */
 export async function archiveAction(id: string): Result<Action> {
 	// First, get the current action
@@ -210,6 +217,7 @@ export async function archiveAction(id: string): Result<Action> {
 
 /**
  * Get latest actions for a user
+ * TODO: Needs database → tableMain type conversion
  */
 export async function getLatestActions(userId: string): Results<Action> {
 	const { data, error } = await supabase
@@ -242,5 +250,20 @@ export async function getActionsByResponseId(responseId: string): Results<Action
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types
+	const convertedData =
+		data?.map((dbAction) => ({
+			id: dbAction.id,
+			user_id: dbAction.user_id || '',
+			response_id: dbAction.response_id || undefined,
+			type: dbAction.type,
+			description: dbAction.description || undefined,
+			version: dbAction.version || 1,
+			is_latest: dbAction.is_latest || false,
+			status: dbAction.status as 'draft' | 'active' | 'archived',
+			created_at: dbAction.created_at || undefined,
+			updated_at: dbAction.updated_at || undefined
+		})) || null;
+
+	return { data: convertedData, error: null };
 }
