@@ -78,7 +78,21 @@ export async function getActionById(id: string): Result<Action> {
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database type to tableMain type
+	const convertedData = data ? {
+		id: data.id,
+		user_id: data.user_id || '',
+		response_id: data.response_id || undefined,
+		type: data.type,
+		description: data.description || undefined,
+		version: data.version || 1,
+		is_latest: data.is_latest || false,
+		status: data.status as 'draft' | 'active' | 'archived',
+		created_at: data.created_at || undefined,
+		updated_at: data.updated_at || undefined
+	} : null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
