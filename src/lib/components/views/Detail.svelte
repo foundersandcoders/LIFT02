@@ -1,7 +1,7 @@
 <script lang="ts">
 	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
 	import { getQuestionById } from '$lib/services/database/questions';
-	import type { RowId, TableName, ViewName } from '$lib/types/appState';
+	import type { ItemCategory, RowId, TableName, ViewName } from '$lib/types/appState';
 	import type { Question } from '$lib/types/tableMain';
 	import { getContext } from 'svelte';
 
@@ -16,6 +16,9 @@
 	const getDetailItemId = getContext<() => RowId>("getDetailItemId");
 	let itemId = $derived(getDetailItemId());
 
+	const getCategory = getContext<() => ItemCategory>("getListCategory");
+	let category = $derived(getCategory());
+
 	let question:Promise<Question|null> | null = $derived(
 		(table == "questions" && itemId)
 			? getQuestion(itemId)
@@ -29,10 +32,10 @@
 	};
 </script>
 
-<div class="dev dev-div">
+<div id="detail-view" class="dev dev-div">
 	<div id="detail-header" class="p-0 bg-base-200 flex flex-row justify-between">
 		<h2 class="text-2xl font-bold">
-			Detail View
+			{table === "questions" ? "Your Response" : "Your Actions"}
 		</h2>
 
 		<button {onclick} class="btn btn-primary ml-4 mt-2 text-primary-content">
