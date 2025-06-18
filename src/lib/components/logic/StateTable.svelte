@@ -12,14 +12,14 @@
 	};
 </script>
 
-<section id="dev-menu" class="dev dev-div values">
-	<div class="dev dev-div">
-		<button class="dev dev-button" {onclick}>
+<section id="dev-menu" class="values">
+	<div id="dev-menu-header" class="">
+		<button id="dev-menu-header-button" class="btn btn-primary" {onclick}>
 			Log {app.profile.id ? "Out" : "In"}
 		</button>
 	</div>
 
-	<table class="border-collapse dev-table">
+	<table id="dev-menu-table" class="table table-zebra">
 		<thead>
 			<tr>
 				<th>Key 1</th>
