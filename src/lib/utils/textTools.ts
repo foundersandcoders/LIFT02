@@ -19,7 +19,7 @@ export function makePretty(
 }
 
 export function cleanUnderscores(text: string): string {
-	return text.replace('_', ' ');
+	return text.replaceAll('_', ' ');
 }
 
 function toCaseTitle(text: string): string {

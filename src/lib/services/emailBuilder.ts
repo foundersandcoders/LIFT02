@@ -1,5 +1,6 @@
 import { getUserResponses } from '$lib/services/database/responses';
-// import { getUserActions } from '$lib/services/database/actions';
+import { getActionsByResponseId } from '$lib/services/database/actions';
+import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
 import { cleanUnderscores } from '$lib/utils/textTools';
 import type { EmailData, EmailCategory, EmailItem } from '$lib/utils/email';
@@ -40,7 +41,25 @@ export async function generateEmailData(
 		categoryGroups[category].push({
 			questionText: question.question_text,
 			responseText: response.response_text || ''
-			// TODO: Add actions later
+		});
+
+		// Get actions for this response
+		const actionsResult = await getActionsByResponseId(response.id, {
+			isLatest: true
+		});
+		const actions = actionsResult.data || [];
+
+		// Convert actions to EmailAction format
+		const emailActions = actions.map((action: Action) => ({
+			description: action.description,
+			type: action.type,
+			status: action.status
+		}));
+
+		categoryGroups[category].push({
+			questionText: question.question_text,
+			responseText: response.response_text || '',
+			actions: emailActions.length > 0 ? emailActions : undefined
 		});
 	}
 
