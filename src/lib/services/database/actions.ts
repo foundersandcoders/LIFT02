@@ -220,7 +220,21 @@ export async function updateAction(
 		return { data: null, error: insertError };
 	}
 
-	return { data: newAction, error: null };
+	// Convert database type to tableMain type
+	const convertedData = newAction ? {
+		id: newAction.id,
+		user_id: newAction.user_id || '',
+		response_id: newAction.response_id || undefined,
+		type: newAction.type,
+		description: newAction.description || undefined,
+		version: newAction.version || 1,
+		is_latest: newAction.is_latest || false,
+		status: newAction.status as 'draft' | 'active' | 'archived',
+		created_at: newAction.created_at || undefined,
+		updated_at: newAction.updated_at || undefined
+	} : null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -268,7 +282,21 @@ export async function archiveAction(id: string): Result<Action> {
 		return { data: null, error: insertError };
 	}
 
-	return { data: newAction, error: null };
+	// Convert database type to tableMain type
+	const convertedData = newAction ? {
+		id: newAction.id,
+		user_id: newAction.user_id || '',
+		response_id: newAction.response_id || undefined,
+		type: newAction.type,
+		description: newAction.description || undefined,
+		version: newAction.version || 1,
+		is_latest: newAction.is_latest || false,
+		status: newAction.status as 'draft' | 'active' | 'archived',
+		created_at: newAction.created_at || undefined,
+		updated_at: newAction.updated_at || undefined
+	} : null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
