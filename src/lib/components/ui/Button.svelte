@@ -44,9 +44,14 @@
 		}
 	};
 
-	const buttonClasses = $derived(
-		[baseClasses, sizeClasses[size], getVariantClasses(variant), className].join(' ')
-	);
+	const buttonClasses = $derived([
+		"btn",
+		"btn-secondary",
+		baseClasses,
+		sizeClasses[size],
+		getVariantClasses(variant),
+		className
+	].join(' '));
 
 	const buttonStyle = $derived(
 		variant === 'primary'

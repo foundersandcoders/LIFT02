@@ -31,7 +31,9 @@
 	};
 </script>
 
-<button onclick={() => onclick(table, item)} {onkeydown} tabindex="0" class="p-4 m-2 flex justify-between border border-primary rounded">
+<button onclick={() => onclick(table, item)} {onkeydown} tabindex="0"
+	class="p-4 m-2 flex justify-between border border-primary rounded"
+>
 	<div id="list-item-status">
 		<pre>status</pre>
 	</div>

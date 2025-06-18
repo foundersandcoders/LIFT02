@@ -104,8 +104,11 @@ export async function createResponse(
 		.single();
 
 	if (error) {
+		console.error(error);
 		return { data: null, error };
 	}
+
+	console.log(response);
 
 	return { data: response, error: null };
 }

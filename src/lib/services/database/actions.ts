@@ -104,8 +104,11 @@ export async function createAction(
 		.single();
 
 	if (error) {
+		console.error(error);
 		return { data: null, error };
 	}
+
+	console.log(action);
 
 	return { data: action, error: null };
 }

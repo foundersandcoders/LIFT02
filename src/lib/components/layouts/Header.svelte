@@ -22,9 +22,8 @@
 			<!-- Dev Mode Toggle
 				(Development Only)
 			-->
-			<button
-				onclick={onToggleDevMode}
-				class="btn btn-primary text-primary-content"
+			<button onclick={onToggleDevMode}
+				class="btn btn-secondary text-primary-content"
 				type="button"
 				aria-label="Toggle development mode"
 			>
