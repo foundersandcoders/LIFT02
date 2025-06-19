@@ -1,12 +1,20 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import type { ViewName } from '$lib/types/appState';
 
 	const toggleDevMode = getContext<() => void>('setDevMode');
-	const onToggleDevMode = () => { toggleDevMode() };
+	const onToggleDevMode = () => {
+		toggleDevMode();
+	};
+
+	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const onEmailClick = () => {
+		setViewName('email');
+	};
 </script>
 
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-base-300">
-	<div class="p-0 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+<header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
+	<div class="flex h-16 items-center justify-between p-0 px-4 sm:px-6 lg:px-8">
 		<!-- Logo and App Name. Forcing uppercase for consistency -->
 		<div class="flex items-center space-x-3">
 			<img
@@ -35,6 +43,15 @@
 				to replace dev-mode button
 				<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
 			-->
+			<button
+				onclick={onEmailClick}
+				class="btn btn-primary text-primary-content"
+				type="button"
+				aria-label="Send Email to Line Manager"
+			>
+				<span>Send Email</span>
+			</button>
+			<!-- <Button text="Email Preview" variant="secondary" onclick={onEmailClick} /> -->
 		</div>
 	</div>
 </header>
