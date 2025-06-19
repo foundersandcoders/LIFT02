@@ -35,11 +35,11 @@
 </script>
 
 <div class="dev dev-div">
-	<div id="dash-header" class="flex flex-row justify-between">
+	<div id="dash-header" class="prose flex flex-row justify-between">
 		<h2>Dashboard View</h2>
 	</div>
 
-	<div id="dash-tiles" class="">
+	<div id="dash-tiles" class="prose">
 		{#await queryActions}
 			<p>Loading...</p>
 		{:then result}

@@ -38,7 +38,7 @@
 </script>
 
 <div id="list-view" class="">
-	<div id="list-header" class="flex justify-between">
+	<div id="list-header" class="prose flex justify-between">
 		<h2 class="">List View</h2>
 
 		<button {onclick} class="btn btn-primary">

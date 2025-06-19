@@ -38,16 +38,16 @@
 		<pre>status</pre>
 	</div>
 
-	<div id="list-item-title">
+	<div id="list-item-title" class="prose">
 		{#if table == "actions"}
 			{@const item = {id: null}}
-			<p>Coming soon, you fuck</p>
+			<pre>ACTION</pre>
 		{:else if table == "questions" && item}
 			<p>{item.preview}</p>
 		{:else}
 			{@const table = null}
 			{@const item = {id: null}}
-			<p>No idea how you got here</p>
+			<pre>NULL</pre>
 		{/if}
 	</div>
 	<div><pre>actions</pre></div>
