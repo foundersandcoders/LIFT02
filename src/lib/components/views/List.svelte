@@ -37,46 +37,60 @@
 	};
 </script>
 
-<div id="list-view" class="">
-	<div id="list-header" class="prose flex justify-between">
-		<h2 class="">List View</h2>
+<div id="list-view" class="p-4">
+	<div id="list-header" class="prose flex flex-row justify-between">
+		<h2>List</h2>
 
 		<button {onclick} class="btn btn-primary">
 			Back
 		</button>
 	</div>
 
-	<div id="list-body" class="flex flex-col justify-left m-2 p-2">
+	<div id="list-body" class="list flex flex-col justify-left m-2">
 		{#if table == "actions"}
 			{#await queryActions}
-				<p>Loading...</p>
+				<div class="list-row prose">
+					<p>Loading...</p>
+				</div>
 			{:then result}
 				{#if result?.data}
 					{#each result.data as action}
 						<ListItem item={action as Action} {table} />
 					{/each}
 				{:else}
-					<p>No actions found</p>
+					<div class="list-row prose">
+						<p>No actions found</p>
+					</div>
 				{/if}
 			{:catch error}
-				<p>Error: {error.message}</p>
+				<div class="list-row prose">
+					<p>Error: {error.message}</p>
+				</div>
 			{/await}
 		{:else if table == "questions" && category.raw}
 			{#await queryQuestions}
-				<p>Loading...</p>
+				<div class="list-row prose">
+					<p>Loading...</p>
+				</div>
 			{:then result}
 				{#if result?.data}
 					{#each result.data as question}
 						<ListItem item={question as Question} {table} />
 					{/each}
 				{:else}
-					<p>No questions found</p>
+					<div class="list-row prose">
+						<p>No questions found</p>
+					</div>
 				{/if}
 			{:catch error}
-				<p>Error: {error.message}</p>
+				<div class="list-row prose">
+					<p>Error: {error.message}</p>
+				</div>
 			{/await}
 		{:else}
-			<p>No list selected</p>
+			<div class="list-row prose">
+				<p>No list selected</p>
+			</div>
 		{/if}
 	</div>
 </div>

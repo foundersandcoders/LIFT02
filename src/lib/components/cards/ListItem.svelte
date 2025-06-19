@@ -1,19 +1,24 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, Detail, RowId, TableName, ViewName } from "$lib/types/appState";
+	import type { AppState, Detail, TableName, ViewName } from "$lib/types/appState";
 	import type { Action, Question } from "$lib/types/tableMain";
+	import { randomNum } from '$lib/utils/random';
+
+	const getDevMode = getContext<() => boolean>('getDevMode');
+	const devMode = $derived(getDevMode());
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 
 	// Component Props
-	let {item, table} = $props<{item:Action|Question, table:TableName}>();
+	let {item, table} = $props<{
+		item:Action|Question,
+		table:TableName
+	}>();
 
 	// Context Pulls
 	const setDetail = getContext<(detail:Detail) => void>('setDetail');
-	const setDetailItemId = getContext<(dbId:RowId) => void>('setDetailItem');
-	const setDetailTable = getContext<(table:TableName) => void>('setDetailItem');
 	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
 	const onclick = (table:null|TableName, item:null|Action|Question) => {
@@ -25,30 +30,36 @@
 			}
 		});
 	};
-
-	const onkeydown = (press:KeyboardEvent) => {
-		if (press.key === 'Enter') onclick(table, item);
-	};
 </script>
 
-<button onclick={() => onclick(table, item)} {onkeydown} tabindex="0"
-	class="p-4 m-2 flex justify-between border border-primary rounded"
->
-	<div id="list-item-status">
-		<pre>status</pre>
+<button onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary">
+	<div id="list-item-{item.id}-status">
+		{#if app.profile.id != "" && randomNum() > 7}
+			<div id="list-item-{item.id}-status-icon" class="status status-xl status-secondary"></div>
+		{:else}
+			<div id="list-item-{item.id}-status-icon" class="status status-xl"></div>
+		{/if}
 	</div>
 
 	<div id="list-item-title" class="prose">
 		{#if table == "actions"}
 			{@const item = {id: null}}
-			<pre>ACTION</pre>
+			<p>ACTION</p>
 		{:else if table == "questions" && item}
 			<p>{item.preview}</p>
 		{:else}
 			{@const table = null}
 			{@const item = {id: null}}
-			<pre>NULL</pre>
+			<p>NULL</p>
 		{/if}
 	</div>
-	<div><pre>actions</pre></div>
+
+	<!-- [!] this display logic has to be replaced by an actions query -->
+	<div id="list-item-{item.id}-action" class="flex flex-row items-center">
+		{#if app.profile.id && randomNum() > 7}
+			<div id="list-item-{item.id}-action-icon" class="status status-xl status-accent animate-pulse"></div>
+		{:else}
+			<div id="list-item-{item.id}-action-icon" class="status"></div>
+		{/if}
+	</div>
 </button>

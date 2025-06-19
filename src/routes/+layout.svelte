@@ -9,8 +9,10 @@
 	// Dev Mode
 	let devMode = $state<boolean>(false);
 	$inspect(devMode).with((type, value) => console.log(`${preDev}${type} devMode: ${value}`));
+	setContext('getDevMode', () => devMode);
+	setContext('setDevMode', () => { devMode = !devMode });
 
-	// App State
+	// =1 App State
 	let appState = $state<AppState>({
 		profile: {
 			id: null
@@ -34,6 +36,7 @@
 		}
 	});
 
+	// =2 App State Inspectors
 	$inspect(appState.profile.id).with((type, value) => console.log(`${preApp}${type} profile.id: ${value}`));
 	$inspect(appState.view.name).with((type, value) => console.log(`${preApp}${type} view.name: ${value}`));
 	$inspect(appState.list.table).with((type, value) => console.log(`${preApp}${type} list.table: ${value}`));
@@ -42,12 +45,11 @@
 	$inspect(appState.detail.table).with((type, value) => console.log(`${preApp}${type} detail.table: ${value}`));
 	$inspect(appState.detail.item.id).with((type, value) => console.log(`${preApp}${type} detail.item.rowId: ${value}`));
 
-	// App Context
+	// =2 App State Context
 	setContext("getApp", () => appState);
 	setContext('getDetail', () => appState.detail);
 	setContext('getDetailItemId', () => appState.detail.item.id);
 	setContext('getDetailTable', () => appState.detail.table);
-	setContext('getDevMode', () => devMode);
 	setContext('getList', () => appState.list);
 	setContext('getListCategory', () => appState.list.category);
 	setContext('getListTable', () => appState.list.table);
@@ -59,7 +61,6 @@
 	setContext('setDetail', (newDetail:Detail) => { appState.detail = newDetail });
 	setContext('setDetailTable', (newTable:null | TableName) => { appState.detail.table = newTable });
 	setContext('setDetailItemId', (newDbId:null | RowId) => { appState.detail.item.id = newDbId });
-	setContext('setDevMode', () => { devMode = !devMode });
 	setContext('setList', (newList:List) => { appState.list = newList });
 	setContext("setListCategory", (newCategory:ItemCategory) => { appState.list.category = newCategory });
 	setContext("setListTable", (newTable:null | TableName) => { appState.list.table = newTable });

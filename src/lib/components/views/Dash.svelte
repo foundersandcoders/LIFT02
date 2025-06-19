@@ -34,49 +34,60 @@
 	};
 </script>
 
-<div class="dev dev-div">
-	<div id="dash-header" class="prose flex flex-row justify-between">
-		<h2>Dashboard View</h2>
+<div id="dash-view">
+	<div id="dash-header" class="prose flex flex-row">
+		<h2>Dashboard</h2>
 	</div>
 
-	<div id="dash-tiles" class="prose">
+	<div id="dash-tiles" class="flex flex-col justify-center items-center m-2 p-4">
 		{#await queryActions}
-			<p>Loading...</p>
+			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<p>Loading Actions...</p>
+			</div>
 		{:then result}
 			{#if result && result.data}
 				{@const table = "actions"}
 				{@const category = { raw: "actions", format: "Actions" }}
-				<button class="border border-primary rounded p-4 m-2 w-full"
-					onclick={() => onclick(table, category)}
+				<button onclick={() => onclick(table, category)}
+					class="card prose border border-primary rounded p-4 m-2 w-full"
 				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<button class="border border-primary rounded p-4 m-2 w-full">
+				<div class="card prose border border-primary rounded p-4 m-2 w-full">
 					<p>0 Actions</p>
-				</button>
+				</div>
 			{/if}
 		{:catch error}
-			<p>Error Getting Actions: {error.message}</p>
+			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<p>Error Getting Actions: {error.message}</p>
+			</div>
 		{/await}
 
 		{#await queryQuestions}
-			<p>Loading...</p>
+			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<p>Loading Questions...</p>
+			</div>
 		{:then result}
 			{#if result.data}
 				{#each extractCategories(result.data) as category}
+					<!-- [ ] Extract this button component into a separate <DashTile /> -->
 					{@const table = "questions"}
-					<button class="border border-primary rounded p-4 m-2 w-full"
-						onclick={() => onclick(table, category)}
+					<button onclick={() => onclick(table, category)}
+						class="card prose border border-primary rounded p-4 m-2 w-full"
 					>
 						<p>{category.format}</p>
 					</button>
 				{/each}
 			{:else}
-				<p>No categories found</p>
+				<div class="card prose border border-primary rounded p-4 m-2 w-full">
+					<p>No Questions Found</p>
+				</div>
 			{/if}
 		{:catch error}
-			<p>Error Getting Questions: {error.message}</p>
+			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<p>Loading Questions...</p>
+			</div>
 		{/await}
 	</div>
 </div>
