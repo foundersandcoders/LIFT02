@@ -33,10 +33,8 @@
 </script>
 
 <div id="detail-view" class="dev dev-div">
-	<div id="detail-header" class="p-0 bg-base-200 flex flex-row justify-between">
-		<h2 class="text-2xl font-bold">
-			{table === "questions" ? "Your Response" : "Your Actions"}
-		</h2>
+	<div id="detail-header" class="prose p-0 bg-base-200 flex flex-row justify-between">
+		<h2>{table === "questions" ? "Your Response" : "Your Actions"}</h2>
 
 		<button {onclick} class="btn btn-primary ml-4 mt-2 text-primary-content">
 			Back

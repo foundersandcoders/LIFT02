@@ -53,7 +53,7 @@
 			class="w-fill flex flex-col justify-around m-2 p-2 space-y-4"
 		>
 			<header id="question-{questionId}-header"
-				class="mb-4 bg-base-100 rounded-xl shadow p-2"
+				class="prose mb-4 bg-base-100 rounded-xl shadow p-2"
 			>
 				<h3 class="text-center text-2xl mb-2">{category.format}</h3>
 				

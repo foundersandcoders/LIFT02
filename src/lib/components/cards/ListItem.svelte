@@ -32,7 +32,8 @@
 	};
 </script>
 
-<button onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary">
+<button id="list-item-{item.id}" onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary">
+	<!-- [!] the status icon logic has to be replaced by db queries -->
 	<div id="list-item-{item.id}-status">
 		{#if app.profile.id != "" && randomNum() > 7}
 			<div id="list-item-{item.id}-status-icon" class="status status-xl status-secondary"></div>
@@ -41,7 +42,7 @@
 		{/if}
 	</div>
 
-	<div id="list-item-title" class="prose">
+	<div id="list-item-{item.id}-title" class="prose">
 		{#if table == "actions"}
 			{@const item = {id: null}}
 			<p>ACTION</p>
@@ -54,7 +55,6 @@
 		{/if}
 	</div>
 
-	<!-- [!] this display logic has to be replaced by an actions query -->
 	<div id="list-item-{item.id}-action" class="flex flex-row items-center">
 		{#if app.profile.id && randomNum() > 7}
 			<div id="list-item-{item.id}-action-icon" class="status status-xl status-accent animate-pulse"></div>

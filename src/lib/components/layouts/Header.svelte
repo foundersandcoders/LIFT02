@@ -14,7 +14,7 @@
 				class="h-8 w-auto sm:h-10"
 			/>
 
-			<h1 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+			<h1 class="text-xl font-bold tracking-tight sm:text-2xl">
 				Neacons
 			</h1>
 		</div>
@@ -25,7 +25,7 @@
 				(Development Only)
 			-->
 			<button onclick={onToggleDevMode}
-				class="btn btn-secondary text-primary-content"
+				class="btn btn-secondary"
 				type="button"
 				aria-label="Toggle development mode"
 			>
