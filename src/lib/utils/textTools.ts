@@ -11,6 +11,9 @@ export function makePretty(
 		case 'db-table-name tile-text':
 			output = toCaseTitle(cleanUnderscores(input));
 			break;
+		case 'db-category-name email-category-title':
+			output = cleanUnderscores(input);
+			break;
 		default:
 			output = input;
 	}
@@ -18,7 +21,7 @@ export function makePretty(
 	return output;
 }
 
-export function cleanUnderscores(text: string): string {
+function cleanUnderscores(text: string): string {
 	return text.replaceAll('_', ' ');
 }
 

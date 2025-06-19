@@ -2,7 +2,7 @@ import { getUserResponses } from '$lib/services/database/responses';
 import { getActionsByResponseId } from '$lib/services/database/actions';
 import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
-import { cleanUnderscores } from '$lib/utils/textTools';
+import { makePretty } from '$lib/utils/textTools';
 import type { EmailData, EmailCategory, EmailItem } from '$lib/utils/email';
 
 export async function generateEmailData(
@@ -102,7 +102,7 @@ export function renderEmailToHTML(emailData: EmailData): string {
 		emailHTML += `
 			<div class="category-section">
 				<h2 class="category-title text-lg font-medium text-white bg-accent mb-4 py-3 px-4 uppercase tracking-wide">
-					${cleanUnderscores(category.categoryName)}
+					${makePretty(category.categoryName, 'db-category-name', 'email-category-title')}
 				</h2>
 				<div class="category-items space-y-4 px-4">
 		`;
