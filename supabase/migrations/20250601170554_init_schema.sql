@@ -38,7 +38,6 @@ create table if not exists responses (
   status text check (status in ('answered', 'skipped')),
   visibility text not null default 'private' check (visibility in ('public', 'private')),
   version integer default nextval('response_version_seq'),
-  is_latest boolean default true,
   created_at timestamp with time zone default now(),
   updated_at timestamp with time zone default now(),
   constraint version_status_check check (
@@ -57,7 +56,6 @@ create table if not exists actions (
   description text,
   status text not null default 'draft' check (status in ('draft', 'active', 'archived')),
   version integer default nextval('action_version_seq'),
-  is_latest boolean default true,
   created_at timestamp with time zone default now(),
   updated_at timestamp with time zone default now()
 );
