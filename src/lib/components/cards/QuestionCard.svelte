@@ -49,19 +49,17 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<section id="question-{questionId}"
-			class="w-fill flex flex-col justify-around m-2 p-2 space-y-4"
-		>
-			<header id="question-{questionId}-header"
-				class="prose mb-4 bg-base-100 rounded-xl shadow p-2"
-			>
-				<h3 class="text-center text-2xl mb-2">{category.format}</h3>
+		<section id="question-{questionId}" class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
+			<header id="question-{questionId}-header" class="prose card mb-4 bg-base-100 shadow p-2">
+				<h3 class="text-center text-2xl mb-2">
+					{category.format}
+				</h3>
 				
 				<ToggleStatus {visibility} {toggleVisibility} />
 			</header>
 
 			<div id="question-{questionId}-response"
-				class="flex flex-col bg-base-100 rounded-xl shadow p-2"
+				class="card flex flex-col bg-base-100 shadow p-2"
 			>
 				<label for="question-{questionId}-response-input" class="text-lg mb-1">
 					{response.question.data.question_text || 'Question'}
@@ -74,7 +72,7 @@
 				</textarea>
 			</div>
 
-			<div id="question-{questionId}-actions" class="bg-base-100 rounded-xl shadow p-2">
+			<div id="question-{questionId}-actions" class="card prose bg-base-100 shadow p-2">
 				<h3 class="text-lg mb-1">Actions</h3>
 
 				<label for="question-{questionId}-action-type" class="text-md">

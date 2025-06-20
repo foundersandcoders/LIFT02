@@ -139,7 +139,7 @@
 <div class="flex min-h-screen flex-col">
 	<Header />
 
-	<main class="flex-1">
+	<main id={appState.view.name} class="flex-1 bg-base-200">
 		{@render children()}
 	</main>
 

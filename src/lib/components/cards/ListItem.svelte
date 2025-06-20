@@ -32,7 +32,7 @@
 	};
 </script>
 
-<button id="list-item-{item.id}" onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary">
+<button id="list-item-{item.id}" onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary bg-base-100">
 	<!-- [!] the status icon logic has to be replaced by db queries -->
 	<div id="list-item-{item.id}-status">
 		{#if app.profile.id != "" && randomNum() > 7}

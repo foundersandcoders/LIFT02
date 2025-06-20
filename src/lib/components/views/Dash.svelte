@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ViewHeader from "../layouts/ViewHeader.svelte";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
 	import type { Question } from "$lib/types/tableMain";
@@ -35,37 +36,35 @@
 </script>
 
 <div id="dash-view">
-	<div id="dash-header" class="prose flex flex-row">
-		<h2>Dashboard</h2>
-	</div>
+	<ViewHeader title="Dashboard"/>
 
 	<div id="dash-tiles" class="flex flex-col justify-center items-center m-2 p-4">
 		{#await queryActions}
-			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+			<button disabled class="card prose border border-primary bg-base-100 p-4 m-2 w-full" >
 				<p>Loading Actions...</p>
-			</div>
+			</button>
 		{:then result}
 			{#if result && result.data}
 				{@const table = "actions"}
 				{@const category = { raw: "actions", format: "Actions" }}
 				<button onclick={() => onclick(table, category)}
-					class="card prose border border-primary rounded p-4 m-2 w-full"
+					class="card prose border border-primary bg-base-100 p-4 m-2 w-full"
 				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<div class="card prose border border-primary bg-base-100 p-4 m-2 w-full">
 					<p>0 Actions</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+			<div class="card prose border border-primary bg-base-100 p-4 m-2 w-full">
 				<p>Error Getting Actions: {error.message}</p>
 			</div>
 		{/await}
 
 		{#await queryQuestions}
-			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+			<div class="card prose border border-primary bg-base-100 p-4 m-2 w-full">
 				<p>Loading Questions...</p>
 			</div>
 		{:then result}
@@ -74,18 +73,18 @@
 					<!-- [ ] Extract this button component into a separate <DashTile /> -->
 					{@const table = "questions"}
 					<button onclick={() => onclick(table, category)}
-						class="card prose border border-primary rounded p-4 m-2 w-full"
+						class="card prose border border-primary bg-base-100 p-4 m-2 w-full"
 					>
 						<p>{category.format}</p>
 					</button>
 				{/each}
 			{:else}
-				<div class="card prose border border-primary rounded p-4 m-2 w-full">
+				<div class="card prose border border-primary bg-base-100 p-4 m-2 w-full">
 					<p>No Questions Found</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="card prose border border-primary rounded p-4 m-2 w-full">
+			<div class="card prose border border-primary bg-base-100 p-4 m-2 w-full">
 				<p>Loading Questions...</p>
 			</div>
 		{/await}

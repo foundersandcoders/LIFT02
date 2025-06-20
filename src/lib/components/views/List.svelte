@@ -4,6 +4,7 @@
 	import type { Action, Question } from "$lib/types/tableMain";
 	import { getUserActions } from "$lib/services/database/actions";
 	import { getQuestionsByCategory } from "$lib/services/database/questions";
+	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import ListItem from "$lib/components/cards/ListItem.svelte";
 
 	// App State
@@ -37,14 +38,8 @@
 	};
 </script>
 
-<div id="list-view" class="p-4">
-	<div id="list-header" class="prose flex flex-row justify-between">
-		<h2>List</h2>
-
-		<button {onclick} class="btn btn-primary">
-			Back
-		</button>
-	</div>
+<div id="list-view">
+	<ViewHeader title={category.format as string} {onclick} />
 
 	<div id="list-body" class="list flex flex-col justify-left m-2">
 		{#if table == "actions"}

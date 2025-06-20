@@ -1,5 +1,6 @@
 <script lang="ts">
 	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
+	import ViewHeader from "../layouts/ViewHeader.svelte";
 	import { getQuestionById } from '$lib/services/database/questions';
 	import type { ItemCategory, RowId, TableName, ViewName } from '$lib/types/appState';
 	import type { Question } from '$lib/types/tableMain';
@@ -27,19 +28,14 @@
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
+	const title = $derived(table === "questions" ? "Your Response" : "Your Actions");
 	const onclick = () => {
 		setViewName('list');
 	};
 </script>
 
 <div id="detail-view" class="dev dev-div">
-	<div id="detail-header" class="prose p-0 bg-base-200 flex flex-row justify-between">
-		<h2>{table === "questions" ? "Your Response" : "Your Actions"}</h2>
-
-		<button {onclick} class="btn btn-primary ml-4 mt-2 text-primary-content">
-			Back
-		</button>
-	</div>
+	<ViewHeader {title} {onclick} />
 
 	<div id="detail-content" class="dev dev-div">
 		{#if table == "questions"}
