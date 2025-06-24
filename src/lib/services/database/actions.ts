@@ -7,8 +7,11 @@ import type {
 	FilterOptions
 } from './types';
 
+import { filterLatestActions } from '$lib/utils/versionFilter';
+
 // type Action = Database['public']['Tables']['actions']['Row'];
 import type { Action } from '$lib/types/tableMain';
+// XXXXXREVIEW THESE TYPESXXXXXX
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
@@ -23,10 +26,6 @@ export async function getUserActions(
 
 	if (options?.status) {
 		query = query.eq('status', options.status);
-	}
-
-	if (options?.isLatest) {
-		query = query.eq('is_latest', true);
 	}
 
 	if (options?.orderBy) {
@@ -58,7 +57,6 @@ export async function getUserActions(
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			is_latest: dbAction.is_latest || false,
 			status: dbAction.status as 'draft' | 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
@@ -87,7 +85,6 @@ export async function getActionById(id: string): Result<Action> {
 				type: data.type,
 				description: data.description || undefined,
 				version: data.version || 1,
-				is_latest: data.is_latest || false,
 				status: data.status as 'draft' | 'active' | 'archived',
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
@@ -121,7 +118,6 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			is_latest: dbAction.is_latest || false,
 			status: dbAction.status as 'draft' | 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
@@ -135,7 +131,7 @@ export async function getActionHistory(userId: string, responseId: string): Resu
  */
 export async function createAction(
 	userId: string,
-	data: Omit<ActionInsert, 'user_id' | 'version' | 'is_latest' | 'status'>
+	data: Omit<ActionInsert, 'user_id' | 'version' | 'status'>
 ): Result<Action> {
 	const { data: action, error } = await supabase
 		.from('actions')
@@ -144,7 +140,6 @@ export async function createAction(
 				...data,
 				user_id: userId,
 				version: 1,
-				is_latest: true,
 				status: 'active'
 			}
 		])
@@ -164,7 +159,6 @@ export async function createAction(
 				type: action.type,
 				description: action.description || undefined,
 				version: action.version || 1,
-				is_latest: action.is_latest || false,
 				status: action.status as 'draft' | 'active' | 'archived',
 				created_at: action.created_at || undefined,
 				updated_at: action.updated_at || undefined
@@ -179,7 +173,7 @@ export async function createAction(
  */
 export async function updateAction(
 	id: string,
-	data: Omit<ActionUpdate, 'version' | 'is_latest' | 'status'>
+	data: Omit<ActionUpdate, 'version' | 'status'>
 ): Result<Action> {
 	// First, get the current action to get its version
 	const { data: currentAction, error: fetchError } = await supabase
@@ -192,16 +186,6 @@ export async function updateAction(
 		return { data: null, error: fetchError };
 	}
 
-	// Update the current action to not be latest
-	const { error: updateError } = await supabase
-		.from('actions')
-		.update({ is_latest: false })
-		.eq('id', id);
-
-	if (updateError) {
-		return { data: null, error: updateError };
-	}
-
 	// Create a new version
 	const { data: newAction, error: insertError } = await supabase
 		.from('actions')
@@ -211,7 +195,6 @@ export async function updateAction(
 				...data,
 				id: undefined, // Let Supabase generate a new ID
 				version: currentAction.version + 1,
-				is_latest: true,
 				status: currentAction.status // Preserve the status
 			}
 		])
@@ -231,7 +214,6 @@ export async function updateAction(
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				is_latest: newAction.is_latest || false,
 				status: newAction.status as 'draft' | 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
@@ -256,16 +238,6 @@ export async function archiveAction(id: string): Result<Action> {
 		return { data: null, error: fetchError };
 	}
 
-	// Update the current action to not be latest
-	const { error: updateError } = await supabase
-		.from('actions')
-		.update({ is_latest: false })
-		.eq('id', id);
-
-	if (updateError) {
-		return { data: null, error: updateError };
-	}
-
 	// Create a new version with archived status
 	const { data: newAction, error: insertError } = await supabase
 		.from('actions')
@@ -274,7 +246,6 @@ export async function archiveAction(id: string): Result<Action> {
 				...currentAction,
 				id: undefined, // Let Supabase generate a new ID
 				version: currentAction.version + 1,
-				is_latest: true,
 				status: 'archived'
 			}
 		])
@@ -294,7 +265,6 @@ export async function archiveAction(id: string): Result<Action> {
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				is_latest: newAction.is_latest || false,
 				status: newAction.status as 'draft' | 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
@@ -312,7 +282,6 @@ export async function getLatestActions(userId: string): Results<Action> {
 		.from('actions')
 		.select('*')
 		.eq('user_id', userId)
-		.eq('is_latest', true)
 		.order('created_at', { ascending: false });
 
 	if (error) {
@@ -328,13 +297,15 @@ export async function getLatestActions(userId: string): Results<Action> {
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			is_latest: dbAction.is_latest || false,
 			status: dbAction.status as 'draft' | 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
 
-	return { data: convertedData, error: null };
+	// Use utility function to get latest versions
+	const latestActions = filterLatestActions(convertedData || []);
+
+	return { data: latestActions, error: null };
 }
 
 /**
@@ -362,7 +333,6 @@ export async function getActionsByResponseId(responseId: string): Results<Action
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			is_latest: dbAction.is_latest || false,
 			status: dbAction.status as 'draft' | 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined

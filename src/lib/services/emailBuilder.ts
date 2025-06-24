@@ -1,7 +1,7 @@
 import { getUserResponses } from '$lib/services/database/responses';
-import { getLatestResponses } from '$lib/utils/versionFilter';
+import { filterLatestResponses } from '$lib/utils/versionFilter';
 import { getActionsByResponseId } from '$lib/services/database/actions';
-import { getLatestActions } from '$lib/utils/versionFilter';
+import { filterLatestActions } from '$lib/utils/versionFilter';
 import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
 import { makePretty } from '$lib/utils/textTools';
@@ -21,7 +21,7 @@ export async function generateEmailData(
 	}
 
 	// Get only the latest versions of responses
-	const responses = getLatestResponses(responsesResult.data);
+	const responses = filterLatestResponses(responsesResult.data);
 
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
@@ -42,7 +42,7 @@ export async function generateEmailData(
 
 		// Get actions for this response
 		const actionsResult = response.id ? await getActionsByResponseId(response.id) : { data: [], error: null };
-		const actions = getLatestActions(actionsResult.data || []);
+		const actions = filterLatestActions(actionsResult.data || []);
 
 		// Convert actions to EmailAction format
 		const emailActions = actions.map((action: Action) => ({

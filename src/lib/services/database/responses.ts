@@ -11,6 +11,7 @@ import { filterLatestResponses }  from '$lib/utils/versionFilter';
 import type { Response } from '$lib/types/tableMain';
 // import type { Response } from 
 // type Response = Database['public']['Tables']['responses']['Row'];
+// XXXXXREVIEW THESE TYPESXXXXXX
 type ResponseInsert = Database['public']['Tables']['responses']['Insert'];
 type ResponseUpdate = Database['public']['Tables']['responses']['Update'];
 
@@ -189,7 +190,7 @@ export async function getLatestResponses(userId: string): Results<Response> {
 	}
 
 	// Use utility function to get latest versions
-	const latestResponses = getLatestResponses(data || []);
+	const latestResponses = filterLatestResponses(data || []);
 
 	return { data: latestResponses, error: null };
 }
