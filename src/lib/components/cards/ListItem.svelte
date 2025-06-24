@@ -32,34 +32,38 @@
 	};
 </script>
 
-<button id="list-item-{item.id}" onclick={() => onclick(table, item)} tabindex="0" class="list-row m-2 border border-primary bg-base-100">
-	<!-- [!] the status icon logic has to be replaced by db queries -->
-	<div id="list-item-{item.id}-status">
-		{#if app.profile.id != "" && randomNum() > 7}
-			<div id="list-item-{item.id}-status-icon" class="status status-xl status-secondary"></div>
-		{:else}
-			<div id="list-item-{item.id}-status-icon" class="status status-xl"></div>
-		{/if}
-	</div>
+<button id="list-item-{item.id}" onclick={() => onclick(table, item)} tabindex="0" class="list-item">
+	<div class="list-item-row">
+		<!-- [!] the status icon logic has to be replaced by db queries -->
+		<div id="list-item-{item.id}-status" class="flex items-center">
+			{#if app.profile.id != "" && randomNum() > 7}
+				<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-active">
+				</div>
+			{:else}
+				<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-default">
+				</div>
+			{/if}
+		</div>
 
-	<div id="list-item-{item.id}-title" class="prose">
-		{#if table == "actions"}
-			{@const item = {id: null}}
-			<p>ACTION</p>
-		{:else if table == "questions" && item}
-			<p>{item.preview}</p>
-		{:else}
-			{@const table = null}
-			{@const item = {id: null}}
-			<p>NULL</p>
-		{/if}
-	</div>
+		<div id="list-item-{item.id}-title" class="list-item-content prose">
+			{#if table == "actions"}
+				{@const item = {id: null}}
+				<p>ACTION</p>
+			{:else if table == "questions" && item}
+				<p>{item.preview}</p>
+			{:else}
+				{@const table = null}
+				{@const item = {id: null}}
+				<p>NULL</p>
+			{/if}
+		</div>
 
-	<div id="list-item-{item.id}-action" class="flex flex-row items-center">
-		{#if app.profile.id && randomNum() > 7}
-			<div id="list-item-{item.id}-action-icon" class="status status-xl status-accent animate-pulse"></div>
-		{:else}
-			<div id="list-item-{item.id}-action-icon" class="status"></div>
-		{/if}
+		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
+			{#if app.profile.id && randomNum() > 7}
+				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
+			{:else}
+				<div id="list-item-{item.id}-action-icon" class="status-indicator status-default"></div>
+			{/if}
+		</div>
 	</div>
 </button>
