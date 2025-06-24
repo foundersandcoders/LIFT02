@@ -49,18 +49,16 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<section id="question-{questionId}" class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
-			<header id="question-{questionId}-header" class="prose card mb-4 bg-base-100 shadow p-2">
+		<section id="question-{questionId}" class="view-layout">
+			<div id="question-{questionId}-header" class="prose card-header">
 				<h3 class="text-center text-2xl mb-2">
 					{category.format}
 				</h3>
 				
 				<ToggleStatus {visibility} {toggleVisibility} />
-			</header>
+			</div>
 
-			<div id="question-{questionId}-response"
-				class="card flex flex-col bg-base-100 shadow p-2"
-			>
+			<div id="question-{questionId}-response" class="card-content flex flex-col">
 				<label for="question-{questionId}-response-input" class="text-lg mb-1">
 					{response.question.data.question_text || 'Question'}
 				</label>
@@ -72,16 +70,14 @@
 				</textarea>
 			</div>
 
-			<div id="question-{questionId}-actions" class="card prose bg-base-100 shadow p-2">
+			<div id="question-{questionId}-actions" class="card-content prose">
 				<h3 class="text-lg mb-1">Actions</h3>
 
 				<label for="question-{questionId}-action-type" class="text-md">
 					Action type:
 				</label>
 
-				<select id="question-{questionId}-action-type" bind:value={actionType}
-					class="select border-2 border-primary rounded p-2 mb-2 focus:border-accent outline-none"
-				>
+				<select id="question-{questionId}-action-type" bind:value={actionType} class="form-select">
 					<option value="default" selected >Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
@@ -89,12 +85,12 @@
 					<option value="schedule_flexibility">Schedule flexibility</option>
 				</select>
 
-				<div class="flex flex-col">
-					<textarea id="actions-{questionId}"
+				<div id="question-{questionId}-actions-response" class="flex flex-col">
+					<textarea id="question-{questionId}-actions-response-text"
 						bind:value={questionDetails.actionsInput}
 						placeholder="Enter your response here..."
 						rows="3"
-						class="textarea text-area"
+						class="form-textarea"
 					></textarea>
 				</div>
 			</div>
@@ -129,16 +125,3 @@
 		<p>DB Query Error: {error.message}</p>
 	</section>
 {/await}
-
-<style>
-	.text-area {
-		border: solid 2px var(--color-primary);
-		border-radius: 10px;
-		padding: 10px;
-		outline: none;
-	}
-
-	.text-area:focus {
-		border: solid 2px var(--color-accent);
-	}
-</style>
