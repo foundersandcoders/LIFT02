@@ -41,7 +41,7 @@ export async function generateEmailData(
 		}
 
 		// Get actions for this response
-		const actionsResult = await getActionsByResponseId(response.id);
+		const actionsResult = response.id ? await getActionsByResponseId(response.id) : { data: [], error: null };
 		const actions = getLatestActions(actionsResult.data || []);
 
 		// Convert actions to EmailAction format
