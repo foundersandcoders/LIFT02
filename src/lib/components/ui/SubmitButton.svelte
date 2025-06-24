@@ -32,6 +32,6 @@
 	};
 </script>
 
-<button type="submit" onclick={() => onclick()}
-	class="btn btn-accent hover:btn-secondary text-base-100"
->{text}</button>
+<button {onclick} type="submit" class="btn-submit">
+	{text}
+</button>
