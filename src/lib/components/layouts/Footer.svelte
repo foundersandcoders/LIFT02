@@ -32,7 +32,7 @@
 				(Development Only)
 			-->
       <button onclick={onToggleDevMode}
-        class="btn btn-secondary"
+        class="btn-dev"
         type="button"
         aria-label="Toggle development mode"
       >
