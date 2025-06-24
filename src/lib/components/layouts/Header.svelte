@@ -3,13 +3,19 @@
 	import type { ViewName } from '$lib/types/appState';
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const onProfileClick = () => {
+		// setViewName('profile');
+		console.log('Profile Clicked');
+	};
 	const onEmailClick = () => {
 		setViewName('email');
 	};
 </script>
 
 <header class="bg-primary sticky top-0 z-50 w-full border-b border-gray-200">
-	<div id="header-content" class="prose flex flex-row h-16 items-center justify-between p-0 px-4 sm:px-6 lg:px-8">
+	<div id="header-content"
+		class="prose flex flex-row h-16 items-center justify-between px-4 sm:px-6 lg:px-8"
+	>
 		<div id="header-content-brand-logo">
 			<img alt="Neacons logo"
 				src="/Logos/LIFT_logo_gradient_clean.svg"
@@ -24,24 +30,21 @@
 		</div>
 
 		<div id="header-content-buttons" class="flex items-center space-x-3">
-			<button
-				onclick={onEmailClick}
-				class="btn btn-secondary text-secondary-content"
+			<button onclick={onProfileClick}
+				class="btn-nav"
 				type="button"
-				aria-label="Send Email to Line Manager"
+				aria-label="View Profile"
 			>
 				Profile
 			</button>
 
-			<button
-				onclick={onEmailClick}
-				class="btn btn-secondary text-secondary-content"
+			<button onclick={onEmailClick}
+				class="btn-nav"
 				type="button"
 				aria-label="Send Email to Line Manager"
 			>
 				<span>Send Email</span>
 			</button>
-			<!-- <Button text="Email Preview" variant="secondary" onclick={onEmailClick} /> -->
 		</div>
 	</div>
 </header>
