@@ -505,7 +505,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440002",
 			"type": "schedule_adjustment",
 			"description": "Allow 15-minute breaks every 90 minutes to help with focus",
-			"status": "active",
+			"status": "archived",
 			"version": 1
 			
 		},
@@ -515,7 +515,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440005",
 			"type": "equipment",
 			"description": "Request ergonomic keyboard and mouse to reduce sensory input",
-			"status": "active",
+			"status": "draft",
 			"version": 1
 			
 		},
@@ -565,7 +565,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440022",
 			"type": "support",
 			"description": "Schedule weekly 1:1 check-ins for feedback and reassurance",
-			"status": "active",
+			"status": "archived",
 			"version": 1
 			
 		},
@@ -704,7 +704,8 @@
 			"user_id": "550e8400-e29b-41d4-a716-446655440004",
 			"response_id": "660e8400-e29b-41d4-a716-446655440042",
 			"type": "remote_work",
-			"description": "Allow",
+			"description": "Allow work from home when children are unwell",
+			"status": "active",
 			"version": 1
 			
 		},

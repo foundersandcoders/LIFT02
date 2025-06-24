@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getUserActions } from "$lib/services/database/actions";
+    import { getLatestActions } from "$lib/services/database/actions";
 	import { getQuestions } from "$lib/services/database/questions";
 	import type { Question } from "$lib/types/tableMain";
 	import type { AppState, ItemCategory, List, TableName, ViewName } from "$lib/types/appState";
@@ -13,7 +14,8 @@
 	const setList = getContext<(list:List) => void>('setList');
 	const setViewName = getContext<(view:ViewName) => void>('setViewName');
 
-	let queryActions = $derived(app.profile.id ? getUserActions(app.profile.id) : null);
+	// let queryActions = $derived(app.profile.id ? getUserActions(app.profile.id) : null);
+    	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
 
 	function extractCategories(questions:Question[]):ItemCategory[] {
