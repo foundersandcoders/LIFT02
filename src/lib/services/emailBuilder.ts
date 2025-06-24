@@ -1,4 +1,5 @@
 import { getUserResponses } from '$lib/services/database/responses';
+import { getLatestResponses } from '$lib/utils/versionFilter';
 import { getActionsByResponseId } from '$lib/services/database/actions';
 import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
@@ -9,17 +10,17 @@ export async function generateEmailData(
 	userId: string,
 	userName?: string | null
 ): Promise<EmailData> {
-	// Get all public, latest responses for user
+	// Get all public responses for user
 	const responsesResult = await getUserResponses(userId, {
-		visibility: 'public',
-		isLatest: true
+		visibility: 'public'
 	});
 
 	if (responsesResult.error || !responsesResult.data) {
 		throw new Error('Error loading responses');
 	}
 
-	const responses = responsesResult.data;
+	// Get only the latest versions of responses
+	const responses = getLatestResponses(responsesResult.data);
 
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
