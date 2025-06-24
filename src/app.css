@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-@plugin 'daisyui'{
-  themes: light --default, dark --prefersdark;
-}
+@plugin 'daisyui'{ themes: light --default, dark --prefersdark }
 @plugin "daisyui/theme" {
 	name: "light";
   default: true;
@@ -19,7 +17,6 @@
 
 	--font-family-sans: Metropolis, Arial;
 }
-
 @plugin "daisyui/theme" {
 	name: "dark";
   prefersdark: true;
@@ -34,22 +31,98 @@
 	--font-family-sans: Metropolis, Arial;
 }
 
-/* @theme {
-	--color-black: #000000;
-	--color-blue-bright: #2235e2;
-	--color-grey: #808080;
-	--color-green: #29e2a3;
-	--color-orange: #ec5d2a;
-	--color-pink: #d600a8;
-	--color-pink-light: #ff2ed2;
-	--color-purple: #7900d6;
-	--color-purple-dark: #4d1b9b;
-	--color-teal: #00a7a8;
-	--color-white: #ffffff;
-	--color-yellow: #ffcb00;
-	--font-family-sans: Metropolis, Arial;
-} */
+/* Old Colours
+	@theme {
+		--color-black: #000000;
+		--color-blue-bright: #2235e2;
+		--color-grey: #808080;
+		--color-green: #29e2a3;
+		--color-orange: #ec5d2a;
+		--color-pink: #d600a8;
+		--color-pink-light: #ff2ed2;
+		--color-purple: #7900d6;
+		--color-purple-dark: #4d1b9b;
+		--color-teal: #00a7a8;
+		--color-white: #ffffff;
+		--color-yellow: #ffcb00;
+		--font-family-sans: Metropolis, Arial;
+	}
+	*/
 
-body {
-	max-height: 100vh
+body { max-height: 100vh }
+
+.view-layout {
+  @apply w-full flex flex-col justify-around m-2 p-2 space-y-4;
+}
+
+.card-container {
+  @apply w-full m-2 flex flex-col justify-around space-y-4 p-2;
+}
+
+.card-header {
+  @apply card mb-4 bg-base-100 shadow p-2;
+}
+
+.card-content {
+  @apply card bg-base-100 shadow p-2;
+}
+
+.form-textarea {
+  @apply textarea border-2 border-primary rounded-lg p-3 outline-none focus:border-accent;
+}
+
+.form-select {
+  @apply select border-2 border-primary rounded-lg p-2 mb-2 focus:border-accent outline-none;
+}
+
+.form-fieldset {
+  @apply border-primary rounded-xl border-2 p-4 flex justify-between;
+}
+
+.status-indicator {
+  @apply w-4 h-4 rounded-full;
+}
+
+.status-indicator-lg {
+  @apply w-6 h-6 rounded-full;
+}
+
+.status-indicator-xl {
+  @apply w-8 h-8 rounded-full;
+}
+
+.status-active {
+  @apply bg-secondary;
+}
+
+.status-default {
+  @apply bg-base-300;
+}
+
+.status-action {
+  @apply bg-accent animate-pulse;
+}
+
+.btn-nav {
+  @apply btn btn-secondary text-secondary-content;
+}
+
+.btn-submit {
+  @apply btn btn-accent hover:btn-secondary text-base-100;
+}
+
+.btn-dev {
+  @apply btn btn-secondary;
+}
+
+.list-item {
+  @apply m-2 border border-primary bg-base-100 rounded-lg p-3 cursor-pointer hover:shadow-md transition-shadow;
+}
+
+.list-item-row {
+  @apply flex flex-row items-center justify-between;
+}
+
+.list-item-content {
+  @apply flex-1 px-3;
 }
