@@ -1,6 +1,7 @@
 import { getUserResponses } from '$lib/services/database/responses';
 import { getLatestResponses } from '$lib/utils/versionFilter';
 import { getActionsByResponseId } from '$lib/services/database/actions';
+import { getLatestActions } from '$lib/utils/versionFilter';
 import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
 import { makePretty } from '$lib/utils/textTools';
@@ -41,7 +42,7 @@ export async function generateEmailData(
 
 		// Get actions for this response
 		const actionsResult = await getActionsByResponseId(response.id);
-		const actions = actionsResult.data || [];
+		const actions = getLatestActions(actionsResult.data || []);
 
 		// Convert actions to EmailAction format
 		const emailActions = actions.map((action: Action) => ({
