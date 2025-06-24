@@ -14,9 +14,7 @@
 
 <section id="dev-menu" class="values">
 	<div id="dev-menu-header" class="">
-		<button id="dev-menu-header-button" {onclick}
-			class="btn btn-secondary
-		">
+		<button id="dev-menu-header-button" {onclick} class="btn-dev">
 			Log {app.profile.id ? "Out" : "In"}
 		</button>
 	</div>
