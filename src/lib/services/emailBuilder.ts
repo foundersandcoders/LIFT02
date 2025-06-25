@@ -44,20 +44,23 @@ export async function generateEmailData(
 			? await getActionsByResponseId(response.id)
 			: { data: [], error: null };
 		const actions = filterLatestActions(actionsResult.data || []);
+		const latestAction = actions[0]; // Get the single action (if any)
 
-		// Convert actions to EmailAction format
-		const emailActions = actions.map((action: Action) => ({
-			description: action.description || '',
-			type: action.type,
-			status: action.status
-		}));
+		// Only include action if it has actual content
+		const emailAction = latestAction && latestAction.description?.trim() 
+			? {
+				description: latestAction.description,
+				type: latestAction.type,
+				status: latestAction.status
+			  }
+			: undefined;
 
 		// Only include responses with actual content
 		if (response.response_text && response.response_text.trim() !== '') {
 			categoryGroups[category].push({
 				questionText: question.question_text,
 				responseText: response.response_text,
-				actions: emailActions.length > 0 ? emailActions : undefined
+				actions: emailAction ? [emailAction] : undefined
 			});
 		}
 	}
