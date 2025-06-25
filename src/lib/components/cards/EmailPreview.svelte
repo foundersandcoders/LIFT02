@@ -14,25 +14,33 @@
 
 	// Generate email content when profileId is available
 	$effect(() => {
-		if (profileId) {
-			generateEmailData(profileId, profileName)
-				.then((emailData) => {
-					emailContent = renderEmailToHTML(emailData);
-				})
-				.catch((error) => {
-					console.error('Failed to generate email preview:', error);
-					emailContent = `
-						<div class="alert alert-error">
-							<h3>Unable to load email preview</h3>
-							<p>There was an error generating your email preview. Please try again or contact support if the problem persists.</p>
-							<details class="mt-2">
-								<summary class="cursor-pointer">Technical details</summary>
-								<p class="text-sm mt-1">${error.message || 'Unknown error'}</p>
-							</details>
-						</div>
-					`;
-				});
+		if (!profileId) {
+			emailContent = `
+				<div class="alert alert-warning">
+					<h3>No user session found</h3>
+					<p>Please log in to view your email preview.</p>
+				</div>
+			`;
+			return;
 		}
+
+		generateEmailData(profileId, profileName)
+			.then((emailData) => {
+				emailContent = renderEmailToHTML(emailData);
+			})
+			.catch((error) => {
+				console.error('Failed to generate email preview:', error);
+				emailContent = `
+					<div class="alert alert-error">
+						<h3>Unable to load email preview</h3>
+						<p>There was an error generating your email preview. Please try again or contact support if the problem persists.</p>
+						<details class="mt-2">
+							<summary class="cursor-pointer">Technical details</summary>
+							<p class="text-sm mt-1">${error.message || 'Unknown error'}</p>
+						</details>
+					</div>
+				`;
+			});
 	});
 
 	const onBackClick = () => {
