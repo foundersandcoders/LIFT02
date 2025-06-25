@@ -2,56 +2,46 @@
 	import { getContext } from 'svelte';
 	import type { ViewName } from '$lib/types/appState';
 
-	const toggleDevMode = getContext<() => void>('setDevMode');
-	const onToggleDevMode = () => {
-		toggleDevMode();
-	};
-
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const onProfileClick = () => {
+		// setViewName('profile');
+		console.log('Profile Clicked');
+	};
 	const onEmailClick = () => {
 		setViewName('email');
 	};
 </script>
 
-<header class="bg-base-300 sticky top-0 z-50 w-full border-b border-gray-200">
-	<div class="flex h-16 items-center justify-between p-0 px-4 sm:px-6 lg:px-8">
-		<!-- Logo and App Name. Forcing uppercase for consistency -->
-		<div class="flex items-center space-x-3">
+<header class="bg-primary sticky top-0 z-50 w-full border-b border-gray-200">
+	<div
+		id="header-content"
+		class="prose flex h-16 flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
+	>
+		<div id="header-content-brand-logo">
 			<img
-				src="/Logos/LIFT_logo_gradient_clean.svg"
 				alt="Neacons logo"
+				src="/Logos/LIFT_logo_gradient_clean.svg"
 				class="h-8 w-auto sm:h-10"
 			/>
-			<h1 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Neacons</h1>
 		</div>
 
-		<!-- Action Buttons -->
-		<div class="flex items-center space-x-3">
-			<!-- Dev Mode Toggle
-				(Development Only)
-			-->
-			<button
-				onclick={onToggleDevMode}
-				class="btn btn-primary text-primary-content"
-				type="button"
-				aria-label="Toggle development mode"
-			>
-				<span class="sr-only">Toggle Dev Mode</span>
+		<div id="header-content-brand-name" class="h-8 w-auto sm:h-10">
+			<h1 class="text-primary-content text-xl font-bold tracking-tight uppercase">Neacons</h1>
+		</div>
+
+		<div id="header-content-buttons" class="flex items-center space-x-3">
+			<button onclick={onProfileClick} class="btn-nav" type="button" aria-label="View Profile">
+				Profile
 			</button>
 
-			<!-- Profile Button
-				to replace dev-mode button
-				<Button class="hidden" text="Profile" variant="primary" onclick={() => {}} />
-			-->
 			<button
 				onclick={onEmailClick}
-				class="btn btn-primary text-primary-content"
+				class="btn-nav"
 				type="button"
 				aria-label="Send Email to Line Manager"
 			>
 				<span>Send Email</span>
 			</button>
-			<!-- <Button text="Email Preview" variant="secondary" onclick={onEmailClick} /> -->
 		</div>
 	</div>
 </header>

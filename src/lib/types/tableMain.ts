@@ -1,4 +1,4 @@
-import type { User, Employer, Pronouns } from './tableSub';
+import type { Employer, Pronouns, User } from './tableSub';
 
 export type Input = Action | Profile | Question | Response | Share;
 

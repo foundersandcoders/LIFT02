@@ -5,15 +5,16 @@
 	import type { QuestionDetails } from '$lib/types/appState';
 	import { getQuestionDetails } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
-	import type { AppState, Profile } from '$lib/types/appState';
+	import type { AppState } from '$lib/types/appState';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
-	const profileId = $derived(app.profile.id );
+	const profileId = $derived(app.profile.id);
+	const category = $derived(app.list.category);
 
 	let actionType = $state('');
-	
+
 	let questionDetails = $state<QuestionDetails>({
 		responseInput: null,
 		actionsInput: null,
@@ -29,7 +30,7 @@
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
-		const details = await getQuestionDetails(profileId || "", questionId);
+		const details = await getQuestionDetails(profileId || '', questionId);
 		questionDetails = details;
         console.log("Details:", details);
 		if (details.actionType !== '') actionType = details.actionType;
@@ -51,44 +52,53 @@
 
 {#await getQuestionData() then response}
 	{#if response.question && response.question.data}
-		<div class="w-fill flex flex-col justify-around m-2 p-2 space-y-4">
-			<header class="mb-4 bg-base-100 rounded-xl shadow p-2">
-				<h1 class="text-center text-2xl mb-2">{response.question.data.category}</h1>
-				
+		<section id="question-{questionId}" class="view-layout">
+			<div id="question-{questionId}-header" class="prose card-header">
+				<h3 class="mb-2 text-center text-2xl">
+					{category.format}
+				</h3>
+
 				<ToggleStatus {visibility} {toggleVisibility} />
-			</header>
+			</div>
 
-
-			<div class="flex flex-col bg-base-100 rounded-xl shadow p-2">
-				<label for="response-{questionId}" class="text-lg mb-1">
+			<div id="question-{questionId}-response" class="card-content flex flex-col">
+				<label for="question-{questionId}-response-input" class="mb-1 text-lg">
 					{response.question.data.question_text || 'Question'}
 				</label>
-                <!-- Added binding, test this -->
-				<textarea id="response-{questionId}" class="text-area"rows="4" bind:value={questionDetails.responseInput}></textarea>
+
+				<textarea 
+					id="question-{questionId}-response-input" 
+					class="textarea text-area" 
+					rows="4" 
+					bind:value={questionDetails.responseInput}
+				></textarea>
 			</div>
-			<div class="bg-base-100 rounded-xl shadow p-2">
-				<h2 class="text-lg mb-1">A description of what actions are for</h2>
-				<label for="action-type-{questionId}" class="text-md">Action type:</label>
-				<select id="action-type-{questionId}" bind:value={actionType} class="border-2 border-primary rounded p-2 mb-2 focus:border-accent outline-none">
-					<option value="default" selected >Action type</option>
+
+			<div id="question-{questionId}-actions" class="card-content prose">
+				<h3 class="mb-1 text-lg">Actions</h3>
+
+				<label for="question-{questionId}-action-type" class="text-md"> Action type: </label>
+
+				<select id="question-{questionId}-action-type" bind:value={actionType} class="form-select">
+					<option value="default" selected>Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
 					<option value="communication">Communication</option>
 					<option value="schedule_flexibility">Schedule flexibility</option>
 				</select>
 
-				<div class="flex flex-col">
+				<div id="question-{questionId}-actions-response" class="flex flex-col">
 					<textarea
-						id="actions-{questionId}"
+						id="question-{questionId}-actions-response-text"
 						bind:value={questionDetails.actionsInput}
 						placeholder="Enter your response here..."
 						rows="3"
-						class="text-area"
+						class="form-textarea"
 					></textarea>
 				</div>
 			</div>
 
-			<div class="flex justify-around">
+			<div id="question-{questionId}-buttons" class="flex justify-around">
 				<SubmitButton
 					text="Skip"
 					status="skipped"
@@ -104,26 +114,20 @@
 					{visibility}
 				/>
 			</div>
-		</div>
+		</section>
 	{:else}
-		<div class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl">
-			<!-- Sorry! We can't load you're questions right now. Please try again later. -->
-			 No question found with ID {response.queryId}
-		</div>
+		<section
+			id="question-not-found"
+			class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
+		>
+			<p>No question found with ID {response.queryId}</p>
+		</section>
 	{/if}
 {:catch error}
-	<p>DB Query Error: {error.message}</p>
+	<section
+		id="db-query-error"
+		class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
+	>
+		<p>DB Query Error: {error.message}</p>
+	</section>
 {/await}
-
-<style>
-	.text-area {
-		border: solid 2px var(--color-primary);
-		border-radius: 10px;
-		padding: 10px;
-		outline: none;
-	}
-
-	.text-area:focus {
-		border: solid 2px var(--color-accent);
-	}
-</style>

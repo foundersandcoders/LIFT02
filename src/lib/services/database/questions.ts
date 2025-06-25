@@ -1,5 +1,5 @@
 import { supabase } from '$lib/services/supabaseClient';
-import type { DbResult as Result, DbResultMany as Results, Database, QueryOptions } from './types';
+import type { Database, QueryOptions, DbResult as Result, DbResultMany as Results } from './types';
 
 type Question = Database['public']['Tables']['questions']['Row'];
 type QuestionInsert = Database['public']['Tables']['questions']['Insert'];

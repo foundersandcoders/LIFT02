@@ -2,10 +2,7 @@
 	import { createAction } from '$lib/services/database/actions';
 	import { createResponse } from '$lib/services/database/responses';
 	import type { QuestionDetails } from '$lib/types/appState';
-
-	//Delete later --> for development only
-	const user_id = '550e8400-e29b-41d4-a716-446655440005';
-	const questionId = 'bacc6ffa-b589-4bdc-8eb8-d29eeef7f153';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		text: string;
@@ -17,21 +14,24 @@
 
 	let { text, status, details, actionType, visibility }: Props = $props();
 
-	function handleSubmit() {
-		createResponse(user_id, {
+	const profileId: string = getContext('getProfileId');
+	const questionId: string = getContext('getDetailItemId');
+
+	const onclick = () => {
+		createResponse(profileId, {
 			response_text: details.responseInput,
 			question_id: questionId,
 			status: status,
 			visibility: visibility
 		});
-		createAction(user_id, {
+		createAction(profileId, {
 			type: actionType,
 			description: details.actionsInput,
 			response_id: details.responseId
 		});
-	}
+	};
 </script>
 
-<button type="button" onclick={handleSubmit} class="btn btn-accent hover:btn-secondary text-base-100">
+<button {onclick} type="submit" class="btn-submit">
 	{text}
 </button>

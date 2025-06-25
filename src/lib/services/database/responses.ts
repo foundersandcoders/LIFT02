@@ -1,10 +1,10 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type {
-	DbResult as Result,
-	DbResultMany as Results,
 	Database,
+	FilterOptions,
 	QueryOptions,
-	FilterOptions
+	DbResult as Result,
+	DbResultMany as Results
 } from './types';
 import { filterLatestResponses }  from '$lib/utils/versionFilter';
 
@@ -105,8 +105,11 @@ export async function createResponse(
 		.single();
 
 	if (error) {
+		console.error(error);
 		return { data: null, error };
 	}
+
+	console.log(response);
 
 	return { data: response, error: null };
 }
