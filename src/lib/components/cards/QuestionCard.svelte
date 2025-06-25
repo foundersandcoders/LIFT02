@@ -31,6 +31,7 @@
 		const question = await getQuestionById(questionId);
 		const details = await getQuestionDetails(profileId || "", questionId);
 		questionDetails = details;
+        console.log("Details:", details);
 		if (details.actionType !== '') actionType = details.actionType;
 
 		console.groupEnd();
@@ -62,7 +63,8 @@
 				<label for="response-{questionId}" class="text-lg mb-1">
 					{response.question.data.question_text || 'Question'}
 				</label>
-				<textarea id="response-{questionId}" class="text-area"rows="4"></textarea>
+                <!-- Added binding, test this -->
+				<textarea id="response-{questionId}" class="text-area"rows="4" bind:value={questionDetails.responseInput}></textarea>
 			</div>
 			<div class="bg-base-100 rounded-xl shadow p-2">
 				<h2 class="text-lg mb-1">A description of what actions are for</h2>
