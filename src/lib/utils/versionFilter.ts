@@ -9,10 +9,7 @@ export function filterLatestResponses(responses: Response[]): Response[] {
 	for (const response of responses) {
 		const key = `${response.user_id}-${response.question_id}`;
 		const existing = latestResponsesMap.get(key);
-		if (
-			!existing ||
-			(response.version && existing.version && response.version > existing.version)
-		) {
+		if (!existing || (response.version ?? 1) > (existing.version ?? 1)) {
 			latestResponsesMap.set(key, response);
 		}
 	}
@@ -28,7 +25,7 @@ export function filterLatestActions(actions: Action[]): Action[] {
 	for (const action of actions) {
 		const key = `${action.user_id}-${action.response_id}`;
 		const existing = latestActionsMap.get(key);
-		if (!existing || (action.version && existing.version && action.version > existing.version)) {
+		if (!existing || (action.version ?? 1) > (existing.version ?? 1)) {
 			latestActionsMap.set(key, action);
 		}
 	}
