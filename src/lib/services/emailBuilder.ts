@@ -40,7 +40,9 @@ export async function generateEmailData(
 		}
 
 		// Get actions for this response
-		const actionsResult = response.id ? await getActionsByResponseId(response.id) : { data: [], error: null };
+		const actionsResult = response.id
+			? await getActionsByResponseId(response.id)
+			: { data: [], error: null };
 		const actions = filterLatestActions(actionsResult.data || []);
 
 		// Convert actions to EmailAction format
@@ -50,11 +52,14 @@ export async function generateEmailData(
 			status: action.status
 		}));
 
-		categoryGroups[category].push({
-			questionText: question.question_text,
-			responseText: response.response_text || '',
-			actions: emailActions.length > 0 ? emailActions : undefined
-		});
+		// Only include responses with actual content
+		if (response.response_text && response.response_text.trim() !== '') {
+			categoryGroups[category].push({
+				questionText: question.question_text,
+				responseText: response.response_text,
+				actions: emailActions.length > 0 ? emailActions : undefined
+			});
+		}
 	}
 
 	// Convert to EmailCategory array
