@@ -6,12 +6,8 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-import { filterLatestResponses }  from '$lib/utils/versionFilter';
-
+import { filterLatestResponses } from '$lib/utils/versionFilter';
 import type { Response } from '$lib/types/tableMain';
-// import type { Response } from 
-// type Response = Database['public']['Tables']['responses']['Row'];
-// XXXXXREVIEW THESE TYPESXXXXXX
 type ResponseInsert = Database['public']['Tables']['responses']['Insert'];
 type ResponseUpdate = Database['public']['Tables']['responses']['Update'];
 
@@ -41,17 +37,28 @@ export async function getUserResponses(
 		return { data: null, error };
 	}
 
-	let filteredResponses = data || [];
-
+	// Convert database types to tableMain types
+	let convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || [];
 
 	// Apply limit and offset after filtering
 	if (options?.offset || options?.limit) {
 		const offset = options.offset || 0;
 		const limit = options.limit || 10;
-		filteredResponses = filteredResponses.slice(offset, offset + limit);
+		convertedData = convertedData.slice(offset, offset + limit);
 	}
 
-	return { data: filteredResponses, error: null };
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -64,7 +71,22 @@ export async function getResponseById(id: string): Result<Response> {
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database type to tableMain type
+	const convertedData = data
+		? {
+				id: data.id,
+				user_id: data.user_id || '',
+				question_id: data.question_id || '',
+				response_text: data.response_text || undefined,
+				status: data.status as 'answered' | 'skipped',
+				visibility: data.visibility as 'public' | 'private',
+				version: data.version || 1,
+				created_at: data.created_at || undefined,
+				updated_at: data.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -82,7 +104,21 @@ export async function getResponseHistory(userId: string, questionId: string): Re
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types
+	const convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -109,9 +145,22 @@ export async function createResponse(
 		return { data: null, error };
 	}
 
-	console.log(response);
+	// Convert database type to tableMain type
+	const convertedData = response
+		? {
+				id: response.id,
+				user_id: response.user_id || '',
+				question_id: response.question_id || '',
+				response_text: response.response_text || undefined,
+				status: response.status as 'answered' | 'skipped',
+				visibility: response.visibility as 'public' | 'private',
+				version: response.version || 1,
+				created_at: response.created_at || undefined,
+				updated_at: response.updated_at || undefined
+			}
+		: null;
 
-	return { data: response, error: null };
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -150,7 +199,22 @@ export async function updateResponse(
 		return { data: null, error: insertError };
 	}
 
-	return { data: newResponse, error: null };
+	// Convert database type to tableMain type
+	const convertedData = newResponse
+		? {
+				id: newResponse.id,
+				user_id: newResponse.user_id || '',
+				question_id: newResponse.question_id || '',
+				response_text: newResponse.response_text || undefined,
+				status: newResponse.status as 'answered' | 'skipped',
+				visibility: newResponse.visibility as 'public' | 'private',
+				version: newResponse.version || 1,
+				created_at: newResponse.created_at || undefined,
+				updated_at: newResponse.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -175,7 +239,22 @@ export async function skipQuestion(userId: string, questionId: string): Result<R
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database type to tableMain type
+	const convertedData = data
+		? {
+				id: data.id,
+				user_id: data.user_id || '',
+				question_id: data.question_id || '',
+				response_text: data.response_text || undefined,
+				status: data.status as 'answered' | 'skipped',
+				visibility: data.visibility as 'public' | 'private',
+				version: data.version || 1,
+				created_at: data.created_at || undefined,
+				updated_at: data.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -192,8 +271,22 @@ export async function getLatestResponses(userId: string): Results<Response> {
 		return { data: null, error };
 	}
 
+	// Convert database types to tableMain types first
+	const convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || [];
+
 	// Use utility function to get latest versions
-	const latestResponses = filterLatestResponses(data || []);
+	const latestResponses = filterLatestResponses(convertedData);
 
 	return { data: latestResponses, error: null };
 }

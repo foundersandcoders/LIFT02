@@ -6,12 +6,8 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-
 import { filterLatestActions } from '$lib/utils/versionFilter';
-
-// type Action = Database['public']['Tables']['actions']['Row'];
 import type { Action } from '$lib/types/tableMain';
-// XXXXXREVIEW THESE TYPESXXXXXX
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
@@ -150,10 +146,6 @@ export async function createAction(
 		console.error(error);
 		return { data: null, error };
 	}
-
-	console.log(action);
-
-	console.log(action);
 
 	// Convert database type to tableMain type
 	const convertedData = action
