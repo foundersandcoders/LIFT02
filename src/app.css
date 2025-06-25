@@ -35,24 +35,6 @@
 	--font-family-sans: Metropolis, Arial;
 }
 
-/* Old Colours
-	@theme {
-		--color-black: #000000;
-		--color-blue-bright: #2235e2;
-		--color-grey: #808080;
-		--color-green: #29e2a3;
-		--color-orange: #ec5d2a;
-		--color-pink: #d600a8;
-		--color-pink-light: #ff2ed2;
-		--color-purple: #7900d6;
-		--color-purple-dark: #4d1b9b;
-		--color-teal: #00a7a8;
-		--color-white: #ffffff;
-		--color-yellow: #ffcb00;
-		--font-family-sans: Metropolis, Arial;
-	}
-	*/
-
 body {
 	max-height: 100vh;
 }
