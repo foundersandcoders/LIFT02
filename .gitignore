@@ -76,3 +76,6 @@ lerna-debug.log*
 
 # Claude Code
 .claude/
+
+# Specific files
+docs/Brief_Docs/Test Script v1.49.xlsx
