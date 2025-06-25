@@ -341,6 +341,11 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 
 /**
  * Get the latest action for a specific response
+ * 
+ * Note: This function uses database-level filtering (.limit(1)) for efficiency
+ * instead of the filterLatestActions utility. This is intentional for single-item
+ * queries where database filtering is more performant than client-side filtering.
+ * For batch operations, use getActionsByResponseIds + filterLatestActions instead.
  */
 export async function getLatestActionByResponseId(responseId: string): Result<Action> {
 	const { data, error } = await supabase
@@ -348,7 +353,7 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 		.select('*')
 		.eq('response_id', responseId)
 		.order('version', { ascending: false })
-		.limit(1);
+		.limit(1); // Database-level filtering for efficiency
 
 	if (error) {
 		return { data: null, error };
