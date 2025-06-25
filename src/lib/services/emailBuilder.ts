@@ -1,6 +1,6 @@
 import { getUserResponses } from '$lib/services/database/responses';
 import { filterLatestResponses, filterLatestActions } from '$lib/utils/versionFilter';
-import { getActionsByResponseId } from '$lib/services/database/actions';
+import { getActionsByResponseIds } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
@@ -25,7 +25,22 @@ export async function generateEmailData(
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
 
-	// First, collect all questions and responses, grouped by category
+	// Batch fetch all actions for all responses
+	const responseIds = responses.map(r => r.id).filter(Boolean) as string[];
+	const allActionsResult = await getActionsByResponseIds(responseIds);
+	const allActions = allActionsResult.data || [];
+
+	// Group actions by response_id for quick lookup
+	const actionsByResponseId = new Map<string, Action[]>();
+	for (const action of allActions) {
+		if (!action.response_id) continue;
+		if (!actionsByResponseId.has(action.response_id)) {
+			actionsByResponseId.set(action.response_id, []);
+		}
+		actionsByResponseId.get(action.response_id)!.push(action);
+	}
+
+	// Process all questions and responses, grouped by category
 	for (const response of responses) {
 		if (!response.question_id) continue;
 
@@ -39,11 +54,9 @@ export async function generateEmailData(
 			categoryGroups[category] = [];
 		}
 
-		// Get actions for this response
-		const actionsResult = response.id
-			? await getActionsByResponseId(response.id)
-			: { data: [], error: null };
-		const actions = filterLatestActions(actionsResult.data || []);
+		// Get actions for this response from batched data
+		const responseActions = response.id ? actionsByResponseId.get(response.id) || [] : [];
+		const actions = filterLatestActions(responseActions);
 		const latestAction = actions[0]; // Get the single action (if any)
 
 		// Only include action if it has actual content

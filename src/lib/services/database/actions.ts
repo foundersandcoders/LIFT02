@@ -306,6 +306,40 @@ export async function getLatestActions(userId: string): Results<Action> {
 }
 
 /**
+ * Get actions for multiple responses in a single query
+ */
+export async function getActionsByResponseIds(responseIds: string[]): Results<Action> {
+	if (responseIds.length === 0) {
+		return { data: [], error: null };
+	}
+
+	const { data, error } = await supabase
+		.from('actions')
+		.select('*')
+		.in('response_id', responseIds)
+		.order('version', { ascending: false });
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	// Convert database types to tableMain types
+	const convertedData = data?.map((dbAction) => ({
+		id: dbAction.id,
+		user_id: dbAction.user_id || '',
+		response_id: dbAction.response_id || undefined,
+		type: dbAction.type,
+		description: dbAction.description || undefined,
+		version: dbAction.version || 1,
+		status: dbAction.status as 'draft' | 'active' | 'archived',
+		created_at: dbAction.created_at || undefined,
+		updated_at: dbAction.updated_at || undefined
+	})) || [];
+
+	return { data: convertedData, error: null };
+}
+
+/**
    * Get the latest version of the action
    for a specific response
    */
