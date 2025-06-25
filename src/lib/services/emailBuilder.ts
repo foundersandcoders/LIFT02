@@ -1,9 +1,9 @@
-import { getUserResponses } from '$lib/services/database/responses';
 import { getActionsByResponseId } from '$lib/services/database/actions';
-import type { Action } from '$lib/types/tableMain';
 import { getQuestionById } from '$lib/services/database/questions';
+import { getUserResponses } from '$lib/services/database/responses';
+import type { Action } from '$lib/types/tableMain';
+import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
-import type { EmailData, EmailCategory, EmailItem } from '$lib/utils/email';
 
 export async function generateEmailData(
 	userId: string,

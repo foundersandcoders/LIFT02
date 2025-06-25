@@ -1,33 +1,37 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-@plugin 'daisyui'{ themes: light --default, dark --prefersdark }
+@plugin 'daisyui' {
+	themes:
+		light --default,
+		dark --prefersdark;
+}
 @plugin "daisyui/theme" {
-	name: "light";
-  default: true;
-  --color-primary: oklch(59% 0.25 341);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(69% 0.27 339);
+	name: 'light';
+	default: true;
+	--color-primary: oklch(59% 0.25 341);
+	--color-primary-content: oklch(100% 0 0);
+	--color-secondary: oklch(69% 0.27 339);
 	--color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(65% 0.1 195);
+	--color-accent: oklch(65% 0.1 195);
 	--color-accent-content: oklch(100% 0 0);
-  --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(95% 0 0);
-  --color-base-300: oklch(90% 0 0);
+	--color-base-100: oklch(100% 0 0);
+	--color-base-200: oklch(95% 0 0);
+	--color-base-300: oklch(90% 0 0);
 	--color-base-content: oklch(0% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
 }
 @plugin "daisyui/theme" {
-	name: "dark";
-  prefersdark: true;
-  --color-accent: oklch(65% 0.1 195);
+	name: 'dark';
+	prefersdark: true;
+	--color-accent: oklch(65% 0.1 195);
 	--color-base-100: oklch(70% 0 0);
-  --color-base-200: oklch(80% 0 0);
-  --color-base-300: oklch(90% 0 0);
-  --color-primary: oklch(59% 0.25 341);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(69% 0.27 339);
-	
+	--color-base-200: oklch(80% 0 0);
+	--color-base-300: oklch(90% 0 0);
+	--color-primary: oklch(59% 0.25 341);
+	--color-primary-content: oklch(100% 0 0);
+	--color-secondary: oklch(69% 0.27 339);
+
 	--font-family-sans: Metropolis, Arial;
 }
 
@@ -49,80 +53,82 @@
 	}
 	*/
 
-body { max-height: 100vh }
+body {
+	max-height: 100vh;
+}
 
 .view-layout {
-  @apply w-full flex flex-col justify-around m-2 p-2 space-y-4;
+	@apply m-2 flex w-full flex-col justify-around space-y-4 p-2;
 }
 
 .card-container {
-  @apply w-full m-2 flex flex-col justify-around space-y-4 p-2;
+	@apply m-2 flex w-full flex-col justify-around space-y-4 p-2;
 }
 
 .card-header {
-  @apply card mb-4 bg-base-100 shadow p-2;
+	@apply card bg-base-100 mb-4 p-2 shadow;
 }
 
 .card-content {
-  @apply card bg-base-100 shadow p-2;
+	@apply card bg-base-100 p-2 shadow;
 }
 
 .form-textarea {
-  @apply textarea border-2 border-primary rounded-lg p-3 outline-none focus:border-accent;
+	@apply textarea border-primary focus:border-accent rounded-lg border-2 p-3 outline-none;
 }
 
 .form-select {
-  @apply select border-2 border-primary rounded-lg p-2 mb-2 focus:border-accent outline-none;
+	@apply select border-primary focus:border-accent mb-2 rounded-lg border-2 p-2 outline-none;
 }
 
 .form-fieldset {
-  @apply border-primary rounded-xl border-2 p-4 flex justify-between;
+	@apply border-primary flex justify-between rounded-xl border-2 p-4;
 }
 
 .status-indicator {
-  @apply w-4 h-4 rounded-full;
+	@apply h-4 w-4 rounded-full;
 }
 
 .status-indicator-lg {
-  @apply w-6 h-6 rounded-full;
+	@apply h-6 w-6 rounded-full;
 }
 
 .status-indicator-xl {
-  @apply w-8 h-8 rounded-full;
+	@apply h-8 w-8 rounded-full;
 }
 
 .status-active {
-  @apply bg-secondary;
+	@apply bg-secondary;
 }
 
 .status-default {
-  @apply bg-base-300;
+	@apply bg-base-300;
 }
 
 .status-action {
-  @apply bg-accent animate-pulse;
+	@apply bg-accent animate-pulse;
 }
 
 .btn-nav {
-  @apply btn btn-secondary text-secondary-content;
+	@apply btn btn-secondary text-secondary-content;
 }
 
 .btn-submit {
-  @apply btn btn-accent hover:btn-secondary text-base-100;
+	@apply btn btn-accent hover:btn-secondary text-base-100;
 }
 
 .btn-dev {
-  @apply btn btn-secondary;
+	@apply btn btn-secondary;
 }
 
 .list-item {
-  @apply m-2 border border-primary bg-base-100 rounded-lg p-3 cursor-pointer hover:shadow-md transition-shadow;
+	@apply border-primary bg-base-100 m-2 cursor-pointer rounded-lg border p-3 transition-shadow hover:shadow-md;
 }
 
 .list-item-row {
-  @apply flex flex-row items-center justify-between;
+	@apply flex flex-row items-center justify-between;
 }
 
 .list-item-content {
-  @apply flex-1 px-3;
+	@apply flex-1 px-3;
 }

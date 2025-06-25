@@ -14,8 +14,8 @@
 
 	let { text, status, details, actionType, visibility }: Props = $props();
 
-	const profileId:string = getContext('getProfileId');
-	const questionId:string = getContext('getDetailItemId');
+	const profileId: string = getContext('getProfileId');
+	const questionId: string = getContext('getDetailItemId');
 
 	const onclick = () => {
 		createResponse(profileId, {

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
-	import ViewHeader from "../layouts/ViewHeader.svelte";
+	import QuestionCard from '$lib/components/cards/QuestionCard.svelte';
+	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import { getQuestionById } from '$lib/services/database/questions';
 	import type { ItemCategory, RowId, TableName, ViewName } from '$lib/types/appState';
 	import type { Question } from '$lib/types/tableMain';
@@ -11,24 +11,22 @@
 		return result.data || null;
 	};
 
-	const getTable = getContext<() => TableName>("getListTable");
+	const getTable = getContext<() => TableName>('getListTable');
 	let table = $derived(getTable());
 
-	const getDetailItemId = getContext<() => RowId>("getDetailItemId");
+	const getDetailItemId = getContext<() => RowId>('getDetailItemId');
 	let itemId = $derived(getDetailItemId());
 
-	const getCategory = getContext<() => ItemCategory>("getListCategory");
+	const getCategory = getContext<() => ItemCategory>('getListCategory');
 	let category = $derived(getCategory());
 
-	let question:Promise<Question|null> | null = $derived(
-		(table == "questions" && itemId)
-			? getQuestion(itemId)
-			: null
+	let question: Promise<Question | null> | null = $derived(
+		table == 'questions' && itemId ? getQuestion(itemId) : null
 	);
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
-	const title = $derived(table === "questions" ? "Your Response" : "Your Actions");
+	const title = $derived(table === 'questions' ? 'Your Response' : 'Your Actions');
 	const onclick = () => {
 		setViewName('list');
 	};
@@ -38,7 +36,7 @@
 	<ViewHeader {title} {onclick} />
 
 	<div id="detail-content" class="dev dev-div">
-		{#if table == "questions"}
+		{#if table == 'questions'}
 			{#await question}
 				<p>Loading...</p>
 			{:then question}
@@ -48,7 +46,7 @@
 					No question found
 				{/if}
 			{/await}
-		{:else if table == "actions"}
+		{:else if table == 'actions'}
 			<p>Action Card TBD</p>
 		{:else}
 			<p>Error displaying {table}</p>

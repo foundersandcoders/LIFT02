@@ -1,36 +1,41 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, Detail, ItemCategory, List, Profile, RowId, TableName, ViewName } from "$lib/types/appState";
-	import type { Action, Question } from "$lib/types/tableMain";
-	import { getUserActions } from "$lib/services/database/actions";
-	import { getQuestionsByCategory } from "$lib/services/database/questions";
+	import type {
+		AppState,
+		Detail,
+		ItemCategory,
+		List,
+		Profile,
+		RowId,
+		TableName,
+		ViewName
+	} from '$lib/types/appState';
+	import type { Action, Question } from '$lib/types/tableMain';
+	import { getUserActions } from '$lib/services/database/actions';
+	import { getQuestionsByCategory } from '$lib/services/database/questions';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
-	import ListItem from "$lib/components/cards/ListItem.svelte";
+	import ListItem from '$lib/components/cards/ListItem.svelte';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
-	
-	let category:ItemCategory = $derived(app.list.category);
-	let profile:Profile = $derived(app.profile);
-	let table:TableName | null = $derived(app.list.table);
 
-	const setList = getContext<(list:List) => void>('setList');
-	const setView = getContext<(view:ViewName) => void>('setViewName');
+	let category: ItemCategory = $derived(app.list.category);
+	let profile: Profile = $derived(app.profile);
+	let table: TableName | null = $derived(app.list.table);
+
+	const setList = getContext<(list: List) => void>('setList');
+	const setView = getContext<(view: ViewName) => void>('setViewName');
 
 	// DB Queries
-	let queryActions = $derived((table == "actions" && profile.id)
-		? getUserActions(profile.id)
-		: null
-	);
-	let queryQuestions = $derived((table == "questions" && category.raw != null)
-		? getQuestionsByCategory(category.raw)
-		: null
+	let queryActions = $derived(table == 'actions' && profile.id ? getUserActions(profile.id) : null);
+	let queryQuestions = $derived(
+		table == 'questions' && category.raw != null ? getQuestionsByCategory(category.raw) : null
 	);
 
 	// Event Handlers
 	const onclick = () => {
-		setView("dash");
+		setView('dash');
 		setList({
 			table: null,
 			category: { raw: null, format: null }
@@ -41,8 +46,8 @@
 <div id="list-view">
 	<ViewHeader title={category.format as string} {onclick} />
 
-	<div id="list-body" class="list flex flex-col justify-left m-2">
-		{#if table == "actions"}
+	<div id="list-body" class="list justify-left m-2 flex flex-col">
+		{#if table == 'actions'}
 			{#await queryActions}
 				<div class="list-row prose">
 					<p>Loading...</p>
@@ -62,7 +67,7 @@
 					<p>Error: {error.message}</p>
 				</div>
 			{/await}
-		{:else if table == "questions" && category.raw}
+		{:else if table == 'questions' && category.raw}
 			{#await queryQuestions}
 				<div class="list-row prose">
 					<p>Loading...</p>

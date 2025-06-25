@@ -10,11 +10,11 @@
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
-	const profileId = $derived(app.profile.id );
+	const profileId = $derived(app.profile.id);
 	const category = $derived(app.list.category);
 
 	let actionType = $state('');
-	
+
 	let questionDetails = $state<QuestionDetails>({
 		responseInput: null,
 		actionsInput: null,
@@ -22,13 +22,15 @@
 		responseId: null
 	});
 
-	interface Props { questionId: string };
+	interface Props {
+		questionId: string;
+	}
 
 	let { questionId }: Props = $props();
 
 	const getQuestionData = async () => {
 		const question = await getQuestionById(questionId);
-		const details = await getQuestionDetails(profileId || "", questionId);
+		const details = await getQuestionDetails(profileId || '', questionId);
 		questionDetails = details;
 		if (details.actionType !== '') actionType = details.actionType;
 
@@ -51,34 +53,29 @@
 	{#if response.question && response.question.data}
 		<section id="question-{questionId}" class="view-layout">
 			<div id="question-{questionId}-header" class="prose card-header">
-				<h3 class="text-center text-2xl mb-2">
+				<h3 class="mb-2 text-center text-2xl">
 					{category.format}
 				</h3>
-				
+
 				<ToggleStatus {visibility} {toggleVisibility} />
 			</div>
 
 			<div id="question-{questionId}-response" class="card-content flex flex-col">
-				<label for="question-{questionId}-response-input" class="text-lg mb-1">
+				<label for="question-{questionId}-response-input" class="mb-1 text-lg">
 					{response.question.data.question_text || 'Question'}
 				</label>
 
-				<textarea id="question-{questionId}-response-input"
-					class="textarea text-area"
-					rows="4"
-				>
+				<textarea id="question-{questionId}-response-input" class="textarea text-area" rows="4">
 				</textarea>
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content prose">
-				<h3 class="text-lg mb-1">Actions</h3>
+				<h3 class="mb-1 text-lg">Actions</h3>
 
-				<label for="question-{questionId}-action-type" class="text-md">
-					Action type:
-				</label>
+				<label for="question-{questionId}-action-type" class="text-md"> Action type: </label>
 
 				<select id="question-{questionId}-action-type" bind:value={actionType} class="form-select">
-					<option value="default" selected >Action type</option>
+					<option value="default" selected>Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
 					<option value="communication">Communication</option>
@@ -86,7 +83,8 @@
 				</select>
 
 				<div id="question-{questionId}-actions-response" class="flex flex-col">
-					<textarea id="question-{questionId}-actions-response-text"
+					<textarea
+						id="question-{questionId}-actions-response-text"
 						bind:value={questionDetails.actionsInput}
 						placeholder="Enter your response here..."
 						rows="3"
@@ -96,7 +94,8 @@
 			</div>
 
 			<div id="question-{questionId}-buttons" class="flex justify-around">
-				<SubmitButton text="Skip"
+				<SubmitButton
+					text="Skip"
 					status="skipped"
 					{actionType}
 					details={questionDetails}
@@ -112,14 +111,16 @@
 			</div>
 		</section>
 	{:else}
-		<section id="question-not-found"
+		<section
+			id="question-not-found"
 			class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
 		>
 			<p>No question found with ID {response.queryId}</p>
 		</section>
 	{/if}
 {:catch error}
-	<section id="db-query-error"
+	<section
+		id="db-query-error"
 		class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
 	>
 		<p>DB Query Error: {error.message}</p>

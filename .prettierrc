@@ -16,6 +16,12 @@
 			"options": {
 				"parser": "svelte"
 			}
+		},
+		{
+			"files": "*.sql",
+			"options": {
+				"language": "postgresql"
+			}
 		}
 	]
 }

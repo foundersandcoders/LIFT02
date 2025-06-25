@@ -1,10 +1,10 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type {
-	DbResult as Result,
-	DbResultMany as Results,
 	Database,
+	FilterOptions,
 	QueryOptions,
-	FilterOptions
+	DbResult as Result,
+	DbResultMany as Results
 } from './types';
 
 type Response = Database['public']['Tables']['responses']['Row'];

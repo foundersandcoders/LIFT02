@@ -1,18 +1,16 @@
 <script lang="ts">
-  interface Props {
-    title: string;
-    onclick?: () => void;
-  }
+	interface Props {
+		title: string;
+		onclick?: () => void;
+	}
 
-  const { title, onclick }:Props = $props();
+	const { title, onclick }: Props = $props();
 </script>
 
-<div id="{title}-header" class="prose flex flex-row justify-between items-center p-4 bg-accent">
-  <h2 class="text-accent-content">{title}</h2>
+<div id="{title}-header" class="prose bg-accent flex flex-row items-center justify-between p-4">
+	<h2 class="text-accent-content">{title}</h2>
 
-  {#if onclick}
-    <button {onclick} class="btn-nav border-primary">
-      Back
-    </button>
-  {/if}
+	{#if onclick}
+		<button {onclick} class="btn-nav border-primary"> Back </button>
+	{/if}
 </div>

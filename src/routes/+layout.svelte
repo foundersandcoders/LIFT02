@@ -21,7 +21,9 @@
 	let devMode = $state<boolean>(false);
 	$inspect(devMode).with((type, value) => console.log(`${preDev}${type} devMode: ${value}`));
 	setContext('getDevMode', () => devMode);
-	setContext('setDevMode', () => { devMode = !devMode });
+	setContext('setDevMode', () => {
+		devMode = !devMode;
+	});
 
 	// =1 App State
 	let appState = $state<AppState>({
@@ -139,9 +141,9 @@
 <div class="flex min-h-screen flex-col">
 	<Header />
 
-	<main id={appState.view.name} class="flex-1 bg-base-200">
+	<main id={appState.view.name} class="bg-base-200 flex-1">
 		{@render children()}
 	</main>
 
-	<Footer {devMode} profileId={appState.profile.id}/>
+	<Footer {devMode} profileId={appState.profile.id} />
 </div>
