@@ -37,5 +37,4 @@ export interface QueryOptions {
 export interface FilterOptions {
 	status?: string;
 	visibility?: 'public' | 'private';
-	isLatest?: boolean;
 }

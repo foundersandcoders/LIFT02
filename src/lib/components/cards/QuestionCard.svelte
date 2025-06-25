@@ -32,6 +32,7 @@
 		const question = await getQuestionById(questionId);
 		const details = await getQuestionDetails(profileId || '', questionId);
 		questionDetails = details;
+        console.log("Details:", details);
 		if (details.actionType !== '') actionType = details.actionType;
 
 		console.groupEnd();
@@ -65,8 +66,12 @@
 					{response.question.data.question_text || 'Question'}
 				</label>
 
-				<textarea id="question-{questionId}-response-input" class="textarea text-area" rows="4">
-				</textarea>
+				<textarea 
+					id="question-{questionId}-response-input" 
+					class="textarea text-area" 
+					rows="4" 
+					bind:value={questionDetails.responseInput}
+				></textarea>
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content prose">

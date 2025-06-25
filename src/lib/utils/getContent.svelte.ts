@@ -1,4 +1,5 @@
 import { getLatestActions } from '$lib/services/database';
+import { filterLatestResponses, filterLatestActions } from '$lib/utils/versionFilter';
 import { getLatestResponses } from '$lib/services/database/responses';
 import type { QuestionDetails } from '$lib/types/appState';
 
@@ -7,7 +8,9 @@ export const getQuestionDetails = async (
 	questionId: string
 ): Promise<QuestionDetails> => {
 	const response = await getLatestResponses(user_id);
-	const questionResponse = response.data?.find((r) => r.question_id === questionId);
+    const latestResponsesData = response.data ?
+  filterLatestResponses(response.data) : [];
+	const questionResponse = latestResponsesData.find((r) => r.question_id === questionId);
 	const previousAction = await getActionDetails(questionResponse?.id, user_id);
 
 	return {
@@ -20,8 +23,10 @@ export const getQuestionDetails = async (
 
 const getActionDetails = async (response_Id: string | undefined, user_id: string) => {
 	const response = await getLatestActions(user_id);
+    const latestActionsData = response.data ? filterLatestActions(response.data) :
+  [];
 	if (response?.data) {
-		const actionResponse = response.data.find((r) => r.response_id === response_Id);
+		const actionResponse = latestActionsData.find((r) => r.response_id === response_Id);
 		return actionResponse;
 	}
 

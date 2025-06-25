@@ -9,7 +9,6 @@ export interface Action {
 	type: string;
 	description?: string;
 	version: number;
-	is_latest: boolean;
 	status: 'draft' | 'active' | 'archived';
 	created_at?: string; // TODO: Temporal()
 	updated_at?: string; // TODO: Temporal(),
@@ -41,7 +40,6 @@ export interface Response {
 	status?: 'answered' | 'skipped';
 	visibility: 'public' | 'private';
 	version: number;
-	is_latest: boolean;
 	created_at?: string; // TODO: Temporal()
 	updated_at?: string; // TODO: Temporal()
 	shares?: Share[]; // sharing_event_responses

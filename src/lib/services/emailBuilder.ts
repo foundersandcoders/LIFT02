@@ -1,6 +1,7 @@
-import { getActionsByResponseId } from '$lib/services/database/actions';
-import { getQuestionById } from '$lib/services/database/questions';
 import { getUserResponses } from '$lib/services/database/responses';
+import { filterLatestResponses, filterLatestActions } from '$lib/utils/versionFilter';
+import { getActionsByResponseIds } from '$lib/services/database/actions';
+import { getQuestionById } from '$lib/services/database/questions';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
@@ -9,22 +10,37 @@ export async function generateEmailData(
 	userId: string,
 	userName?: string | null
 ): Promise<EmailData> {
-	// Get all public, latest responses for user
+	// Get all public responses for user
 	const responsesResult = await getUserResponses(userId, {
-		visibility: 'public',
-		isLatest: true
+		visibility: 'public'
 	});
 
 	if (responsesResult.error || !responsesResult.data) {
 		throw new Error('Error loading responses');
 	}
 
-	const responses = responsesResult.data;
+	// Get only the latest versions of responses
+	const responses = filterLatestResponses(responsesResult.data);
 
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
 
-	// First, collect all questions and responses, grouped by category
+	// Batch fetch all actions for all responses
+	const responseIds = responses.map((r) => r.id).filter(Boolean) as string[];
+	const allActionsResult = await getActionsByResponseIds(responseIds);
+	const allActions = allActionsResult.data || [];
+
+	// Group actions by response_id for quick lookup
+	const actionsByResponseId = new Map<string, Action[]>();
+	for (const action of allActions) {
+		if (!action.response_id) continue;
+		if (!actionsByResponseId.has(action.response_id)) {
+			actionsByResponseId.set(action.response_id, []);
+		}
+		actionsByResponseId.get(action.response_id)!.push(action);
+	}
+
+	// Process all questions and responses, grouped by category
 	for (const response of responses) {
 		if (!response.question_id) continue;
 
@@ -38,22 +54,29 @@ export async function generateEmailData(
 			categoryGroups[category] = [];
 		}
 
-		// Get actions for this response
-		const actionsResult = await getActionsByResponseId(response.id);
-		const actions = actionsResult.data || [];
+		// Get actions for this response from batched data
+		const responseActions = response.id ? actionsByResponseId.get(response.id) || [] : [];
+		const actions = filterLatestActions(responseActions);
+		const latestAction = actions[0]; // Get the single action (if any)
 
-		// Convert actions to EmailAction format
-		const emailActions = actions.map((action: Action) => ({
-			description: action.description || '',
-			type: action.type,
-			status: action.status
-		}));
+		// Only include action if it has actual content
+		const emailAction =
+			latestAction && latestAction.description?.trim()
+				? {
+						description: latestAction.description,
+						type: latestAction.type,
+						status: latestAction.status
+					}
+				: undefined;
 
-		categoryGroups[category].push({
-			questionText: question.question_text,
-			responseText: response.response_text || '',
-			actions: emailActions.length > 0 ? emailActions : undefined
-		});
+		// Only include responses with actual content
+		if (response.response_text && response.response_text.trim() !== '') {
+			categoryGroups[category].push({
+				questionText: question.question_text,
+				responseText: response.response_text,
+				actions: emailAction ? [emailAction] : undefined
+			});
+		}
 	}
 
 	// Convert to EmailCategory array
@@ -80,7 +103,6 @@ export async function generateEmailData(
 		}
 	};
 
-	console.log('📧 Generated Email JSON:', JSON.stringify(emailData, null, 2));
 	return emailData;
 }
 

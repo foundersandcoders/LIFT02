@@ -33,7 +33,6 @@ export type Database = {
 					created_at: string | null;
 					description: string | null;
 					id: string;
-					is_latest: boolean | null;
 					response_id: string | null;
 					status: string;
 					type: string;
@@ -45,7 +44,6 @@ export type Database = {
 					created_at?: string | null;
 					description?: string | null;
 					id?: string;
-					is_latest?: boolean | null;
 					response_id?: string | null;
 					status?: string;
 					type: string;
@@ -57,7 +55,6 @@ export type Database = {
 					created_at?: string | null;
 					description?: string | null;
 					id?: string;
-					is_latest?: boolean | null;
 					response_id?: string | null;
 					status?: string;
 					type?: string;
@@ -210,7 +207,6 @@ export type Database = {
 				Row: {
 					created_at: string | null;
 					id: string;
-					is_latest: boolean | null;
 					question_id: string | null;
 					response_text: string | null;
 					status: string | null;
@@ -222,7 +218,6 @@ export type Database = {
 				Insert: {
 					created_at?: string | null;
 					id?: string;
-					is_latest?: boolean | null;
 					question_id?: string | null;
 					response_text?: string | null;
 					status?: string | null;
@@ -234,7 +229,6 @@ export type Database = {
 				Update: {
 					created_at?: string | null;
 					id?: string;
-					is_latest?: boolean | null;
 					question_id?: string | null;
 					response_text?: string | null;
 					status?: string | null;

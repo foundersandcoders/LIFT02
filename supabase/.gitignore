@@ -2,6 +2,7 @@
 .branches
 .temp
 config.toml
+.env
 
 # dotenvx
 .env.keys
@@ -10,16 +11,5 @@ config.toml
 dev.env
 prod.env
 
-# Supabase
-.branches
-.temp
-
-# dotenvx
-.env.keys
-.env.local
-.env.*.local
-
-# Supabase
-.branches
-.temp
-.env
+# Accessibility testing script
+docs/Brief_Docs/Test Script v1.49.xlsx

@@ -158,7 +158,7 @@ echo "" >> supabase/generated/test_fake_data.sql
 
 # Add responses with dynamic question lookup
 echo "$TEST_DATA" | jq -r '.responses[] | 
-"INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version, is_latest) 
+"INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version) 
 SELECT 
   \u0027" + .id + "\u0027::uuid,
   \u0027" + .user_id + "\u0027::uuid,
@@ -166,8 +166,7 @@ SELECT
   \u0027" + (.response_text | gsub("\u0027"; "\u0027\u0027")) + "\u0027,
   \u0027" + .status + "\u0027,
   \u0027" + .visibility + "\u0027,
-  " + (.version | tostring) + ",
-  " + (.is_latest | tostring) + "
+  " + (.version | tostring) + "
 FROM questions q WHERE q.category = \u0027" + .question_category + "\u0027 AND q.\"order\" = " + (.question_order | tostring) + ";"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
@@ -178,8 +177,8 @@ echo "" >> supabase/generated/test_fake_data.sql
 
 # Add actions
 echo "$TEST_DATA" | jq -r '.actions[] | 
-"INSERT INTO actions (id, user_id, response_id, type, description, status, version, is_latest) VALUES
-  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027, " + (.version | tostring) + ", " + (.is_latest | tostring) + ");"' >> supabase/generated/test_fake_data.sql
+"INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
+  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027, " + (.version | tostring) + ");"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
