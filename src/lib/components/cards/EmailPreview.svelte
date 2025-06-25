@@ -53,12 +53,12 @@
 	};
 </script>
 
-<div class="w-fill m-2 flex flex-col justify-around space-y-4 p-2">
-	<header class="bg-base-100 mb-4 rounded-xl p-2 shadow">
+<div class="view-layout">
+	<div class="card-header">
 		<h1 class="mb-2 text-center text-2xl">Email Preview</h1>
-	</header>
+	</div>
 
-	<div class="bg-base-100 rounded-xl p-4 shadow">
+	<div class="card-content">
 		{@html emailContent}
 	</div>
 

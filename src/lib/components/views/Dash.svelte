@@ -39,9 +39,9 @@
 <div id="dash-view">
 	<ViewHeader title="Dashboard" />
 
-	<div id="dash-tiles" class="m-2 flex flex-col items-center justify-center p-4">
+	<div id="dash-tiles" class="view-layout">
 		{#await queryActions}
-			<button disabled class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+			<button disabled class="dash-tile">
 				<p>Loading Actions...</p>
 			</button>
 		{:then result}
@@ -50,23 +50,23 @@
 				{@const category = { raw: 'actions', format: 'Actions' }}
 				<button
 					onclick={() => onclick(table, category)}
-					class="card prose border-primary bg-base-100 m-2 w-full border p-4"
+					class="dash-tile"
 				>
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<div class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+				<div class="dash-tile">
 					<p>0 Actions</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+			<div class="dash-tile">
 				<p>Error Getting Actions: {error.message}</p>
 			</div>
 		{/await}
 
 		{#await queryQuestions}
-			<div class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+			<div class="dash-tile">
 				<p>Loading Questions...</p>
 			</div>
 		{:then result}
@@ -76,18 +76,18 @@
 					{@const table = 'questions'}
 					<button
 						onclick={() => onclick(table, category)}
-						class="card prose border-primary bg-base-100 m-2 w-full border p-4"
+						class="dash-tile"
 					>
 						<p>{category.format}</p>
 					</button>
 				{/each}
 			{:else}
-				<div class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+				<div class="dash-tile">
 					<p>No Questions Found</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="card prose border-primary bg-base-100 m-2 w-full border p-4">
+			<div class="dash-tile">
 				<p>Loading Questions...</p>
 			</div>
 		{/await}
