@@ -154,8 +154,8 @@
 			"response_text": "I have ADHD which significantly impacts my concentration and executive function. Open office environments are particularly challenging due to auditory processing sensitivity.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 3,
-			"is_latest": true
+			"version": 3
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440002",
@@ -165,8 +165,8 @@
 			"response_text": "On good days, I am energetic, creative, and able to hyperfocus on tasks. I communicate clearly and enjoy collaborating with the team.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440003",
@@ -176,8 +176,8 @@
 			"response_text": "On difficult days, I may appear restless or fidgety, have difficulty sitting through long meetings, and need more time to process verbal instructions.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440004",
@@ -187,8 +187,8 @@
 			"response_text": "Early warning signs include increased irritability, difficulty concentrating on routine tasks, and avoiding team communications. Please approach me privately and ask how I'm doing.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440005",
@@ -198,8 +198,8 @@
 			"response_text": "ADHD affects my ability to filter distractions and organize tasks. I work best in quiet environments with clear, written instructions.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440006",
@@ -209,8 +209,8 @@
 			"response_text": "I need noise-cancelling headphones, written meeting agendas in advance, and the ability to take short breaks during long meetings.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440007",
@@ -220,8 +220,8 @@
 			"response_text": "To thrive, I need a quiet workspace away from high-traffic areas, flexible working hours to accommodate my peak focus times, and regular check-ins with my manager.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 3,
-			"is_latest": true
+			"version": 3
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440008",
@@ -231,8 +231,8 @@
 			"response_text": "I'm very direct in my communication style and appreciate the same in return. I prefer email over verbal instructions for important tasks.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440020",
@@ -242,8 +242,8 @@
 			"response_text": "I have generalized anxiety disorder and chronic fatigue syndrome. Unexpected changes in deadlines or project scope can trigger anxiety episodes.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440021",
@@ -253,8 +253,8 @@
 			"response_text": "On good days, I am creative, collaborative, and detail-oriented. I can engage fully in brainstorming sessions and provide thoughtful design feedback.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440022",
@@ -264,8 +264,8 @@
 			"response_text": "On bad days, I may seem withdrawn and struggle with decision-making. I tend to overthink and need extra reassurance about my work quality.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440023",
@@ -275,8 +275,8 @@
 			"response_text": "Warning signs include working late frequently, declining social interactions, and appearing more stressed. A gentle check-in asking about workload helps.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440024",
@@ -286,8 +286,8 @@
 			"response_text": "Persistent insomnia, difficulty concentrating, and feeling overwhelmed by simple tasks indicate I need time off to recover.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440025",
@@ -297,8 +297,8 @@
 			"response_text": "I care for my elderly parent who has dementia. This sometimes requires me to attend medical appointments or handle care-related emergencies.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440026",
@@ -308,8 +308,8 @@
 			"response_text": "I need flexibility for occasional urgent appointments and understanding that my stress levels may fluctuate based on my parent's condition.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 3,
-			"is_latest": true
+			"version": 3
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440027",
@@ -319,8 +319,8 @@
 			"response_text": "Anxiety can make me overthink creative decisions and chronic fatigue affects my energy levels, especially in the afternoons.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440028",
@@ -330,8 +330,8 @@
 			"response_text": "Long meetings in the afternoon drain my energy significantly. I work best with morning meetings and afternoon focus time.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440029",
@@ -341,8 +341,8 @@
 			"response_text": "I need clear deadlines with buffer time, regular feedback to reduce anxiety about work quality, and understanding about carer responsibilities.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440030",
@@ -352,8 +352,8 @@
 			"response_text": "I am autistic and have sensory processing sensitivities. Bright fluorescent lights and sudden loud noises can be overwhelming.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440031",
@@ -363,8 +363,8 @@
 			"response_text": "On good days, I am highly analytical, detail-focused, and able to spot patterns others miss. I communicate best through written formats.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440032",
@@ -374,8 +374,8 @@
 			"response_text": "On bad days, I may become overwhelmed by sensory input and need quiet space. I might appear blunt or withdrawn when overstimulated.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440033",
@@ -385,8 +385,8 @@
 			"response_text": "Autism affects my social communication and sensory processing. I need predictable routines and advance notice of changes to perform well.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440034",
@@ -396,8 +396,8 @@
 			"response_text": "Open office noise and fluorescent lighting make it difficult to concentrate. Last-minute meeting changes cause significant stress.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440035",
@@ -407,8 +407,8 @@
 			"response_text": "I need a quiet workspace with natural lighting, written communication for important information, and advance notice of schedule changes.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 3,
-			"is_latest": true
+			"version": 3
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440040",
@@ -418,8 +418,8 @@
 			"response_text": "I have chronic pain from a back injury which affects my ability to sit for long periods. Pain levels vary day to day.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440041",
@@ -429,8 +429,8 @@
 			"response_text": "I have two young children and need to do school pickup on Tuesdays and Thursdays at 3:30pm.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440042",
@@ -440,8 +440,8 @@
 			"response_text": "I need to leave early twice a week for school pickup and occasionally work from home when children are unwell.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440043",
@@ -451,8 +451,8 @@
 			"response_text": "Chronic back pain means I need to change positions frequently and sometimes use a standing desk to manage discomfort.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440050",
@@ -462,8 +462,8 @@
 			"response_text": "I observe Friday prayers and need 30 minutes on Fridays between 12-2pm. I also fast during Ramadan which may affect my energy levels.",
 			"status": "answered",
 			"visibility": "private",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440051",
@@ -473,8 +473,8 @@
 			"response_text": "I don't eat pork or drink alcohol. For team events, please ensure halal options are available or let me know in advance so I can arrange my own meal.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "660e8400-e29b-41d4-a716-446655440052",
@@ -484,8 +484,8 @@
 			"response_text": "I'm very collaborative and enjoy mentoring junior team members. I prefer to discuss any concerns directly rather than through email.",
 			"status": "answered",
 			"visibility": "public",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		}
 	],
 	"actions": [
@@ -496,8 +496,8 @@
 			"type": "workplace_adjustment",
 			"description": "Provide noise-cancelling headphones and assign desk in quieter area of office",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440002",
@@ -505,9 +505,9 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440002",
 			"type": "schedule_adjustment",
 			"description": "Allow 15-minute breaks every 90 minutes to help with focus",
-			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"status": "archived",
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440003",
@@ -515,9 +515,9 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440005",
 			"type": "equipment",
 			"description": "Request ergonomic keyboard and mouse to reduce sensory input",
-			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"status": "draft",
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440004",
@@ -526,8 +526,8 @@
 			"type": "communication",
 			"description": "Send written agendas 24 hours before meetings",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440005",
@@ -536,8 +536,8 @@
 			"type": "workplace_adjustment",
 			"description": "Relocate to corner desk away from main walkway",
 			"status": "draft",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440006",
@@ -546,8 +546,8 @@
 			"type": "schedule_adjustment",
 			"description": "Allow flexible start times between 8-10am based on focus patterns",
 			"status": "active",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440010",
@@ -556,8 +556,8 @@
 			"type": "communication",
 			"description": "Provide 48-hour advance notice for project changes when possible",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440011",
@@ -565,9 +565,9 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440022",
 			"type": "support",
 			"description": "Schedule weekly 1:1 check-ins for feedback and reassurance",
-			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"status": "archived",
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440012",
@@ -576,8 +576,8 @@
 			"type": "schedule_adjustment",
 			"description": "Allow flexible hours for carer appointments with advance notice",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440013",
@@ -586,8 +586,8 @@
 			"type": "workplace_adjustment",
 			"description": "Provide access to quiet room for stress management when needed",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440014",
@@ -596,8 +596,8 @@
 			"type": "schedule_adjustment",
 			"description": "Schedule important meetings before 2pm when energy levels are higher",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440015",
@@ -606,8 +606,8 @@
 			"type": "communication",
 			"description": "Provide clear deadlines with built-in buffer time for quality checks",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440020",
@@ -616,8 +616,8 @@
 			"type": "workplace_adjustment",
 			"description": "Install desk lamp with adjustable lighting to replace fluorescent overhead",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440021",
@@ -626,8 +626,8 @@
 			"type": "support",
 			"description": "Create signal system for when quiet time is needed (do not disturb sign)",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440022",
@@ -636,8 +636,8 @@
 			"type": "communication",
 			"description": "Send all work instructions via email rather than verbal communication",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440023",
@@ -646,8 +646,8 @@
 			"type": "schedule_adjustment",
 			"description": "Provide 48-hour notice for any schedule changes or meeting rearrangements",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440024",
@@ -656,8 +656,8 @@
 			"type": "workplace_adjustment",
 			"description": "Relocate to quieter area near window for natural light",
 			"status": "draft",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440025",
@@ -666,8 +666,8 @@
 			"type": "equipment",
 			"description": "Provide noise-cancelling headphones for focus periods",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440030",
@@ -676,8 +676,8 @@
 			"type": "equipment",
 			"description": "Provide adjustable standing desk to manage back pain",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440031",
@@ -686,8 +686,8 @@
 			"type": "workplace_adjustment",
 			"description": "Allow regular position changes and walking breaks throughout the day",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440032",
@@ -696,18 +696,18 @@
 			"type": "schedule_adjustment",
 			"description": "Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440033",
 			"user_id": "550e8400-e29b-41d4-a716-446655440004",
 			"response_id": "660e8400-e29b-41d4-a716-446655440042",
 			"type": "remote_work",
-			"description": "Allow work from home when children are unwell (with advance notice)",
+			"description": "Allow work from home when children are unwell",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440034",
@@ -716,8 +716,8 @@
 			"type": "equipment",
 			"description": "Provide ergonomic chair with proper lumbar support",
 			"status": "active",
-			"version": 2,
-			"is_latest": true
+			"version": 2
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440040",
@@ -726,8 +726,8 @@
 			"type": "schedule_adjustment",
 			"description": "Allow 30-minute break on Fridays between 12-2pm for prayers",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440041",
@@ -736,8 +736,8 @@
 			"type": "support",
 			"description": "Adjust workload expectations during Ramadan fasting period",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440042",
@@ -746,8 +746,8 @@
 			"type": "event_planning",
 			"description": "Ensure halal food options at all team events and social gatherings",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440043",
@@ -756,8 +756,8 @@
 			"type": "communication",
 			"description": "Provide advance notice of team events to arrange appropriate meals",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440044",
@@ -766,8 +766,8 @@
 			"type": "communication",
 			"description": "Schedule direct face-to-face discussions for important concerns rather than email",
 			"status": "active",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440045",
@@ -776,8 +776,8 @@
 			"type": "development",
 			"description": "Provide opportunities to mentor junior developers on projects",
 			"status": "draft",
-			"version": 1,
-			"is_latest": true
+			"version": 1
+			
 		}
 	],
 	"sharing_events": [

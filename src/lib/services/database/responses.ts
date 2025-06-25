@@ -6,8 +6,8 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-
-type Response = Database['public']['Tables']['responses']['Row'];
+import { filterLatestResponses } from '$lib/utils/versionFilter';
+import type { Response } from '$lib/types/tableMain';
 type ResponseInsert = Database['public']['Tables']['responses']['Insert'];
 type ResponseUpdate = Database['public']['Tables']['responses']['Update'];
 
@@ -24,31 +24,41 @@ export async function getUserResponses(
 		query = query.eq('visibility', options.visibility);
 	}
 
-	if (options?.isLatest) {
-		query = query.eq('is_latest', true);
-	}
-
 	if (options?.orderBy) {
 		query = query.order(options.orderBy.column, {
 			ascending: options.orderBy.ascending ?? true
 		});
 	}
 
-	if (options?.limit) {
-		query = query.limit(options.limit);
-	}
-
-	if (options?.offset) {
-		query = query.range(options.offset, options.offset + (options.limit ?? 10) - 1);
-	}
-
+	// Execute the query first
 	const { data, error } = await query;
 
 	if (error) {
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types
+	let convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || [];
+
+	// Apply limit and offset after filtering
+	if (options?.offset || options?.limit) {
+		const offset = options.offset || 0;
+		const limit = options.limit || 10;
+		convertedData = convertedData.slice(offset, offset + limit);
+	}
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -61,7 +71,22 @@ export async function getResponseById(id: string): Result<Response> {
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database type to tableMain type
+	const convertedData = data
+		? {
+				id: data.id,
+				user_id: data.user_id || '',
+				question_id: data.question_id || '',
+				response_text: data.response_text || undefined,
+				status: data.status as 'answered' | 'skipped',
+				visibility: data.visibility as 'public' | 'private',
+				version: data.version || 1,
+				created_at: data.created_at || undefined,
+				updated_at: data.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -79,7 +104,21 @@ export async function getResponseHistory(userId: string, questionId: string): Re
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types
+	const convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -87,17 +126,15 @@ export async function getResponseHistory(userId: string, questionId: string): Re
  */
 export async function createResponse(
 	userId: string,
-	data: Omit<ResponseInsert, 'user_id' | 'version' | 'is_latest'>
+	data: Omit<ResponseInsert, 'user_id' | 'version'>
 ): Result<Response> {
-	// Start a transaction to handle versioning
 	const { data: response, error } = await supabase
 		.from('responses')
 		.insert([
 			{
 				...data,
 				user_id: userId,
-				version: 1,
-				is_latest: true
+				version: 1
 			}
 		])
 		.select()
@@ -108,9 +145,22 @@ export async function createResponse(
 		return { data: null, error };
 	}
 
-	console.log(response);
+	// Convert database type to tableMain type
+	const convertedData = response
+		? {
+				id: response.id,
+				user_id: response.user_id || '',
+				question_id: response.question_id || '',
+				response_text: response.response_text || undefined,
+				status: response.status as 'answered' | 'skipped',
+				visibility: response.visibility as 'public' | 'private',
+				version: response.version || 1,
+				created_at: response.created_at || undefined,
+				updated_at: response.updated_at || undefined
+			}
+		: null;
 
-	return { data: response, error: null };
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -118,7 +168,7 @@ export async function createResponse(
  */
 export async function updateResponse(
 	id: string,
-	data: Omit<ResponseUpdate, 'version' | 'is_latest'>
+	data: Omit<ResponseUpdate, 'version'>
 ): Result<Response> {
 	// First, get the current response to get its version
 	const { data: currentResponse, error: fetchError } = await supabase
@@ -131,16 +181,6 @@ export async function updateResponse(
 		return { data: null, error: fetchError };
 	}
 
-	// Update the current response to not be latest
-	const { error: updateError } = await supabase
-		.from('responses')
-		.update({ is_latest: false })
-		.eq('id', id);
-
-	if (updateError) {
-		return { data: null, error: updateError };
-	}
-
 	// Create a new version
 	const { data: newResponse, error: insertError } = await supabase
 		.from('responses')
@@ -149,8 +189,7 @@ export async function updateResponse(
 				...currentResponse,
 				...data,
 				id: undefined, // Let Supabase generate a new ID
-				version: currentResponse.version + 1,
-				is_latest: true
+				version: currentResponse.version + 1
 			}
 		])
 		.select()
@@ -160,7 +199,22 @@ export async function updateResponse(
 		return { data: null, error: insertError };
 	}
 
-	return { data: newResponse, error: null };
+	// Convert database type to tableMain type
+	const convertedData = newResponse
+		? {
+				id: newResponse.id,
+				user_id: newResponse.user_id || '',
+				question_id: newResponse.question_id || '',
+				response_text: newResponse.response_text || undefined,
+				status: newResponse.status as 'answered' | 'skipped',
+				visibility: newResponse.visibility as 'public' | 'private',
+				version: newResponse.version || 1,
+				created_at: newResponse.created_at || undefined,
+				updated_at: newResponse.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -175,8 +229,7 @@ export async function skipQuestion(userId: string, questionId: string): Result<R
 				question_id: questionId,
 				status: 'skipped',
 				visibility: 'private',
-				version: 1,
-				is_latest: true
+				version: 1
 			}
 		])
 		.select()
@@ -186,7 +239,22 @@ export async function skipQuestion(userId: string, questionId: string): Result<R
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database type to tableMain type
+	const convertedData = data
+		? {
+				id: data.id,
+				user_id: data.user_id || '',
+				question_id: data.question_id || '',
+				response_text: data.response_text || undefined,
+				status: data.status as 'answered' | 'skipped',
+				visibility: data.visibility as 'public' | 'private',
+				version: data.version || 1,
+				created_at: data.created_at || undefined,
+				updated_at: data.updated_at || undefined
+			}
+		: null;
+
+	return { data: convertedData, error: null };
 }
 
 /**
@@ -197,12 +265,28 @@ export async function getLatestResponses(userId: string): Results<Response> {
 		.from('responses')
 		.select('*')
 		.eq('user_id', userId)
-		.eq('is_latest', true)
 		.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
 	}
 
-	return { data, error: null };
+	// Convert database types to tableMain types first
+	const convertedData =
+		data?.map((dbResponse) => ({
+			id: dbResponse.id,
+			user_id: dbResponse.user_id || '',
+			question_id: dbResponse.question_id || '',
+			response_text: dbResponse.response_text || undefined,
+			status: dbResponse.status as 'answered' | 'skipped',
+			visibility: dbResponse.visibility as 'public' | 'private',
+			version: dbResponse.version || 1,
+			created_at: dbResponse.created_at || undefined,
+			updated_at: dbResponse.updated_at || undefined
+		})) || [];
+
+	// Use utility function to get latest versions
+	const latestResponses = filterLatestResponses(convertedData);
+
+	return { data: latestResponses, error: null };
 }
