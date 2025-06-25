@@ -41,7 +41,7 @@ A digital workplace passport application that helps neurodivergent employees doc
 - Flat component structure (all in `/lib/components`)
 - Ultra-minimal routing (just login and dashboard)
 - All categories in a single dashboard view with navigation
-- Use Svelte stores for global state management
+- Context-based state management using Svelte 5's `$state` and `setContext`
 - SvelteKit server endpoints directly in page files
 - HTTP-only cookies for auth token storage
 - Component composition over inheritance
@@ -163,21 +163,40 @@ chmod +x ./scripts/prod-run-migrations.sh
 ./scripts/prod-run-migrations.sh    # Run migrations on production
 ```
 
+## Architecture Patterns
+
+### State Management
+- **Context-based architecture**: Single `AppState` object in `+layout.svelte` with 16+ context providers
+- **Granular state access**: Use `getContext('getProfileId')` instead of traditional stores
+- **View-based navigation**: Four main views (`dash`, `list`, `detail`, `email`) with programmatic switching
+- **Dev mode integration**: Built-in development mode with test data and state inspection
+
+### Database Service Layer
+- **Consistent return types**: `DbResult<T>` and `DbResultMany<T>` for all database operations
+- **Error handling**: Custom `DatabaseError` class with structured error responses
+- **Query patterns**: Use `QueryOptions` and `FilterOptions` for consistent filtering
+- **Versioning system**: Responses and actions use `version` and `is_latest` fields for history tracking
+
+### Component Architecture
+- **Semantic categorization**: Components organized by purpose (cards, layouts, logic, ui, views)
+- **Context dependency**: Components access state via context, not props drilling
+- **Styling approach**: TailwindCSS 4.x with DaisyUI, custom component classes in `app.css`
+
 ## Project Structure
 
 Key directories and their purpose:
 
 - `/src` - Main source code
   - `/routes` - SvelteKit pages and layouts
-    - `+layout.svelte` - Main app layout
+    - `+layout.svelte` - Main app layout with centralized state management
     - `+layout.server.ts` - Auth protection
     - `+page.svelte` - Landing/login page
     - `/dashboard/+page.svelte` - Single dashboard with all categories
     - `/auth/callback` - Magic Link handling
   - `/lib` - Shared code
-    - `/components` - All UI components
-    - `/stores` - Svelte stores
-    - `/services` - External service integrations
+    - `/components` - All UI components (cards, layouts, logic, ui, views)
+    - `/services/database` - Database service layer with consistent patterns
+    - `/types` - TypeScript type definitions (appState, supabase)
     - `utils.ts` - Helper functions
 - `/static` - Static assets (images, icons)
 - `/tests` - Test files
