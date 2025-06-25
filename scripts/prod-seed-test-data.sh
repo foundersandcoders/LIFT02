@@ -178,7 +178,7 @@ echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
     VISIBILITY=$(echo "$response" | jq -r '.visibility')
     VERSION=$(echo "$response" | jq -r '.version')
     
-    # Get question ID
+    # Get question ID (note: "order" is a reserved word, so we need to escape it)
     QUESTION_ID=$(curl -s -X GET "$API_URL/questions?category=eq.$QUESTION_CATEGORY&%22order%22=eq.$QUESTION_ORDER&select=id" \
         -H "$AUTH_HEADER" \
         -H "$APIKEY_HEADER" 2>/dev/null | jq -r '.[0].id // empty')
