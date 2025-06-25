@@ -26,7 +26,7 @@ export async function generateEmailData(
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
 
 	// Batch fetch all actions for all responses
-	const responseIds = responses.map(r => r.id).filter(Boolean) as string[];
+	const responseIds = responses.map((r) => r.id).filter(Boolean) as string[];
 	const allActionsResult = await getActionsByResponseIds(responseIds);
 	const allActions = allActionsResult.data || [];
 
@@ -60,13 +60,14 @@ export async function generateEmailData(
 		const latestAction = actions[0]; // Get the single action (if any)
 
 		// Only include action if it has actual content
-		const emailAction = latestAction && latestAction.description?.trim() 
-			? {
-				description: latestAction.description,
-				type: latestAction.type,
-				status: latestAction.status
-			  }
-			: undefined;
+		const emailAction =
+			latestAction && latestAction.description?.trim()
+				? {
+						description: latestAction.description,
+						type: latestAction.type,
+						status: latestAction.status
+					}
+				: undefined;
 
 		// Only include responses with actual content
 		if (response.response_text && response.response_text.trim() !== '') {
@@ -102,7 +103,6 @@ export async function generateEmailData(
 		}
 	};
 
-	console.log('📧 Generated Email JSON:', JSON.stringify(emailData, null, 2));
 	return emailData;
 }
 
