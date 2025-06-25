@@ -10,7 +10,7 @@ A digital workplace passport application that helps neurodivergent employees doc
 
 - Languages: TypeScript
 - Frameworks: Svelte 5, SvelteKit
-- Styling: TailwindCSS
+- Styling: TailwindCSS, DaisyUI
 - Data: Supabase (PostgreSQL)
 - Authentication: Supabase Magic Link
 - Testing: Vitest
