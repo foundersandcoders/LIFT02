@@ -44,7 +44,10 @@ The `/scripts/` directory contains 7 database management scripts that handle env
 # 1. Deploy schema changes to production
 ./scripts/prod-run-migrations.sh
 
-# 2. Optionally seed production with test data
+# 2. Populate the questios
+./scripts/prod-seed-questions.sh
+
+# 3. Optionally seed production with test data
 ./scripts/prod-seed-test-data.sh
 ```
 
@@ -86,6 +89,7 @@ supabase db reset                    # Resets DB + seeds questions
 ```bash
 # Deploy schema and optionally seed test data
 ./scripts/prod-run-migrations.sh     # Deploy schema changes
+./scripts/prod-seed-questions.sh.    # Populate the questions
 ./scripts/prod-seed-test-data.sh     # Add test data (optional)
 ```
 

@@ -78,5 +78,5 @@ lerna-debug.log*
 .claude/
 .claude/settings.local.json
 
-# Specific files
+# Accessibility testing script
 docs/Brief_Docs/Test Script v1.49.xlsx

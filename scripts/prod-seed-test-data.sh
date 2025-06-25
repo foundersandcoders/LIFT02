@@ -177,7 +177,6 @@ echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
     STATUS=$(echo "$response" | jq -r '.status')
     VISIBILITY=$(echo "$response" | jq -r '.visibility')
     VERSION=$(echo "$response" | jq -r '.version')
-    IS_LATEST=$(echo "$response" | jq -r '.is_latest')
     
     # Get question ID
     QUESTION_ID=$(curl -s -X GET "$API_URL/questions?category=eq.$QUESTION_CATEGORY&%22order%22=eq.$QUESTION_ORDER&select=id" \
@@ -197,8 +196,7 @@ echo "$TEST_DATA" | jq -c '.responses[]' | while read -r response; do
                 \"response_text\": \"$RESPONSE_TEXT\",
                 \"status\": \"$STATUS\",
                 \"visibility\": \"$VISIBILITY\",
-                \"version\": $VERSION,
-                \"is_latest\": $IS_LATEST
+                \"version\": $VERSION
             }" > /dev/null
         echo "✅ Created response for question $QUESTION_ORDER in $QUESTION_CATEGORY"
     else
