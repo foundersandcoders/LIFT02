@@ -76,3 +76,4 @@ lerna-debug.log*
 
 # Claude Code
 .claude/
+.claude/settings.local.json
