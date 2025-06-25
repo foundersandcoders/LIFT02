@@ -1,10 +1,10 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type {
-	DbResult as Result,
-	DbResultMany as Results,
 	Database,
+	FilterOptions,
 	QueryOptions,
-	FilterOptions
+	DbResult as Result,
+	DbResultMany as Results
 } from './types';
 
 // type Action = Database['public']['Tables']['actions']['Row'];
@@ -152,8 +152,13 @@ export async function createAction(
 		.single();
 
 	if (error) {
+		console.error(error);
 		return { data: null, error };
 	}
+
+	console.log(action);
+
+	console.log(action);
 
 	// Convert database type to tableMain type
 	const convertedData = action

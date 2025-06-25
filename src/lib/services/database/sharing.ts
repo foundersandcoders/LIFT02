@@ -1,5 +1,5 @@
 import { supabase } from '$lib/services/supabaseClient';
-import type { DbResult as Result, DbResultMany as Results, Database, QueryOptions } from './types';
+import type { Database, QueryOptions, DbResult as Result, DbResultMany as Results } from './types';
 
 type Share = Database['public']['Tables']['sharing_events']['Row'];
 type ShareInsert = Database['public']['Tables']['sharing_events']['Insert'];

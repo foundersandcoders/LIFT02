@@ -1,2 +1,2 @@
-export const inspectPrefixDev = "DEV: ";
-export const inspectPrefixApp = "APP: ";
+export const inspectPrefixDev = 'DEV: ';
+export const inspectPrefixApp = 'APP: ';

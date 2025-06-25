@@ -5,7 +5,8 @@
 	"trailingComma": "none",
 	"printWidth": 100,
 	"plugins": [
-	
+		"prettier-plugin-organize-imports",
+		"prettier-plugin-sql",
 		"prettier-plugin-svelte",
 		"prettier-plugin-tailwindcss"
 	],
@@ -14,6 +15,12 @@
 			"files": "*.svelte",
 			"options": {
 				"parser": "svelte"
+			}
+		},
+		{
+			"files": "*.sql",
+			"options": {
+				"language": "postgresql"
 			}
 		}
 	]

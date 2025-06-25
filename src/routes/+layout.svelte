@@ -20,8 +20,12 @@
 	// Dev Mode
 	let devMode = $state<boolean>(false);
 	$inspect(devMode).with((type, value) => console.log(`${preDev}${type} devMode: ${value}`));
+	setContext('getDevMode', () => devMode);
+	setContext('setDevMode', () => {
+		devMode = !devMode;
+	});
 
-	// App State
+	// =1 App State
 	let appState = $state<AppState>({
 		profile: {
 			id: null,
@@ -88,7 +92,6 @@
 	setContext('getDetail', () => appState.detail);
 	setContext('getDetailItemId', () => appState.detail.item.id);
 	setContext('getDetailTable', () => appState.detail.table);
-	setContext('getDevMode', () => devMode);
 	setContext('getList', () => appState.list);
 	setContext('getListCategory', () => appState.list.category);
 	setContext('getListTable', () => appState.list.table);
@@ -138,13 +141,9 @@
 <div class="flex min-h-screen flex-col">
 	<Header />
 
-	<main class="flex-1">
+	<main id={appState.view.name} class="bg-base-200 flex-1">
 		{@render children()}
 	</main>
-
-	{#if devMode}
-		<StateTable />
-	{/if}
 
 	<Footer {devMode} profileId={appState.profile.id} />
 </div>
