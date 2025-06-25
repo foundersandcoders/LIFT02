@@ -340,10 +340,9 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 }
 
 /**
-   * Get the latest version of the action
-   for a specific response
-   */
-export async function getActionsByResponseId(responseId: string): Results<Action> {
+ * Get the latest action for a specific response
+ */
+export async function getLatestActionByResponseId(responseId: string): Result<Action> {
 	const { data, error } = await supabase
 		.from('actions')
 		.select('*')
@@ -355,19 +354,20 @@ export async function getActionsByResponseId(responseId: string): Results<Action
 		return { data: null, error };
 	}
 
-	// Convert database types to tableMain types
-	const convertedData =
-		data?.map((dbAction) => ({
-			id: dbAction.id,
-			user_id: dbAction.user_id || '',
-			response_id: dbAction.response_id || undefined,
-			type: dbAction.type,
-			description: dbAction.description || undefined,
-			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
-			created_at: dbAction.created_at || undefined,
-			updated_at: dbAction.updated_at || undefined
-		})) || null;
+	// Convert database type to tableMain type (single action)
+	const convertedData = data && data.length > 0 
+		? {
+			id: data[0].id,
+			user_id: data[0].user_id || '',
+			response_id: data[0].response_id || undefined,
+			type: data[0].type,
+			description: data[0].description || undefined,
+			version: data[0].version || 1,
+			status: data[0].status as 'draft' | 'active' | 'archived',
+			created_at: data[0].created_at || undefined,
+			updated_at: data[0].updated_at || undefined
+		}
+		: null;
 
 	return { data: convertedData, error: null };
 }
