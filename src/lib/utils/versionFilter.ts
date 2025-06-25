@@ -9,7 +9,19 @@ export function filterLatestResponses(responses: Response[]): Response[] {
 	for (const response of responses) {
 		const key = `${response.user_id}-${response.question_id}`;
 		const existing = latestResponsesMap.get(key);
-		if (!existing || (response.version ?? 1) > (existing.version ?? 1)) {
+
+		// Validate version data integrity
+		if (response.version == null) {
+			console.warn(`Response ${response.id} has null/undefined version, defaulting to 1`);
+		}
+		if (existing && existing.version == null) {
+			console.warn(`Existing response ${existing.id} has null/undefined version, defaulting to 1`);
+		}
+
+		const responseVersion = response.version ?? 1;
+		const existingVersion = existing?.version ?? 1;
+
+		if (!existing || responseVersion > existingVersion) {
 			latestResponsesMap.set(key, response);
 		}
 	}
@@ -25,7 +37,19 @@ export function filterLatestActions(actions: Action[]): Action[] {
 	for (const action of actions) {
 		const key = `${action.user_id}-${action.response_id}`;
 		const existing = latestActionsMap.get(key);
-		if (!existing || (action.version ?? 1) > (existing.version ?? 1)) {
+
+		// Validate version data integrity
+		if (action.version == null) {
+			console.warn(`Action ${action.id} has null/undefined version, defaulting to 1`);
+		}
+		if (existing && existing.version == null) {
+			console.warn(`Existing action ${existing.id} has null/undefined version, defaulting to 1`);
+		}
+
+		const actionVersion = action.version ?? 1;
+		const existingVersion = existing?.version ?? 1;
+
+		if (!existing || actionVersion > existingVersion) {
 			latestActionsMap.set(key, action);
 		}
 	}
