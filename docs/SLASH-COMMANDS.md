@@ -127,11 +127,7 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
 
 </details>
 
-<details><summary>2.1.3. How to Sequence Steps</summary>
-
-  > [!NOTE]
-  > I'm still figuring out which, if any, of these are most effective.
-  > These are my vague observations so far.
+<details><summary>2.1.3. How to Sequence Steps[^2]</summary>
 
   | Symbol   | Name        | Benefit                                               |
   | -------- | ----------- | ----------------------------------------------------- |
@@ -141,7 +137,9 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
   | `###`    | H3          | add detail while preserving step separation           |
   | `### 1.` | Numbered H3 | combine detail and facilitate referencing other steps |
 
-</details>
+</details>.
+
+[^2]: I'm still figuring out which, if any, of these are most effective. These are just my vague observations so far.
 
 ### 2.2. Bash: From Plan to Script
 
