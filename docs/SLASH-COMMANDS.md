@@ -16,7 +16,8 @@
 
 Custom slash commands are simply aliases for prompts. When you type or select a slash command, you are sending the preprogrammed prompt to the model as if you had typed it into the terminal.
 
-> [!IMPORTANT] What About Codex?
+> [!IMPORTANT]
+> What About Codex?
 > At the moment, you can't create programmatic commands for Codex[^1].
 
 [^1]: Jaz did discover a workaround... •• <|1|> Create a wrapper around codex with an alias prefix (*a la* `npm`) •• <|2|> Script it so that it falls back on "if you don't recognise the command, just pass it verbatim to codex" •• <|3|> Create custom commands for that wrapper.
