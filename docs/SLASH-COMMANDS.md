@@ -92,15 +92,17 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
 > I'll play around soon with best practice for using `xml`.
 > I would assume the same general semantic rules apply
 
-### 2.1. Markdown: From Idea to Plan
+### 2.1. Markdown: From Idea to Plan[^2]
+
+[^2]: I'm still figuring out which, if any, of these are most effective. These are just my vague observations so far.
 
 <details><summary>2.1.1. Assorted Notes</summary>
 
   This works pretty well. You can add sections if you like, but try to preserve the hierarchy. Having 3 `##` headers rather than 2 increases the amount of top priority context by 50%, which makes it harder to regulate.
 
-  The `-` character is semantically significant in `bash`, so remember to `\` escape them[^2].
+  The `-` character is semantically significant in `bash`, so remember to `\` escape them[^3].
 
-  [^2]: Except, weirdly, for the `<!-- -->` syntax for a comment. *Don't* escape those.
+  [^3]: Except, weirdly, for the `<!-- -->` syntax for a comment. *Don't* escape those.
 
   There's some debate about whether separating elements with a blank line helps preserve information structure, so you do you, but I do it anyway as most markdown linters will have a tantrum otherwise
   
@@ -137,9 +139,7 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
   | `###`    | H3          | add detail while preserving step separation           |
   | `### 1.` | Numbered H3 | combine detail and facilitate referencing other steps |
 
-</details>[^3]
-
-[^3]: I'm still figuring out which, if any, of these are most effective. These are just my vague observations so far.
+</details>
 
 ### 2.2. Bash: From Plan to Script
 
