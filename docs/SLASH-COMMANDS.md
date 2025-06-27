@@ -17,7 +17,7 @@
 Custom slash commands are simply aliases for prompts. When you type or select a slash command, you are sending the preprogrammed prompt to the model as if you had typed it into the terminal.
 
 > [!IMPORTANT]
-> What About Codex?
+> **What About Codex?**
 > At the moment, you can't create programmatic commands for Codex[^1].
 
 [^1]: Jaz did discover a workaround... •• <|1|> Create a wrapper around codex with an alias prefix (*a la* `npm`) •• <|2|> Script it so that it falls back on "if you don't recognise the command, just pass it verbatim to codex" •• <|3|> Create custom commands for that wrapper.
@@ -34,7 +34,8 @@ They're best used for tasks that meet the following criteria.
 
   You'll want to target prompts that always use the same structure, with little/no need for nuance in how they're phrased.
 
-  > [!TIP] Example
+  > [!TIP]
+  > **Example**
   > [Commit Message Generator](#41-commit-message-generator)
 
 </details>
@@ -43,7 +44,8 @@ They're best used for tasks that meet the following criteria.
 
   You can set a command to just answer "yes", but... what's the point? The benefits come from establishing a consistent approach to tasks that require multi-word prompts
 
-  > [!TIP] Example
+  > [!TIP]
+  > **Example**
   > [Style Unifier](#42-style-unifier)
 
 </details>
@@ -85,7 +87,8 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
 
 ## 2. Creating Commands
 
-> [!NOTE] `.xml` Formatting
+> [!NOTE]
+> **`.xml` Formatting**
 > I'll play around soon with best practice for using `xml`.
 > I would assume the same general semantic rules apply
 
