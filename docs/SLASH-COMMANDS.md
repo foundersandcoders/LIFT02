@@ -127,7 +127,7 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
 
 </details>
 
-<details><summary>2.1.3. How to Sequence Steps[^3]</summary>
+<details><summary>2.1.3. How to Sequence Steps</summary>
 
   | Symbol   | Name        | Benefit                                               |
   | -------- | ----------- | ----------------------------------------------------- |
@@ -137,7 +137,7 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
   | `###`    | H3          | add detail while preserving step separation           |
   | `### 1.` | Numbered H3 | combine detail and facilitate referencing other steps |
 
-</details>.
+</details>[^3]
 
 [^3]: I'm still figuring out which, if any, of these are most effective. These are just my vague observations so far.
 
