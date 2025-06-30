@@ -720,6 +720,12 @@ INSERT INTO actions (id, user_id, response_id, type, description, status, versio
   ('770e8400-e29b-41d4-a716-446655440044'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'communication', 'Schedule direct face-to-face discussions for important concerns rather than email', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440045'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'development', 'Provide opportunities to mentor junior developers on projects', 'draft', 1);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
+  ('770e8400-e29b-41d4-a716-446655440046'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'communication', 'Implement daily stand-up check-ins with visual status updates to track progress', 'active', 2);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
+  ('770e8400-e29b-41d4-a716-446655440047'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'technology', 'Install focus apps and website blockers on work devices to minimize distractions', 'draft', 3);
+INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
+  ('770e8400-e29b-41d4-a716-446655440048'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'workplace_adjustment', 'Create a dedicated quiet zone with fidget tools and adjustable lighting for ADHD focus needs', 'active', 4);
 
 -- ===========================================
 -- SHARING EVENTS
