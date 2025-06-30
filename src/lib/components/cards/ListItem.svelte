@@ -50,8 +50,7 @@
 
 		<div id="list-item-{item.id}-title" class="list-item-content prose">
 			{#if table == 'actions'}
-				{@const item = { id: null }}
-				<p>ACTION</p>
+				<p>{item.description || 'No description'}</p>
 			{:else if table == 'questions' && item}
 				<p>{item.preview}</p>
 			{:else}
