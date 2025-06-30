@@ -34,9 +34,10 @@
 
 <button
 	id="list-item-{item.id}"
-	onclick={() => onclick(table, item)}
+	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
-	class="list-item"
+	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
+	disabled={table === 'actions'}
 >
 	<div class="list-item-row">
 		<!-- [!] the status icon logic has to be replaced by db queries -->
