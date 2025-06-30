@@ -11,7 +11,7 @@
 		ViewName
 	} from '$lib/types/appState';
 	import type { Action, Question } from '$lib/types/tableMain';
-	import { getUserActions } from '$lib/services/database/actions';
+	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestionsByCategory } from '$lib/services/database/questions';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import ListItem from '$lib/components/cards/ListItem.svelte';
@@ -28,7 +28,9 @@
 	const setView = getContext<(view: ViewName) => void>('setViewName');
 
 	// DB Queries
-	let queryActions = $derived(table == 'actions' && profile.id ? getUserActions(profile.id) : null);
+	let queryActions = $derived(
+		table == 'actions' && profile.id ? getLatestActions(profile.id) : null
+	);
 	let queryQuestions = $derived(
 		table == 'questions' && category.raw != null ? getQuestionsByCategory(category.raw) : null
 	);
