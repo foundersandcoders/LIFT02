@@ -2,6 +2,7 @@
 	import QuestionCard from '$lib/components/cards/QuestionCard.svelte';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import { getQuestionById } from '$lib/services/database/questions';
+	import { getActionById } from '$lib/services/database/actions';
 	import type { ItemCategory, RowId, TableName, ViewName } from '$lib/types/appState';
 	import type { Question } from '$lib/types/tableMain';
 	import { getContext } from 'svelte';
@@ -46,8 +47,20 @@
 					No question found
 				{/if}
 			{/await}
-		{:else if table == 'actions'}
-			<p>Action Card TBD</p>
+		{:else if table == 'actions' && itemId}
+			{#await getActionById(itemId)}
+				<p>Loading action...</p>
+			{:then result}
+				{#if result?.data}
+					<p>Action: {result.data.description || 'No description'}</p>
+					<p>Type: {result.data.type}</p>
+					<p>Status: {result.data.status}</p>
+				{:else}
+					<p>Action not found</p>
+				{/if}
+			{:catch error}
+				<p>Error loading action: {error.message}</p>
+			{/await}
 		{:else}
 			<p>Error displaying {table}</p>
 		{/if}
