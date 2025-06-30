@@ -1,0 +1,24 @@
+<script lang="ts">
+	let { status, onStatusChange } = $props<{
+		status: 'active' | 'archived';
+		onStatusChange: (newStatus: 'active' | 'archived') => void;
+	}>();
+
+	const checked = status === 'archived';
+	
+	const handleToggle = (event) => {
+		const isArchived = event.target.checked;
+		const newStatus = isArchived ? 'archived' : 'active';
+		onStatusChange(newStatus);
+	};
+</script>
+
+<label class="flex items-center gap-2">
+	<input 
+		type="checkbox" 
+		class="toggle {status === 'active' ? 'toggle-accent' : ''}" 
+		{checked}
+		onchange={handleToggle}
+	/>
+	<span class="text-sm">{status === 'active' ? 'Active' : 'Archived'}</span>
+</label>

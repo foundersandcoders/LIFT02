@@ -3,6 +3,8 @@
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
+	import { updateAction } from '$lib/services/database/actions';
+	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -29,6 +31,11 @@
 				id: item ? item.id || null : null
 			}
 		});
+	};
+
+	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
+		// TODO: Update the action status in database
+		console.log(`Toggle action ${actionId} to ${newStatus}`);
 	};
 </script>
 
@@ -68,7 +75,10 @@
 
 		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
 			{#if table === 'actions'}
-				<input type="checkbox" class="toggle toggle-accent" checked={item.status === 'active'} />
+				<ActionStatusToggle
+					status={item.status}
+					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
+				/>
 			{:else if app.profile.id && randomNum() > 7}
 				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
 			{:else}
