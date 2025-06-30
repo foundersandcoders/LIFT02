@@ -41,13 +41,18 @@
 >
 	<div class="list-item-row">
 		<!-- [!] the status icon logic has to be replaced by db queries -->
-		<div id="list-item-{item.id}-status" class="flex items-center">
-			{#if app.profile.id != '' && randomNum() > 7}
-				<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-active"></div>
-			{:else}
-				<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-default"></div>
-			{/if}
-		</div>
+		{#if table === 'questions'}
+			<div id="list-item-{item.id}-status" class="flex items-center">
+				{#if app.profile.id != '' && randomNum() > 7}
+					<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-active"></div>
+				{:else}
+					<div
+						id="list-item-{item.id}-status-icon"
+						class="status-indicator-xl status-default"
+					></div>
+				{/if}
+			</div>
+		{/if}
 
 		<div id="list-item-{item.id}-title" class="list-item-content prose">
 			{#if table == 'actions'}
