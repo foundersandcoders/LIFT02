@@ -22,8 +22,8 @@ export function filterLatestResponses(responses: Response[]): Response[] {
 		}
 
 		// Use creation date to determine latest response
-		const responseDate = new Date(response.created_at || 0);
-		const existingDate = new Date(existing?.created_at || 0);
+		const responseDate = new Date(response.created_at || Date.now());
+		const existingDate = new Date(existing?.created_at || Date.now());
 
 		console.log(`🔄 Processing response ${response.id}:`, {
 			key,

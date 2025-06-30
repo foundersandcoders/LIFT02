@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createAction } from '$lib/services/database/actions';
 	import { createResponse } from '$lib/services/database/responses';
-	import type { QuestionDetails, TableName, ViewName } from '$lib/types/appState';
+	import type { QuestionDetails, RowId, TableName, ViewName } from '$lib/types/appState';
 	import { getContext } from 'svelte';
 
 	interface Props {
@@ -18,7 +18,7 @@
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	const getQuestionId = getContext<() => string>('getDetailItemId');
-	const setQuestionId = getContext<(newDetail: QuestionDetails | null) => void>('setDetailItemId');
+	const setQuestionId = getContext<(newDetail: RowId | null) => void>('setDetailItemId');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
 	const profileId = $derived(getProfileId());
