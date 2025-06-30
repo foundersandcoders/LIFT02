@@ -67,7 +67,9 @@
 		</div>
 
 		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
-			{#if app.profile.id && randomNum() > 7}
+			{#if table === 'actions'}
+				<input type="checkbox" class="toggle toggle-accent" checked={item.status === 'active'} />
+			{:else if app.profile.id && randomNum() > 7}
 				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
 			{:else}
 				<div id="list-item-{item.id}-action-icon" class="status-indicator status-default"></div>
