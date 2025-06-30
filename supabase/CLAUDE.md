@@ -9,10 +9,11 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 ## Core Database Patterns
 
 ### Versioning System
-- **Response Versioning**: Each user response edit creates a new row with incremented `version` and `is_latest=true`
-- **Action Versioning**: Actions follow the same versioning pattern as responses
+- **Response Versioning**: Each user response edit creates a new row with incremented `version` field
+- **Action Versioning**: Actions follow the same versioning pattern as responses  
 - **Sequences**: `response_version_seq` and `action_version_seq` manage version incrementing
 - **Historical Preservation**: All previous versions remain in database for audit trails
+- **Latest Version Logic**: Client-side filtering determines latest versions using `filterLatestResponses()` and `filterLatestActions()` utilities
 
 ### Sharing System Architecture
 - **Point-in-Time Snapshots**: Sharing events capture exact response/action versions via junction tables
@@ -39,14 +40,16 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 - Preview text for dashboard tiles
 
 **responses** - User answers with versioning
-- Versioned responses using `version` and `is_latest` pattern
-- Status: 'answered' or 'skipped'
+- Versioned responses using incremental `version` field (no `is_latest` field)
+- Status: 'answered' or 'skipped'  
 - Visibility: 'public' or 'private'
+- Latest versions determined by client-side filtering by highest version per user+question
 
 **actions** - Follow-up actions with versioning
 - Linked to responses via `response_id`
-- Same versioning pattern as responses
+- Same versioning pattern as responses (incremental `version` field)
 - Action types define different accommodation categories
+- Latest versions determined by client-side filtering by highest version per user+response
 
 ### Relationship Tables
 
@@ -72,6 +75,11 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 - Forward-only migrations (no rollbacks)
 - Constraint validation for data integrity
 - Sequence management for versioning
+
+### Schema Evolution Notes
+- **Removed `is_latest` field**: Previously used boolean field removed from responses and actions tables
+- **Version-only approach**: Now relies solely on incremental `version` field with client-side filtering
+- **Data seeding compatibility**: All seeding scripts updated to work without `is_latest` field
 
 ## Data Management Strategy
 
@@ -101,14 +109,31 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 
 ### Versioning Queries
 ```sql
--- Get latest responses only
-SELECT * FROM responses WHERE is_latest = true;
+-- Get all responses (latest filtering done client-side)
+SELECT * FROM responses WHERE user_id = $user_id ORDER BY created_at DESC;
+
+-- Get response history for a specific question
+SELECT * FROM responses 
+WHERE user_id = $user_id AND question_id = $question_id 
+ORDER BY version DESC;
+
+-- Get latest action for a response (database-level optimization)
+SELECT * FROM actions 
+WHERE response_id = $response_id 
+ORDER BY version DESC 
+LIMIT 1;
 
 -- Get historical sharing content
 SELECT r.* FROM responses r
 JOIN sharing_event_responses ser ON r.id = ser.response_id
 WHERE ser.sharing_event_id = $sharing_event_id;
 ```
+
+### Client-Side Version Filtering
+The application uses utility functions to determine latest versions:
+- `filterLatestResponses(responses[])` - Returns highest version per user+question combination
+- `filterLatestActions(actions[])` - Returns highest version per user+response combination
+- Database service functions like `getLatestResponses()` and `getLatestActions()` automatically apply these filters
 
 ### Security Patterns
 - **Row-Level Security**: User-scoped data access via Supabase RLS
@@ -156,8 +181,17 @@ supabase db push                    # Deploy to production
 - **Foreign Key Violations**: Follow proper deletion order (sharing → actions → responses → profiles → users)
 - **RLS Policies**: Ensure proper authentication context for data access
 - **Migration Conflicts**: Use `supabase db pull` to sync remote changes
+- **Version Filtering**: Use client-side filtering utilities rather than database `is_latest` queries
+- **Production Seeding**: Ensure API queries use proper URL encoding for reserved words like `"order"`
 
 ### Debugging Patterns
 - Use `supabase logs` for real-time database activity
 - Check constraint violations in PostgreSQL error messages
 - Verify RLS policies with `EXPLAIN` queries in authenticated context
+- Test version filtering logic with `filterLatestResponses()` and `filterLatestActions()` utilities
+
+### Version Management Best Practices
+- Always use `getLatestResponses()` and `getLatestActions()` for current data
+- Use `getResponseHistory()` and `getActionHistory()` for full version trails
+- For single-item queries, prefer database-level filtering (e.g., `getLatestActionByResponseId()`)
+- For batch operations, use client-side filtering utilities for consistency

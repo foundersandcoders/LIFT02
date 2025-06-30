@@ -10,6 +10,3 @@ config.toml
 .env.*.local
 dev.env
 prod.env
-
-# Accessibility testing script
-docs/Brief_Docs/Test Script v1.49.xlsx
