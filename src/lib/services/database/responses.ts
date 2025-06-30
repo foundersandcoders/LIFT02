@@ -1,4 +1,6 @@
 import { supabase } from '$lib/services/supabaseClient';
+import type { Response } from '$lib/types/tableMain';
+import { filterLatestResponses } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -6,8 +8,6 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-import { filterLatestResponses } from '$lib/utils/versionFilter';
-import type { Response } from '$lib/types/tableMain';
 type ResponseInsert = Database['public']['Tables']['responses']['Insert'];
 type ResponseUpdate = Database['public']['Tables']['responses']['Update'];
 
@@ -128,22 +128,33 @@ export async function createResponse(
 	userId: string,
 	data: Omit<ResponseInsert, 'user_id' | 'version'>
 ): Result<Response> {
+	console.group('🗄️ Database: createResponse');
+	console.log('📥 Input parameters:', {
+		userId,
+		data
+	});
+
+	const insertData = {
+		...data,
+		user_id: userId,
+		version: 1
+	};
+
+	console.log('📤 Sending to Supabase:', insertData);
+
 	const { data: response, error } = await supabase
 		.from('responses')
-		.insert([
-			{
-				...data,
-				user_id: userId,
-				version: 1
-			}
-		])
+		.insert([insertData])
 		.select()
 		.single();
 
 	if (error) {
-		console.error(error);
+		console.error('❌ Database error:', error);
+		console.groupEnd();
 		return { data: null, error };
 	}
+
+	console.log('✅ Raw database response:', response);
 
 	// Convert database type to tableMain type
 	const convertedData = response
@@ -159,6 +170,9 @@ export async function createResponse(
 				updated_at: response.updated_at || undefined
 			}
 		: null;
+
+	console.log('🔄 Converted response data:', convertedData);
+	console.groupEnd();
 
 	return { data: convertedData, error: null };
 }
