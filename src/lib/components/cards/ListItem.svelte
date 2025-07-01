@@ -14,9 +14,14 @@
 	const app = $derived(getApp());
 
 	// Component Props
-	let { item, table } = $props<{
+	let {
+		item,
+		table,
+		textAlign = 'center'
+	} = $props<{
 		item: Action | Question;
 		table: TableName;
+		textAlign?: 'left' | 'center' | 'right';
 	}>();
 
 	// Local state for optimistic updates
@@ -39,21 +44,19 @@
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
 		// Store original status for rollback
 		const originalStatus = localStatus;
-		
+
 		// Optimistic update: immediately update local UI state
 		localStatus = newStatus;
-		
+
 		// Perform database update
 		const result = await updateActionStatus(actionId, newStatus);
-		
+
 		if (result.error) {
 			// Rollback on error
 			localStatus = originalStatus;
 			console.error('Failed to update action status:', result.error);
-			// TODO: Add user feedback for error
 		} else {
 			console.log(`Successfully updated action ${actionId} to ${newStatus}`);
-			// TODO: Add user feedback for success
 		}
 	};
 </script>
@@ -80,7 +83,7 @@
 			</div>
 		{/if}
 
-		<div id="list-item-{item.id}-title" class="list-item-content prose">
+		<div id="list-item-{item.id}-title" class="list-item-content prose text-{textAlign}">
 			{#if table == 'actions'}
 				<p>{item.description || 'No description'}</p>
 			{:else if table == 'questions' && item}

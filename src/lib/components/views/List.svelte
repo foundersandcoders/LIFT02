@@ -57,7 +57,7 @@
 			{:then result}
 				{#if result?.data}
 					{#each result.data as action}
-						<ListItem item={action as Action} {table} />
+						<ListItem item={action as Action} {table} textAlign="left" />
 					{/each}
 				{:else}
 					<div class="list-row prose">
