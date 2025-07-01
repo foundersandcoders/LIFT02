@@ -33,7 +33,7 @@ They're best used for tasks that meet the following criteria.
 
 You'll want to target prompts that always use the same structure, with little/no need for nuance in how they're phrased.
 
-> [!TIP] > **Example** > [Commit Message Generator](#41-commit-message-generator)
+> [!TIP] > **Example** > [Commit Message Generator](#31-commit-message-generator)
 
 </details>
 
@@ -41,13 +41,13 @@ You'll want to target prompts that always use the same structure, with little/no
 
 You can set a command to just answer "yes", but... what's the point? The benefits come from establishing a consistent approach to tasks that require multi-word prompts
 
-> [!TIP] > **Example** > [Style Unifier](#42-style-unifier)
+> [!TIP] > **Example** > [Style Unifier](#32-style-unifier)
 
 </details>
 
 <details><summary>Low-Impact Arguments</summary>
 
-Many commands [work well](#41-commit-message-generator) without [arguments](#2-passing-arguments).
+Many commands [work well](#31-commit-message-generator) without [arguments](#12-arguments-in-slash-commands).
 
 If a command _does_ need to take arguments, these should be something that can be pasted in the middle of a prompt. See the next section for details.
 
@@ -72,7 +72,7 @@ These arguments are planted into a predfined slot in the prompt. This can be any
 
 <details><summary>Creating Argument Slots</summary>
 
-When you [create your command](#3-creating-commands), you can designate the argument slot by typing `$ARGUMENTS` in your prompt body.
+When you [create your command](#2-creating-commands), you can designate the argument slot by typing `$ARGUMENTS` in your prompt body.
 
 This means that you need to phrase the prompt in a way that makes Claude handle `null` arguments too!
 
@@ -86,7 +86,9 @@ This means that you need to phrase the prompt in a way that makes Claude handle 
 > I'll play around soon with best practice for using `xml`.
 > I would assume the same general semantic rules apply
 
-### 2.1. Markdown: From Idea to Plan[^2]
+### 2.1. Markdown: From Idea to Plan
+
+See disclaimer[^2]...
 
 [^2]: I'm still figuring out which, if any, of these are most effective. These are just my vague observations so far.
 
