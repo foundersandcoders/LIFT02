@@ -4,7 +4,7 @@
 		onStatusChange: (newStatus: 'active' | 'archived') => void;
 	}>();
 
-	const checked = status === 'archived';
+	const checked = $derived(status === 'archived');
 	
 	const handleToggle = (event) => {
 		const isArchived = event.target.checked;

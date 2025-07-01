@@ -19,6 +19,9 @@
 		table: TableName;
 	}>();
 
+	// Local state for optimistic updates
+	let localStatus = $state(item.status);
+
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
@@ -34,9 +37,18 @@
 	};
 
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
+		// Store original status for rollback
+		const originalStatus = localStatus;
+		
+		// Optimistic update: immediately update local UI state
+		localStatus = newStatus;
+		
+		// Perform database update
 		const result = await updateActionStatus(actionId, newStatus);
 		
 		if (result.error) {
+			// Rollback on error
+			localStatus = originalStatus;
 			console.error('Failed to update action status:', result.error);
 			// TODO: Add user feedback for error
 		} else {
@@ -83,7 +95,7 @@
 		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
 			{#if table === 'actions'}
 				<ActionStatusToggle
-					status={item.status}
+					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
 				/>
 			{:else if app.profile.id && randomNum() > 7}
