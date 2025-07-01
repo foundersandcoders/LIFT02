@@ -667,11 +667,11 @@ INSERT INTO actions (id, user_id, response_id, type, description, status, versio
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid, 'schedule_adjustment', 'Allow 15-minute breaks every 90 minutes to help with focus', 'archived', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440005'::uuid, 'equipment', 'Request ergonomic keyboard and mouse to reduce sensory input', 'draft', 1);
+  ('770e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440005'::uuid, 'equipment', 'Request ergonomic keyboard and mouse to reduce sensory input', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440006'::uuid, 'communication', 'Send written agendas 24 hours before meetings', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'workplace_adjustment', 'Relocate to corner desk away from main walkway', 'draft', 1);
+  ('770e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'workplace_adjustment', 'Relocate to corner desk away from main walkway', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440006'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'schedule_adjustment', 'Allow flexible start times between 8-10am based on focus patterns', 'active', 2);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
@@ -695,7 +695,7 @@ INSERT INTO actions (id, user_id, response_id, type, description, status, versio
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440023'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid, 'schedule_adjustment', 'Provide 48-hour notice for any schedule changes or meeting rearrangements', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440024'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'workplace_adjustment', 'Relocate to quieter area near window for natural light', 'draft', 1);
+  ('770e8400-e29b-41d4-a716-446655440024'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'workplace_adjustment', 'Relocate to quieter area near window for natural light', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440025'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'equipment', 'Provide noise-cancelling headphones for focus periods', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
@@ -719,11 +719,11 @@ INSERT INTO actions (id, user_id, response_id, type, description, status, versio
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440044'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'communication', 'Schedule direct face-to-face discussions for important concerns rather than email', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440045'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'development', 'Provide opportunities to mentor junior developers on projects', 'draft', 1);
+  ('770e8400-e29b-41d4-a716-446655440045'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'development', 'Provide opportunities to mentor junior developers on projects', 'active', 1);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440046'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'communication', 'Implement daily stand-up check-ins with visual status updates to track progress', 'active', 2);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440047'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'technology', 'Install focus apps and website blockers on work devices to minimize distractions', 'draft', 3);
+  ('770e8400-e29b-41d4-a716-446655440047'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'technology', 'Install focus apps and website blockers on work devices to minimize distractions', 'active', 3);
 INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
   ('770e8400-e29b-41d4-a716-446655440048'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'workplace_adjustment', 'Create a dedicated quiet zone with fidget tools and adjustable lighting for ADHD focus needs', 'active', 4);
 
