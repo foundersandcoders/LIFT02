@@ -26,6 +26,8 @@
 
 	// Local state for optimistic updates
 	let localStatus = $state(item.status);
+	let errorMessage = $state<string | null>(null);
+	let showError = $state(false);
 
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
@@ -55,8 +57,20 @@
 			// Rollback on error
 			localStatus = originalStatus;
 			console.error('Failed to update action status:', result.error);
+
+			// Show user-friendly error feedback
+			errorMessage = `Failed to update action status. Please try again.`;
+			showError = true;
+
+			// Auto-hide error after 5 seconds
+			setTimeout(() => {
+				showError = false;
+			}, 5000);
 		} else {
 			console.log(`Successfully updated action ${actionId} to ${newStatus}`);
+			// Clear any previous errors on success
+			showError = false;
+			errorMessage = null;
 		}
 	};
 </script>
@@ -109,3 +123,33 @@
 		</div>
 	</div>
 </button>
+
+<!-- Error feedback toast -->
+{#if showError && errorMessage}
+	<div class="toast toast-top toast-end z-50">
+		<div class="alert alert-error">
+			<div class="flex items-center justify-between">
+				<div class="flex items-center">
+					<svg class="mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+						<path
+							fill-rule="evenodd"
+							d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+					<span>{errorMessage}</span>
+				</div>
+				<button
+					class="btn btn-sm btn-ghost ml-2"
+					onclick={() => {
+						showError = false;
+						errorMessage = null;
+					}}
+					title="Dismiss"
+				>
+					✕
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}

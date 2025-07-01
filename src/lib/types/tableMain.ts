@@ -9,7 +9,7 @@ export interface Action {
 	type: string;
 	description?: string;
 	version: number;
-	status: 'draft' | 'active' | 'archived';
+	status: 'active' | 'archived';
 	created_at?: string; // TODO: Temporal()
 	updated_at?: string; // TODO: Temporal(),
 	shares?: Share[]; // sharing_event_actions

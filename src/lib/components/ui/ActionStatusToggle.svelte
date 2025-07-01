@@ -6,8 +6,8 @@
 
 	const checked = $derived(status === 'archived');
 	
-	const handleToggle = (event) => {
-		const isArchived = event.target.checked;
+	const handleToggle = (event: Event & { currentTarget: HTMLInputElement }) => {
+		const isArchived = event.currentTarget.checked;
 		const newStatus = isArchived ? 'archived' : 'active';
 		onStatusChange(newStatus);
 	};

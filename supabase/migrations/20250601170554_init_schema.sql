@@ -54,7 +54,7 @@ create table if not exists actions (
   response_id uuid references responses on delete set null,
   type text not null,
   description text,
-  status text not null default 'draft' check (status in ('draft', 'active', 'archived')),
+  status text not null default 'active' check (status in ( 'active', 'archived')),
   version integer default nextval('action_version_seq'),
   created_at timestamp with time zone default now(),
   updated_at timestamp with time zone default now()

@@ -1,4 +1,6 @@
 import { supabase } from '$lib/services/supabaseClient';
+import type { Action } from '$lib/types/tableMain';
+import { filterLatestActions } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -6,8 +8,6 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-import { filterLatestActions } from '$lib/utils/versionFilter';
-import type { Action } from '$lib/types/tableMain';
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
@@ -53,7 +53,7 @@ export async function getUserActions(
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -81,7 +81,7 @@ export async function getActionById(id: string): Result<Action> {
 				type: data.type,
 				description: data.description || undefined,
 				version: data.version || 1,
-				status: data.status as 'draft' | 'active' | 'archived',
+				status: data.status as 'active' | 'archived',
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
 			}
@@ -114,7 +114,7 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -156,7 +156,7 @@ export async function createAction(
 				type: action.type,
 				description: action.description || undefined,
 				version: action.version || 1,
-				status: action.status as 'draft' | 'active' | 'archived',
+				status: action.status as 'active' | 'archived',
 				created_at: action.created_at || undefined,
 				updated_at: action.updated_at || undefined
 			}
@@ -211,7 +211,7 @@ export async function updateAction(
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				status: newAction.status as 'draft' | 'active' | 'archived',
+				status: newAction.status as 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
 			}
@@ -262,7 +262,7 @@ export async function archiveAction(id: string): Result<Action> {
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				status: newAction.status as 'draft' | 'active' | 'archived',
+				status: newAction.status as 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
 			}
@@ -294,7 +294,7 @@ export async function getLatestActions(userId: string): Results<Action> {
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -332,7 +332,7 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || [];
@@ -370,7 +370,7 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 					type: data[0].type,
 					description: data[0].description || undefined,
 					version: data[0].version || 1,
-					status: data[0].status as 'draft' | 'active' | 'archived',
+					status: data[0].status as 'active' | 'archived',
 					created_at: data[0].created_at || undefined,
 					updated_at: data[0].updated_at || undefined
 				}
@@ -410,7 +410,7 @@ export async function updateActionStatus(
 				type: updatedAction.type,
 				description: updatedAction.description || undefined,
 				version: updatedAction.version || 1,
-				status: updatedAction.status as 'draft' | 'active' | 'archived',
+				status: updatedAction.status as 'active' | 'archived',
 				created_at: updatedAction.created_at || undefined,
 				updated_at: updatedAction.updated_at || undefined
 			}
