@@ -3,7 +3,7 @@
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
-	import { updateAction } from '$lib/services/database/actions';
+	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
@@ -34,8 +34,15 @@
 	};
 
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
-		// TODO: Update the action status in database
-		console.log(`Toggle action ${actionId} to ${newStatus}`);
+		const result = await updateActionStatus(actionId, newStatus);
+		
+		if (result.error) {
+			console.error('Failed to update action status:', result.error);
+			// TODO: Add user feedback for error
+		} else {
+			console.log(`Successfully updated action ${actionId} to ${newStatus}`);
+			// TODO: Add user feedback for success
+		}
 	};
 </script>
 
