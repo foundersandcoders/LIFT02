@@ -44,7 +44,7 @@ export interface QuestionDetails {
 	responseInput: string | null;
 	actionsInput: string | null;
 	actionType: string;
-	responseId: string | null;
+	responseId: RowId | null;
 }
 
 export type RowId = string;

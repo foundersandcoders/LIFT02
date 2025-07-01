@@ -1,9 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 	import { setContext } from 'svelte';
-	import Header from '$lib/components/layouts/Header.svelte';
-	import Footer from '$lib/components/layouts/Footer.svelte';
-	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import type {
 		AppState,
 		Detail,
@@ -15,7 +12,12 @@
 		View,
 		ViewName
 	} from '$lib/types/appState';
-	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from '$lib/utils/inspector';
+	import {
+		inspectPrefixDev as preDev,
+		inspectPrefixApp as preApp
+	} from '$lib/utils/inspector';
+	import Header from '$lib/components/layouts/Header.svelte';
+	import Footer from '$lib/components/layouts/Footer.svelte';
 
 	// Dev Mode
 	let devMode = $state<boolean>(false);
@@ -54,17 +56,18 @@
 		}
 	});
 
-	// Update profile with dev test data when devMode is enabled
+	// [!] Check this doesn't break the mock login
 	$effect(() => {
 		if (devMode) {
-			appState.profile.id = appState.dev.testProfileId;
-			appState.profile.name = appState.dev.testProfileName;
+			// appState.profile.id = appState.dev.testProfileId;
+			// appState.profile.name = appState.dev.testProfileName;
 		} else {
-			appState.profile.id = null;
-			appState.profile.name = null;
+			// appState.profile.id = null;
+			// appState.profile.name = null;
 		}
 	});
 
+	// =2 App State Inspectors
 	$inspect(appState.profile.id).with((type, value) =>
 		console.log(`${preApp}${type} profile.id: ${value}`)
 	);
@@ -87,7 +90,7 @@
 		console.log(`${preApp}${type} detail.item.rowId: ${value}`)
 	);
 
-	// App Context
+	// =1 App Context
 	setContext('getApp', () => appState);
 	setContext('getDetail', () => appState.detail);
 	setContext('getDetailItemId', () => appState.detail.item.id);
@@ -135,6 +138,7 @@
 		appState.view.name = newView;
 	});
 
+	// =1 Child Props
 	let { children } = $props();
 </script>
 

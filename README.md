@@ -1,5 +1,7 @@
 # LIFT Digital Workplace Passport
 
+## Intro
+
 > A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
 
 ## Technology Stack
