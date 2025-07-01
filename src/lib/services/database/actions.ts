@@ -1,4 +1,6 @@
 import { supabase } from '$lib/services/supabaseClient';
+import type { Action } from '$lib/types/tableMain';
+import { filterLatestActions } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -6,8 +8,6 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-import { filterLatestActions } from '$lib/utils/versionFilter';
-import type { Action } from '$lib/types/tableMain';
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
@@ -324,24 +324,25 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 	}
 
 	// Convert database types to tableMain types
-	const convertedData = data?.map((dbAction) => ({
-		id: dbAction.id,
-		user_id: dbAction.user_id || '',
-		response_id: dbAction.response_id || undefined,
-		type: dbAction.type,
-		description: dbAction.description || undefined,
-		version: dbAction.version || 1,
-		status: dbAction.status as 'draft' | 'active' | 'archived',
-		created_at: dbAction.created_at || undefined,
-		updated_at: dbAction.updated_at || undefined
-	})) || [];
+	const convertedData =
+		data?.map((dbAction) => ({
+			id: dbAction.id,
+			user_id: dbAction.user_id || '',
+			response_id: dbAction.response_id || undefined,
+			type: dbAction.type,
+			description: dbAction.description || undefined,
+			version: dbAction.version || 1,
+			status: dbAction.status as 'draft' | 'active' | 'archived',
+			created_at: dbAction.created_at || undefined,
+			updated_at: dbAction.updated_at || undefined
+		})) || [];
 
 	return { data: convertedData, error: null };
 }
 
 /**
  * Get the latest action for a specific response
- * 
+ *
  * Note: This function uses database-level filtering (.limit(1)) for efficiency
  * instead of the filterLatestActions utility. This is intentional for single-item
  * queries where database filtering is more performant than client-side filtering.
@@ -360,19 +361,20 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 	}
 
 	// Convert database type to tableMain type (single action)
-	const convertedData = data && data.length > 0 
-		? {
-			id: data[0].id,
-			user_id: data[0].user_id || '',
-			response_id: data[0].response_id || undefined,
-			type: data[0].type,
-			description: data[0].description || undefined,
-			version: data[0].version || 1,
-			status: data[0].status as 'draft' | 'active' | 'archived',
-			created_at: data[0].created_at || undefined,
-			updated_at: data[0].updated_at || undefined
-		}
-		: null;
+	const convertedData =
+		data && data.length > 0
+			? {
+					id: data[0].id,
+					user_id: data[0].user_id || '',
+					response_id: data[0].response_id || undefined,
+					type: data[0].type,
+					description: data[0].description || undefined,
+					version: data[0].version || 1,
+					status: data[0].status as 'draft' | 'active' | 'archived',
+					created_at: data[0].created_at || undefined,
+					updated_at: data[0].updated_at || undefined
+				}
+			: null;
 
 	return { data: convertedData, error: null };
 }

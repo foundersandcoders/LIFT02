@@ -12,10 +12,10 @@
 	};
 </script>
 
-<header class="bg-primary sticky top-0 z-50 w-full border-b border-gray-200">
+<header class="bg-primary sticky top-0 z-50 w-full flex-shrink-0 border-b border-gray-200">
 	<div
 		id="header-content"
-		class="prose flex h-16 flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
+		class="flex h-16 w-full max-w-full flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
 	>
 		<div id="header-content-brand-logo">
 			<img

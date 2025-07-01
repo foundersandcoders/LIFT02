@@ -11,14 +11,16 @@
 	let view = $derived(getViewName());
 </script>
 
-{#if view === 'dash'}
-	<Dash />
-{:else if view === 'list'}
-	<List />
-{:else if view === 'detail'}
-	<Detail />
-{:else if view === 'email'}
-	<EmailPreview />
-{:else}
-	<div>No view selected</div>
-{/if}
+<div class="h-full w-full overflow-y-auto">
+	{#if view === 'dash'}
+		<Dash />
+	{:else if view === 'list'}
+		<List />
+	{:else if view === 'detail'}
+		<Detail />
+	{:else if view === 'email'}
+		<EmailPreview />
+	{:else}
+		<div class="p-4">No view selected</div>
+	{/if}
+</div>

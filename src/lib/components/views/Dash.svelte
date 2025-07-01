@@ -15,7 +15,7 @@
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
 	// let queryActions = $derived(app.profile.id ? getUserActions(app.profile.id) : null);
-    	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id) : null);
+	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id) : null);
 	let queryQuestions = $state(getQuestions());
 
 	function extractCategories(questions: Question[]): ItemCategory[] {
@@ -36,10 +36,10 @@
 	};
 </script>
 
-<div id="dash-view">
+<div id="dash-view" class="flex h-full w-full flex-col overflow-hidden">
 	<ViewHeader title="Dashboard" />
 
-	<div id="dash-tiles" class="view-layout">
+	<div id="dash-tiles" class="view-layout flex-1 overflow-y-auto">
 		{#await queryActions}
 			<button disabled class="dash-tile">
 				<p>Loading Actions...</p>
@@ -48,10 +48,7 @@
 			{#if result && result.data}
 				{@const table = 'actions'}
 				{@const category = { raw: 'actions', format: 'Actions' }}
-				<button
-					onclick={() => onclick(table, category)}
-					class="dash-tile"
-				>
+				<button onclick={() => onclick(table, category)} class="dash-tile">
 					<p>{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -74,10 +71,7 @@
 				{#each extractCategories(result.data) as category}
 					<!-- [ ] Extract this button component into a separate <DashTile /> -->
 					{@const table = 'questions'}
-					<button
-						onclick={() => onclick(table, category)}
-						class="dash-tile"
-					>
+					<button onclick={() => onclick(table, category)} class="dash-tile">
 						<p>{category.format}</p>
 					</button>
 				{/each}
