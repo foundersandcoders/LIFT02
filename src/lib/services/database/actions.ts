@@ -1,4 +1,6 @@
 import { supabase } from '$lib/services/supabaseClient';
+import type { Action } from '$lib/types/tableMain';
+import { filterLatestActions } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -6,8 +8,6 @@ import type {
 	DbResult as Result,
 	DbResultMany as Results
 } from './types';
-import { filterLatestActions } from '$lib/utils/versionFilter';
-import type { Action } from '$lib/types/tableMain';
 type ActionInsert = Database['public']['Tables']['actions']['Insert'];
 type ActionUpdate = Database['public']['Tables']['actions']['Update'];
 
@@ -53,7 +53,7 @@ export async function getUserActions(
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -81,7 +81,7 @@ export async function getActionById(id: string): Result<Action> {
 				type: data.type,
 				description: data.description || undefined,
 				version: data.version || 1,
-				status: data.status as 'draft' | 'active' | 'archived',
+				status: data.status as 'active' | 'archived',
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
 			}
@@ -114,7 +114,7 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -156,7 +156,7 @@ export async function createAction(
 				type: action.type,
 				description: action.description || undefined,
 				version: action.version || 1,
-				status: action.status as 'draft' | 'active' | 'archived',
+				status: action.status as 'active' | 'archived',
 				created_at: action.created_at || undefined,
 				updated_at: action.updated_at || undefined
 			}
@@ -211,7 +211,7 @@ export async function updateAction(
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				status: newAction.status as 'draft' | 'active' | 'archived',
+				status: newAction.status as 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
 			}
@@ -262,7 +262,7 @@ export async function archiveAction(id: string): Result<Action> {
 				type: newAction.type,
 				description: newAction.description || undefined,
 				version: newAction.version || 1,
-				status: newAction.status as 'draft' | 'active' | 'archived',
+				status: newAction.status as 'active' | 'archived',
 				created_at: newAction.created_at || undefined,
 				updated_at: newAction.updated_at || undefined
 			}
@@ -294,7 +294,7 @@ export async function getLatestActions(userId: string): Results<Action> {
 			type: dbAction.type,
 			description: dbAction.description || undefined,
 			version: dbAction.version || 1,
-			status: dbAction.status as 'draft' | 'active' | 'archived',
+			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
 		})) || null;
@@ -324,24 +324,25 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 	}
 
 	// Convert database types to tableMain types
-	const convertedData = data?.map((dbAction) => ({
-		id: dbAction.id,
-		user_id: dbAction.user_id || '',
-		response_id: dbAction.response_id || undefined,
-		type: dbAction.type,
-		description: dbAction.description || undefined,
-		version: dbAction.version || 1,
-		status: dbAction.status as 'draft' | 'active' | 'archived',
-		created_at: dbAction.created_at || undefined,
-		updated_at: dbAction.updated_at || undefined
-	})) || [];
+	const convertedData =
+		data?.map((dbAction) => ({
+			id: dbAction.id,
+			user_id: dbAction.user_id || '',
+			response_id: dbAction.response_id || undefined,
+			type: dbAction.type,
+			description: dbAction.description || undefined,
+			version: dbAction.version || 1,
+			status: dbAction.status as 'active' | 'archived',
+			created_at: dbAction.created_at || undefined,
+			updated_at: dbAction.updated_at || undefined
+		})) || [];
 
 	return { data: convertedData, error: null };
 }
 
 /**
  * Get the latest action for a specific response
- * 
+ *
  * Note: This function uses database-level filtering (.limit(1)) for efficiency
  * instead of the filterLatestActions utility. This is intentional for single-item
  * queries where database filtering is more performant than client-side filtering.
@@ -360,18 +361,59 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 	}
 
 	// Convert database type to tableMain type (single action)
-	const convertedData = data && data.length > 0 
+	const convertedData =
+		data && data.length > 0
+			? {
+					id: data[0].id,
+					user_id: data[0].user_id || '',
+					response_id: data[0].response_id || undefined,
+					type: data[0].type,
+					description: data[0].description || undefined,
+					version: data[0].version || 1,
+					status: data[0].status as 'active' | 'archived',
+					created_at: data[0].created_at || undefined,
+					updated_at: data[0].updated_at || undefined
+				}
+			: null;
+
+	return { data: convertedData, error: null };
+}
+
+/**
+ * Update an action's status (active/archived) by creating a new version
+ *
+ * This function specifically handles status changes and creates a new version
+ * of the action with the updated status, following the versioning pattern.
+ */
+export async function updateActionStatus(
+	id: string,
+	newStatus: 'active' | 'archived'
+): Result<Action> {
+	// Update the existing action's status
+	const { data: updatedAction, error: updateError } = await supabase
+		.from('actions')
+		.update({ status: newStatus })
+		.eq('id', id)
+		.select()
+		.single();
+
+	if (updateError) {
+		return { data: null, error: updateError };
+	}
+
+	// Convert database type to tableMain type
+	const convertedData = updatedAction
 		? {
-			id: data[0].id,
-			user_id: data[0].user_id || '',
-			response_id: data[0].response_id || undefined,
-			type: data[0].type,
-			description: data[0].description || undefined,
-			version: data[0].version || 1,
-			status: data[0].status as 'draft' | 'active' | 'archived',
-			created_at: data[0].created_at || undefined,
-			updated_at: data[0].updated_at || undefined
-		}
+				id: updatedAction.id,
+				user_id: updatedAction.user_id || '',
+				response_id: updatedAction.response_id || undefined,
+				type: updatedAction.type,
+				description: updatedAction.description || undefined,
+				version: updatedAction.version || 1,
+				status: updatedAction.status as 'active' | 'archived',
+				created_at: updatedAction.created_at || undefined,
+				updated_at: updatedAction.updated_at || undefined
+			}
 		: null;
 
 	return { data: convertedData, error: null };
