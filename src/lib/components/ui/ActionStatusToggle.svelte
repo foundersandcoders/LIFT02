@@ -16,7 +16,7 @@
 <label class="flex items-center gap-2">
 	<input 
 		type="checkbox" 
-		class="toggle {status === 'active' ? 'toggle-accent' : ''}" 
+		class="toggle border-accent-dark bg-accent checked:border-gray-500 checked:bg-gray-400 checked:text-gray-800" 
 		{checked}
 		onchange={handleToggle}
 	/>
