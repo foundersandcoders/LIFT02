@@ -32,6 +32,11 @@ if [ ! -f "supabase/data/questions.json" ]; then
     exit 1
 fi
 
+if [ ! -f "supabase/data/resources.json" ]; then
+    echo -e "${RED}❌ Error: supabase/data/resources.json not found${NC}"
+    exit 1
+fi
+
 if [ ! -f "supabase/data/test_data_source.json" ]; then
     echo -e "${RED}❌ Error: supabase/data/test_data_source.json not found${NC}"
     exit 1
@@ -41,14 +46,15 @@ echo -e "${YELLOW}📤 Reading data sources...${NC}"
 
 # Read the JSON files
 QUESTIONS_DATA=$(cat supabase/data/questions.json)
+RESOURCES_DATA=$(cat supabase/data/resources.json)
 TEST_DATA=$(cat supabase/data/test_data_source.json)
 
 echo -e "${YELLOW}📝 Generating seed.sql file...${NC}"
 
-# Generate the seed.sql file for questions (in root for auto-seeding)
+# Generate the seed.sql file for questions and resources (in root for auto-seeding)
 cat > supabase/seed.sql << 'EOF'
--- Seed data for questions table
--- This file is auto-generated from data/questions.json
+-- Seed data for questions and resources tables
+-- This file is auto-generated from data/questions.json and data/resources.json
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 INSERT INTO questions (category, question_text, "order", preview) VALUES
@@ -57,6 +63,16 @@ EOF
 # Add questions
 echo "$QUESTIONS_DATA" | jq -r '.questions | length as $len | to_entries | map(
   "  (\u0027" + .value.category + "\u0027, \u0027" + (.value.question_text | gsub("\u0027"; "\u0027\u0027")) + "\u0027, " + (.value.order | tostring) + ", \u0027" + .value.preview + "\u0027)" + (if (.key == ($len - 1)) then ";" else "," end)
+) | join("\n")' >> supabase/seed.sql
+
+# Add resources section
+echo "" >> supabase/seed.sql
+echo "" >> supabase/seed.sql
+echo "INSERT INTO resources (title, description, url) VALUES" >> supabase/seed.sql
+
+# Add resources
+echo "$RESOURCES_DATA" | jq -r '.resources | length as $len | to_entries | map(
+  "  (\u0027" + (.value.title | gsub("\u0027"; "\u0027\u0027")) + "\u0027, " + (if .value.description then "\u0027" + (.value.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027" else "NULL" end) + ", " + (if .value.url then "\u0027" + .value.url + "\u0027" else "NULL" end) + ")" + (if (.key == ($len - 1)) then ";" else "," end)
 ) | join("\n")' >> supabase/seed.sql
 
 echo -e "${GREEN}✅ Generated supabase/seed.sql${NC}"
@@ -356,6 +372,7 @@ echo -e "${GREEN}✅ Generated supabase/generated/delete_test_fake_data.sql${NC}
 
 echo -e "${YELLOW}📊 Summary:${NC}"
 QUESTION_COUNT=$(echo "$QUESTIONS_DATA" | jq '.questions | length')
+RESOURCE_COUNT=$(echo "$RESOURCES_DATA" | jq '.resources | length')
 ORGANIZATION_COUNT=$(echo "$TEST_DATA" | jq '.organizations | length')
 LINE_MANAGER_COUNT=$(echo "$TEST_DATA" | jq '.line_managers | length')
 USER_COUNT=$(echo "$TEST_DATA" | jq '.users | length')
@@ -364,6 +381,7 @@ ACTION_COUNT=$(echo "$TEST_DATA" | jq '.actions | length')
 SHARING_COUNT=$(echo "$TEST_DATA" | jq '.sharing_events | length')
 
 echo "   - Questions: $QUESTION_COUNT"
+echo "   - Resources: $RESOURCE_COUNT"
 echo "   - Organizations: $ORGANIZATION_COUNT"
 echo "   - Line Managers: $LINE_MANAGER_COUNT"
 echo "   - Users: $USER_COUNT"
