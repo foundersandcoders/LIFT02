@@ -125,6 +125,8 @@
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
 				/>
+			{:else if table === 'resources'}
+				<!-- No action indicator for resources -->
 			{:else if app.profile.id && randomNum() > 7}
 				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
 			{:else}
