@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
-	import type { Action, Question } from '$lib/types/tableMain';
+	import type { Action, Question, Resource } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
 	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
+	import { getResources } from '$lib/services/database/resources';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
