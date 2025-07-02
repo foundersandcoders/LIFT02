@@ -60,3 +60,14 @@ export interface Share {
 	actions?: Action[]; // sharing_event_actions
 	shared_at?: string; // TODO: Temporal()
 }
+
+export interface Resource {
+	id?: string;
+	title: string;
+	description?: string;
+	url?: string;
+	category: string;
+	type: 'article' | 'video' | 'tool' | 'document' | 'website';
+	created_at?: string;
+	updated_at?: string;
+}
