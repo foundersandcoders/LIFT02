@@ -1,6 +1,6 @@
 import type { Employer, Pronouns, User } from './tableSub';
 
-export type Input = Action | Profile | Question | Response | Share;
+export type Input = Action | Profile | Question | Response | Share | Resource;
 
 export interface Action {
 	id?: string;
@@ -66,8 +66,4 @@ export interface Resource {
 	title: string;
 	description?: string;
 	url?: string;
-	category: string;
-	type: 'article' | 'video' | 'tool' | 'document' | 'website';
-	created_at?: string;
-	updated_at?: string;
 }
