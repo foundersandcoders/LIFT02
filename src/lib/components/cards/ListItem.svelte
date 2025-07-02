@@ -20,7 +20,7 @@
 		table,
 		textAlign = 'center'
 	} = $props<{
-		item: Action | Question;
+		item: Action | Question | Resource;
 		table: TableName;
 		textAlign?: 'left' | 'center' | 'right';
 	}>();
@@ -78,9 +78,9 @@
 
 <button
 	id="list-item-{item.id}"
-	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
+	onclick={table === 'questions' || table === 'resources' ? () => onclick(table, item) : undefined}
 	tabindex="0"
-	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
+	class="list-item {table === 'questions' || table === 'resources' ? 'cursor-pointer' : 'cursor-default'}"
 	disabled={table === 'actions'}
 >
 	<div class="list-item-row">
@@ -103,6 +103,11 @@
 				<p>{item.description || 'No description'}</p>
 			{:else if table == 'questions' && item}
 				<p>{item.preview}</p>
+			{:else if table == 'resources' && item}
+				<p>{item.title}</p>
+				{#if item.description}
+					<p class="text-sm opacity-75">{item.description}</p>
+				{/if}
 			{:else}
 				{@const table = null}
 				{@const item = { id: null }}
