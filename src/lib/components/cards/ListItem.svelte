@@ -78,10 +78,10 @@
 
 <button
 	id="list-item-{item.id}"
-	onclick={table === 'questions' || table === 'resources' ? () => onclick(table, item) : undefined}
+	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
-	class="list-item {table === 'questions' || table === 'resources' ? 'cursor-pointer' : 'cursor-default'}"
-	disabled={table === 'actions'}
+	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
+	disabled={table === 'actions' || table === 'resources'}
 >
 	<div class="list-item-row">
 		<!-- [!] the status icon logic has to be replaced by db queries -->
@@ -105,8 +105,12 @@
 				<p>{item.preview}</p>
 			{:else if table == 'resources' && item}
 				<p>{item.title}</p>
-				{#if item.description}
-					<p class="text-sm opacity-75">{item.description}</p>
+				{#if item.url}
+					<a href={item.url} target="_blank" rel="noopener noreferrer" 
+					   class="text-sm text-accent hover:text-accent-dark underline"
+					   onclick={(e) => e.stopPropagation()}>
+						{item.url}
+					</a>
 				{/if}
 			{:else}
 				{@const table = null}
