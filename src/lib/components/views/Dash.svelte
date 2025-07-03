@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
-	import { getUserActions, getLatestActions } from '$lib/services/database/actions';
+	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestions } from '$lib/services/database/questions';
+	import { getResources } from '$lib/services/database/resources';
 	import type { Question } from '$lib/types/tableMain';
 	import type { AppState, ItemCategory, List, TableName, ViewName } from '$lib/types/appState';
 	import { makePretty } from '$lib/utils/textTools';
-	import { getContext } from 'svelte';
-	import { getResources } from '$lib/services/database/resources';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
