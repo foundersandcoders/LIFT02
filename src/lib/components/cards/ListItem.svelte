@@ -5,7 +5,6 @@
 	import { randomNum } from '$lib/utils/random';
 	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
-	import { getResources } from '$lib/services/database/resources';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -106,9 +105,13 @@
 			{:else if table == 'resources' && item}
 				<p>{item.title}</p>
 				{#if item.url}
-					<a href={item.url} target="_blank" rel="noopener noreferrer" 
-					   class="text-sm text-accent hover:text-accent-dark underline"
-					   onclick={(e) => e.stopPropagation()}>
+					<a
+						href={item.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent hover:text-accent-dark text-sm underline"
+						onclick={(e) => e.stopPropagation()}
+					>
 						{item.url}
 					</a>
 				{/if}
