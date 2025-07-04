@@ -51,7 +51,13 @@ export type RowId = string;
 
 export type RowName = string;
 
-export type TableName = 'actions' | 'profiles' | 'questions' | 'responses' | 'sharing_events';
+export type TableName =
+	| 'actions'
+	| 'profiles'
+	| 'questions'
+	| 'responses'
+	| 'sharing_events'
+	| 'resources';
 
 export interface View {
 	name: ViewName;

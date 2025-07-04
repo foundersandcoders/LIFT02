@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
-	import type { Action, Question } from '$lib/types/tableMain';
+	import type { Action, Question, Resource } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
 	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
@@ -19,7 +19,7 @@
 		table,
 		textAlign = 'center'
 	} = $props<{
-		item: Action | Question;
+		item: Action | Question | Resource;
 		table: TableName;
 		textAlign?: 'left' | 'center' | 'right';
 	}>();
@@ -80,7 +80,7 @@
 	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
 	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
-	disabled={table === 'actions'}
+	disabled={table === 'actions' || table === 'resources'}
 >
 	<div class="list-item-row">
 		<!-- [!] the status icon logic has to be replaced by db queries -->
@@ -102,6 +102,19 @@
 				<p>{item.description || 'No description'}</p>
 			{:else if table == 'questions' && item}
 				<p>{item.preview}</p>
+			{:else if table == 'resources' && item}
+				<p>{item.title}</p>
+				{#if item.url}
+					<a
+						href={item.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent hover:text-accent-dark text-sm underline"
+						onclick={(e) => e.stopPropagation()}
+					>
+						{item.url}
+					</a>
+				{/if}
 			{:else}
 				{@const table = null}
 				{@const item = { id: null }}
@@ -115,6 +128,8 @@
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
 				/>
+			{:else if table === 'resources'}
+				<!-- No action indicator for resources -->
 			{:else if app.profile.id && randomNum() > 7}
 				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
 			{:else}

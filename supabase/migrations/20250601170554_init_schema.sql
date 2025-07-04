@@ -82,3 +82,13 @@ create table if not exists sharing_event_actions (
   sharing_event_id uuid references sharing_events on delete cascade,
   action_id uuid references actions on delete cascade
 );
+
+-- 9. resources table
+create table if not exists resources (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  description text,
+  url text,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
+);

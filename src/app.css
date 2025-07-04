@@ -118,5 +118,5 @@ body {
 }
 
 .dash-tile {
-	@apply card prose border-primary bg-base-100 m-2 w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 m-2 w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
 }

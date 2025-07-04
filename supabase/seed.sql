@@ -1,5 +1,5 @@
--- Seed data for questions table
--- This file is auto-generated from data/questions.json
+-- Seed data for questions and resources tables
+-- This file is auto-generated from data/questions.json and data/resources.json
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 INSERT INTO questions (category, question_text, "order", preview) VALUES
@@ -17,3 +17,18 @@ INSERT INTO questions (category, question_text, "order", preview) VALUES
   ('my_support_needs', 'Share the information about your work needs that would be helpful for your colleagues.', 12, 'What I Need'),
   ('my_support_needs', 'What do you need to thrive in your role here at Islington? There is space in the next section to outline specific workplace adjustments.', 13, 'My Workplace Adjustments'),
   ('about_me', 'Is there anything you think would be helpful for your colleagues to know? How should this be shared?', 14, 'Things to Know About Me');
+
+
+INSERT INTO resources (title, description, url) VALUES
+  ('Access to Reasonable Adjustments Guide', 'Comprehensive guide on workplace reasonable adjustments under the Equality Act 2010', 'https://www.equalityhumanrights.com/en/multipage-guide/reasonable-adjustments-workplace'),
+  ('ADHD Foundation Workplace Resources', 'Tips and strategies for ADHD employees in the workplace', 'https://www.adhdfoundation.org.uk/workplace/'),
+  ('National Autistic Society Employment Guide', 'Resources for autistic employees and employers', 'https://www.autism.org.uk/advice-and-guidance/topics/employment'),
+  ('Dyslexia Association Workplace Support', 'Information on dyslexia-friendly workplace practices', 'https://www.bdadyslexia.org.uk/employer'),
+  ('Mental Health First Aid at Work', 'Guide to supporting mental health in the workplace', 'https://mhfaengland.org/workplace/'),
+  ('Scope Disability Employment Advice', 'Employment rights and support for disabled people', 'https://www.scope.org.uk/advice-and-support/employment-advice/'),
+  ('Neurodiversity in the Workplace Toolkit', 'Practical toolkit for creating neuroinclusive workplaces', 'https://www.cipd.co.uk/knowledge/fundamentals/relations/diversity/neurodiversity-workplace'),
+  ('Access to Work Scheme', 'Government scheme providing grants for workplace adjustments', 'https://www.gov.uk/access-to-work'),
+  ('Tourettes Action Employment Guide', 'Resources for employees with Tourette syndrome', 'https://www.tourettes-action.org.uk/workplace-support'),
+  ('Mind''s Guide to Mental Health at Work', 'Information on mental health support in the workplace', 'https://www.mind.org.uk/workplace/'),
+  ('Sensory Processing Disorder Workplace Adjustments', 'Guide to sensory-friendly workplace accommodations', 'https://www.sensory-processing-disorder.com/workplace-accommodations.html'),
+  ('Learning Disability Employment Support', 'Resources for people with learning disabilities in employment', 'https://www.mencap.org.uk/advice-and-support/employment');

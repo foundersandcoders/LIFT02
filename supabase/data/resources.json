@@ -1,0 +1,64 @@
+{
+	"resources": [
+		{
+			"title": "Access to Reasonable Adjustments Guide",
+			"description": "Comprehensive guide on workplace reasonable adjustments under the Equality Act 2010",
+			"url": "https://www.equalityhumanrights.com/en/multipage-guide/reasonable-adjustments-workplace"
+		},
+		{
+			"title": "ADHD Foundation Workplace Resources",
+			"description": "Tips and strategies for ADHD employees in the workplace",
+			"url": "https://www.adhdfoundation.org.uk/workplace/"
+		},
+		{
+			"title": "National Autistic Society Employment Guide",
+			"description": "Resources for autistic employees and employers",
+			"url": "https://www.autism.org.uk/advice-and-guidance/topics/employment"
+		},
+		{
+			"title": "Dyslexia Association Workplace Support",
+			"description": "Information on dyslexia-friendly workplace practices",
+			"url": "https://www.bdadyslexia.org.uk/employer"
+		},
+		{
+			"title": "Mental Health First Aid at Work",
+			"description": "Guide to supporting mental health in the workplace",
+			"url": "https://mhfaengland.org/workplace/"
+		},
+		{
+			"title": "Scope Disability Employment Advice",
+			"description": "Employment rights and support for disabled people",
+			"url": "https://www.scope.org.uk/advice-and-support/employment-advice/"
+		},
+		{
+			"title": "Neurodiversity in the Workplace Toolkit",
+			"description": "Practical toolkit for creating neuroinclusive workplaces",
+			"url": "https://www.cipd.co.uk/knowledge/fundamentals/relations/diversity/neurodiversity-workplace"
+		},
+		{
+			"title": "Access to Work Scheme",
+			"description": "Government scheme providing grants for workplace adjustments",
+			"url": "https://www.gov.uk/access-to-work"
+		},
+		{
+			"title": "Tourettes Action Employment Guide",
+			"description": "Resources for employees with Tourette syndrome",
+			"url": "https://www.tourettes-action.org.uk/workplace-support"
+		},
+		{
+			"title": "Mind's Guide to Mental Health at Work",
+			"description": "Information on mental health support in the workplace",
+			"url": "https://www.mind.org.uk/workplace/"
+		},
+		{
+			"title": "Sensory Processing Disorder Workplace Adjustments",
+			"description": "Guide to sensory-friendly workplace accommodations",
+			"url": "https://www.sensory-processing-disorder.com/workplace-accommodations.html"
+		},
+		{
+			"title": "Learning Disability Employment Support",
+			"description": "Resources for people with learning disabilities in employment",
+			"url": "https://www.mencap.org.uk/advice-and-support/employment"
+		}
+	]
+}
