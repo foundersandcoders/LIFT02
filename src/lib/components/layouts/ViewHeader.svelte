@@ -7,10 +7,7 @@
 	const { title, onclick }: Props = $props();
 </script>
 
-<div
-	id="{title}-header"
-	class="prose bg-accent flex w-screen flex-row items-center justify-between p-4"
->
+<div id="{title}-header" class="view-header">
 	<h2 class="text-accent-content flex items-center">{title}</h2>
 
 	{#if onclick}

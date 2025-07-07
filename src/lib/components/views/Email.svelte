@@ -54,24 +54,26 @@
 	};
 </script>
 
-<div class="flex h-full w-full flex-col overflow-hidden">
+<div id="email-view" class="view">
 	<ViewHeader title="Email Preview" onclick={onBackClick} />
 
-	<div class="m-2 flex-1 overflow-y-auto">
-		<div class="card-content">
-			{@html emailContent}
+	<div id="email-content" class="view-content">
+		<div class="m-2 flex-1 overflow-y-auto">
+			<div class="card-content">
+				{@html emailContent}
+			</div>
 		</div>
-	</div>
 
-	<!-- Action Buttons -->
-	<div class="m-2 flex flex-shrink-0 justify-around space-x-4">
-		<button
-			onclick={onSendClick}
-			class="btn-submit"
-			type="button"
-			aria-label="Send email to line manager"
-		>
-			Send
-		</button>
+		<!-- Action Buttons -->
+		<div class="m-2 flex flex-shrink-0 justify-around space-x-4">
+			<button
+				onclick={onSendClick}
+				class="btn-submit"
+				type="button"
+				aria-label="Send email to line manager"
+			>
+				Send
+			</button>
+		</div>
 	</div>
 </div>

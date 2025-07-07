@@ -4,7 +4,7 @@
 	import Dash from '$lib/components/views/Dash.svelte';
 	import Detail from '$lib/components/views/Detail.svelte';
 	import List from '$lib/components/views/List.svelte';
-	import EmailPreview from '$lib/components/cards/EmailPreview.svelte';
+	import Email from '$lib/components/views/Email.svelte';
 
 	const getViewName = getContext<() => ViewName>('getViewName');
 
@@ -19,7 +19,7 @@
 	{:else if view === 'detail'}
 		<Detail />
 	{:else if view === 'email'}
-		<EmailPreview />
+		<Email />
 	{:else}
 		<div class="p-4">No view selected</div>
 	{/if}
