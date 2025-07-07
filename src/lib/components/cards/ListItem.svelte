@@ -79,7 +79,7 @@
 	id="list-item-{item.id}"
 	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
-	class="list-item list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
+	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
 	disabled={table === 'actions' || table === 'resources'}
 >
 	<div class="list-item-row">
