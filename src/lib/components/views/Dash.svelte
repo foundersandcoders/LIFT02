@@ -35,75 +35,75 @@
 	};
 </script>
 
-<div id="dash-view">
+<div id="dash-view" class="view">
 	<ViewHeader title="Dashboard" />
 
-	<div id="dash-tiles" class="view-layout">
+	<div id="dash-content" class="view-content">
 		{#await queryActions}
-			<button disabled class="dash-tile">
-				<p>Loading Actions...</p>
+			<button disabled class="list-item">
+				<p class="text-center">Loading Actions...</p>
 			</button>
 		{:then result}
 			{#if result && result.data}
 				{@const table = 'actions'}
 				{@const category = { raw: 'actions', format: 'Actions' }}
-				<button onclick={() => onclick(table, category)} class="dash-tile">
-					<p>{result.data.length} Actions</p>
+				<button onclick={() => onclick(table, category)} class="list-item">
+					<p class="text-center">{result.data.length} Actions</p>
 				</button>
 			{:else}
-				<div class="dash-tile">
-					<p>0 Actions</p>
+				<div class="list-item">
+					<p class="text-center">0 Actions</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="dash-tile">
-				<p>Error Getting Actions: {error.message}</p>
+			<div class="list-item">
+				<p class="text-center">Error Getting Actions: {error.message}</p>
 			</div>
 		{/await}
 
 		{#await queryResources}
-			<button disabled class="dash-tile">
-				<p>Loading Resources...</p>
+			<button disabled class="list-item">
+				<p class="text-center">Loading Resources...</p>
 			</button>
 		{:then result}
 			{#if result && result.data}
 				{@const table = 'resources'}
 				{@const category = { raw: 'resources', format: 'Resources' }}
-				<button onclick={() => onclick(table, category)} class="dash-tile">
-					<p>{result.data.length} Resources</p>
+				<button onclick={() => onclick(table, category)} class="list-item">
+					<p class="text-center">{result.data.length} Resources</p>
 				</button>
 			{:else}
-				<div class="dash-tile">
-					<p>0 Resources</p>
+				<div class="list-item">
+					<p class="text-center">0 Resources</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="dash-tile">
-				<p>Error Getting Resources: {error.message}</p>
+			<div class="list-item">
+				<p class="text-center">Error Getting Resources: {error.message}</p>
 			</div>
 		{/await}
 
 		{#await queryQuestions}
-			<div class="dash-tile">
-				<p>Loading Questions...</p>
+			<div class="list-item">
+				<p class="text-center">Loading Questions...</p>
 			</div>
 		{:then result}
 			{#if result.data}
 				{#each extractCategories(result.data) as category}
 					<!-- [ ] Extract this button component into a separate <DashTile /> -->
 					{@const table = 'questions'}
-					<button onclick={() => onclick(table, category)} class="dash-tile">
-						<p>{category.format}</p>
+					<button onclick={() => onclick(table, category)} class="list-item">
+						<p class="text-center">{category.format}</p>
 					</button>
 				{/each}
 			{:else}
-				<div class="dash-tile">
-					<p>No Questions Found</p>
+				<div class="list-item">
+					<p class="text-center">No Questions Found</p>
 				</div>
 			{/if}
 		{:catch error}
-			<div class="dash-tile">
-				<p>Loading Questions...</p>
+			<div class="list-item">
+				<p class="text-center">Loading Questions...</p>
 			</div>
 		{/await}
 	</div>

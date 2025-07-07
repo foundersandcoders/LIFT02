@@ -12,21 +12,23 @@
 	};
 </script>
 
-<header class="bg-primary sticky top-0 z-50 w-full border-b border-gray-200">
+<header class="bg-primary sticky top-0 z-50 w-full flex-shrink-0 border-b border-gray-200">
 	<div
 		id="header-content"
-		class="prose flex h-16 flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
+		class="flex h-16 w-full flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
 	>
-		<div id="header-content-brand-logo">
-			<img
-				alt="Neacons logo"
-				src="/Logos/LIFT_logo_gradient_clean.svg"
-				class="h-8 w-auto sm:h-10"
-			/>
-		</div>
+		<div id="header-content-left" class="flex items-center space-x-4">
+			<div id="header-content-brand-logo">
+				<img
+					alt="Neacons logo"
+					src="/Logos/LIFT_logo_gradient_clean.svg"
+					class="h-8 w-auto sm:h-10"
+				/>
+			</div>
 
-		<div id="header-content-brand-name" class="h-8 w-auto sm:h-10">
-			<h1 class="text-primary-content text-xl font-bold tracking-tight uppercase">Neacons</h1>
+			<div id="header-content-brand-name" class="h-8 w-auto sm:h-10">
+				<h1 class="text-primary-content text-xl font-bold tracking-tight uppercase">Neacons</h1>
+			</div>
 		</div>
 
 		<div id="header-content-buttons" class="flex items-center space-x-3">

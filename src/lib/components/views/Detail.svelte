@@ -33,10 +33,10 @@
 	};
 </script>
 
-<div id="detail-view" class="dev dev-div">
+<div id="detail-view" class="view">
 	<ViewHeader {title} {onclick} />
 
-	<div id="detail-content" class="dev dev-div">
+	<div id="detail-content" class="view-content">
 		{#if table == 'questions'}
 			{#await question}
 				<p>Loading...</p>

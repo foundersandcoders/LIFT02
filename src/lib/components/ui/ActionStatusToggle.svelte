@@ -5,7 +5,7 @@
 	}>();
 
 	const checked = $derived(status === 'archived');
-	
+
 	const handleToggle = (event: Event & { currentTarget: HTMLInputElement }) => {
 		const isArchived = event.currentTarget.checked;
 		const newStatus = isArchived ? 'archived' : 'active';
@@ -14,11 +14,11 @@
 </script>
 
 <label class="flex items-center gap-2">
-	<input 
-		type="checkbox" 
-		class="toggle border-accent-dark bg-accent checked:border-gray-500 checked:bg-gray-400 checked:text-gray-800" 
+	<input
+		type="checkbox"
+		class="toggle border-accent-dark bg-accent checked:border-gray-500 checked:bg-gray-400 checked:text-gray-800"
 		{checked}
 		onchange={handleToggle}
 	/>
-	<span class="text-sm">{status === 'active' ? 'Active' : 'Archived'}</span>
+	<span class="w-16 text-sm">{status === 'active' ? 'Active' : 'Archived'}</span>
 </label>

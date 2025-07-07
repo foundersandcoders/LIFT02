@@ -12,10 +12,7 @@
 		View,
 		ViewName
 	} from '$lib/types/appState';
-	import {
-		inspectPrefixDev as preDev,
-		inspectPrefixApp as preApp
-	} from '$lib/utils/inspector';
+	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from '$lib/utils/inspector';
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
 
@@ -142,10 +139,10 @@
 	let { children } = $props();
 </script>
 
-<div class="flex min-h-screen flex-col">
+<div class="flex h-screen w-full flex-col overflow-hidden">
 	<Header />
 
-	<main id={appState.view.name} class="bg-base-200 flex-1">
+	<main id={appState.view.name} class="bg-base-200 w-full flex-1 overflow-hidden">
 		{@render children()}
 	</main>
 
