@@ -36,7 +36,7 @@
 <div id="detail-view" class="dev dev-div flex h-full w-full flex-col overflow-hidden">
 	<ViewHeader {title} {onclick} />
 
-	<div id="detail-content" class="dev dev-div flex-1 overflow-y-auto">
+	<div id="detail-content" class="dev dev-div m-2 flex-1 overflow-y-auto">
 		{#if table == 'questions'}
 			{#await question}
 				<p>Loading...</p>

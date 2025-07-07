@@ -2,6 +2,7 @@
 	import { generateEmailData, renderEmailToHTML } from '$lib/services/emailBuilder';
 	import { getContext } from 'svelte';
 	import type { ViewName } from '$lib/types/appState';
+	import ViewHeader from '../layouts/ViewHeader.svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
@@ -54,23 +55,16 @@
 </script>
 
 <div class="flex h-full w-full flex-col overflow-hidden">
-	<div class="flex-shrink-0 p-4">
-		<div class="card-header">
-			<h1 class="mb-2 text-center text-2xl">Email Preview</h1>
-		</div>
-	</div>
+	<ViewHeader title="Email Preview" onclick={onBackClick} />
 
-	<div class="flex-1 overflow-y-auto p-4">
+	<div class="m-2 flex-1 overflow-y-auto">
 		<div class="card-content">
 			{@html emailContent}
 		</div>
 	</div>
 
 	<!-- Action Buttons -->
-	<div class="flex flex-shrink-0 justify-around space-x-4 p-4">
-		<button onclick={onBackClick} class="btn-nav" type="button" aria-label="Go back to dashboard">
-			Back
-		</button>
+	<div class="m-2 flex flex-shrink-0 justify-around space-x-4">
 		<button
 			onclick={onSendClick}
 			class="btn-submit"

@@ -42,12 +42,8 @@
 			: { primaryText: 'Submit', secondaryText: 'Skip' };
 	});
 
-	$inspect(isUpdate).with((type, value) =>
-		console.log(`🔄 isUpdate: ${type} ${value}`)
-	);
-	$inspect(hasContent).with((type, value) =>
-		console.log(`📝 hasContent: ${type} ${value}`)
-	);
+	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
+	$inspect(hasContent).with((type, value) => console.log(`📝 hasContent: ${type} ${value}`));
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
 	);

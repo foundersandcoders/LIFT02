@@ -42,19 +42,19 @@ body {
 }
 
 .view-layout {
-	@apply mx-2 flex w-full flex-col justify-around space-y-4 px-2;
+	@apply mx-2 flex max-w-full flex-col justify-around space-y-4 px-2;
 }
 
 .card-container {
-	@apply mx-2 flex w-full flex-col justify-around space-y-4 px-2;
+	@apply mx-2 flex max-w-full flex-col justify-around space-y-4 px-2;
 }
 
 .card-header {
-	@apply card bg-base-100 mb-4 w-full p-2 shadow;
+	@apply card bg-base-100 mt-6 mb-4 max-w-full p-2 shadow;
 }
 
 .card-content {
-	@apply card bg-base-100 w-full p-2 shadow;
+	@apply card bg-base-100 max-w-full p-2 shadow;
 }
 
 .form-textarea {
@@ -118,5 +118,5 @@ body {
 }
 
 .dash-tile {
-	@apply card border-primary bg-base-100 m-2 w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 m-2 max-w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
 }

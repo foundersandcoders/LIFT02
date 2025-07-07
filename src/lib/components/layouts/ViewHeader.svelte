@@ -9,11 +9,13 @@
 
 <div
 	id="{title}-header"
-	class="prose bg-accent w-screen flex flex-row items-center justify-between p-4 -mx-2"
+	class="prose bg-accent flex w-screen flex-row items-center justify-between p-4"
 >
-	<h2 class="text-accent-content">{title}</h2>
+	<h2 class="text-accent-content flex items-center">{title}</h2>
 
 	{#if onclick}
 		<button {onclick} class="btn-nav border-primary"> Back </button>
+	{:else}
+		<div class="btn-nav invisible opacity-0">Back</div>
 	{/if}
 </div>
