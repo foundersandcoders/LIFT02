@@ -482,7 +482,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440005",
 			"type": "equipment",
 			"description": "Request ergonomic keyboard and mouse to reduce sensory input",
-			"status": "draft",
+			"status": "active",
 			"version": 1
 		},
 		{
@@ -500,7 +500,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440007",
 			"type": "workplace_adjustment",
 			"description": "Relocate to corner desk away from main walkway",
-			"status": "draft",
+			"status": "active",
 			"version": 1
 		},
 		{
@@ -608,7 +608,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440035",
 			"type": "workplace_adjustment",
 			"description": "Relocate to quieter area near window for natural light",
-			"status": "draft",
+			"status": "active",
 			"version": 1
 		},
 		{
@@ -716,8 +716,35 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440052",
 			"type": "development",
 			"description": "Provide opportunities to mentor junior developers on projects",
-			"status": "draft",
+			"status": "active",
 			"version": 1
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440046",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440001",
+			"type": "communication",
+			"description": "Implement daily stand-up check-ins with visual status updates to track progress",
+			"status": "active",
+			"version": 2
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440047",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440001",
+			"type": "technology",
+			"description": "Install focus apps and website blockers on work devices to minimize distractions",
+			"status": "active",
+			"version": 3
+		},
+		{
+			"id": "770e8400-e29b-41d4-a716-446655440048",
+			"user_id": "550e8400-e29b-41d4-a716-446655440001",
+			"response_id": "660e8400-e29b-41d4-a716-446655440001",
+			"type": "workplace_adjustment",
+			"description": "Create a dedicated quiet zone with fidget tools and adjustable lighting for ADHD focus needs",
+			"status": "active",
+			"version": 4
 		}
 	],
 	"sharing_events": [

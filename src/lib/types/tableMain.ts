@@ -1,6 +1,6 @@
 import type { Employer, Pronouns, User } from './tableSub';
 
-export type Input = Action | Profile | Question | Response | Share;
+export type Input = Action | Profile | Question | Response | Share | Resource;
 
 export interface Action {
 	id?: string;
@@ -9,7 +9,7 @@ export interface Action {
 	type: string;
 	description?: string;
 	version: number;
-	status: 'draft' | 'active' | 'archived';
+	status: 'active' | 'archived';
 	created_at?: string; // TODO: Temporal()
 	updated_at?: string; // TODO: Temporal(),
 	shares?: Share[]; // sharing_event_actions
@@ -59,4 +59,11 @@ export interface Share {
 	responses?: Response[]; // sharing_event_responses
 	actions?: Action[]; // sharing_event_actions
 	shared_at?: string; // TODO: Temporal()
+}
+
+export interface Resource {
+	id?: string;
+	title: string;
+	description?: string;
+	url?: string;
 }

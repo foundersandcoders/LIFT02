@@ -13,6 +13,8 @@
 	const profileId = $derived(app.profile.id);
 	const category = $derived(app.list.category);
 
+	let actionType = $state('');
+
 	// Targets
 	// TODO This should be read from appState context
 	let table: TableName = $state('responses');
@@ -71,6 +73,7 @@
 		console.log('📝 Question details:', details);
 
 		questionDetails = details;
+		if (details.actionType !== '') actionType = details.actionType;
 
 		const result = {
 			queryId: questionId,
@@ -116,6 +119,30 @@
 					rows="4"
 					bind:value={questionDetails.responseInput}
 				></textarea>
+			</div>
+
+			<div id="question-{questionId}-actions" class="card-content prose">
+				<h3 class="mb-1 text-lg">Actions</h3>
+
+				<label for="question-{questionId}-action-type" class="text-md"> Action type: </label>
+
+				<select id="question-{questionId}-action-type" bind:value={actionType} class="form-select">
+					<option value="default" selected>Action type</option>
+					<option value="workplace_adjustment">Workplace adjustment</option>
+					<option value="schedule_adjustment">Schedule adjustment</option>
+					<option value="communication">Communication</option>
+					<option value="schedule_flexibility">Schedule flexibility</option>
+				</select>
+
+				<div id="question-{questionId}-actions-response" class="flex flex-col">
+					<textarea
+						id="question-{questionId}-actions-response-text"
+						bind:value={questionDetails.actionsInput}
+						placeholder="Enter your response here..."
+						rows="3"
+						class="form-textarea"
+					></textarea>
+				</div>
 			</div>
 
 			<div id="question-{questionId}-buttons" class="flex justify-around">

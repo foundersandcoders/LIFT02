@@ -58,15 +58,15 @@ create table if not exists responses (
 
 -- 6. actions table
 create table if not exists actions (
-	id uuid primary key default gen_random_uuid (),
-	user_id uuid references auth.users on delete cascade,
-	response_id uuid references responses on delete set null,
-	type text not null,
-	description text,
-	status text not null default 'draft' check (status in ('draft', 'active', 'archived')),
-	version integer default nextval('action_version_seq'),
-	created_at timestamp with time zone default now(),
-	updated_at timestamp with time zone default now()
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users on delete cascade,
+  response_id uuid references responses on delete set null,
+  type text not null,
+  description text,
+  status text not null default 'active' check (status in ( 'active', 'archived')),
+  version integer default nextval('action_version_seq'),
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );
 
 -- 6. sharing_events
@@ -90,4 +90,14 @@ create table if not exists sharing_event_actions (
 	id uuid primary key default gen_random_uuid (),
 	sharing_event_id uuid references sharing_events on delete cascade,
 	action_id uuid references actions on delete cascade
+);
+
+-- 9. resources table
+create table if not exists resources (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  description text,
+  url text,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );
