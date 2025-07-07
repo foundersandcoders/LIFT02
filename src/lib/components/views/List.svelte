@@ -47,10 +47,10 @@
 	};
 </script>
 
-<div id="list-view">
+<div id="list-view" class="view">
 	<ViewHeader title={category.format as string} {onclick} />
 
-	<div id="list-body" class="list justify-left m-2 flex flex-col">
+	<div id="list-content" class="view-content">
 		{#if table == 'actions'}
 			{#await queryActions}
 				<div class="list-row prose">

@@ -1,10 +1,10 @@
-import { getUserResponses } from '$lib/services/database/responses';
-import { filterLatestResponses, filterLatestActions } from '$lib/utils/versionFilter';
 import { getActionsByResponseIds } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
+import { getUserResponses } from '$lib/services/database/responses';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
+import { filterLatestActions, filterLatestResponses } from '$lib/utils/versionFilter';
 
 export async function generateEmailData(
 	userId: string,

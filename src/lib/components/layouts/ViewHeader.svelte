@@ -7,10 +7,12 @@
 	const { title, onclick }: Props = $props();
 </script>
 
-<div id="{title}-header" class="prose bg-accent flex flex-row items-center justify-between p-4">
-	<h2 class="text-accent-content">{title}</h2>
+<div id="{title}-header" class="view-header">
+	<h2 class="text-accent-content flex items-center">{title}</h2>
 
 	{#if onclick}
 		<button {onclick} class="btn-nav border-primary"> Back </button>
+	{:else}
+		<div class="btn-nav invisible opacity-0">Back</div>
 	{/if}
 </div>

@@ -28,9 +28,6 @@
 	$inspect(questionDetails.responseId).with((type, value) =>
 		console.log(`🆔 responseId: ${type} ${value}`)
 	);
-	$inspect(questionDetails.responseInput).with((type, value) =>
-		console.log(`📄 responseInput: ${type} ${value}`)
-	);
 
 	// Button State
 	const isUpdate = $derived(questionDetails.responseId !== null);

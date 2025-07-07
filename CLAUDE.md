@@ -166,18 +166,21 @@ chmod +x ./scripts/prod-run-migrations.sh
 ## Architecture Patterns
 
 ### State Management
+
 - **Context-based architecture**: Single `AppState` object in `+layout.svelte` with 16+ context providers
 - **Granular state access**: Use `getContext('getProfileId')` instead of traditional stores
 - **View-based navigation**: Four main views (`dash`, `list`, `detail`, `email`) with programmatic switching
 - **Dev mode integration**: Built-in development mode with test data and state inspection
 
 ### Database Service Layer
+
 - **Consistent return types**: `DbResult<T>` and `DbResultMany<T>` for all database operations
 - **Error handling**: Custom `DatabaseError` class with structured error responses
 - **Query patterns**: Use `QueryOptions` and `FilterOptions` for consistent filtering
 - **Versioning system**: Responses and actions use `version` and `is_latest` fields for history tracking
 
 ### Component Architecture
+
 - **Semantic categorization**: Components organized by purpose (cards, layouts, logic, ui, views)
 - **Context dependency**: Components access state via context, not props drilling
 - **Styling approach**: TailwindCSS 4.x with DaisyUI, custom component classes in `app.css`

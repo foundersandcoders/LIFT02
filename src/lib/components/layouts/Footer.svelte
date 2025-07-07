@@ -25,7 +25,10 @@
 	// ======================================================
 </script>
 
-<footer id="footer" class="bg-primary text-primary-content footer footer-center w-full">
+<footer
+	id="footer"
+	class="bg-primary text-primary-content footer footer-center w-full flex-shrink-0"
+>
 	<div id="footer-content" class="flex w-full justify-between">
 		<div id="footer-content-profile" class="p-4">
 			<p class="text-sm">
