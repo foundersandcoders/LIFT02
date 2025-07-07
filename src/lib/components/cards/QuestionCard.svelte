@@ -26,9 +26,6 @@
 	$inspect(questionDetails.responseId).with((type, value) =>
 		console.log(`🆔 responseId: ${type} ${value}`)
 	);
-	$inspect(questionDetails.responseInput).with((type, value) =>
-		console.log(`📄 responseInput: ${type} ${value}`)
-	);
 
 	// Button State
 	const isUpdate = $derived(questionDetails.responseId !== null);
@@ -43,8 +40,12 @@
 			: { primaryText: 'Submit', secondaryText: 'Skip' };
 	});
 
-	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
-	$inspect(hasContent).with((type, value) => console.log(`📝 hasContent: ${type} ${value}`));
+	$inspect(isUpdate).with((type, value) =>
+		console.log(`🔄 isUpdate: ${type} ${value}`)
+	);
+	$inspect(hasContent).with((type, value) =>
+		console.log(`📝 hasContent: ${type} ${value}`)
+	);
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
 	);

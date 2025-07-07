@@ -139,10 +139,10 @@
 	let { children } = $props();
 </script>
 
-<div class="flex h-screen w-screen flex-col overflow-hidden">
+<div class="flex h-screen w-full flex-col overflow-hidden">
 	<Header />
 
-	<main id={appState.view.name} class="bg-base-200 flex-1 overflow-hidden">
+	<main id={appState.view.name} class="bg-base-200 w-full flex-1 overflow-hidden">
 		{@render children()}
 	</main>
 

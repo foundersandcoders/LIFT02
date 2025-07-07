@@ -40,19 +40,19 @@ body {
 }
 
 .view-layout {
-	@apply m-2 flex w-full max-w-full flex-col justify-around space-y-4 p-2;
+	@apply mx-2 flex w-full flex-col justify-around space-y-4 px-2;
 }
 
 .card-container {
-	@apply m-2 flex w-full max-w-full flex-col justify-around space-y-4 p-2;
+	@apply mx-2 flex w-full flex-col justify-around space-y-4 px-2;
 }
 
 .card-header {
-	@apply card bg-base-100 mb-4 w-full max-w-full p-2 shadow;
+	@apply card bg-base-100 mb-4 w-full p-2 shadow;
 }
 
 .card-content {
-	@apply card bg-base-100 w-full max-w-full p-2 shadow;
+	@apply card bg-base-100 w-full p-2 shadow;
 }
 
 .form-textarea {
@@ -104,11 +104,11 @@ body {
 }
 
 .list-item {
-	@apply border-primary bg-base-100 m-2 w-full max-w-full cursor-pointer rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply border-primary bg-base-100 m-2 w-full cursor-pointer rounded-lg border p-3 transition-shadow hover:shadow-md;
 }
 
 .list-item-row {
-	@apply flex w-full max-w-full flex-row items-center justify-between;
+	@apply flex w-full flex-row items-center justify-between;
 }
 
 .list-item-content {
@@ -116,5 +116,5 @@ body {
 }
 
 .dash-tile {
-	@apply card prose border-primary bg-base-100 m-2 w-full max-w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
+	@apply card prose border-primary bg-base-100 m-2 w-full cursor-pointer border p-4 transition-shadow hover:shadow-md;
 }

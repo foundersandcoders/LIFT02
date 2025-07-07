@@ -30,7 +30,7 @@
 	}
 
 	const onclick = async () => {
-		console.group(`🔘 FormButton Click: ${text}`);
+		console.groupCollapsed(`🔘 FormButton Click: ${text}`);
 		console.log('📋 Button Props:', {
 			text,
 			buttonType,
