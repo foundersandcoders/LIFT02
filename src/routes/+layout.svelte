@@ -18,6 +18,11 @@
 	} from '$lib/utils/inspector';
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
+	
+	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
+	import { getAllProfiles } from '$lib/services/database/profiles';
+	import { onMount } from 'svelte';
+	// ======================================================
 
 	// Dev Mode
 	let devMode = $state<boolean>(false);
@@ -26,6 +31,10 @@
 	setContext('setDevMode', () => {
 		devMode = !devMode;
 	});
+
+	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
+	let testUsers = $state<any[]>([]);
+	// ======================================================
 
 	// =1 App State
 	let appState = $state<AppState>({
@@ -137,6 +146,24 @@
 	setContext('setViewName', (newView: ViewName) => {
 		appState.view.name = newView;
 	});
+
+	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
+	// Add context for test users
+	setContext('getTestUsers', () => testUsers);
+	setContext('setTestUser', (userId: string, userName: string) => {
+		appState.profile.id = userId;
+		appState.profile.name = userName;
+	});
+
+	// Fetch all profiles for testing dropdown
+	onMount(async () => {
+		const result = await getAllProfiles();
+		if (result.data) {
+			testUsers = result.data;
+			console.log('Test users loaded:', testUsers.length);
+		}
+	});
+	// ======================================================
 
 	// =1 Child Props
 	let { children } = $props();
