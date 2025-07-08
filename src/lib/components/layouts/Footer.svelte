@@ -14,22 +14,32 @@
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
 	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
 	const setTestUser = getContext<(userId: string, userName: string) => void>('setTestUser');
-	
+
 	const sortedTestUsers = $derived(
 		[...(getTestUsers() || [])]
-			.filter((user): user is Profile & { id: string; name: string } => 
-				user.id !== null && user.name !== null
+			.filter(
+				(user): user is Profile & { id: string; name: string } =>
+					user.id !== null && user.name !== null
 			)
 			.sort((a, b) => a.id.localeCompare(b.id))
 	);
 
+	let dropdownExpanded = $state(false);
+	let selectedUserId = $state<string | null>(null);
+
 	function handleUserSelect(userId: string, userName: string) {
 		setTestUser(userId, userName);
+		selectedUserId = userId;
 		console.log('Test user selected:', userName, userId);
 
 		// Close dropdown after selection
+		dropdownExpanded = false;
 		const dropdown = document.activeElement as HTMLElement;
 		dropdown?.blur();
+	}
+
+	function toggleDropdown() {
+		dropdownExpanded = !dropdownExpanded;
 	}
 	// ======================================================
 </script>
@@ -68,13 +78,29 @@
 
 			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
 			<div class="dropdown dropdown-top dropdown-end">
-				<div tabindex="0" role="button" class="btn m-1">Select User ⬆️</div>
+				<button
+					type="button"
+					class="btn m-1"
+					onclick={toggleDropdown}
+					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
+					aria-label="Select test user for development"
+					aria-expanded={dropdownExpanded}
+					aria-haspopup="listbox"
+				>
+					Select User ⬆️
+				</button>
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
+					role="listbox"
+					aria-label="Available test users"
 				>
 					{#each sortedTestUsers as user (user.id)}
-						<li>
-							<button onclick={() => handleUserSelect(user.id, user.name)} class="text-left">
+						<li role="option" aria-selected={selectedUserId === user.id}>
+							<button
+								onclick={() => handleUserSelect(user.id, user.name)}
+								class="text-left"
+								aria-label="Select {user.name} as test user"
+							>
 								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
 								{user.name}
 							</button>

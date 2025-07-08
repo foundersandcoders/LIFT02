@@ -153,13 +153,17 @@
 	});
 
 	// Fetch all profiles for testing dropdown
-	onMount(async () => {
+	onMount(() => {
 		let cancelled = false;
-		const result = await getAllProfiles();
-		if (!cancelled && result.data) {
-			testUsers = result.data;
-			console.log('Test users loaded:', testUsers.length);
-		}
+		
+		(async () => {
+			const result = await getAllProfiles();
+			if (!cancelled && result.data) {
+				testUsers = result.data;
+				console.log('Test users loaded:', testUsers.length);
+			}
+		})();
+
 		return () => {
 			cancelled = true;
 		};
