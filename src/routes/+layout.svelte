@@ -30,7 +30,7 @@
 	});
 
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	let testUsers = $state<any[]>([]);
+	let testUsers = $state<Profile[]>([]);
 	// ======================================================
 
 	// =1 App State

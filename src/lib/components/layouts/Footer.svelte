@@ -2,6 +2,7 @@
 	import { dev } from '$app/environment';
 	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { getContext } from 'svelte';
+	import type { Profile } from '$lib/types/appState';
 
 	let { devMode, profileId } = $props();
 
@@ -11,7 +12,7 @@
 	};
 
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	const getTestUsers = getContext<() => any[]>('getTestUsers');
+	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
 	const setTestUser = getContext<(userId: string, userName: string) => void>('setTestUser');
 
 	function handleUserSelect(userId: string, userName: string) {
@@ -63,10 +64,10 @@
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
 				>
-					{#each [...(getTestUsers() || [])].sort((a, b) => a.id.localeCompare(b.id)) as user (user.id)}
+					{#each [...(getTestUsers() || [])].filter(user => user.id && user.name).sort((a, b) => a.id!.localeCompare(b.id!)) as user (user.id)}
 						<li>
-							<button onclick={() => handleUserSelect(user.id, user.name)} class="text-left">
-								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
+							<button onclick={() => handleUserSelect(user.id!, user.name!)} class="text-left">
+								<span class="text-xs opacity-60">{user.id!.slice(-2)}</span>
 								{user.name}
 							</button>
 						</li>
