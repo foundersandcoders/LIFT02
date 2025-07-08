@@ -63,7 +63,7 @@
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
 				>
-					{#each [...getTestUsers()].sort((a, b) => a.id.localeCompare(b.id)) as user (user.id)}
+					{#each [...(getTestUsers() || [])].sort((a, b) => a.id.localeCompare(b.id)) as user (user.id)}
 						<li>
 							<button onclick={() => handleUserSelect(user.id, user.name)} class="text-left">
 								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
