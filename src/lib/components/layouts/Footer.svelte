@@ -52,7 +52,7 @@
 		<div id="footer-content-profile" class="p-4">
 			<p class="text-sm">
 				{#if profileId}
-					Profile ID: {profileId}
+					Logged In
 				{:else}
 					Not Logged In
 				{/if}
@@ -64,30 +64,26 @@
 		</div>
 
 		<div id="footer-content-dev" class="p-4">
-			<!-- Dev Mode Toggle
-				(Development Only)
-			-->
-			<!-- <button
+			<!-- Dev Mode Toggle (Development Only) 
+			<button
 				onclick={onToggleDevMode}
 				class="btn-dev"
 				type="button"
 				aria-label="Toggle development mode"
-			>
-				Dev
-			</button> -->
+			>Dev</button> -->
 
 			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
 			<div class="dropdown dropdown-top dropdown-end">
 				<button
 					type="button"
-					class="btn m-1"
+					class="btn btn-sm m-1 text-xs"
 					onclick={toggleDropdown}
 					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
 					aria-label="Select test user for development"
 					aria-expanded={dropdownExpanded}
 					aria-haspopup="listbox"
 				>
-					Select User ⬆️
+					User ⬆️
 				</button>
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"

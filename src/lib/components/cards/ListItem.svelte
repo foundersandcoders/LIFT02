@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
-	import type { Action, Question, Resource } from '$lib/types/tableMain';
+	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
 	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
+	import { getLatestResponses } from '$lib/services/database/responses';
+	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
@@ -28,6 +30,32 @@
 	let localStatus = $state(item.status);
 	let errorMessage = $state<string | null>(null);
 	let showError = $state(false);
+
+	// Database queries for status indicators (only for questions with logged-in user)
+	let userResponses = $derived(
+		table === 'questions' && app.profile.id ? getLatestResponses(app.profile.id) : null
+	);
+
+	// Find the user's response for this question
+	let questionResponse = $derived.by(() => {
+		if (table !== 'questions' || !app.profile.id || !userResponses) return null;
+
+		// Wait for userResponses to resolve
+		return userResponses.then((result) => {
+			if (!result.data) return null;
+			return result.data.find((response) => response.question_id === item.id) || null;
+		});
+	});
+
+	// Get actions for the user's response
+	let responseActions = $derived.by(() => {
+		if (table !== 'questions' || !app.profile.id || !questionResponse) return null;
+
+		return questionResponse.then((response) => {
+			if (!response) return null;
+			return getActionsByResponseIds([response.id!]);
+		});
+	});
 
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
@@ -77,21 +105,44 @@
 
 <button
 	id="list-item-{item.id}"
+	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
 	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
-	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
 	disabled={table === 'actions' || table === 'resources'}
 >
-	<div class="list-item-row">
-		<!-- [!] the status icon logic has to be replaced by db queries -->
+	<div id="list-item-{item.id}-row" class="list-item-row">
 		{#if table === 'questions'}
 			<div id="list-item-{item.id}-status" class="flex items-center">
-				{#if app.profile.id != '' && randomNum() > 7}
-					<div id="list-item-{item.id}-status-icon" class="status-indicator-xl status-active"></div>
+				{#if app.profile.id}
+					{#await questionResponse}
+						<div
+							id="list-item-{item.id}-status-icon"
+							class="status-indicator-lg status-default"
+						></div>
+					{:then response}
+						{@const hasValidStatus =
+							response && response.status && ['answered', 'skipped'].includes(response.status)}
+						{#if hasValidStatus}
+							<div
+								id="list-item-{item.id}-status-icon"
+								class="status-indicator-lg status-default"
+							></div>
+						{:else}
+							<div
+								id="list-item-{item.id}-status-icon"
+								class="status-indicator-lg status-active"
+							></div>
+						{/if}
+					{:catch}
+						<div
+							id="list-item-{item.id}-status-icon"
+							class="status-indicator-lg status-default"
+						></div>
+					{/await}
 				{:else}
 					<div
 						id="list-item-{item.id}-status-icon"
-						class="status-indicator-xl status-default"
+						class="status-indicator-lg status-default"
 					></div>
 				{/if}
 			</div>
@@ -130,16 +181,41 @@
 				/>
 			{:else if table === 'resources'}
 				<!-- No action indicator for resources -->
-			{:else if app.profile.id && randomNum() > 7}
-				<div id="list-item-{item.id}-action-icon" class="status-indicator-xl status-action"></div>
+			{:else if table === 'questions' && app.profile.id}
+				{#await responseActions}
+					<div
+						id="list-item-{item.id}-action-icon"
+						class="status-indicator-lg status-default"
+					></div>
+				{:then actionsResult}
+					{@const hasActiveActions = actionsResult?.data?.some(
+						(action) => action.status === 'active'
+					)}
+					{#if hasActiveActions}
+						<div
+							id="list-item-{item.id}-action-icon"
+							class="status-indicator-lg status-action"
+						></div>
+					{:else}
+						<div
+							id="list-item-{item.id}-action-icon"
+							class="status-indicator-lg status-default"
+						></div>
+					{/if}
+				{:catch}
+					<div
+						id="list-item-{item.id}-action-icon"
+						class="status-indicator-lg status-default"
+					></div>
+				{/await}
 			{:else}
-				<div id="list-item-{item.id}-action-icon" class="status-indicator status-default"></div>
+				<div id="list-item-{item.id}-action-icon" class="status-indicator-lg status-default"></div>
 			{/if}
 		</div>
 	</div>
 </button>
 
-<!-- Error feedback toast -->
+<!-- Error Feedback Toast -->
 {#if showError && errorMessage}
 	<div class="toast toast-top toast-end z-50">
 		<div class="alert alert-error">

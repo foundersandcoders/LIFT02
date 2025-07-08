@@ -128,7 +128,7 @@ export async function createResponse(
 	userId: string,
 	data: Omit<ResponseInsert, 'user_id' | 'version'>
 ): Result<Response> {
-	console.group('🗄️ Database: createResponse');
+	console.groupCollapsed('🗄️ Database: createResponse');
 	console.log('📥 Input parameters:', {
 		userId,
 		data
