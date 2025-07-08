@@ -15,7 +15,7 @@
 	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from '$lib/utils/inspector';
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
-	
+
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
 	import { getAllProfiles } from '$lib/services/database/profiles';
 	import { onMount } from 'svelte';
@@ -154,11 +154,15 @@
 
 	// Fetch all profiles for testing dropdown
 	onMount(async () => {
+		let cancelled = false;
 		const result = await getAllProfiles();
-		if (result.data) {
+		if (!cancelled && result.data) {
 			testUsers = result.data;
 			console.log('Test users loaded:', testUsers.length);
 		}
+		return () => {
+			cancelled = true;
+		};
 	});
 	// ======================================================
 
