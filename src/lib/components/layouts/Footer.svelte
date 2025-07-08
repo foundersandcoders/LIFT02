@@ -16,7 +16,11 @@
 	const setTestUser = getContext<(userId: string, userName: string) => void>('setTestUser');
 	
 	const sortedTestUsers = $derived(
-		[...(getTestUsers() || [])].filter(user => user.id && user.name).sort((a, b) => a.id!.localeCompare(b.id!))
+		[...(getTestUsers() || [])]
+			.filter((user): user is Profile & { id: string; name: string } => 
+				user.id !== null && user.name !== null
+			)
+			.sort((a, b) => a.id.localeCompare(b.id))
 	);
 
 	function handleUserSelect(userId: string, userName: string) {
@@ -70,8 +74,8 @@
 				>
 					{#each sortedTestUsers as user (user.id)}
 						<li>
-							<button onclick={() => handleUserSelect(user.id!, user.name!)} class="text-left">
-								<span class="text-xs opacity-60">{user.id!.slice(-2)}</span>
+							<button onclick={() => handleUserSelect(user.id, user.name)} class="text-left">
+								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
 								{user.name}
 							</button>
 						</li>
