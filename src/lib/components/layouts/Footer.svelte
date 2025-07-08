@@ -14,6 +14,10 @@
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
 	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
 	const setTestUser = getContext<(userId: string, userName: string) => void>('setTestUser');
+	
+	const sortedTestUsers = $derived(
+		[...(getTestUsers() || [])].filter(user => user.id && user.name).sort((a, b) => a.id!.localeCompare(b.id!))
+	);
 
 	function handleUserSelect(userId: string, userName: string) {
 		setTestUser(userId, userName);
@@ -64,7 +68,7 @@
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
 				>
-					{#each [...(getTestUsers() || [])].filter(user => user.id && user.name).sort((a, b) => a.id!.localeCompare(b.id!)) as user (user.id)}
+					{#each sortedTestUsers as user (user.id)}
 						<li>
 							<button onclick={() => handleUserSelect(user.id!, user.name!)} class="text-left">
 								<span class="text-xs opacity-60">{user.id!.slice(-2)}</span>
