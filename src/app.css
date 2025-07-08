@@ -46,7 +46,11 @@ body {
 }
 
 .view-header {
-	@apply prose bg-accent flex max-w-full flex-row items-center justify-between p-4;
+	@apply bg-accent max-w-full p-4;
+	height: 4.5rem;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
 }
 
 .view-layout {
