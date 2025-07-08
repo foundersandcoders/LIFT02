@@ -158,9 +158,13 @@
 		
 		(async () => {
 			const result = await getAllProfiles();
-			if (!cancelled && result.data) {
-				testUsers = result.data;
-				console.log('Test users loaded:', testUsers.length);
+			if (!cancelled) {
+				if (result.data) {
+					testUsers = result.data;
+					console.log('Test users loaded:', testUsers.length);
+				} else if (result.error) {
+					console.warn('Could not load test users for development:', result.error.message);
+				}
 			}
 		})();
 
