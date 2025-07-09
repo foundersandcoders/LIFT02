@@ -4,7 +4,7 @@ import { getUserResponses } from '$lib/services/database/responses';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
-import { filterLatestActions, filterLatestResponses } from '$lib/utils/versionFilter';
+import { filterLatestResponses } from '$lib/utils/versionFilter';
 
 export async function generateEmailData(
 	userId: string,
@@ -54,27 +54,25 @@ export async function generateEmailData(
 			categoryGroups[category] = [];
 		}
 
-		// Get actions for this response from batched data
+		// Get all active actions for this response from batched data
 		const responseActions = response.id ? actionsByResponseId.get(response.id) || [] : [];
-		const actions = filterLatestActions(responseActions);
-		const latestAction = actions[0]; // Get the single action (if any)
+		const activeActions = responseActions.filter(action => action.status === 'active');
 
-		// Only include action if it has actual content
-		const emailAction =
-			latestAction && latestAction.description?.trim()
-				? {
-						description: latestAction.description,
-						type: latestAction.type,
-						status: latestAction.status
-					}
-				: undefined;
+		// Only include actions that have actual content
+		const emailActions = activeActions
+			.filter(action => action.description?.trim())
+			.map(action => ({
+				description: action.description!,
+				type: action.type,
+				status: action.status
+			}));
 
 		// Only include responses with actual content
 		if (response.response_text && response.response_text.trim() !== '') {
 			categoryGroups[category].push({
 				questionText: question.question_text,
 				responseText: response.response_text,
-				actions: emailAction ? [emailAction] : undefined
+				actions: emailActions.length > 0 ? emailActions : undefined
 			});
 		}
 	}
@@ -145,17 +143,17 @@ export function renderEmailToHTML(emailData: EmailData): string {
 							? `
 						<div class="actions mt-3 ml-4">
 							<span class="actions-label font-medium text-primary text-sm">Actions:</span>
-							<ul class="actions-list ml-2 mt-1 space-y-1">
+							<ol class="actions-list ml-2 mt-1 space-y-1 list-decimal list-inside">
 								${item.actions
 									.map(
 										(action) => `
 									<li class="action-item text-sm text-base-content/70">
-										• ${action.description} <span class="action-status text-xs text-accent">(${action.status})</span>
+										${action.description}
 									</li>
 								`
 									)
 									.join('')}
-							</ul>
+							</ol>
 						</div>
 					`
 							: ''

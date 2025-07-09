@@ -1,6 +1,5 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type { Action } from '$lib/types/tableMain';
-import { filterLatestActions } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -300,10 +299,8 @@ export async function getLatestActions(userId: string): Results<Action> {
 			question_id: dbAction.responses?.question_id || ''
 		})) || null;
 
-	// Use utility function to get latest versions
-	const latestActions = filterLatestActions(convertedData || []);
-
-	return { data: latestActions, error: null };
+	// Return all actions without filtering
+	return { data: convertedData || [], error: null };
 }
 
 /**
