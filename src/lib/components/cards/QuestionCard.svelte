@@ -13,7 +13,6 @@
 	const profileId = $derived(app.profile.id);
 	const category = $derived(app.list.category);
 
-	let actionType = $state('');
 
 	// Targets
 	// TODO This should be read from appState context
@@ -70,7 +69,6 @@
 		console.log('📝 Question details:', details);
 
 		questionDetails = details;
-		if (details.actionType !== '') actionType = details.actionType;
 		// Update visibility based on details or default to 'private'
 		visibility = details.visibility || 'private';
 		const result = {
@@ -124,7 +122,7 @@
 
 				<label for="question-{questionId}-action-type" class="text-md"> Action type: </label>
 
-				<select id="question-{questionId}-action-type" bind:value={actionType} class="form-select">
+				<select id="question-{questionId}-action-type" bind:value={questionDetails.actionType} class="form-select">
 					<option value="default" selected>Action type</option>
 					<option value="workplace_adjustment">Workplace adjustment</option>
 					<option value="schedule_adjustment">Schedule adjustment</option>
