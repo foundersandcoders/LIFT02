@@ -14,6 +14,7 @@ export interface Action {
 	created_at?: string;
 	updated_at?: string;
 	shares?: Share[];
+	question_preview?: string;
 }
 
 export interface Profile {

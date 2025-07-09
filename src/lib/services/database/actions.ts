@@ -273,10 +273,13 @@ export async function archiveAction(id: string): Result<Action> {
 /**
  * Get latest actions for a user
  */
-export async function getLatestActions(userId: string, includeArchived: boolean = false): Results<Action> {
+export async function getLatestActions(
+	userId: string,
+	includeArchived: boolean = false
+): Results<Action> {
 	let query = supabase
 		.from('actions')
-		.select('*, responses!inner(question_id)')
+		.select('*, responses!inner(question_id, questions!inner(preview))')
 		.eq('user_id', userId);
 
 	if (!includeArchived) {
@@ -301,7 +304,8 @@ export async function getLatestActions(userId: string, includeArchived: boolean 
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined,
-			question_id: dbAction.responses?.question_id || ''
+			question_id: dbAction.responses?.question_id || '',
+			question_preview: dbAction.responses?.questions?.preview || undefined
 		})) || null;
 
 	// Return all actions without filtering

@@ -182,4 +182,20 @@ h3 {
 	@apply flex-1;
 }
 
+.action-content {
+	@apply flex w-full flex-row items-center space-x-2;
+}
+
+.action-question-preview {
+	@apply text-sm text-gray-500 italic whitespace-nowrap;
+}
+
+.action-separator {
+	@apply text-gray-400;
+}
+
+.action-description {
+	@apply text-base-content flex-1 min-w-0;
+}
+
 .form-label { @apply w-full mx-1 mb-2; }
