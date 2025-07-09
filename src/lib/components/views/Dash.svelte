@@ -47,7 +47,7 @@
 			{#if result && result.data}
 				{@const table = 'actions'}
 				{@const category = { raw: 'actions', format: 'Actions' }}
-				<button onclick={() => onclick(table, category)} class="list-item">
+				<button onclick={() => onclick(table, category)} class="list-item cursor-pointer">
 					<p class="text-center">{result.data.length} Actions</p>
 				</button>
 			{:else}
@@ -69,7 +69,7 @@
 			{#if result && result.data}
 				{@const table = 'resources'}
 				{@const category = { raw: 'resources', format: 'Resources' }}
-				<button onclick={() => onclick(table, category)} class="list-item">
+				<button onclick={() => onclick(table, category)} class="list-item cursor-pointer">
 					<p class="text-center">{result.data.length} Resources</p>
 				</button>
 			{:else}
@@ -92,7 +92,7 @@
 				{#each extractCategories(result.data) as category}
 					<!-- [ ] Extract this button component into a separate <DashTile /> -->
 					{@const table = 'questions'}
-					<button onclick={() => onclick(table, category)} class="list-item">
+					<button onclick={() => onclick(table, category)} class="list-item cursor-pointer">
 						<p class="text-center">{category.format}</p>
 					</button>
 				{/each}
