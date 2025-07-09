@@ -15,6 +15,7 @@
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import ListItem from '$lib/components/cards/ListItem.svelte';
 	import ShowArchivedToggle from '$lib/components/ui/ShowArchivedToggle.svelte';
+	import { flip } from 'svelte/animate';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
@@ -107,7 +108,9 @@
 				</div>
 			{:else if filteredActions.length > 0}
 				{#each filteredActions as action (action.id)}
-					<ListItem item={action as Action} {table} textAlign="left" {updateActionStatus} />
+					<div animate:flip={{ duration: 500 }} class="list-item-wrapper">
+						<ListItem item={action as Action} {table} textAlign="left" {updateActionStatus} />
+					</div>
 				{/each}
 			{:else}
 				<div class="list-row prose">

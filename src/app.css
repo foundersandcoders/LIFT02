@@ -174,4 +174,12 @@ h3 {
 	@apply min-w-0 flex-1 px-3;
 }
 
+.list-item-wrapper {
+	@apply w-full flex;
+}
+
+.list-item-wrapper .list-item {
+	@apply flex-1;
+}
+
 .form-label { @apply w-full mx-1 mb-2; }

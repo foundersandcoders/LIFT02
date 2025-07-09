@@ -7,6 +7,7 @@
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
+	import { fade } from 'svelte/transition';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -117,6 +118,7 @@
 	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
 	tabindex="0"
 	disabled={table === 'actions' || table === 'resources'}
+	transition:fade={{ duration: 300 }}
 >
 	<div id="list-item-{item.id}-row" class="list-item-row">
 		<!-- Status Icon -->
