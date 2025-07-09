@@ -68,17 +68,17 @@
 				try {
 					const result = await createResponse(profileId, responseData);
 					console.log('✅ Response created successfully:', result);
-					
+
 					// If user provided action data, create an action linked to this response
-					if (hasActionData && result.data?.id) {
+					if (hasActionData() && result.data?.id) {
 						const actionData = {
 							type: details?.actionType || '',
 							description: details?.actionsInput,
 							response_id: result.data.id
 						};
-						
+
 						console.log('🎯 Creating action after response:', actionData);
-						
+
 						try {
 							const actionResult = await createAction(profileId, actionData);
 							console.log('✅ Action created successfully:', actionResult);
