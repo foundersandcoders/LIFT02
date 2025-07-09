@@ -24,6 +24,14 @@
 	const profileId = $derived(getProfileId());
 	const questionId = $derived(getQuestionId());
 
+	// Helper function to check if user provided action data
+	const hasActionData = $derived(() => {
+		const hasType =
+			details?.actionType && details.actionType !== '' && details.actionType !== 'default';
+		const hasDescription = details?.actionsInput && details.actionsInput.trim() !== '';
+		return hasType && hasDescription;
+	});
+
 	function clear() {
 		setViewName('list');
 		setQuestionId(null);
@@ -60,6 +68,24 @@
 				try {
 					const result = await createResponse(profileId, responseData);
 					console.log('✅ Response created successfully:', result);
+
+					// If user provided action data, create an action linked to this response
+					if (hasActionData() && result.data?.id) {
+						const actionData = {
+							type: details?.actionType || '',
+							description: details?.actionsInput,
+							response_id: result.data.id
+						};
+
+						console.log('🎯 Creating action after response:', actionData);
+
+						try {
+							const actionResult = await createAction(profileId, actionData);
+							console.log('✅ Action created successfully:', actionResult);
+						} catch (actionError) {
+							console.error('❌ Action creation failed:', actionError);
+						}
+					}
 				} catch (error) {
 					console.error('❌ Response creation failed:', error);
 				}

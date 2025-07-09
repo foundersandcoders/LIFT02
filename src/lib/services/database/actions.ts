@@ -277,7 +277,7 @@ export async function archiveAction(id: string): Result<Action> {
 export async function getLatestActions(userId: string): Results<Action> {
 	const { data, error } = await supabase
 		.from('actions')
-		.select('*')
+		.select('*, responses!inner(question_id)')
 		.eq('user_id', userId)
 		.order('created_at', { ascending: false });
 
@@ -296,7 +296,8 @@ export async function getLatestActions(userId: string): Results<Action> {
 			version: dbAction.version || 1,
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
-			updated_at: dbAction.updated_at || undefined
+			updated_at: dbAction.updated_at || undefined,
+			question_id: dbAction.responses?.question_id || ''
 		})) || null;
 
 	// Use utility function to get latest versions

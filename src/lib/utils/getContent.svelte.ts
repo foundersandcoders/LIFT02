@@ -26,7 +26,8 @@ export const getQuestionDetails = async (
 		responseInput: questionResponse?.response_text || null,
 		actionsInput: previousAction?.description || null,
 		actionType: previousAction?.type || '',
-		responseId: questionResponse?.id || null
+		responseId: questionResponse?.id || null,
+		visibility: questionResponse?.visibility || 'private'
 	};
 
 	console.log('📤 Returning question details:', result);
