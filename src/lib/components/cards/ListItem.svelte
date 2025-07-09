@@ -111,6 +111,7 @@
 	disabled={table === 'actions' || table === 'resources'}
 >
 	<div id="list-item-{item.id}-row" class="list-item-row">
+		<!-- Status Icon -->
 		{#if table === 'questions'}
 			<div id="list-item-{item.id}-status" class="flex items-center">
 				{#if app.profile.id}
@@ -120,14 +121,13 @@
 							class="status-indicator-lg status-default"
 						></div>
 					{:then response}
-						{@const hasValidStatus =
-							response && response.status && ['answered', 'skipped'].includes(response.status)}
-						{#if hasValidStatus}
+						{@const hasValidStatus = response && response.status && ['answered', 'skipped'].includes(response.status)}
+						{#if hasValidStatus} <!-- Grey -->
 							<div
 								id="list-item-{item.id}-status-icon"
 								class="status-indicator-lg status-default"
 							></div>
-						{:else}
+						{:else} <!-- Magenta -->
 							<div
 								id="list-item-{item.id}-status-icon"
 								class="status-indicator-lg status-active"
@@ -173,43 +173,13 @@
 			{/if}
 		</div>
 
+		<!-- Action Toggle -->
 		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
 			{#if table === 'actions'}
 				<ActionStatusToggle
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
 				/>
-			{:else if table === 'resources'}
-				<!-- No action indicator for resources -->
-			{:else if table === 'questions' && app.profile.id}
-				{#await responseActions}
-					<div
-						id="list-item-{item.id}-action-icon"
-						class="status-indicator-lg status-default"
-					></div>
-				{:then actionsResult}
-					{@const hasActiveActions = actionsResult?.data?.some(
-						(action) => action.status === 'active'
-					)}
-					{#if hasActiveActions}
-						<div
-							id="list-item-{item.id}-action-icon"
-							class="status-indicator-lg status-action"
-						></div>
-					{:else}
-						<div
-							id="list-item-{item.id}-action-icon"
-							class="status-indicator-lg status-default"
-						></div>
-					{/if}
-				{:catch}
-					<div
-						id="list-item-{item.id}-action-icon"
-						class="status-indicator-lg status-default"
-					></div>
-				{/await}
-			{:else}
-				<div id="list-item-{item.id}-action-icon" class="status-indicator-lg status-default"></div>
 			{/if}
 		</div>
 	</div>
