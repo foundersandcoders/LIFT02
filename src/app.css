@@ -45,6 +45,34 @@ body {
 	overflow: hidden;
 }
 
+h1 {
+	@apply text-primary-content text-xl font-bold tracking-tight;
+}
+
+h2 {
+	@apply text-primary-content text-lg font-bold tracking-tight;
+}
+
+.header {
+	@apply bg-primary sticky top-0 z-50 w-full flex-shrink-0 border-b border-gray-200;
+}
+
+.header-container-name {
+	@apply w-auto;
+}
+
+.header-container-logo {
+	@apply bg-white rounded-xl p-2 shadow-sm;
+}
+
+.header-content {
+	@apply flex h-16 w-full flex-row items-center justify-between px-2 sm:px-6 lg:px-8;
+}
+
+.header-left {
+	@apply px-4 py-1 flex items-baseline space-x-4;
+}
+
 .view {
 	@apply flex h-full w-full flex-col overflow-hidden;
 }

@@ -12,37 +12,43 @@
 	};
 </script>
 
-<header class="bg-primary sticky top-0 z-50 w-full flex-shrink-0 border-b border-gray-200">
-	<div
-		id="header-content"
-		class="flex h-16 w-full flex-row items-center justify-between px-4 sm:px-6 lg:px-8"
-	>
-		<div id="header-content-left" class="flex items-center space-x-4">
-			<div id="header-content-brand-logo">
+<header class="header">
+	<div id="header-content" class="header-content">
+		<div id="header-left" class="header-left">
+			<div id="brand-logo" class="header-container-logo">
 				<img
-					alt="Neacons logo"
-					src="/Logos/LIFT_logo_gradient_clean.svg"
+					alt="LIFT logo"
+					src="/logo/LIFT_logo_gradient_clean.svg"
 					class="h-8 w-auto sm:h-10"
 				/>
 			</div>
 
-			<div id="header-content-brand-name" class="h-8 w-auto sm:h-10">
-				<h1 class="text-primary-content text-xl font-bold tracking-tight uppercase">Neacons</h1>
+			<div id="app-name" class="header-container-name">
+				<h1>LIFT App 0.6</h1>
 			</div>
 		</div>
 
-		<div id="header-content-buttons" class="flex items-center space-x-3">
-			<button onclick={onProfileClick} class="btn-nav" type="button" aria-label="View Profile">
+		<div id="header-right" class="flex items-center space-x-3">
+			<!-- Profile Button -->
+			<!-- <button
+				id="profile-button"
+				onclick={onProfileClick}
+				class="btn-nav"
+				type="button"
+				aria-label="View Profile"
+			>
 				Profile
-			</button>
+			</button> -->
 
+			<!-- Email Button -->
 			<button
+				id="email-button"
 				onclick={onEmailClick}
 				class="btn-nav"
 				type="button"
 				aria-label="Send Email to Line Manager"
 			>
-				<span>Send Email</span>
+				Email Preview
 			</button>
 		</div>
 	</div>
