@@ -37,7 +37,7 @@ export const getQuestionDetails = async (
 };
 
 const getActionDetails = async (response_Id: string | undefined, user_id: string) => {
-	const response = await getLatestActions(user_id);
+	const response = await getLatestActions(user_id, false);
 	const allActionsData = response.data || [];
 	if (response?.data) {
 		const actionResponse = allActionsData.find((r) => r.response_id === response_Id);
