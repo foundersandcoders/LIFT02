@@ -19,6 +19,8 @@
 	--color-base-200: oklch(95% 0 0);
 	--color-base-300: oklch(90% 0 0);
 	--color-base-content: oklch(0% 0 0);
+	--color-grey-400: oklch(70% 0 0);
+	--color-grey-500: oklch(60% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
 }
@@ -33,6 +35,8 @@
 	--color-primary: oklch(59% 0.25 341);
 	--color-primary-content: oklch(100% 0 0);
 	--color-secondary: oklch(69% 0.27 339);
+	--color-grey-400: oklch(70% 0 0);
+	--color-grey-500: oklch(60% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
 }

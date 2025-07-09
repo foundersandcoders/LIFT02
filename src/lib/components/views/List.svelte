@@ -16,6 +16,7 @@
 	import { getResources } from '$lib/services/database/resources';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import ListItem from '$lib/components/cards/ListItem.svelte';
+	import ShowArchivedToggle from '$lib/components/ui/ShowArchivedToggle.svelte';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
@@ -29,9 +30,12 @@
 	const setList = getContext<(list: List) => void>('setList');
 	const setView = getContext<(view: ViewName) => void>('setViewName');
 
+	// State for actions filter
+	let showArchived = $state(false);
+
 	// DB Queries
 	let queryActions = $derived(
-		table == 'actions' && profile.id ? getLatestActions(profile.id) : null
+		table == 'actions' && profile.id ? getLatestActions(profile.id, showArchived) : null
 	);
 	let queryQuestions = $derived(
 		table == 'questions' && category.raw != null ? getQuestionsByCategory(category.raw) : null
@@ -45,6 +49,10 @@
 			category: { raw: null, format: null }
 		});
 	};
+
+	const handleToggleArchived = (newShowArchived: boolean) => {
+		showArchived = newShowArchived;
+	};
 </script>
 
 <div id="list-view" class="view">
@@ -52,6 +60,9 @@
 
 	<div id="list-content" class="view-content">
 		{#if table == 'actions'}
+			<div class="mb-4 px-4">
+				<ShowArchivedToggle {showArchived} onToggle={handleToggleArchived} />
+			</div>
 			{#await queryActions}
 				<div class="list-row prose">
 					<p>Loading...</p>

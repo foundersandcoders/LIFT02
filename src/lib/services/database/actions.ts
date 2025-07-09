@@ -273,12 +273,17 @@ export async function archiveAction(id: string): Result<Action> {
 /**
  * Get latest actions for a user
  */
-export async function getLatestActions(userId: string): Results<Action> {
-	const { data, error } = await supabase
+export async function getLatestActions(userId: string, includeArchived: boolean = false): Results<Action> {
+	let query = supabase
 		.from('actions')
 		.select('*, responses!inner(question_id)')
-		.eq('user_id', userId)
-		.order('created_at', { ascending: false });
+		.eq('user_id', userId);
+
+	if (!includeArchived) {
+		query = query.eq('status', 'active');
+	}
+
+	const { data, error } = await query.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
