@@ -2,8 +2,8 @@
 	import { getQuestionById } from '$lib/services/database';
 	import FormButton from '../ui/FormButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import type { TableName, QuestionDetails } from '$lib/types/appState';
-	import { getQuestionDetails } from '$lib/utils/getContent.svelte';
+	import type { TableName, QuestionConnections } from '$lib/types/appState';
+	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
 
@@ -11,31 +11,37 @@
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
 	const profileId = $derived(app.profile.id);
-	const category = $derived(app.list.category);
 
 
-	// Targets
 	// TODO This should be read from appState context
 	let table: TableName = $state('responses');
-	let questionDetails = $state<QuestionDetails>({
+	let connectionDetails = $state<QuestionConnections>({
 		responseInput: null,
 		actionsInput: null,
-		actionType: '',
+		actionType: null,
 		responseId: null,
 		visibility: 'private'
 	});
 
-	$inspect(questionDetails.responseId).with((type, value) =>
+	$inspect(connectionDetails.responseId).with((type, value) =>
 		console.log(`🆔 responseId: ${type} ${value}`)
 	);
 
 	// Button State
-	const isUpdate = $derived(questionDetails.responseId !== null);
-	const hasContent = $derived(
-		questionDetails.responseInput !== null &&
-			questionDetails.responseInput !== undefined &&
-			questionDetails.responseInput.trim() !== ''
+	const isUpdate = $derived(connectionDetails.responseId !== null);
+
+	const hasResponseContent = $derived(
+		connectionDetails.responseInput !== null &&
+		connectionDetails.responseInput !== undefined &&
+		connectionDetails.responseInput.trim() !== ''
 	);
+
+	const hasActionContent = $derived(
+		connectionDetails.actionsInput !== null &&
+		connectionDetails.actionsInput !== undefined &&
+		connectionDetails.actionsInput.trim() !== ''
+	);
+
 	const buttonConfig = $derived(() => {
 		return isUpdate
 			? { primaryText: 'Submit', secondaryText: 'Delete' }
@@ -43,7 +49,8 @@
 	});
 
 	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
-	$inspect(hasContent).with((type, value) => console.log(`📝 hasContent: ${type} ${value}`));
+	$inspect(hasResponseContent).with((type, value) => console.log(`📝 hasResponseContent: ${type} ${value}`));
+	$inspect(hasActionContent).with((type, value) => console.log(`📝 hasActionContent: ${type} ${value}`));
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
 	);
@@ -57,86 +64,81 @@
 
 	let { questionId }: Props = $props();
 
-	const getQuestionData = async () => {
-		console.groupCollapsed('🏗️ QuestionCard: getQuestionData');
-		console.log('📍 Starting data fetch for question:', questionId);
+	const getData = async () => {
+		console.groupCollapsed('🏗️ QuestionCard: getData');
+		console.log('📍 Question ID:', questionId);
 		console.log('👤 Profile ID:', profileId);
 
 		const question = await getQuestionById(questionId);
-		console.log('❓ Question data:', question);
+		console.log('❓ Question:', question.data);
 
-		const details = await getQuestionDetails(profileId || '', questionId);
-		console.log('📝 Question details:', details);
+		const connections = await getQuestionConnections(profileId || '', questionId);
+		console.log('📝 Connections:', connections);
 
-		questionDetails = details;
+		connectionDetails = connections;
+		
 		// Update visibility based on details or default to 'private'
-		visibility = details.visibility || 'private';
-		const result = {
+		visibility = connections.visibility || 'private';
+		connectionDetails.actionsInput = null;
+
+		const data = {
 			queryId: questionId,
 			question: question || null,
-			details: details || null
+			details: connectionDetails || null
 		};
 
-		console.log('📤 Returning from getQuestionData:', result);
+		console.log('📤 Return:', data);
 		console.groupEnd();
 
-		return result;
+		return data;
 	};
 
 	let visibility = $state('private');
+	$inspect(visibility).with((type, value) => console.log(`📝 visibility (local): ${type} ${value}`));
+	
 	const toggleVisibility = () => {
 		visibility = visibility === 'public' ? 'private' : 'public';
 	};
 </script>
 
-{#await getQuestionData()}
-	<div>
-		<p>Loading question...</p>
-	</div>
-{:then response}
-	{#if response.question && response.question.data}
-		<section id="question-{questionId}" class="view-layout">
-			<div id="question-{questionId}-header" class="prose card-header">
-				<h3 class="mb-2 text-center text-2xl">
-					{category.format}
-				</h3>
+<section id="question-{questionId}" class="view-layout">
+	{#await getData()}
+		<div id="question-{questionId}-header" class="card-header">
+			<h3>Loading...</h3>
+		</div>
+	{:then data}
+		{#if data.question && data.question.data}
+			<div id="question-{questionId}-header" class="card-header">
+				<h3>{data.question.data.preview}</h3>
 
 				<ToggleStatus {visibility} {toggleVisibility} />
 			</div>
 
 			<div id="question-{questionId}-response" class="card-content flex flex-col">
-				<label for="question-{questionId}-response-input" class="mb-1 text-lg">
-					{response.question.data.question_text || 'Question'}
+				<label for="question-{questionId}-response-input" class="form-label">
+					{data.question.data.question_text || 'Question'}
 				</label>
 
 				<textarea
 					id="question-{questionId}-response-input"
-					class="textarea text-area"
+					class="text-area form-textarea"
 					rows="4"
-					bind:value={questionDetails.responseInput}
+					bind:value={connectionDetails.responseInput}
 				></textarea>
 			</div>
 
-			<div id="question-{questionId}-actions" class="card-content prose">
-				<h3 class="mb-1 text-lg">Actions</h3>
+			<div id="question-{questionId}-actions" class="card-content">
+				<div id="question-{questionId}-action-response" class="flex flex-col">
+					<label for="question-{questionId}-action-response-text" class="form-label">
+						Would you like your manager to take any actions in response to this?
+					</label>
 
-				<label for="question-{questionId}-action-type" class="text-md"> Action type: </label>
-
-				<select id="question-{questionId}-action-type" bind:value={questionDetails.actionType} class="form-select">
-					<option value="default" selected>Action type</option>
-					<option value="workplace_adjustment">Workplace adjustment</option>
-					<option value="schedule_adjustment">Schedule adjustment</option>
-					<option value="communication">Communication</option>
-					<option value="schedule_flexibility">Schedule flexibility</option>
-				</select>
-
-				<div id="question-{questionId}-actions-response" class="flex flex-col">
 					<textarea
 						id="question-{questionId}-actions-response-text"
-						bind:value={questionDetails.actionsInput}
+						bind:value={connectionDetails.actionsInput}
 						placeholder="Enter your response here..."
 						rows="3"
-						class="form-textarea"
+						class="text-area form-textarea"
 					></textarea>
 				</div>
 			</div>
@@ -147,8 +149,9 @@
 					buttonType="primary"
 					{table}
 					{isUpdate}
-					{hasContent}
-					details={questionDetails}
+					{hasResponseContent}
+					{hasActionContent}
+					details={connectionDetails}
 					{visibility}
 				/>
 				<FormButton
@@ -156,25 +159,26 @@
 					buttonType="secondary"
 					{table}
 					{isUpdate}
-					{hasContent}
-					details={questionDetails}
+					{hasResponseContent}
+					{hasActionContent}
+					details={connectionDetails}
 					{visibility}
 				/>
 			</div>
-		</section>
-	{:else}
+		{:else}
+			<section
+				id="question-not-found"
+				class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
+			>
+				<p>No question found with ID {data.queryId}</p>
+			</section>
+		{/if}
+	{:catch error}
 		<section
-			id="question-not-found"
+			id="db-query-error"
 			class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
 		>
-			<p>No question found with ID {response.queryId}</p>
+			<p>DB Query Error: {error.message}</p>
 		</section>
-	{/if}
-{:catch error}
-	<section
-		id="db-query-error"
-		class=" m-auto flex min-h-[90dvh] w-sm flex-col justify-around rounded-3xl p-5 shadow-2xl"
-	>
-		<p>DB Query Error: {error.message}</p>
-	</section>
-{/await}
+	{/await}
+</section>

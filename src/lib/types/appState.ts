@@ -40,10 +40,10 @@ export interface Profile {
 	name: null | string;
 }
 
-export interface QuestionDetails {
+export interface QuestionConnections {
 	responseInput: string | null;
 	actionsInput: string | null;
-	actionType: string;
+	actionType: string | null;
 	responseId: RowId | null;
 	visibility: 'public' | 'private';
 }

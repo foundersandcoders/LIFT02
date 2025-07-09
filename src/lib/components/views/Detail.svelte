@@ -18,16 +18,16 @@
 	const getDetailItemId = getContext<() => RowId>('getDetailItemId');
 	let itemId = $derived(getDetailItemId());
 
-	const getCategory = getContext<() => ItemCategory>('getListCategory');
-	let category = $derived(getCategory());
-
 	let question: Promise<Question | null> | null = $derived(
 		table == 'questions' && itemId ? getQuestion(itemId) : null
 	);
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
-	const title = $derived(table === 'questions' ? 'Your Response' : 'Your Actions');
+	const title = $derived(
+		table === 'questions' ? 'Your Response' : 'Your Actions'
+	);
+	
 	const onclick = () => {
 		setViewName('list');
 	};

@@ -1,12 +1,12 @@
 import { getLatestActions } from '$lib/services/database';
 import { getLatestResponses } from '$lib/services/database/responses';
-import type { QuestionDetails } from '$lib/types/appState';
+import type { QuestionConnections } from '$lib/types/appState';
 import { filterLatestResponses } from '$lib/utils/versionFilter';
 
-export const getQuestionDetails = async (
+export const getQuestionConnections = async (
 	user_id: string,
 	questionId: string
-): Promise<QuestionDetails> => {
+): Promise<QuestionConnections> => {
 	console.groupCollapsed('📋 getQuestionDetails');
 	console.log('📥 Input:', { user_id, questionId });
 

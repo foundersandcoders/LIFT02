@@ -1,20 +1,21 @@
 <script lang="ts">
 	import { createAction } from '$lib/services/database/actions';
 	import { createResponse } from '$lib/services/database/responses';
-	import type { QuestionDetails, RowId, TableName, ViewName } from '$lib/types/appState';
+	import type { QuestionConnections, RowId, TableName, ViewName } from '$lib/types/appState';
 	import { getContext } from 'svelte';
 
 	interface Props {
 		text: string;
 		visibility: string;
-		details: QuestionDetails | null;
+		details: QuestionConnections | null;
 		table: TableName;
 		buttonType: 'primary' | 'secondary';
 		isUpdate: boolean;
-		hasContent: boolean;
+		hasResponseContent: boolean;
+		hasActionContent: boolean;
 	}
 
-	let { buttonType, details, hasContent, isUpdate, table, text, visibility }: Props = $props();
+	let { buttonType, details, hasResponseContent, hasActionContent, isUpdate, table, text, visibility }: Props = $props();
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	const getQuestionId = getContext<() => string>('getDetailItemId');
@@ -24,15 +25,14 @@
 	const profileId = $derived(getProfileId());
 	const questionId = $derived(getQuestionId());
 
-	// Helper function to check if user provided action data
-	const hasActionData = $derived(() => {
-		const hasType =
-			details?.actionType && details.actionType !== '' && details.actionType !== 'default';
-		const hasDescription = details?.actionsInput && details.actionsInput.trim() !== '';
-		return hasType && hasDescription;
-	});
+	// const hasActionData = $derived(() => {
+	// 	const hasType =
+	// 		details?.actionType && details.actionType !== '' && details.actionType !== 'default';
+	// 	const hasDescription = details?.actionsInput && details.actionsInput.trim() !== '';
+	// 	return hasType && hasDescription;
+	// });
 
-	function clear() {
+	function clearDetail() {
 		setViewName('list');
 		setQuestionId(null);
 	}
@@ -44,7 +44,8 @@
 			buttonType,
 			table,
 			isUpdate,
-			hasContent,
+			hasResponseContent,
+			hasActionContent,
 			visibility,
 			profileId: profileId, // Force value resolution
 			questionId: questionId // Force value resolution
@@ -53,8 +54,8 @@
 
 		if (table === 'responses') {
 			if (buttonType === 'primary') {
-				const status = hasContent ? 'answered' : 'skipped';
-				const response_text = hasContent ? details?.responseInput : null;
+				const status = hasResponseContent ? 'answered' : 'skipped';
+				const response_text = hasResponseContent ? details?.responseInput : null;
 
 				const responseData = {
 					response_text,
@@ -63,17 +64,17 @@
 					visibility
 				};
 
-				console.log('🎯 PRIMARY BUTTON - Creating response:', responseData);
+				console.log('🎯 Primary Button (Creating Response):', responseData);
 
 				try {
 					const result = await createResponse(profileId, responseData);
 					console.log('✅ Response created successfully:', result);
 
 					// If user provided action data, create an action linked to this response
-					if (hasActionData() && result.data?.id) {
+					if (hasActionContent && result.data?.id) {
 						const actionData = {
-							type: details?.actionType || '',
 							description: details?.actionsInput,
+							type: "",
 							response_id: result.data.id
 						};
 
@@ -129,7 +130,7 @@
 			}
 		}
 
-		clear();
+		clearDetail();
 
 		console.groupEnd();
 	};
