@@ -35,7 +35,7 @@
 
 	// DB Queries
 	let queryActions = $derived(
-		table == 'actions' && profile.id ? getLatestActions(profile.id, showArchived) : null
+		table == 'actions' && profile.id ? getLatestActions(profile.id, true) : null
 	);
 	let queryQuestions = $derived(
 		table == 'questions' && category.raw != null ? getQuestionsByCategory(category.raw) : null
@@ -69,7 +69,7 @@
 				</div>
 			{:then result}
 				{#if result?.data}
-					{#each result.data as action}
+					{#each result.data.filter(action => showArchived || action.status === 'active') as action}
 						<ListItem item={action as Action} {table} textAlign="left" />
 					{/each}
 				{:else}

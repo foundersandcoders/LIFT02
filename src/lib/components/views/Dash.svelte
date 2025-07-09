@@ -13,7 +13,7 @@
 	const setList = getContext<(list: List) => void>('setList');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
-	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id) : null);
+	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id, false) : null);
 	let queryQuestions = $state(getQuestions());
 	let queryResources = $state(getResources());
 
@@ -48,11 +48,11 @@
 				{@const table = 'actions'}
 				{@const category = { raw: 'actions', format: 'Actions' }}
 				<button onclick={() => onclick(table, category)} class="list-item">
-					<p class="text-center">{result.data.length} Actions</p>
+					<p class="text-center">{result.data.length > 0 ? `${result.data.length} Active Actions` : 'No Active Actions'}</p>
 				</button>
 			{:else}
 				<div class="list-item">
-					<p class="text-center">0 Actions</p>
+					<p class="text-center">No Active Actions</p>
 				</div>
 			{/if}
 		{:catch error}
