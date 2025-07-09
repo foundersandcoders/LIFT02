@@ -22,7 +22,8 @@
 		responseInput: null,
 		actionsInput: null,
 		actionType: '',
-		responseId: null
+		responseId: null,
+		visibility: 'private'
 	});
 
 	$inspect(questionDetails.responseId).with((type, value) =>
@@ -70,7 +71,7 @@
 
 		questionDetails = details;
 		if (details.actionType !== '') actionType = details.actionType;
-
+		visibility = details.visibility || 'private';
 		const result = {
 			queryId: questionId,
 			question: question || null,
@@ -83,7 +84,7 @@
 		return result;
 	};
 
-	let visibility = $state('private');
+	let visibility = $state(questionDetails.visibility || 'private');
 	const toggleVisibility = () => {
 		visibility = visibility === 'public' ? 'private' : 'public';
 	};
