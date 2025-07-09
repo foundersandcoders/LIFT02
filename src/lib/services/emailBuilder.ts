@@ -34,10 +34,12 @@ export async function generateEmailData(
 	const actionsByResponseId = new Map<string, Action[]>();
 	for (const action of allActions) {
 		if (!action.response_id) continue;
-		if (!actionsByResponseId.has(action.response_id)) {
-			actionsByResponseId.set(action.response_id, []);
+		const existingActions = actionsByResponseId.get(action.response_id);
+		if (existingActions) {
+			existingActions.push(action);
+		} else {
+			actionsByResponseId.set(action.response_id, [action]);
 		}
-		actionsByResponseId.get(action.response_id)!.push(action);
 	}
 
 	// Process all questions and responses, grouped by category

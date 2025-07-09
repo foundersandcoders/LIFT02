@@ -3,7 +3,7 @@
 	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
-	import { updateAction, updateActionStatus } from '$lib/services/database/actions';
+	import { updateAction, updateActionStatus as updateActionStatus_DB } from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
@@ -19,11 +19,13 @@
 	let {
 		item,
 		table,
-		textAlign = 'center'
+		textAlign = 'center',
+		updateActionStatus
 	} = $props<{
 		item: Action | Question | Resource;
 		table: TableName;
 		textAlign?: 'left' | 'center' | 'right';
+		updateActionStatus?: (actionId: string, newStatus: 'active' | 'archived') => void;
 	}>();
 
 	// Local state for optimistic updates
@@ -75,15 +77,21 @@
 		// Store original status for rollback
 		const originalStatus = localStatus;
 
-		// Optimistic update: immediately update local UI state
+		// Optimistic update: immediately update local UI state and parent data
 		localStatus = newStatus;
+		if (updateActionStatus && item.id) {
+			updateActionStatus(item.id, newStatus);
+		}
 
 		// Perform database update
-		const result = await updateActionStatus(actionId, newStatus);
+		const result = await updateActionStatus_DB(actionId, newStatus);
 
 		if (result.error) {
 			// Rollback on error
 			localStatus = originalStatus;
+			if (updateActionStatus && item.id) {
+				updateActionStatus(item.id, originalStatus);
+			}
 			console.error('Failed to update action status:', result.error);
 
 			// Show user-friendly error feedback
