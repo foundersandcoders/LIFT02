@@ -71,6 +71,7 @@
 
 		questionDetails = details;
 		if (details.actionType !== '') actionType = details.actionType;
+		// Update visibility based on details or default to 'private'
 		visibility = details.visibility || 'private';
 		const result = {
 			queryId: questionId,
@@ -84,7 +85,7 @@
 		return result;
 	};
 
-	let visibility = $state(questionDetails.visibility || 'private');
+	let visibility = $state('private');
 	const toggleVisibility = () => {
 		visibility = visibility === 'public' ? 'private' : 'public';
 	};
