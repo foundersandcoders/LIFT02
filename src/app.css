@@ -42,11 +42,15 @@ body {
 }
 
 h1 {
-	@apply text-primary-content text-xl font-bold tracking-tight;
+	@apply text-primary-content text-2xl font-bold tracking-tight;
 }
 
 h2 {
-	@apply text-primary-content text-lg font-bold tracking-tight;
+	@apply text-primary-content text-xl font-bold tracking-tight;
+}
+
+h3 {
+	@apply mb-2 text-center text-lg;
 }
 
 .header {
@@ -104,7 +108,7 @@ h2 {
 }
 
 .form-textarea {
-	@apply textarea border-primary focus:border-accent rounded-lg border-2 p-3 outline-none;
+	@apply textarea border-primary focus:border-accent rounded-lg border-2 p-3 outline-none w-full;
 }
 
 .form-select {
@@ -165,3 +169,5 @@ h2 {
 .list-item-content {
 	@apply min-w-0 flex-1 px-3;
 }
+
+.form-label { @apply w-full mx-1 mb-2; }
