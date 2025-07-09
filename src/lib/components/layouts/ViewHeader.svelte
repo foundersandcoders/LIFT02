@@ -12,7 +12,5 @@
 
 	{#if onclick}
 		<button {onclick} class="btn-nav border-primary"> Back </button>
-	{:else}
-		<div class="btn-nav invisible opacity-0">Back</div>
 	{/if}
 </div>

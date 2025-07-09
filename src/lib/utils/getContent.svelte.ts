@@ -7,7 +7,7 @@ export const getQuestionDetails = async (
 	user_id: string,
 	questionId: string
 ): Promise<QuestionDetails> => {
-	console.group('📋 getQuestionDetails');
+	console.groupCollapsed('📋 getQuestionDetails');
 	console.log('📥 Input:', { user_id, questionId });
 
 	const response = await getLatestResponses(user_id);

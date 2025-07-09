@@ -46,14 +46,20 @@ body {
 }
 
 .view-header {
-	@apply max-w-full prose bg-accent flex flex-row items-center justify-between p-4;
+	@apply bg-accent max-w-full p-4;
+	height: 4.5rem;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
 }
 
-.view-layout { /* DASH */
-	@apply max-w-full px-2 justify-around space-y-4;
+.view-layout {
+	/* DASH */
+	@apply max-w-full justify-around space-y-4 px-2;
 }
 
-.view-content { /* LIST */
+.view-content {
+	/* LIST */
 	@apply list /* justify-left */ m-2 flex flex-1 flex-col overflow-y-auto;
 }
 
@@ -82,15 +88,15 @@ body {
 }
 
 .status-indicator {
-	@apply h-4 w-4 rounded-full;
+	@apply h-4 w-4 rounded-full border border-gray-200 shadow-sm;
 }
 
 .status-indicator-lg {
-	@apply h-6 w-6 rounded-full;
+	@apply h-6 w-6 rounded-full border border-gray-200 shadow-sm;
 }
 
 .status-indicator-xl {
-	@apply h-8 w-8 rounded-full;
+	@apply h-8 w-8 rounded-full border border-gray-200 shadow-sm;
 }
 
 .status-active {
@@ -102,7 +108,7 @@ body {
 }
 
 .status-action {
-	@apply bg-accent animate-pulse;
+	@apply bg-accent;
 }
 
 .btn-nav {

@@ -5,7 +5,7 @@ import type { Action, Response } from '$lib/types/tableMain';
   user+question combination
    */
 export function filterLatestResponses(responses: Response[]): Response[] {
-	console.group('🔍 filterLatestResponses');
+	console.groupCollapsed('🔍 filterLatestResponses');
 	console.log('📥 Input responses:', responses.length);
 
 	const latestResponsesMap = new Map<string, Response>();

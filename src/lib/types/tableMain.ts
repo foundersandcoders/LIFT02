@@ -10,9 +10,9 @@ export interface Action {
 	description?: string;
 	version: number;
 	status: 'active' | 'archived';
-	created_at?: string; // TODO: Temporal()
-	updated_at?: string; // TODO: Temporal(),
-	shares?: Share[]; // sharing_event_actions
+	created_at?: string;
+	updated_at?: string;
+	shares?: Share[];
 }
 
 export interface Profile {
@@ -40,9 +40,9 @@ export interface Response {
 	status?: 'answered' | 'skipped';
 	visibility: 'public' | 'private';
 	version: number;
-	created_at?: string; // TODO: Temporal()
-	updated_at?: string; // TODO: Temporal()
-	shares?: Share[]; // sharing_event_responses
+	created_at?: string;
+	updated_at?: string;
+	shares?: Share[];
 }
 
 export interface Share {
@@ -54,11 +54,11 @@ export interface Share {
     However, there's a line manager id prop earmarked for later use
 
     If a table is implemented for Line Managers, this prop should be replaced by a foreign key to it
-    */
+	*/
 	message?: string;
-	responses?: Response[]; // sharing_event_responses
-	actions?: Action[]; // sharing_event_actions
-	shared_at?: string; // TODO: Temporal()
+	responses?: Response[];
+	actions?: Action[];
+	shared_at?: string;
 }
 
 export interface Resource {
