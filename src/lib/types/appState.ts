@@ -45,6 +45,7 @@ export interface QuestionDetails {
 	actionsInput: string | null;
 	actionType: string;
 	responseId: RowId | null;
+	visibility: 'public' | 'private';
 }
 
 export type RowId = string;

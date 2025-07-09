@@ -6,6 +6,7 @@ export interface Action {
 	id?: string;
 	user_id: string;
 	response_id?: string;
+	question_id?: string;
 	type: string;
 	description?: string;
 	version: number;

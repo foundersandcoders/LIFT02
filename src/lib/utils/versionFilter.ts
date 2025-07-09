@@ -54,7 +54,9 @@ export function filterLatestResponses(responses: Response[]): Response[] {
 export function filterLatestActions(actions: Action[]): Action[] {
 	const latestActionsMap = new Map<string, Action>();
 	for (const action of actions) {
-		const key = `${action.user_id}-${action.response_id}`;
+		const userId = action.user_id;
+		const questionId = action.question_id || '';
+		const key = userId + '-' + questionId;
 		const existing = latestActionsMap.get(key);
 
 		// Validate creation date data integrity
