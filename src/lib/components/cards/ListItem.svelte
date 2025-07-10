@@ -123,96 +123,106 @@
 	disabled={table === 'actions' || table === 'resources'}
 	transition:fade={{ duration: 300 }}
 >
-	<div id="list-item-{item.id}-row" class="list-item-row">
-		<!-- Status Icon -->
-		{#if table === 'questions'}
-			<div id="list-item-{item.id}-status" class="flex items-center">
-				{#if app.profile.id}
-					{#await questionResponse}
-						<div
-							id="list-item-{item.id}-status-icon"
-							class="status-indicator-lg status-default"
-						></div>
-					{:then response}
-						{@const hasValidStatus =
-							response && response.status && ['answered', 'skipped'].includes(response.status)}
-						{#if hasValidStatus}
-							<!-- Grey -->
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default"
-							></div>
-						{:else}
-							<!-- Magenta -->
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-active"
-							></div>
-						{/if}
-					{:catch}
-						<div
-							id="list-item-{item.id}-status-icon"
-							class="status-indicator-lg status-default"
-						></div>
-					{/await}
-				{:else}
-					<div
-						id="list-item-{item.id}-status-icon"
-						class="status-indicator-lg status-default"
-					></div>
-				{/if}
+	<div
+		id="list-item-{item.id}-row"
+		class="flex w-full flex-col items-start md:flex-row md:items-center md:justify-between"
+	>
+		{#if table === 'actions'}
+			<!-- Text content for actions, stacked vertically -->
+			<div class="flex flex-col">
+				<p class="action-question-preview text-left">
+					{item.question_preview || 'Question not found'}
+				</p>
+				<p class="action-description text-left font-bold">
+					{item.description || 'No description'}
+				</p>
 			</div>
-		{/if}
-
-		<div
-			id="list-item-{item.id}-title"
-			class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
-		>
-			{#if table == 'actions'}
-				<div class="action-content">
-					<p class="action-question-preview">
-						{item.question_preview || 'Question not found'}
-					</p>
-					<span class="action-separator">•</span>
-					<p class="action-description">{item.description || 'No description'}</p>
-				</div>
-			{:else if table == 'questions' && item}
-				<p>{item.preview}</p>
-			{:else if table == 'resources' && item}
-				<p>{item.title}</p>
-				{#if item.url}
-					<a
-						href={item.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent hover:text-accent-dark text-sm underline"
-						onclick={(e) => e.stopPropagation()}
-					>
-						{item.url}
-					</a>
-				{/if}
-			{:else}
-				{@const table = null}
-				{@const item = { id: null }}
-				<p>NULL</p>
-			{/if}
-		</div>
-
-		<!-- Action Toggle -->
-		<div id="list-item-{item.id}-action" class="flex flex-row items-center">
-			{#if table === 'actions'}
+			<!-- Toggle with responsive margin -->
+			<div id="list-item-{item.id}-action" class="mt-4 self-end md:mt-0 md:self-center">
 				<ActionStatusToggle
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
 				/>
+			</div>
+		{:else}
+			<!-- Original layout for other table types -->
+			<!-- Status Icon -->
+			{#if table === 'questions'}
+				<div id="list-item-{item.id}-status" class="flex items-center">
+					{#if app.profile.id}
+						{#await questionResponse}
+							<div
+								id="list-item-{item.id}-status-icon"
+								class="status-indicator-lg status-default"
+							></div>
+						{:then response}
+							{@const hasValidStatus =
+								response && response.status && ['answered', 'skipped'].includes(response.status)}
+							{#if hasValidStatus}
+								<!-- Grey -->
+								<div
+									id="list-item-{item.id}-status-icon"
+									class="status-indicator-lg status-default"
+								></div>
+							{:else}
+								<!-- Magenta -->
+								<div
+									id="list-item-{item.id}-status-icon"
+									class="status-indicator-lg status-active"
+								></div>
+							{/if}
+						{:catch}
+							<div
+								id="list-item-{item.id}-status-icon"
+								class="status-indicator-lg status-default"
+							></div>
+						{/await}
+					{:else}
+						<div
+							id="list-item-{item.id}-status-icon"
+							class="status-indicator-lg status-default"
+						></div>
+					{/if}
+				</div>
 			{/if}
-		</div>
+
+			<div
+				id="list-item-{item.id}-title"
+				class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
+			>
+				{#if table == 'questions' && item}
+					<p>{item.preview}</p>
+				{:else if table == 'resources' && item}
+					<p>{item.title}</p>
+					{#if item.url}
+						<a
+							href={item.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-accent hover:text-accent-dark text-sm underline"
+							onclick={(e) => e.stopPropagation()}
+						>
+							{item.url}
+						</a>
+					{/if}
+				{:else}
+					{@const table = null}
+					{@const item = { id: null }}
+					<p>NULL</p>
+				{/if}
+			</div>
+
+			<!-- Action Toggle -->
+			<div id="list-item-{item.id}-action" class="flex flex-row items-center">
+				<!-- No toggle for non-action items -->
+			</div>
+		{/if}
 	</div>
 </button>
 
 <!-- Error Feedback Toast -->
 {#if showError && errorMessage}
-	<div class="toast toast-top toast-end z-50">
+	<div class="toast toast-top toast-end z-50" role="alert" aria-live="polite">
 		<div class="alert alert-error">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center">

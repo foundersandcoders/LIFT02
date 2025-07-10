@@ -13,9 +13,20 @@
 		isUpdate: boolean;
 		hasResponseContent: boolean;
 		hasActionContent: boolean;
+		onclick?: () => void;
 	}
 
-	let { buttonType, details, hasResponseContent, hasActionContent, isUpdate, table, text, visibility }: Props = $props();
+	let {
+		buttonType,
+		details,
+		hasResponseContent,
+		hasActionContent,
+		isUpdate,
+		table,
+		text,
+		visibility,
+		onclick
+	}: Props = $props();
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	const getQuestionId = getContext<() => string>('getDetailItemId');
@@ -37,7 +48,12 @@
 		setQuestionId(null);
 	}
 
-	const onclick = async () => {
+	const handleClick = async () => {
+		if (onclick) {
+			onclick();
+			return;
+		}
+
 		console.groupCollapsed(`🔘 FormButton Click: ${text}`);
 		console.log('📋 Button Props:', {
 			text,
@@ -50,7 +66,7 @@
 			profileId: profileId, // Force value resolution
 			questionId: questionId // Force value resolution
 		});
-		console.log('📝 Question Details:', $state.snapshot(details));
+		console.log('📝 Question Details:', details ? $state.snapshot(details) : null);
 
 		if (table === 'responses') {
 			if (buttonType === 'primary') {
@@ -74,7 +90,7 @@
 					if (hasActionContent && result.data?.id) {
 						const actionData = {
 							description: details?.actionsInput,
-							type: "",
+							type: '',
 							response_id: result.data.id
 						};
 
@@ -136,6 +152,6 @@
 	};
 </script>
 
-<button {onclick} type="submit" class="btn-submit">
+<button onclick={handleClick} type="submit" class="btn-submit">
 	{text}
 </button>
