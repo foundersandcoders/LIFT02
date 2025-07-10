@@ -10,6 +10,13 @@
 	let { show, title, message, onConfirm, onCancel }: Props = $props();
 </script>
 
+<svelte:window
+	on:keydown={(e) => {
+		if (show && e.key === 'Escape') {
+			onCancel();
+		}
+	}}
+/>
 {#if show}
 	<dialog
 		class="modal modal-open"
@@ -20,7 +27,7 @@
 		}}
 	>
 		<div class="modal-box">
-			<h3 class="font-bold text-lg">{title}</h3>
+			<h3 class="text-lg font-bold">{title}</h3>
 			<p class="py-4">{message}</p>
 			<div class="modal-action">
 				<button class="btn" onclick={onCancel}>Cancel</button>
