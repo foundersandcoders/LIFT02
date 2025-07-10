@@ -10,7 +10,7 @@
 	};
 </script>
 
-<label class="flex items-center gap-2 justify-end">
+<label class="flex items-center justify-end gap-2">
 	<span class="text-sm">Show Archived</span>
 	<input
 		type="checkbox"

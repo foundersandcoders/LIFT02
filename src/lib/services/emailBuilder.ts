@@ -58,12 +58,12 @@ export async function generateEmailData(
 
 		// Get all active actions for this response from batched data
 		const responseActions = response.id ? actionsByResponseId.get(response.id) || [] : [];
-		const activeActions = responseActions.filter(action => action.status === 'active');
+		const activeActions = responseActions.filter((action) => action.status === 'active');
 
 		// Only include actions that have actual content
 		const emailActions = activeActions
-			.filter(action => action.description?.trim())
-			.map(action => ({
+			.filter((action) => action.description?.trim())
+			.map((action) => ({
 				description: action.description!,
 				type: action.type,
 				status: action.status

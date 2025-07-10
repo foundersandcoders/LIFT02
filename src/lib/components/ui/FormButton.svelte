@@ -15,7 +15,16 @@
 		hasActionContent: boolean;
 	}
 
-	let { buttonType, details, hasResponseContent, hasActionContent, isUpdate, table, text, visibility }: Props = $props();
+	let {
+		buttonType,
+		details,
+		hasResponseContent,
+		hasActionContent,
+		isUpdate,
+		table,
+		text,
+		visibility
+	}: Props = $props();
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	const getQuestionId = getContext<() => string>('getDetailItemId');
@@ -74,7 +83,7 @@
 					if (hasActionContent && result.data?.id) {
 						const actionData = {
 							description: details?.actionsInput,
-							type: "",
+							type: '',
 							response_id: result.data.id
 						};
 

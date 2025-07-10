@@ -12,7 +12,6 @@
 	const app = $derived(getApp());
 	const profileId = $derived(app.profile.id);
 
-
 	// TODO This should be read from appState context
 	let table: TableName = $state('responses');
 	let connectionDetails = $state<QuestionConnections>({
@@ -32,14 +31,14 @@
 
 	const hasResponseContent = $derived(
 		connectionDetails.responseInput !== null &&
-		connectionDetails.responseInput !== undefined &&
-		connectionDetails.responseInput.trim() !== ''
+			connectionDetails.responseInput !== undefined &&
+			connectionDetails.responseInput.trim() !== ''
 	);
 
 	const hasActionContent = $derived(
 		connectionDetails.actionsInput !== null &&
-		connectionDetails.actionsInput !== undefined &&
-		connectionDetails.actionsInput.trim() !== ''
+			connectionDetails.actionsInput !== undefined &&
+			connectionDetails.actionsInput.trim() !== ''
 	);
 
 	const buttonConfig = $derived(() => {
@@ -49,8 +48,12 @@
 	});
 
 	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
-	$inspect(hasResponseContent).with((type, value) => console.log(`📝 hasResponseContent: ${type} ${value}`));
-	$inspect(hasActionContent).with((type, value) => console.log(`📝 hasActionContent: ${type} ${value}`));
+	$inspect(hasResponseContent).with((type, value) =>
+		console.log(`📝 hasResponseContent: ${type} ${value}`)
+	);
+	$inspect(hasActionContent).with((type, value) =>
+		console.log(`📝 hasActionContent: ${type} ${value}`)
+	);
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
 	);
@@ -76,7 +79,7 @@
 		console.log('📝 Connections:', connections);
 
 		connectionDetails = connections;
-		
+
 		// Update visibility based on details or default to 'private'
 		visibility = connections.visibility || 'private';
 		connectionDetails.actionsInput = null;
@@ -94,8 +97,10 @@
 	};
 
 	let visibility = $state('private');
-	$inspect(visibility).with((type, value) => console.log(`📝 visibility (local): ${type} ${value}`));
-	
+	$inspect(visibility).with((type, value) =>
+		console.log(`📝 visibility (local): ${type} ${value}`)
+	);
+
 	const toggleVisibility = () => {
 		visibility = visibility === 'public' ? 'private' : 'public';
 	};
