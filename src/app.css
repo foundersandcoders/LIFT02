@@ -66,7 +66,7 @@ h3 {
 }
 
 .header-container-logo {
-	@apply bg-white rounded-xl p-2 shadow-sm;
+	@apply rounded-xl bg-white p-2 shadow-sm;
 }
 
 .header-content {
@@ -74,7 +74,7 @@ h3 {
 }
 
 .header-left {
-	@apply px-4 py-1 flex items-baseline space-x-4;
+	@apply flex items-baseline space-x-4 px-4 py-1;
 }
 
 .view {
@@ -112,7 +112,7 @@ h3 {
 }
 
 .form-textarea {
-	@apply textarea border-primary focus:border-accent rounded-lg border-2 p-3 outline-none w-full;
+	@apply textarea border-primary focus:border-accent w-full rounded-lg border-2 p-3 outline-none;
 }
 
 .form-select {
@@ -147,6 +147,22 @@ h3 {
 	@apply bg-accent;
 }
 
+.action-content {
+	@apply flex w-full flex-row items-center space-x-2;
+}
+
+.action-question-preview {
+	@apply text-sm whitespace-nowrap text-gray-500 italic;
+}
+
+.action-separator {
+	@apply text-gray-400;
+}
+
+.action-description {
+	@apply text-base-content min-w-0 flex-1;
+}
+
 .btn-nav {
 	@apply btn btn-secondary text-secondary-content;
 }
@@ -157,6 +173,24 @@ h3 {
 
 .btn-dev {
 	@apply btn btn-secondary;
+}
+
+.dash-grid-1 {
+	@apply grid grid-cols-1 gap-4 p-4;
+}
+
+.dash-grid-2 {
+	@apply grid grid-cols-2 gap-4 p-4;
+}
+
+.dash-tile-square {
+	@apply card border-primary bg-base-100 rounded-lg border p-4 transition-shadow hover:shadow-md;
+	@apply flex aspect-square flex-col items-center justify-center text-center;
+	@apply cursor-pointer;
+}
+
+.dash-vertical-container {
+	@apply flex flex-col space-y-4 px-4;
 }
 
 .list-item {
@@ -175,27 +209,23 @@ h3 {
 }
 
 .list-item-wrapper {
-	@apply w-full flex;
+	@apply flex w-full;
 }
 
 .list-item-wrapper .list-item {
 	@apply flex-1;
 }
 
-.action-content {
-	@apply flex w-full flex-row items-center space-x-2;
+.form-label {
+	@apply mx-1 mb-2 w-full;
 }
 
-.action-question-preview {
-	@apply text-sm text-gray-500 italic whitespace-nowrap;
-}
+@media (max-width: 375px) {
+	.dash-grid {
+		@apply grid-cols-1;
+	}
 
-.action-separator {
-	@apply text-gray-400;
+	.dash-tile-square {
+		@apply aspect-auto min-h-[100px];
+	}
 }
-
-.action-description {
-	@apply text-base-content flex-1 min-w-0;
-}
-
-.form-label { @apply w-full mx-1 mb-2; }
