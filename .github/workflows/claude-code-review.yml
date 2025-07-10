@@ -25,7 +25,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: "claude-opus-4-20250514"
+          model: 'claude-opus-4-20250514'
           direct_prompt: |
             Please review this pull request and provide feedback on:
             - Code quality and best practices
@@ -37,4 +37,4 @@ jobs:
             Use `<details>` and `<summary>` tags to preserve the readability of your review.
 
             Be constructive and helpful in your feedback.
-          allowed_tools: "Bash(npm run test),Bash(npm run lint),Bash(npm run typecheck)"
+          allowed_tools: 'Bash(npm run test),Bash(npm run lint),Bash(npm run typecheck)'

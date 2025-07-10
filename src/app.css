@@ -66,7 +66,7 @@ h3 {
 }
 
 .header-container-logo {
-	@apply bg-white rounded-xl p-2 shadow-sm;
+	@apply rounded-xl bg-white p-2 shadow-sm;
 }
 
 .header-content {
@@ -74,7 +74,7 @@ h3 {
 }
 
 .header-left {
-	@apply px-4 py-1 flex items-baseline space-x-4;
+	@apply flex items-baseline space-x-4 px-4 py-1;
 }
 
 .view {
@@ -112,7 +112,7 @@ h3 {
 }
 
 .form-textarea {
-	@apply textarea border-primary focus:border-accent rounded-lg border-2 p-3 outline-none w-full;
+	@apply textarea border-primary focus:border-accent w-full rounded-lg border-2 p-3 outline-none;
 }
 
 .form-select {
@@ -151,6 +151,10 @@ h3 {
 	@apply btn btn-secondary text-secondary-content;
 }
 
+.btn-nav:disabled {
+	@apply pointer-events-none cursor-not-allowed opacity-50;
+}
+
 .btn-submit {
 	@apply btn btn-accent hover:btn-secondary text-base-100;
 }
@@ -175,7 +179,7 @@ h3 {
 }
 
 .list-item-wrapper {
-	@apply w-full flex;
+	@apply flex w-full;
 }
 
 .list-item-wrapper .list-item {
@@ -187,7 +191,7 @@ h3 {
 }
 
 .action-question-preview {
-	@apply text-sm text-gray-500 italic whitespace-nowrap;
+	@apply text-sm whitespace-nowrap text-gray-500 italic;
 }
 
 .action-separator {
@@ -195,7 +199,9 @@ h3 {
 }
 
 .action-description {
-	@apply text-base-content flex-1 min-w-0;
+	@apply text-base-content min-w-0 flex-1;
 }
 
-.form-label { @apply w-full mx-1 mb-2; }
+.form-label {
+	@apply mx-1 mb-2 w-full;
+}

@@ -4,17 +4,25 @@
 
 	interface Props {
 		text: string;
-		position?: 'top' | 'bottom' | 'left' | 'right' | 'top_left' | 'top_right' | 'bottom_left' | 'bottom_right';
+		position?:
+			| 'top'
+			| 'bottom'
+			| 'left'
+			| 'right'
+			| 'top_left'
+			| 'top_right'
+			| 'bottom_left'
+			| 'bottom_right';
 		children: Snippet;
 		longPressDelay?: number; // Mobile long press delay in ms
-		hideDelay?: number; // Desktop hide delay in ms  
+		hideDelay?: number; // Desktop hide delay in ms
 		autoHideDelay?: number; // Mobile auto-hide delay in ms
 		showDelay?: number; // Desktop show delay in ms (optional)
 	}
 
-	let { 
-		text, 
-		position = 'top', 
+	let {
+		text,
+		position = 'top',
 		children,
 		longPressDelay = 500,
 		hideDelay = 300,
@@ -32,19 +40,19 @@
 
 	const adjustPosition = (element: HTMLDivElement) => {
 		if (!element) return;
-		
+
 		const rect = element.getBoundingClientRect();
 		const viewport = {
 			width: window.innerWidth,
 			height: window.innerHeight
 		};
-		
+
 		let newPosition = position;
-		
+
 		// Get trigger element position for smart alignment
 		const triggerRect = element.parentElement?.getBoundingClientRect();
 		const isInHeader = triggerRect && triggerRect.top < 100;
-		
+
 		// Handle corner positions
 		if (position.includes('_')) {
 			// Corner positions don't need adjustment logic
@@ -65,7 +73,7 @@
 					newPosition = position;
 				}
 			}
-			
+
 			// For header elements, prefer bottom positions
 			if (isInHeader) {
 				if (newPosition === 'top') newPosition = 'bottom';
@@ -73,16 +81,16 @@
 				else if (newPosition === 'top_right') newPosition = 'bottom_right';
 			}
 		}
-		
+
 		// Check vertical overflow
 		if (rect.bottom > viewport.height - 10) {
 			newPosition = 'top';
 		}
-		
+
 		if (rect.top < 10 && !isInHeader) {
 			newPosition = 'bottom';
 		}
-		
+
 		actualPosition = newPosition;
 	};
 
@@ -90,7 +98,7 @@
 		clearTimeout(hideTimer);
 		clearTimeout(showTimer);
 		visible = true;
-		
+
 		// Adjust position after showing to check boundaries
 		setTimeout(() => {
 			if (tooltipElement) {
@@ -98,7 +106,7 @@
 			}
 		}, 0);
 	};
-	
+
 	const hide = () => {
 		clearTimeout(longPressTimer);
 		clearTimeout(showTimer);
@@ -151,7 +159,7 @@
 	});
 </script>
 
-<div 
+<div
 	class="relative inline-block"
 	onmouseenter={() => scheduleShow()}
 	onmouseleave={() => scheduleHide()}
@@ -165,49 +173,73 @@
 	tabindex="0"
 >
 	{@render children()}
-	
+
 	{#if visible}
 		<div
 			bind:this={tooltipElement}
 			id={tooltipId}
 			role="tooltip"
 			aria-live="polite"
-			class="absolute z-50 px-4 py-3 text-sm text-gray-800 bg-white border border-gray-300 rounded-lg shadow-xl pointer-events-none
-				min-w-48 max-w-sm leading-relaxed
-				{actualPosition === 'top' ? 'bottom-full left-1/2 transform -translate-x-1/2 mb-2' : ''}
-				{actualPosition === 'bottom' ? 'top-full left-1/2 transform -translate-x-1/2 mt-2' : ''}
-				{actualPosition === 'left' ? 'right-full top-1/2 transform -translate-y-1/2 mr-2' : ''}
-				{actualPosition === 'right' ? 'left-full top-1/2 transform -translate-y-1/2 ml-2' : ''}
-				{actualPosition === 'top_left' ? 'bottom-full right-0 mb-2' : ''}
+			class="pointer-events-none absolute z-50 max-w-sm min-w-48 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm
+				leading-relaxed text-gray-800 shadow-xl
+				{actualPosition === 'top' ? 'bottom-full left-1/2 mb-2 -translate-x-1/2 transform' : ''}
+				{actualPosition === 'bottom' ? 'top-full left-1/2 mt-2 -translate-x-1/2 transform' : ''}
+				{actualPosition === 'left' ? 'top-1/2 right-full mr-2 -translate-y-1/2 transform' : ''}
+				{actualPosition === 'right' ? 'top-1/2 left-full ml-2 -translate-y-1/2 transform' : ''}
+				{actualPosition === 'top_left' ? 'right-0 bottom-full mb-2' : ''}
 				{actualPosition === 'top_right' ? 'bottom-full left-0 mb-2' : ''}
 				{actualPosition === 'bottom_left' ? 'top-full right-0 mt-2' : ''}
 				{actualPosition === 'bottom_right' ? 'top-full left-0 mt-2' : ''}"
 		>
 			<span class="block">{text}</span>
 			<!-- Arrow -->
-			<div class="absolute
-				{actualPosition === 'top' ? 'top-full left-1/2 transform -translate-x-1/2' : ''}
-				{actualPosition === 'bottom' ? 'bottom-full left-1/2 transform -translate-x-1/2' : ''}
-				{actualPosition === 'left' ? 'left-full top-1/2 transform -translate-y-1/2' : ''}
-				{actualPosition === 'right' ? 'right-full top-1/2 transform -translate-y-1/2' : ''}
+			<div
+				class="absolute
+				{actualPosition === 'top' ? 'top-full left-1/2 -translate-x-1/2 transform' : ''}
+				{actualPosition === 'bottom' ? 'bottom-full left-1/2 -translate-x-1/2 transform' : ''}
+				{actualPosition === 'left' ? 'top-1/2 left-full -translate-y-1/2 transform' : ''}
+				{actualPosition === 'right' ? 'top-1/2 right-full -translate-y-1/2 transform' : ''}
 				{actualPosition === 'top_left' ? 'top-full right-4' : ''}
 				{actualPosition === 'top_right' ? 'top-full left-4' : ''}
-				{actualPosition === 'bottom_left' ? 'bottom-full right-4' : ''}
-				{actualPosition === 'bottom_right' ? 'bottom-full left-4' : ''}">
+				{actualPosition === 'bottom_left' ? 'right-4 bottom-full' : ''}
+				{actualPosition === 'bottom_right' ? 'bottom-full left-4' : ''}"
+			>
 				<!-- Arrow triangle -->
-				<div class="
-					{(actualPosition === 'top' || actualPosition === 'top_left' || actualPosition === 'top_right') ? 'border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-white' : ''}
-					{(actualPosition === 'bottom' || actualPosition === 'bottom_left' || actualPosition === 'bottom_right') ? 'border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white' : ''}
-					{actualPosition === 'left' ? 'border-t-[6px] border-b-[6px] border-l-[6px] border-transparent border-l-white' : ''}
-					{actualPosition === 'right' ? 'border-t-[6px] border-b-[6px] border-r-[6px] border-transparent border-r-white' : ''}">
-				</div>
+				<div
+					class="
+					{actualPosition === 'top' || actualPosition === 'top_left' || actualPosition === 'top_right'
+						? 'border-t-[6px] border-r-[6px] border-l-[6px] border-transparent border-t-white'
+						: ''}
+					{actualPosition === 'bottom' ||
+					actualPosition === 'bottom_left' ||
+					actualPosition === 'bottom_right'
+						? 'border-r-[6px] border-b-[6px] border-l-[6px] border-transparent border-b-white'
+						: ''}
+					{actualPosition === 'left'
+						? 'border-t-[6px] border-b-[6px] border-l-[6px] border-transparent border-l-white'
+						: ''}
+					{actualPosition === 'right'
+						? 'border-t-[6px] border-r-[6px] border-b-[6px] border-transparent border-r-white'
+						: ''}"
+				></div>
 				<!-- Arrow border -->
-				<div class="absolute
-					{(actualPosition === 'top' || actualPosition === 'top_left' || actualPosition === 'top_right') ? '-top-[1px] left-1/2 transform -translate-x-1/2 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-gray-300' : ''}
-					{(actualPosition === 'bottom' || actualPosition === 'bottom_left' || actualPosition === 'bottom_right') ? '-bottom-[1px] left-1/2 transform -translate-x-1/2 border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-gray-300' : ''}
-					{actualPosition === 'left' ? '-left-[1px] top-1/2 transform -translate-y-1/2 border-t-[6px] border-b-[6px] border-l-[6px] border-transparent border-l-gray-300' : ''}
-					{actualPosition === 'right' ? '-right-[1px] top-1/2 transform -translate-y-1/2 border-t-[6px] border-b-[6px] border-r-[6px] border-transparent border-r-gray-300' : ''}">
-				</div>
+				<div
+					class="absolute
+					{actualPosition === 'top' || actualPosition === 'top_left' || actualPosition === 'top_right'
+						? '-top-[1px] left-1/2 -translate-x-1/2 transform border-t-[6px] border-r-[6px] border-l-[6px] border-transparent border-t-gray-300'
+						: ''}
+					{actualPosition === 'bottom' ||
+					actualPosition === 'bottom_left' ||
+					actualPosition === 'bottom_right'
+						? '-bottom-[1px] left-1/2 -translate-x-1/2 transform border-r-[6px] border-b-[6px] border-l-[6px] border-transparent border-b-gray-300'
+						: ''}
+					{actualPosition === 'left'
+						? 'top-1/2 -left-[1px] -translate-y-1/2 transform border-t-[6px] border-b-[6px] border-l-[6px] border-transparent border-l-gray-300'
+						: ''}
+					{actualPosition === 'right'
+						? 'top-1/2 -right-[1px] -translate-y-1/2 transform border-t-[6px] border-r-[6px] border-b-[6px] border-transparent border-r-gray-300'
+						: ''}"
+				></div>
 			</div>
 		</div>
 	{/if}

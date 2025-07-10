@@ -7,6 +7,9 @@
 	const app = $derived(getApp());
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+
+	// Check if currently in email view
+	const isInEmailView = $derived(app.view.name === 'email');
 	const onProfileClick = () => {
 		// setViewName('profile');
 		console.log('Profile Clicked');
@@ -43,7 +46,9 @@
 			<!-- Email Button -->
 			{#if app.profile.id}
 				<Tooltip
-					text="Generate an email summary of your responses and actions to share with your line manager"
+					text={isInEmailView
+						? 'Currently viewing email preview'
+						: 'Generate an email summary of your responses and actions to share with your line manager'}
 					position="bottom_left"
 				>
 					<button
@@ -52,6 +57,7 @@
 						class="btn-nav"
 						type="button"
 						aria-label="Send Email to Line Manager"
+						disabled={isInEmailView}
 					>
 						Email Preview
 					</button>

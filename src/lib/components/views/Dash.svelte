@@ -54,7 +54,11 @@
 					{@const table = 'actions'}
 					{@const category = { raw: 'actions', format: 'Actions' }}
 					<button onclick={() => onclick(table, category)} class="list-item">
-						<p class="text-center">{result.data.length > 0 ? `${result.data.length} Active Actions` : 'No Active Actions'}</p>
+						<p class="text-center">
+							{result.data.length > 0
+								? `${result.data.length} Active Actions`
+								: 'No Active Actions'}
+						</p>
 					</button>
 				{:else}
 					<div class="list-item">
