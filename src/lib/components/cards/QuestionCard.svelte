@@ -31,11 +31,9 @@
 		setQuestionId(null);
 	};
 
-	const handleDeleteConfirm = async () => {
+	const deleteResponse = async () => {
 		if (!profileId) {
-			console.error('Cannot delete response without a profile ID.');
-			closeDeleteModal();
-			return;
+			throw new Error('Cannot delete response without a profile ID.');
 		}
 
 		const responseData = {
@@ -46,15 +44,8 @@
 		};
 
 		console.log('🎯 Deleting response:', responseData);
-
-		try {
-			await createResponse(profileId, responseData);
-			console.log('✅ Response deleted successfully:');
-		} catch (error) {
-			console.error('❌ Response deletion failed:', error);
-		}
-		closeDeleteModal();
-		clearDetail();
+		await createResponse(profileId, responseData);
+		console.log('✅ Response deleted successfully:');
 	};
 
 	// TODO This should be read from appState context
@@ -155,7 +146,8 @@
 	show={showDeleteModal}
 	title="Confirm Deletion"
 	message="Are you sure you want to delete this response? This action cannot be undone."
-	onConfirm={handleDeleteConfirm}
+	onConfirm={deleteResponse}
+	onSuccess={clearDetail}
 	onCancel={closeDeleteModal}
 />
 

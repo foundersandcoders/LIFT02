@@ -3,18 +3,47 @@
 		show: boolean;
 		title: string;
 		message: string;
-		onConfirm: () => void;
+		onConfirm: () => Promise<void>;
+		onSuccess?: () => void;
 		onCancel: () => void;
 	}
 
-	let { show, title, message, onConfirm, onCancel }: Props = $props();
+	let { show, title, message, onConfirm, onSuccess, onCancel }: Props = $props();
 
 	let dialog = $state<HTMLDialogElement>();
 	let previouslyFocused = $state<HTMLElement | null>(null);
+	let isLoading = $state(false);
+	let errorMessage = $state<string | null>(null);
+
+	const handleConfirm = async () => {
+		isLoading = true;
+		errorMessage = null;
+
+		try {
+			const timeoutPromise = new Promise((_, reject) =>
+				setTimeout(() => reject(new Error('Request timed out')), 8000)
+			);
+
+			await Promise.race([onConfirm(), timeoutPromise]);
+
+			onSuccess?.();
+			onCancel(); // Close modal on success
+		} catch (error) {
+			if (error instanceof Error && error.message === 'Request timed out') {
+				errorMessage = 'The request timed out. Please check your connection and try again.';
+			} else {
+				errorMessage = 'The operation failed. Please try again.';
+			}
+			console.error('❌ Operation failed:', error);
+		} finally {
+			isLoading = false;
+		}
+	};
 
 	$effect(() => {
 		if (show && dialog) {
 			previouslyFocused = document.activeElement as HTMLElement;
+			errorMessage = null; // Reset error on show
 			dialog.showModal();
 			const autofocusElement = dialog.querySelector<HTMLElement>('[data-autofocus]');
 			if (autofocusElement) {
@@ -49,7 +78,7 @@
 
 <svelte:window
 	onkeydown={(e) => {
-		if (show && e.key === 'Escape') {
+		if (show && e.key === 'Escape' && !isLoading) {
 			onCancel();
 		}
 	}}
@@ -59,7 +88,7 @@
 		bind:this={dialog}
 		class="modal"
 		onclick={(event) => {
-			if (event.currentTarget === event.target) {
+			if (event.currentTarget === event.target && !isLoading) {
 				onCancel();
 			}
 		}}
@@ -68,9 +97,19 @@
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">{title}</h3>
 			<p class="py-4">{message}</p>
+			{#if errorMessage}
+				<div class="alert alert-error">{errorMessage}</div>
+			{/if}
 			<div class="modal-action">
-				<button class="btn" onclick={onCancel}>Cancel</button>
-				<button class="btn btn-primary" onclick={onConfirm} data-autofocus>Confirm</button>
+				<button class="btn" onclick={onCancel} disabled={isLoading}>Cancel</button>
+				<button class="btn btn-primary" onclick={handleConfirm} disabled={isLoading} data-autofocus>
+					{#if isLoading}
+						<span class="loading loading-spinner"></span>
+						Processing...
+					{:else}
+						Confirm
+					{/if}
+				</button>
 			</div>
 		</div>
 	</dialog>
