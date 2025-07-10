@@ -7,5 +7,6 @@
   "prettier.prettierPath": "./node_modules/prettier",
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-  }
+  },
+  "postman.settings.dotenv-detection-notification-visibility": false
 }
