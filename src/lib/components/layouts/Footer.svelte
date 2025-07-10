@@ -66,37 +66,39 @@
 			>Dev</button> -->
 
 			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-			<div class="dropdown dropdown-top dropdown-end">
-				<button
-					type="button"
-					class="btn btn-sm m-1 text-xs"
-					onclick={toggleDropdown}
-					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-					aria-label="Select test user for development"
-					aria-expanded={dropdownExpanded}
-					aria-haspopup="listbox"
-				>
-					User ⬆️
-				</button>
-				<ul
-					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-					role="listbox"
-					aria-label="Available test users"
-				>
-					{#each sortedTestUsers as user (user.id)}
-						<li role="option" aria-selected={selectedUserId === user.id}>
-							<button
-								onclick={() => handleUserSelect(user.id, user.name)}
-								class="text-left"
-								aria-label="Select {user.name} as test user"
-							>
-								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-								{user.name}
-							</button>
-						</li>
-					{/each}
-				</ul>
-			</div>
+			{#if !profileId}
+				<div class="dropdown dropdown-top dropdown-end">
+					<button
+						type="button"
+						class="btn btn-sm m-1 text-xs"
+						onclick={toggleDropdown}
+						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
+						aria-label="Select test user for development"
+						aria-expanded={dropdownExpanded}
+						aria-haspopup="listbox"
+					>
+						User ⬆️
+					</button>
+					<ul
+						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
+						role="listbox"
+						aria-label="Available test users"
+					>
+						{#each sortedTestUsers as user (user.id)}
+							<li role="option" aria-selected={selectedUserId === user.id}>
+								<button
+									onclick={() => handleUserSelect(user.id, user.name)}
+									class="text-left"
+									aria-label="Select {user.name} as test user"
+								>
+									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
+									{user.name}
+								</button>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 			<!-- ====================================================== -->
 		</div>
 	</div>
