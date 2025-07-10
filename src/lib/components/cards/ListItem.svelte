@@ -222,7 +222,7 @@
 
 <!-- Error Feedback Toast -->
 {#if showError && errorMessage}
-	<div class="toast toast-top toast-end z-50">
+	<div class="toast toast-top toast-end z-50" role="alert" aria-live="polite">
 		<div class="alert alert-error">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center">
