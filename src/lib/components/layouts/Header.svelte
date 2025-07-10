@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName } from '$lib/types/appState';
+	import Tooltip from '../ui/Tooltip.svelte';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -19,11 +20,7 @@
 	<div id="header-content" class="header-content">
 		<div id="header-left" class="header-left">
 			<div id="brand-logo" class="header-container-logo">
-				<img
-					alt="LIFT logo"
-					src="/logo/LIFT_logo_gradient_clean.svg"
-					class="h-8 w-auto sm:h-10"
-				/>
+				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
 			</div>
 
 			<div id="app-name" class="header-container-name">
@@ -45,15 +42,20 @@
 
 			<!-- Email Button -->
 			{#if app.profile.id}
-				<button
-					id="email-button"
-					onclick={onEmailClick}
-					class="btn-nav"
-					type="button"
-					aria-label="Send Email to Line Manager"
+				<Tooltip
+					text="Generate an email summary of your responses and actions to share with your line manager"
+					position="bottom_left"
 				>
-					Email Preview
-				</button>
+					<button
+						id="email-button"
+						onclick={onEmailClick}
+						class="btn-nav"
+						type="button"
+						aria-label="Send Email to Line Manager"
+					>
+						Email Preview
+					</button>
+				</Tooltip>
 			{/if}
 		</div>
 	</div>
