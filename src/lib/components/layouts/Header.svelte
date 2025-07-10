@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { ViewName } from '$lib/types/appState';
+	import type { AppState, ViewName } from '$lib/types/appState';
+
+	const getApp = getContext<() => AppState>('getApp');
+	const app = $derived(getApp());
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 	const onProfileClick = () => {
@@ -41,15 +44,17 @@
 			</button> -->
 
 			<!-- Email Button -->
-			<button
-				id="email-button"
-				onclick={onEmailClick}
-				class="btn-nav"
-				type="button"
-				aria-label="Send Email to Line Manager"
-			>
-				Email Preview
-			</button>
+			{#if app.profile.id}
+				<button
+					id="email-button"
+					onclick={onEmailClick}
+					class="btn-nav"
+					type="button"
+					aria-label="Send Email to Line Manager"
+				>
+					Email Preview
+				</button>
+			{/if}
 		</div>
 	</div>
 </header>
