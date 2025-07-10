@@ -44,26 +44,19 @@
 	// ======================================================
 </script>
 
-<footer
-	id="footer"
-	class="bg-primary text-primary-content footer footer-center w-full flex-shrink-0"
->
-	<div id="footer-content" class="flex w-full justify-between">
-		<div id="footer-content-profile" class="p-4">
-			<p class="text-sm">
-				{#if profileId}
-					Logged In
-				{:else}
-					Not Logged In
-				{/if}
-			</p>
+<footer id="footer" class="footer">
+	<div id="footer-content" class="footer-content">
+		<div id="footer-profile" class="flex flex-col justify-around p-4 h-full">
+			<div>
+				<p class="flex items-center h-8 text-sm">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
+			</div>
 		</div>
 
-		<div id="footer-content-dev-mode" class="p-4">
-			{#if devMode}<p>Dev Mode</p>{/if}
-		</div>
+		<div id="footer-dev" class="p-4 h-full">
+			{#if devMode} <!-- Dev Mode Warning -->
+				<p>Dev Mode</p>
+			{/if}
 
-		<div id="footer-content-dev" class="p-4">
 			<!-- Dev Mode Toggle (Development Only) 
 			<button
 				onclick={onToggleDevMode}
@@ -73,37 +66,39 @@
 			>Dev</button> -->
 
 			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-			<div class="dropdown dropdown-top dropdown-end">
-				<button
-					type="button"
-					class="btn btn-sm m-1 text-xs"
-					onclick={toggleDropdown}
-					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-					aria-label="Select test user for development"
-					aria-expanded={dropdownExpanded}
-					aria-haspopup="listbox"
-				>
-					User ⬆️
-				</button>
-				<ul
-					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-					role="listbox"
-					aria-label="Available test users"
-				>
-					{#each sortedTestUsers as user (user.id)}
-						<li role="option" aria-selected={selectedUserId === user.id}>
-							<button
-								onclick={() => handleUserSelect(user.id, user.name)}
-								class="text-left"
-								aria-label="Select {user.name} as test user"
-							>
-								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-								{user.name}
-							</button>
-						</li>
-					{/each}
-				</ul>
-			</div>
+			{#if !profileId}
+				<div class="dropdown dropdown-top dropdown-end">
+					<button
+						type="button"
+						class="btn btn-sm m-1 text-xs"
+						onclick={toggleDropdown}
+						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
+						aria-label="Select test user for development"
+						aria-expanded={dropdownExpanded}
+						aria-haspopup="listbox"
+					>
+						User ⬆️
+					</button>
+					<ul
+						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
+						role="listbox"
+						aria-label="Available test users"
+					>
+						{#each sortedTestUsers as user (user.id)}
+							<li role="option" aria-selected={selectedUserId === user.id}>
+								<button
+									onclick={() => handleUserSelect(user.id, user.name)}
+									class="text-left"
+									aria-label="Select {user.name} as test user"
+								>
+									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
+									{user.name}
+								</button>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 			<!-- ====================================================== -->
 		</div>
 	</div>

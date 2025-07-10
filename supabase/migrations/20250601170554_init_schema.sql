@@ -1,6 +1,5 @@
 -- Combined migration: Complete schema with line managers system
 -- This combines the initial schema with the profiles restructure
-
 -- 1. Create sequences for version management
 create sequence if not exists response_version_seq;
 
@@ -16,14 +15,14 @@ create table if not exists organizations (
 
 -- 3. Create profiles table (without line_manager FK initially)
 create table if not exists profiles (
-  id uuid primary key default gen_random_uuid(),
-  user_id uuid references auth.users on delete cascade,
-  name text,
-  pronouns text[] constraint pronouns_length_check check (array_length(pronouns, 1) = 3),
-  job_title text,
-  is_line_manager boolean default false,
-  inserted_at timestamp with time zone default now(),
-  updated_at timestamp with time zone default now()
+	id uuid primary key default gen_random_uuid (),
+	user_id uuid references auth.users on delete cascade,
+	name text,
+	pronouns text[] constraint pronouns_length_check check (array_length(pronouns, 1) = 3),
+	job_title text,
+	is_line_manager boolean default false,
+	inserted_at timestamp with time zone default now(),
+	updated_at timestamp with time zone default now()
 );
 
 -- 4. Create line_managers table
@@ -38,7 +37,8 @@ create table if not exists line_managers (
 );
 
 -- 5. Add line_manager foreign key to profiles after line_managers table exists
-alter table profiles add column if not exists line_manager uuid references line_managers (id) on delete set null;
+alter table profiles
+add column if not exists line_manager uuid references line_managers (id) on delete set null;
 
 -- 6. Create questions table
 create table if not exists questions (
@@ -78,15 +78,15 @@ create table if not exists responses (
 
 -- 8. Create actions table
 create table if not exists actions (
-  id uuid primary key default gen_random_uuid(),
-  user_id uuid references auth.users on delete cascade,
-  response_id uuid references responses on delete set null,
-  type text not null,
-  description text,
-  status text not null default 'active' check (status in ( 'active', 'archived')),
-  version integer default nextval('action_version_seq'),
-  created_at timestamp with time zone default now(),
-  updated_at timestamp with time zone default now()
+	id uuid primary key default gen_random_uuid (),
+	user_id uuid references auth.users on delete cascade,
+	response_id uuid references responses on delete set null,
+	type text not null,
+	description text,
+	status text not null default 'active' check (status in ('active', 'archived')),
+	version integer default nextval('action_version_seq'),
+	created_at timestamp with time zone default now(),
+	updated_at timestamp with time zone default now()
 );
 
 -- 9. Create sharing_events table
@@ -114,15 +114,17 @@ create table if not exists sharing_event_actions (
 
 -- 12. Create resources table
 create table if not exists resources (
-  id uuid primary key default gen_random_uuid(),
-  title text not null,
-  description text,
-  url text,
-  created_at timestamp with time zone default now(),
-  updated_at timestamp with time zone default now()
+	id uuid primary key default gen_random_uuid (),
+	title text not null,
+	description text,
+	url text,
+	created_at timestamp with time zone default now(),
+	updated_at timestamp with time zone default now()
 );
 
 -- 13. Create indexes for better performance
 create index if not exists idx_profiles_is_line_manager on profiles (is_line_manager);
+
 create index if not exists idx_profiles_line_manager on profiles (line_manager);
+
 create index if not exists idx_line_managers_organization on line_managers (organization_id);

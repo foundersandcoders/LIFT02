@@ -155,7 +155,7 @@
 	// Fetch all profiles for testing dropdown
 	onMount(() => {
 		let cancelled = false;
-		
+
 		(async () => {
 			const result = await getAllProfiles();
 			if (!cancelled) {

@@ -16,11 +16,7 @@
 	<div id="header-content" class="header-content">
 		<div id="header-left" class="header-left">
 			<div id="brand-logo" class="header-container-logo">
-				<img
-					alt="LIFT logo"
-					src="/logo/LIFT_logo_gradient_clean.svg"
-					class="h-8 w-auto sm:h-10"
-				/>
+				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
 			</div>
 
 			<div id="app-name" class="header-container-name">
