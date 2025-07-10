@@ -1,6 +1,5 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type { Action } from '$lib/types/tableMain';
-import { filterLatestActions } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -274,12 +273,20 @@ export async function archiveAction(id: string): Result<Action> {
 /**
  * Get latest actions for a user
  */
-export async function getLatestActions(userId: string): Results<Action> {
-	const { data, error } = await supabase
+export async function getLatestActions(
+	userId: string,
+	includeArchived: boolean = false
+): Results<Action> {
+	let query = supabase
 		.from('actions')
-		.select('*, responses!inner(question_id)')
-		.eq('user_id', userId)
-		.order('created_at', { ascending: false });
+		.select('*, responses!inner(question_id, questions!inner(preview))')
+		.eq('user_id', userId);
+
+	if (!includeArchived) {
+		query = query.eq('status', 'active');
+	}
+
+	const { data, error } = await query.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
@@ -297,13 +304,12 @@ export async function getLatestActions(userId: string): Results<Action> {
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined,
-			question_id: dbAction.responses?.question_id || ''
+			question_id: dbAction.responses?.question_id || '',
+			question_preview: dbAction.responses?.questions?.preview || undefined
 		})) || null;
 
-	// Use utility function to get latest versions
-	const latestActions = filterLatestActions(convertedData || []);
-
-	return { data: latestActions, error: null };
+	// Return all actions without filtering
+	return { data: convertedData || [], error: null };
 }
 
 /**

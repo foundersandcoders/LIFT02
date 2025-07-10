@@ -1,7 +1,7 @@
 import { getLatestActions } from '$lib/services/database';
 import { getLatestResponses } from '$lib/services/database/responses';
 import type { QuestionConnections } from '$lib/types/appState';
-import { filterLatestActions, filterLatestResponses } from '$lib/utils/versionFilter';
+import { filterLatestResponses } from '$lib/utils/versionFilter';
 
 export const getQuestionConnections = async (
 	user_id: string,
@@ -37,10 +37,10 @@ export const getQuestionConnections = async (
 };
 
 const getActionDetails = async (response_Id: string | undefined, user_id: string) => {
-	const response = await getLatestActions(user_id);
-	const latestActionsData = response.data ? filterLatestActions(response.data) : [];
+	const response = await getLatestActions(user_id, false);
+	const allActionsData = response.data || [];
 	if (response?.data) {
-		const actionResponse = latestActionsData.find((r) => r.response_id === response_Id);
+		const actionResponse = allActionsData.find((r) => r.response_id === response_Id);
 		return actionResponse;
 	}
 

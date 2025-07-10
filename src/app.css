@@ -19,6 +19,8 @@
 	--color-base-200: oklch(95% 0 0);
 	--color-base-300: oklch(90% 0 0);
 	--color-base-content: oklch(0% 0 0);
+	--color-grey-400: oklch(70% 0 0);
+	--color-grey-500: oklch(60% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
 }
@@ -33,6 +35,8 @@
 	--color-primary: oklch(59% 0.25 341);
 	--color-primary-content: oklch(100% 0 0);
 	--color-secondary: oklch(69% 0.27 339);
+	--color-grey-400: oklch(70% 0 0);
+	--color-grey-500: oklch(60% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
 }
@@ -168,6 +172,30 @@ h3 {
 
 .list-item-content {
 	@apply min-w-0 flex-1 px-3;
+}
+
+.list-item-wrapper {
+	@apply w-full flex;
+}
+
+.list-item-wrapper .list-item {
+	@apply flex-1;
+}
+
+.action-content {
+	@apply flex w-full flex-row items-center space-x-2;
+}
+
+.action-question-preview {
+	@apply text-sm text-gray-500 italic whitespace-nowrap;
+}
+
+.action-separator {
+	@apply text-gray-400;
+}
+
+.action-description {
+	@apply text-base-content flex-1 min-w-0;
 }
 
 .form-label { @apply w-full mx-1 mb-2; }
