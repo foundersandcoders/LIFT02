@@ -9,8 +9,8 @@
 
 	let { show, title, message, onConfirm, onCancel }: Props = $props();
 
-	let dialog: HTMLDialogElement;
-	let previouslyFocused: HTMLElement | null;
+	let dialog = $state<HTMLDialogElement>();
+	let previouslyFocused = $state<HTMLElement | null>(null);
 
 	$effect(() => {
 		if (show && dialog) {
@@ -28,6 +28,7 @@
 	});
 
 	function handleKeydown(e: KeyboardEvent) {
+		if (!dialog) return;
 		if (e.key === 'Tab') {
 			const focusable = Array.from(
 				dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
