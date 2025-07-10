@@ -41,12 +41,11 @@
 
 	<div id="dash-tiles" class="view-content">
 		{#if app.profile.id == null}
-			<div class="dash-grid">
+			<div class="dash-grid-1">
 				<DashTile title="No Profile Selected" variant="square" disabled />
 			</div>
 		{:else}
-			<!-- Top Row -->
-			<div class="dash-grid">
+			<div id="dash-tiles-top" class="dash-grid-2">
 				<!-- Actions -->
 				{#await queryActions}
 					<DashTile title="Actions" loading={true} variant="square" disabled />
@@ -55,8 +54,10 @@
 						{@const table = 'actions'}
 						{@const category = { raw: 'actions', format: 'Actions' }}
 						{@const num = result.data.length}
+						{@const any = result.data.length > 0}
+						{@const name = "Active Actions"}
 						<DashTile
-							title={num > 0 ? `${num} Active Actions` : 'No Active Actions'}
+							title={any ? `${num} ${name}` : `No ${name}`}
 							variant="square"
 							onclick={() => onclick(table, category)}
 						/>
@@ -73,7 +74,11 @@
 				{:then}
 					{@const table = 'resources'}
 					{@const category = { raw: 'resources', format: 'Resources' }}
-					<DashTile title={'Resources'} variant="square" onclick={() => onclick(table, category)} />
+					<DashTile
+						title={'Resources'}
+						variant="square"
+						onclick={() => onclick(table, category)}
+					/>
 				{:catch error}
 					<DashTile
 						title="Error Getting Resources"
@@ -84,8 +89,7 @@
 				{/await}
 			</div>
 
-			<!-- Categories -->
-			<div class="dash-vertical-container">
+			<div id="dash-tiles-bottom" class="dash-vertical-container">
 				<!-- Questions -->
 				{#await queryQuestions}
 					<div class="list-item">
