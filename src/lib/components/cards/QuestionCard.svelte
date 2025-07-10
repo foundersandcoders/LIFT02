@@ -2,7 +2,7 @@
 	import { getQuestionById, createResponse } from '$lib/services/database';
 	import FormButton from '../ui/FormButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import type { TableName, QuestionConnections } from '$lib/types/appState';
+	import type { TableName, QuestionConnections, RowId, ViewName } from '$lib/types/appState';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
@@ -23,7 +23,15 @@
 		showDeleteModal = false;
 	};
 
-	const handleDeleteConfirm = () => {
+	const setQuestionId = getContext<(newDetail: RowId | null) => void>('setDetailItemId');
+	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+
+	const clearDetail = () => {
+		setViewName('list');
+		setQuestionId(null);
+	};
+
+	const handleDeleteConfirm = async () => {
 		if (!profileId) {
 			console.error('Cannot delete response without a profile ID.');
 			closeDeleteModal();
@@ -40,12 +48,13 @@
 		console.log('🎯 Deleting response:', responseData);
 
 		try {
-			createResponse(profileId, responseData);
+			await createResponse(profileId, responseData);
 			console.log('✅ Response deleted successfully:');
 		} catch (error) {
 			console.error('❌ Response deletion failed:', error);
 		}
 		closeDeleteModal();
+		clearDetail();
 	};
 
 	// TODO This should be read from appState context

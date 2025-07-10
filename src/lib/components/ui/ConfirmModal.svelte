@@ -11,7 +11,14 @@
 </script>
 
 {#if show}
-	<dialog class="modal modal-open">
+	<dialog
+		class="modal modal-open"
+		onclick={(event) => {
+			if (event.currentTarget === event.target) {
+				onCancel();
+			}
+		}}
+	>
 		<div class="modal-box">
 			<h3 class="font-bold text-lg">{title}</h3>
 			<p class="py-4">{message}</p>
