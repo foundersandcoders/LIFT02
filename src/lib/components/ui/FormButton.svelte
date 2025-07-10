@@ -66,7 +66,7 @@
 			profileId: profileId, // Force value resolution
 			questionId: questionId // Force value resolution
 		});
-		console.log('📝 Question Details:', $state.snapshot(details));
+		console.log('📝 Question Details:', details ? $state.snapshot(details) : null);
 
 		if (table === 'responses') {
 			if (buttonType === 'primary') {
