@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
+	import { Icon, Envelope } from 'svelte-hero-icons';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -27,7 +28,7 @@
 			</div>
 
 			<div id="app-name" class="header-container-name">
-				<h1>LIFT App 0.6</h1>
+				<h1>LIFT 0.6</h1>
 			</div>
 		</div>
 
@@ -59,7 +60,7 @@
 						aria-label="Send Email to Line Manager"
 						disabled={isInEmailView}
 					>
-						Email Preview
+						<Icon src={Envelope} solid class="h-6 w-6" />
 					</button>
 				</Tooltip>
 			{/if}
