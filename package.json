@@ -1,7 +1,7 @@
 {
 	"name": "round02",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.6.008",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -15,7 +15,8 @@
 		"format": "prettier . --write",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"db:reset": "npx supabase db reset && ./scripts/local-seed-test-data.sh"
+		"db:reset": "npx supabase db reset && ./scripts/local-seed-test-data.sh",
+		"deploy": "./scripts/deploy.sh"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
