@@ -18,8 +18,8 @@ MAJOR=${VERSION_PARTS[0]}
 MINOR=${VERSION_PARTS[1]}
 PATCH=${VERSION_PARTS[2]}
 
-# Increment patch version
-NEW_PATCH=$((PATCH + 1))
+# Increment patch version (force base 10 to avoid octal interpretation)
+NEW_PATCH=$((10#$PATCH + 1))
 NEW_VERSION="$MAJOR.$MINOR.$(printf "%03d" $NEW_PATCH)"
 
 echo "⬆️  Incrementing version to: $NEW_VERSION"
