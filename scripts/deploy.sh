@@ -24,15 +24,18 @@ NEW_VERSION="$MAJOR.$MINOR.$(printf "%03d" $NEW_PATCH)"
 
 echo "⬆️  Incrementing version to: $NEW_VERSION"
 
-# Update version in package.json (single source of truth)
+# Update version in package.json and version.ts
 sed -i.bak "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" "package.json"
 rm "package.json.bak" 2>/dev/null || true
 
-echo "✅ Version updated in package.json"
+sed -i.bak "s/export const version = '.*'/export const version = '$NEW_VERSION'/" "src/lib/version.ts"
+rm "src/lib/version.ts.bak" 2>/dev/null || true
+
+echo "✅ Version updated in package.json and version.ts"
 
 # Commit the version change
 echo "📝 Committing version change..."
-git add "package.json"
+git add "package.json" "src/lib/version.ts"
 git commit -m "chore: bump version to $NEW_VERSION" || echo "⚠️  No changes to commit"
 
 echo "🏗️  Building and deploying to production..."
@@ -41,4 +44,4 @@ echo "🏗️  Building and deploying to production..."
 npx vercel --prod
 
 echo "🎉 Deployment completed! New version: $NEW_VERSION"
-echo "🔗 Check your deployment at: https://your-domain.vercel.app"
+echo "🔗 Check your deployment at: https://lift02.vercel.app"
