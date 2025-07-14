@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Generator script that creates both SQL and API scripts from test_data_source.json
+# Generator script that creates both SQL and API scripts from ./supabase/data/test_data_source.json
 # Single source of truth for all test data
 
 set -e

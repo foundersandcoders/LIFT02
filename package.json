@@ -10,12 +10,14 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lift:test": "npx supabase start && npm run db:reset && npm run dev",
 		"lint": "prettier . --check && eslint .",
 		"format:check": "prettier . --check",
 		"format": "prettier . --write",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"db:reset": "npx supabase db reset && ./scripts/local-seed-test-data.sh"
+		"db:reset": "npx supabase db reset && ./scripts/local-seed-test-data.sh",
+		"db:generate-data": "./scripts/generate-test-data.sh"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
