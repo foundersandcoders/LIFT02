@@ -67,11 +67,17 @@
 		<div class="flex space-x-4">
 			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
 				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-				<span class="text-center">Terms of<br />Use</span>
+				<span class="text-center">
+					<span class="hidden sm:inline">Terms of Use</span>
+					<span class="sm:hidden">Terms of<br />Use</span>
+				</span>
 			</button>
 			<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
 				<Icon src={ShieldCheck} class="h-5 w-5" />
-				<span class="text-center">Privacy<br />Policy</span>
+				<span class="text-center">
+					<span class="hidden sm:inline">Privacy Policy</span>
+					<span class="sm:hidden">Privacy<br />Policy</span>
+				</span>
 			</button>
 		</div>
 
