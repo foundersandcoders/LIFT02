@@ -99,7 +99,7 @@ h3 {
 }
 
 .header {
-	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0 border-b border-gray-200;
+	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0;
 }
 
 .header-container-name {
@@ -137,7 +137,7 @@ h3 {
 
 .view-content {
 	/* LIST */
-	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-5xl flex-1 flex-col overflow-y-auto;
+	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-5xl flex-1 flex-col overflow-y-auto px-2;
 }
 
 .card-container {
