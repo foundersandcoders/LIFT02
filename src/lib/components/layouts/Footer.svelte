@@ -67,11 +67,11 @@
 		<div class="flex space-x-4">
 			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
 				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-				Terms of Use
+				<span class="text-center">Terms of<br />Use</span>
 			</button>
 			<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
 				<Icon src={ShieldCheck} class="h-5 w-5" />
-				Privacy Policy
+				<span class="text-center">Privacy<br />Policy</span>
 			</button>
 		</div>
 
@@ -87,7 +87,7 @@
 					aria-expanded={dropdownExpanded}
 					aria-haspopup="listbox"
 				>
-					User ⬆️
+					User <span class="hidden sm:inline">⬆️</span>
 				</button>
 				<ul
 					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"

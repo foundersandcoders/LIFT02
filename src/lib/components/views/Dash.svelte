@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
+	import Tooltip from '../ui/Tooltip.svelte';
 	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestions } from '$lib/services/database/questions';
 	import { getResources } from '$lib/services/database/resources';
@@ -40,9 +41,11 @@
 
 	<div id="dash-content" class="view-content">
 		{#if app.profile.id == null}
-			<div class="list-item">
-				<p class="text-center">No Profile Selected</p>
-			</div>
+			<Tooltip text="Select a user in the User selector at bottom right" position="bottom">
+				<div class="list-item" tabindex="0" role="button" aria-label="No user selected">
+					<p class="text-center">No User Selected</p>
+				</div>
+			</Tooltip>
 		{:else}
 			<!-- Actions -->
 			{#await queryActions}
@@ -113,7 +116,7 @@
 						<p class="text-center">No Questions Found</p>
 					</div>
 				{/if}
-			{:catch error}
+			{:catch}
 				<div class="list-item">
 					<p class="text-center">Loading Questions...</p>
 				</div>

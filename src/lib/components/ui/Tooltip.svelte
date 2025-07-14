@@ -180,7 +180,7 @@
 			id={tooltipId}
 			role="tooltip"
 			aria-live="polite"
-			class="pointer-events-none absolute z-50 max-w-sm min-w-48 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm
+			class="pointer-events-none absolute z-[100] max-w-sm min-w-48 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm
 				leading-relaxed text-gray-800 shadow-xl
 				{actualPosition === 'top' ? 'bottom-full left-1/2 mb-2 -translate-x-1/2 transform' : ''}
 				{actualPosition === 'bottom' ? 'top-full left-1/2 mt-2 -translate-x-1/2 transform' : ''}

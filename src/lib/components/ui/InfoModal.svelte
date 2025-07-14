@@ -1,12 +1,16 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	let {
 		show,
 		title,
-		onclose
+		onclose,
+		children
 	} = $props<{
 		show: boolean;
 		title: string;
 		onclose: () => void;
+		children: Snippet;
 	}>();
 
 	let dialog = $state<HTMLDialogElement>();
@@ -49,7 +53,7 @@
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">{title}</h3>
 			<div class="prose py-4 max-w-none">
-				<slot />
+				{@render children()}
 			</div>
 			<div class="modal-action">
 				<button class="btn" onclick={onclose} data-autofocus>Close</button>
