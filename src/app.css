@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 @plugin 'daisyui' {
-	themes:
-		light --default,
-		dark --prefersdark;
+	themes: light --default;
+	/* dark --prefersdark; */
 }
 @plugin "daisyui/theme" {
 	name: 'light';
@@ -24,7 +23,7 @@
 
 	--font-family-sans: Metropolis, Arial;
 }
-@plugin "daisyui/theme" {
+/* @plugin "daisyui/theme" {
 	name: 'dark';
 	prefersdark: true;
 	--color-accent: oklch(65% 0.1 195);
@@ -39,7 +38,7 @@
 	--color-grey-500: oklch(60% 0 0);
 
 	--font-family-sans: Metropolis, Arial;
-}
+} */
 
 body {
 	overflow: hidden;
