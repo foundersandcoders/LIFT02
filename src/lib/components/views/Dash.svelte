@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import DashTile from '../cards/DashTile.svelte';
+	import Tooltip from '../ui/Tooltip.svelte';
 	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestions } from '$lib/services/database/questions';
 	import { getResources } from '$lib/services/database/resources';
@@ -42,7 +43,9 @@
 	<div id="dash-tiles" class="view-content">
 		{#if app.profile.id == null}
 			<div class="dash-grid-1">
-				<DashTile title="No Profile Selected" variant="square" disabled />
+				<Tooltip text="Select a user in the User selector at bottom right" position="bottom">
+					<DashTile title="No Profile Selected" variant="square" disabled />
+				</Tooltip>
 			</div>
 		{:else}
 			<div id="dash-tiles-top" class="dash-grid-2">
@@ -89,28 +92,33 @@
 				{/await}
 			</div>
 
-			<div id="dash-tiles-bottom" class="dash-vertical-container">
-				<!-- Questions -->
-				{#await queryQuestions}
-					<div class="list-item">
-						<p class="text-center">Loading Questions...</p>
+			<div class="card bg-base-100 shadow-sm mt-4">
+				<div class="card-body p-4">
+					<h3 class="card-title text-base opacity-70 mb-2">Categories</h3>
+					<div class="dash-vertical-container">
+						<!-- Questions -->
+						{#await queryQuestions}
+							<div class="list-item">
+								<p class="text-center">Loading Questions...</p>
+							</div>
+						{:then result}
+							{#if result.data}
+								{#each extractCategories(result.data) as category}
+									{@const table = 'questions'}
+									<DashTile title={category.format} onclick={() => onclick(table, category)} />
+								{/each}
+							{:else}
+								<div class="list-item">
+									<p class="text-center">No Questions Found</p>
+								</div>
+							{/if}
+						{:catch error}
+							<div class="list-item">
+								<p class="text-center">Loading Questions...</p>
+							</div>
+						{/await}
 					</div>
-				{:then result}
-					{#if result.data}
-						{#each extractCategories(result.data) as category}
-							{@const table = 'questions'}
-							<DashTile title={category.format} onclick={() => onclick(table, category)} />
-						{/each}
-					{:else}
-						<div class="list-item">
-							<p class="text-center">No Questions Found</p>
-						</div>
-					{/if}
-				{:catch error}
-					<div class="list-item">
-						<p class="text-center">Loading Questions...</p>
-					</div>
-				{/await}
+				</div>
 			</div>
 		{/if}
 	</div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Tooltip from './Tooltip.svelte';
+
 	let { visibility, toggleVisibility } = $props();
 
 	const checked = visibility === 'private' ? false : true;
@@ -12,7 +14,12 @@
 	<label for="vis-label" class="label text-sm"> Visibility to employer </label>
 
 	<label class="flex items-center gap-2">
-		<input id="vis-toggle" type="checkbox" {checked} {onclick} class="toggle toggle-accent" />
+		<Tooltip
+			text="Public responses are included in emails shared with line managers"
+			position="left"
+		>
+			<input id="vis-toggle" type="checkbox" {checked} {onclick} class="toggle toggle-accent" />
+		</Tooltip>
 		{visibility}
 	</label>
 </fieldset>

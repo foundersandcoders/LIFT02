@@ -3,6 +3,7 @@
 	import { getContext } from 'svelte';
 	import type { ViewName } from '$lib/types/appState';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
+	import ConfirmModal from '../ui/ConfirmModal.svelte';
 
 	const getProfileId = getContext<() => string>('getProfileId');
 	let profileId = $derived(getProfileId());
@@ -12,6 +13,7 @@
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
 	let emailContent = $state('Loading email preview...');
+	let showModal = $state(false);
 
 	// Generate email content when profileId is available
 	$effect(() => {
@@ -49,8 +51,17 @@
 	};
 
 	const onSendClick = () => {
-		// TODO: Implement send functionality
-		console.log('Send email clicked - not implemented yet');
+		showModal = true;
+	};
+
+	const handleConfirmSend = async () => {
+		// Simulate sending email
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+		console.log('Email sent!');
+	};
+
+	const handleSendSuccess = () => {
+		setViewName('dash');
 	};
 </script>
 
@@ -77,3 +88,12 @@
 		</div>
 	</div>
 </div>
+
+<ConfirmModal
+	show={showModal}
+	title="Send Email"
+	message="This will send the email to your line manager. This action cannot be undone."
+	onConfirm={handleConfirmSend}
+	onCancel={() => (showModal = false)}
+	onSuccess={handleSendSuccess}
+/>
