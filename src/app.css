@@ -71,7 +71,7 @@ h3 {
 }
 
 .dash-tile-square {
-	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 mx-2 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
 	@apply flex flex-col items-center justify-center text-center;
 	@apply cursor-pointer;
 	/* Height constraints relative to .list-item */
@@ -111,11 +111,11 @@ h3 {
 }
 
 .header-content {
-	@apply flex h-16 w-full flex-row items-center justify-between px-2 sm:px-6 lg:px-8;
+	@apply flex h-20 w-full flex-row items-center justify-between px-2 sm:px-6 lg:px-8;
 }
 
 .header-left {
-	@apply flex items-baseline space-x-4 px-4 py-1;
+	@apply flex items-center space-x-4 px-2;
 }
 
 .view {
@@ -250,6 +250,6 @@ h3 {
 	}
 
 	.dash-tile-square {
-		@apply aspect-auto min-h-[100px];
+		@apply aspect-auto min-h-[100px] mx-2 my-1;
 	}
 }

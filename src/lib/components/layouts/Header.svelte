@@ -27,8 +27,8 @@
 				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
 			</div>
 
-			<div id="app-name" class="header-container-name">
-				<h1>LIFT 0.6.001</h1>
+			<div id="app-name" class="header-container-name self-end">
+				<h1>LIFT 0.6.004</h1>
 			</div>
 		</div>
 
