@@ -137,7 +137,7 @@ h3 {
 
 .view-content {
 	/* LIST */
-	@apply list /* justify-left */ m-2 flex flex-1 flex-col overflow-y-auto;
+	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-5xl flex-1 flex-col overflow-y-auto;
 }
 
 .card-container {
@@ -250,6 +250,6 @@ h3 {
 	}
 
 	.dash-tile-square {
-		@apply aspect-auto min-h-[100px] mx-2 my-1;
+		@apply mx-2 my-1 aspect-auto min-h-[100px];
 	}
 }
