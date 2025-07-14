@@ -126,7 +126,7 @@
 >
 	<div
 		id="list-item-{item.id}-row"
-		class="flex w-full flex-col items-start md:flex-row md:items-center md:justify-between"
+		class="flex w-full {table === 'questions' ? 'flex-row items-center justify-between' : 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
 	>
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
@@ -202,7 +202,7 @@
 				class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
 			>
 				{#if table == 'questions' && item}
-					<p>{item.preview}</p>
+					<p class="truncate">{item.preview}</p>
 				{:else if table == 'resources' && item}
 					<p>{item.title}</p>
 					{#if item.url}
