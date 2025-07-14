@@ -60,7 +60,9 @@
 		if (!dialog) return;
 		if (e.key === 'Tab') {
 			const focusable = Array.from(
-				dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+				dialog.querySelectorAll(
+					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+				)
 			) as HTMLElement[];
 			const first = focusable[0];
 			const last = focusable[focusable.length - 1];

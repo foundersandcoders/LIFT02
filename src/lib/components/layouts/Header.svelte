@@ -1,8 +1,17 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { ViewName } from '$lib/types/appState';
+	import type { AppState, ViewName } from '$lib/types/appState';
+	import Tooltip from '../ui/Tooltip.svelte';
+	import { Icon, Envelope } from 'svelte-hero-icons';
+	import packageJson from '../../../../package.json';
+
+	const getApp = getContext<() => AppState>('getApp');
+	const app = $derived(getApp());
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+
+	// Check if currently in email view
+	const isInEmailView = $derived(app.view.name === 'email');
 	const onProfileClick = () => {
 		// setViewName('profile');
 		console.log('Profile Clicked');
@@ -19,8 +28,9 @@
 				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
 			</div>
 
-			<div id="app-name" class="header-container-name">
-				<h1>LIFT App 0.6</h1>
+			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
+				<h1>LIFT</h1>
+				<p class="text-sm">{packageJson.version}</p>
 			</div>
 		</div>
 
@@ -37,15 +47,25 @@
 			</button> -->
 
 			<!-- Email Button -->
-			<button
-				id="email-button"
-				onclick={onEmailClick}
-				class="btn-nav"
-				type="button"
-				aria-label="Send Email to Line Manager"
-			>
-				Email Preview
-			</button>
+			{#if app.profile.id}
+				<Tooltip
+					text={isInEmailView
+						? 'Currently viewing email preview'
+						: 'Generate an email summary of your responses and actions to share with your line manager'}
+					position="bottom_left"
+				>
+					<button
+						id="email-button"
+						onclick={onEmailClick}
+						class="btn-nav"
+						type="button"
+						aria-label="Send Email to Line Manager"
+						disabled={isInEmailView}
+					>
+						<Icon src={Envelope} solid class="h-6 w-6" />
+					</button>
+				</Tooltip>
+			{/if}
 		</div>
 	</div>
 </header>

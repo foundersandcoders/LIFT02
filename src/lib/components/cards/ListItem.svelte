@@ -11,6 +11,7 @@
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 	import { fade } from 'svelte/transition';
+	import Tooltip from '../ui/Tooltip.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -125,7 +126,7 @@
 >
 	<div
 		id="list-item-{item.id}-row"
-		class="flex w-full flex-col items-start md:flex-row md:items-center md:justify-between"
+		class="flex w-full {table === 'questions' ? 'flex-row items-center justify-between' : table === 'resources' ? 'flex-row items-center justify-center' : 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
 	>
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
@@ -151,37 +152,47 @@
 				<div id="list-item-{item.id}-status" class="flex items-center">
 					{#if app.profile.id}
 						{#await questionResponse}
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default"
-							></div>
+							<Tooltip text="Question already answered or skipped" position="right">
+								<div
+									id="list-item-{item.id}-status-icon"
+									class="status-indicator-lg status-default"
+								></div>
+							</Tooltip>
 						{:then response}
 							{@const hasValidStatus =
 								response && response.status && ['answered', 'skipped'].includes(response.status)}
 							{#if hasValidStatus}
 								<!-- Grey -->
+								<Tooltip text="Question already answered or skipped" position="right">
+									<div
+										id="list-item-{item.id}-status-icon"
+										class="status-indicator-lg status-default"
+									></div>
+								</Tooltip>
+							{:else}
+								<!-- Magenta -->
+								<Tooltip text="Question requires attention from user" position="right">
+									<div
+										id="list-item-{item.id}-status-icon"
+										class="status-indicator-lg status-active"
+									></div>
+								</Tooltip>
+							{/if}
+						{:catch}
+							<Tooltip text="Question already answered or skipped" position="right">
 								<div
 									id="list-item-{item.id}-status-icon"
 									class="status-indicator-lg status-default"
 								></div>
-							{:else}
-								<!-- Magenta -->
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-active"
-								></div>
-							{/if}
-						{:catch}
+							</Tooltip>
+						{/await}
+					{:else}
+						<Tooltip text="Question already answered or skipped" position="right">
 							<div
 								id="list-item-{item.id}-status-icon"
 								class="status-indicator-lg status-default"
 							></div>
-						{/await}
-					{:else}
-						<div
-							id="list-item-{item.id}-status-icon"
-							class="status-indicator-lg status-default"
-						></div>
+						</Tooltip>
 					{/if}
 				</div>
 			{/if}
@@ -191,15 +202,15 @@
 				class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
 			>
 				{#if table == 'questions' && item}
-					<p>{item.preview}</p>
+					<p class="truncate">{item.preview}</p>
 				{:else if table == 'resources' && item}
-					<p>{item.title}</p>
+					<p class="break-words">{item.title}</p>
 					{#if item.url}
 						<a
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-accent hover:text-accent-dark text-sm underline"
+							class="text-accent hover:text-accent-dark text-sm underline break-all"
 							onclick={(e) => e.stopPropagation()}
 						>
 							{item.url}
