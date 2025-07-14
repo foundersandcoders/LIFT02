@@ -1,7 +1,7 @@
 {
 	"name": "round02",
 	"private": true,
-	"version": "0.6.003",
+	"version": "0.6.004",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
