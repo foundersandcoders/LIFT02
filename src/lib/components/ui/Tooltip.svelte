@@ -27,7 +27,7 @@
 		longPressDelay = 500,
 		hideDelay = 300,
 		autoHideDelay = 3000,
-		showDelay = 0
+		showDelay = 300
 	}: Props = $props();
 
 	const tooltipId = generateUniqueId('tooltip');
