@@ -28,7 +28,7 @@
 			</div>
 
 			<div id="app-name" class="header-container-name">
-				<h1>LIFT 0.6</h1>
+				<h1>LIFT 0.6.001</h1>
 			</div>
 		</div>
 

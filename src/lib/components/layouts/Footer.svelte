@@ -51,13 +51,13 @@
 
 <footer id="footer" class="footer">
 	<div id="footer-content" class="footer-content">
-		<div id="footer-profile" class="flex flex-col justify-around p-4 h-full">
+		<div id="footer-profile" class="flex flex-col justify-around px-2 py-4 h-full">
 			<div>
 				<p class="flex items-center h-8 text-sm">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
 			</div>
 		</div>
 
-		<div class="flex space-x-4 p-4 h-full items-center justify-center">
+		<div class="flex space-x-2 px-2 py-4 h-full items-center justify-center">
 			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
 				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
 				<span class="text-center">
@@ -74,7 +74,7 @@
 			</button>
 		</div>
 
-		<div id="footer-dev" class="p-4 h-full">
+		<div id="footer-dev" class="px-2 py-4 h-full">
 			{#if devMode} <!-- Dev Mode Warning -->
 				<p>Dev Mode</p>
 			{/if}
@@ -84,7 +84,7 @@
 				<div class="dropdown dropdown-top dropdown-end">
 					<button
 						type="button"
-						class="btn btn-sm m-1 text-xs"
+						class="btn btn-sm text-xs"
 						onclick={toggleDropdown}
 						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
 						aria-label="Select test user for development"
