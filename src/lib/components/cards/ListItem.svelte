@@ -126,7 +126,7 @@
 >
 	<div
 		id="list-item-{item.id}-row"
-		class="flex w-full {table === 'questions' ? 'flex-row items-center justify-between' : 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
+		class="flex w-full {table === 'questions' ? 'flex-row items-center justify-between' : table === 'resources' ? 'flex-row items-center justify-center' : 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
 	>
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
@@ -204,13 +204,13 @@
 				{#if table == 'questions' && item}
 					<p class="truncate">{item.preview}</p>
 				{:else if table == 'resources' && item}
-					<p>{item.title}</p>
+					<p class="break-words">{item.title}</p>
 					{#if item.url}
 						<a
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-accent hover:text-accent-dark text-sm underline"
+							class="text-accent hover:text-accent-dark text-sm underline break-all"
 							onclick={(e) => e.stopPropagation()}
 						>
 							{item.url}
