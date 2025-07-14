@@ -38,6 +38,7 @@ export interface DevState {
 export interface Profile {
 	id: null | RowId;
 	name: null | string;
+	is_line_manager: boolean | null;
 }
 
 export interface QuestionConnections {
