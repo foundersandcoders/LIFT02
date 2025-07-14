@@ -11,6 +11,7 @@
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 	import { fade } from 'svelte/transition';
+	import Tooltip from '../ui/Tooltip.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -151,37 +152,47 @@
 				<div id="list-item-{item.id}-status" class="flex items-center">
 					{#if app.profile.id}
 						{#await questionResponse}
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default"
-							></div>
+							<Tooltip text="Question already answered or skipped" position="right">
+								<div
+									id="list-item-{item.id}-status-icon"
+									class="status-indicator-lg status-default"
+								></div>
+							</Tooltip>
 						{:then response}
 							{@const hasValidStatus =
 								response && response.status && ['answered', 'skipped'].includes(response.status)}
 							{#if hasValidStatus}
 								<!-- Grey -->
+								<Tooltip text="Question already answered or skipped" position="right">
+									<div
+										id="list-item-{item.id}-status-icon"
+										class="status-indicator-lg status-default"
+									></div>
+								</Tooltip>
+							{:else}
+								<!-- Magenta -->
+								<Tooltip text="Question requires attention from user" position="right">
+									<div
+										id="list-item-{item.id}-status-icon"
+										class="status-indicator-lg status-active"
+									></div>
+								</Tooltip>
+							{/if}
+						{:catch}
+							<Tooltip text="Question already answered or skipped" position="right">
 								<div
 									id="list-item-{item.id}-status-icon"
 									class="status-indicator-lg status-default"
 								></div>
-							{:else}
-								<!-- Magenta -->
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-active"
-								></div>
-							{/if}
-						{:catch}
+							</Tooltip>
+						{/await}
+					{:else}
+						<Tooltip text="Question already answered or skipped" position="right">
 							<div
 								id="list-item-{item.id}-status-icon"
 								class="status-indicator-lg status-default"
 							></div>
-						{/await}
-					{:else}
-						<div
-							id="list-item-{item.id}-status-icon"
-							class="status-indicator-lg status-default"
-						></div>
+						</Tooltip>
 					{/if}
 				</div>
 			{/if}
