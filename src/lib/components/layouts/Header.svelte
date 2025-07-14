@@ -28,8 +28,9 @@
 				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
 			</div>
 
-			<div id="app-name" class="header-container-name self-end">
-				<h1>LIFT {packageJson.version}</h1>
+			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
+				<h1>LIFT</h1>
+				<p class="text-sm">{packageJson.version}</p>
 			</div>
 		</div>
 
