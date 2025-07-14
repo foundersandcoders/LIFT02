@@ -34,6 +34,7 @@
 	const tooltipId = generateUniqueId('tooltip');
 	let visible = $state(false);
 	let mounted = $state(false);
+	let touchDevice = $state(false); // Track if touch was used
 	let longPressTimer: ReturnType<typeof setTimeout> | undefined;
 	let hideTimer: ReturnType<typeof setTimeout> | undefined;
 	let showTimer: ReturnType<typeof setTimeout> | undefined;
@@ -147,6 +148,18 @@
 		}
 	};
 
+	const handleMouseEnter = () => {
+		// Don't show on mouse events if touch was used
+		if (touchDevice) return;
+		scheduleShow();
+	};
+
+	const handleMouseLeave = () => {
+		// Don't hide on mouse events if touch was used
+		if (touchDevice) return;
+		scheduleHide();
+	};
+
 	const scheduleHide = (delay: number = hideDelay) => {
 		if (!mounted) return;
 		
@@ -158,6 +171,7 @@
 	const handleTouchStart = () => {
 		if (!mounted) return;
 		
+		touchDevice = true; // Mark as touch device
 		clearTimeout(hideTimer);
 		longPressTimer = setTimeout(() => {
 			show();
@@ -193,10 +207,10 @@
 
 <div
 	class="relative inline-block"
-	onmouseenter={() => scheduleShow()}
-	onmouseleave={() => scheduleHide()}
-	onfocus={() => scheduleShow()}
-	onblur={() => scheduleHide()}
+	onmouseenter={handleMouseEnter}
+	onmouseleave={handleMouseLeave}
+	onfocus={() => !touchDevice && scheduleShow()}
+	onblur={() => !touchDevice && scheduleHide()}
 	ontouchstart={handleTouchStart}
 	ontouchend={handleTouchEnd}
 	ontouchmove={handleTouchMove}
