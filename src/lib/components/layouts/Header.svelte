@@ -3,6 +3,7 @@
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
+	import packageJson from '../../../../package.json';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -28,7 +29,7 @@
 			</div>
 
 			<div id="app-name" class="header-container-name self-end">
-				<h1>LIFT 0.6.007</h1>
+				<h1>LIFT {packageJson.version}</h1>
 			</div>
 		</div>
 
