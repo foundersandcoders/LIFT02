@@ -77,8 +77,10 @@ h3 {
 	/* Height constraints relative to .list-item */
 	/* .list-item has m-2 (0.5rem top+bottom) + p-3 (0.75rem top+bottom) + content = base height */
 	/* Base height ≈ 1rem (margin) + 1.5rem (padding) + 1.5rem (content) = 4rem minimum */
-	min-height: 8rem; /* 2x base height */
-	max-height: 20rem; /* 5x base height */
+	/* min-height: 8rem; /* 2x base height */
+	/* max-height: 10rem; 5x base height */
+	min-height: 5rem; /* 2x base height */
+	max-height: 8rem; /* 5x base height */
 }
 
 .dash-vertical-container {
@@ -86,11 +88,11 @@ h3 {
 }
 
 .footer {
-	@apply bg-primary h-20 text-primary-content;
+	@apply bg-primary text-primary-content h-20;
 }
 
-.footer-content{
-	@apply flex flex-row flex-nowrap w-full justify-between align-middle;
+.footer-content {
+	@apply flex w-full flex-row flex-nowrap justify-between align-middle;
 }
 
 .header {
