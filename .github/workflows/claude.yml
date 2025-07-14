@@ -34,7 +34,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          assignee_trigger: "claude-bot"
-          allowed_tools: "Bash(npm install),Bash(npm run build),Bash(npm run test:*),Bash(npm run lint:*)"
+          assignee_trigger: 'claude-bot'
+          allowed_tools: 'Bash(npm install),Bash(npm run build),Bash(npm run test:*),Bash(npm run lint:*)'
           custom_instructions: |
           #   Focus only on changes made by this pull request

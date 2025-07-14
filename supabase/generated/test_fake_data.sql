@@ -1307,71 +1307,677 @@ WHERE
 -- ===========================================
 -- ACTIONS
 -- ===========================================
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440001'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440001'::uuid,
+		'workplace_adjustment',
+		'Provide noise-cancelling headphones and assign desk in quieter area of office',
+		'active',
+		1
+	);
 
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440001'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'workplace_adjustment', 'Provide noise-cancelling headphones and assign desk in quieter area of office', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440002'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440002'::uuid, 'schedule_adjustment', 'Allow 15-minute breaks every 90 minutes to help with focus', 'archived', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440003'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440005'::uuid, 'equipment', 'Request ergonomic keyboard and mouse to reduce sensory input', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440004'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440006'::uuid, 'communication', 'Send written agendas 24 hours before meetings', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440005'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'workplace_adjustment', 'Relocate to corner desk away from main walkway', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440006'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440007'::uuid, 'schedule_adjustment', 'Allow flexible start times between 8-10am based on focus patterns', 'active', 2);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440010'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440020'::uuid, 'communication', 'Provide 48-hour advance notice for project changes when possible', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440011'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440022'::uuid, 'support', 'Schedule weekly 1:1 check-ins for feedback and reassurance', 'archived', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440012'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440025'::uuid, 'schedule_adjustment', 'Allow flexible hours for carer appointments with advance notice', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440013'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440026'::uuid, 'workplace_adjustment', 'Provide access to quiet room for stress management when needed', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440014'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440028'::uuid, 'schedule_adjustment', 'Schedule important meetings before 2pm when energy levels are higher', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440015'::uuid, '550e8400-e29b-41d4-a716-446655440002'::uuid, '660e8400-e29b-41d4-a716-446655440029'::uuid, 'communication', 'Provide clear deadlines with built-in buffer time for quality checks', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440020'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440030'::uuid, 'workplace_adjustment', 'Install desk lamp with adjustable lighting to replace fluorescent overhead', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440021'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440032'::uuid, 'support', 'Create signal system for when quiet time is needed (do not disturb sign)', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440022'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440033'::uuid, 'communication', 'Send all work instructions via email rather than verbal communication', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440023'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440034'::uuid, 'schedule_adjustment', 'Provide 48-hour notice for any schedule changes or meeting rearrangements', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440024'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'workplace_adjustment', 'Relocate to quieter area near window for natural light', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440025'::uuid, '550e8400-e29b-41d4-a716-446655440003'::uuid, '660e8400-e29b-41d4-a716-446655440035'::uuid, 'equipment', 'Provide noise-cancelling headphones for focus periods', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440030'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid, 'equipment', 'Provide adjustable standing desk to manage back pain', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440031'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440040'::uuid, 'workplace_adjustment', 'Allow regular position changes and walking breaks throughout the day', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440032'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440041'::uuid, 'schedule_adjustment', 'Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440033'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440042'::uuid, 'remote_work', 'Allow work from home when children are unwell', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440034'::uuid, '550e8400-e29b-41d4-a716-446655440004'::uuid, '660e8400-e29b-41d4-a716-446655440043'::uuid, 'equipment', 'Provide ergonomic chair with proper lumbar support', 'active', 2);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440040'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid, 'schedule_adjustment', 'Allow 30-minute break on Fridays between 12-2pm for prayers', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440041'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440050'::uuid, 'support', 'Adjust workload expectations during Ramadan fasting period', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440042'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid, 'event_planning', 'Ensure halal food options at all team events and social gatherings', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440043'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440051'::uuid, 'communication', 'Provide advance notice of team events to arrange appropriate meals', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440044'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'communication', 'Schedule direct face-to-face discussions for important concerns rather than email', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440045'::uuid, '550e8400-e29b-41d4-a716-446655440005'::uuid, '660e8400-e29b-41d4-a716-446655440052'::uuid, 'development', 'Provide opportunities to mentor junior developers on projects', 'active', 1);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440046'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'communication', 'Implement daily stand-up check-ins with visual status updates to track progress', 'active', 2);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440047'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'technology', 'Install focus apps and website blockers on work devices to minimize distractions', 'active', 3);
-INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  ('770e8400-e29b-41d4-a716-446655440048'::uuid, '550e8400-e29b-41d4-a716-446655440001'::uuid, '660e8400-e29b-41d4-a716-446655440001'::uuid, 'workplace_adjustment', 'Create a dedicated quiet zone with fidget tools and adjustable lighting for ADHD focus needs', 'active', 4);
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440002'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440002'::uuid,
+		'schedule_adjustment',
+		'Allow 15-minute breaks every 90 minutes to help with focus',
+		'archived',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440003'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440005'::uuid,
+		'equipment',
+		'Request ergonomic keyboard and mouse to reduce sensory input',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440004'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440006'::uuid,
+		'communication',
+		'Send written agendas 24 hours before meetings',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440005'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440007'::uuid,
+		'workplace_adjustment',
+		'Relocate to corner desk away from main walkway',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440006'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440007'::uuid,
+		'schedule_adjustment',
+		'Allow flexible start times between 8-10am based on focus patterns',
+		'active',
+		2
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440010'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440020'::uuid,
+		'communication',
+		'Provide 48-hour advance notice for project changes when possible',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440011'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440022'::uuid,
+		'support',
+		'Schedule weekly 1:1 check-ins for feedback and reassurance',
+		'archived',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440012'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440025'::uuid,
+		'schedule_adjustment',
+		'Allow flexible hours for carer appointments with advance notice',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440013'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440026'::uuid,
+		'workplace_adjustment',
+		'Provide access to quiet room for stress management when needed',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440014'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440028'::uuid,
+		'schedule_adjustment',
+		'Schedule important meetings before 2pm when energy levels are higher',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440015'::uuid,
+		'550e8400-e29b-41d4-a716-446655440002'::uuid,
+		'660e8400-e29b-41d4-a716-446655440029'::uuid,
+		'communication',
+		'Provide clear deadlines with built-in buffer time for quality checks',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440020'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440030'::uuid,
+		'workplace_adjustment',
+		'Install desk lamp with adjustable lighting to replace fluorescent overhead',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440021'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440032'::uuid,
+		'support',
+		'Create signal system for when quiet time is needed (do not disturb sign)',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440022'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440033'::uuid,
+		'communication',
+		'Send all work instructions via email rather than verbal communication',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440023'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440034'::uuid,
+		'schedule_adjustment',
+		'Provide 48-hour notice for any schedule changes or meeting rearrangements',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440024'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440035'::uuid,
+		'workplace_adjustment',
+		'Relocate to quieter area near window for natural light',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440025'::uuid,
+		'550e8400-e29b-41d4-a716-446655440003'::uuid,
+		'660e8400-e29b-41d4-a716-446655440035'::uuid,
+		'equipment',
+		'Provide noise-cancelling headphones for focus periods',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440030'::uuid,
+		'550e8400-e29b-41d4-a716-446655440004'::uuid,
+		'660e8400-e29b-41d4-a716-446655440040'::uuid,
+		'equipment',
+		'Provide adjustable standing desk to manage back pain',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440031'::uuid,
+		'550e8400-e29b-41d4-a716-446655440004'::uuid,
+		'660e8400-e29b-41d4-a716-446655440040'::uuid,
+		'workplace_adjustment',
+		'Allow regular position changes and walking breaks throughout the day',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440032'::uuid,
+		'550e8400-e29b-41d4-a716-446655440004'::uuid,
+		'660e8400-e29b-41d4-a716-446655440041'::uuid,
+		'schedule_adjustment',
+		'Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440033'::uuid,
+		'550e8400-e29b-41d4-a716-446655440004'::uuid,
+		'660e8400-e29b-41d4-a716-446655440042'::uuid,
+		'remote_work',
+		'Allow work from home when children are unwell',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440034'::uuid,
+		'550e8400-e29b-41d4-a716-446655440004'::uuid,
+		'660e8400-e29b-41d4-a716-446655440043'::uuid,
+		'equipment',
+		'Provide ergonomic chair with proper lumbar support',
+		'active',
+		2
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440040'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440050'::uuid,
+		'schedule_adjustment',
+		'Allow 30-minute break on Fridays between 12-2pm for prayers',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440041'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440050'::uuid,
+		'support',
+		'Adjust workload expectations during Ramadan fasting period',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440042'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440051'::uuid,
+		'event_planning',
+		'Ensure halal food options at all team events and social gatherings',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440043'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440051'::uuid,
+		'communication',
+		'Provide advance notice of team events to arrange appropriate meals',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440044'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440052'::uuid,
+		'communication',
+		'Schedule direct face-to-face discussions for important concerns rather than email',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440045'::uuid,
+		'550e8400-e29b-41d4-a716-446655440005'::uuid,
+		'660e8400-e29b-41d4-a716-446655440052'::uuid,
+		'development',
+		'Provide opportunities to mentor junior developers on projects',
+		'active',
+		1
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440046'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440001'::uuid,
+		'communication',
+		'Implement daily stand-up check-ins with visual status updates to track progress',
+		'active',
+		2
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440047'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440001'::uuid,
+		'technology',
+		'Install focus apps and website blockers on work devices to minimize distractions',
+		'active',
+		3
+	);
+
+INSERT INTO
+	actions (
+		id,
+		user_id,
+		response_id,
+		type,
+		description,
+		status,
+		version
+	)
+VALUES
+	(
+		'770e8400-e29b-41d4-a716-446655440048'::uuid,
+		'550e8400-e29b-41d4-a716-446655440001'::uuid,
+		'660e8400-e29b-41d4-a716-446655440001'::uuid,
+		'workplace_adjustment',
+		'Create a dedicated quiet zone with fidget tools and adjustable lighting for ADHD focus needs',
+		'active',
+		4
+	);
 
 -- ===========================================
 -- SHARING EVENTS
