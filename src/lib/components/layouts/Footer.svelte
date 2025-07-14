@@ -19,7 +19,7 @@
 		[...(getTestUsers() || [])]
 			.filter(
 				(user): user is Profile & { id: string; name: string } =>
-					user.id !== null && user.name !== null
+					user.id !== null && user.name !== null && user.is_line_manager === false
 			)
 			.sort((a, b) => a.id.localeCompare(b.id))
 	);

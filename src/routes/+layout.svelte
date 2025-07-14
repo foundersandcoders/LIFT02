@@ -37,7 +37,8 @@
 	let appState = $state<AppState>({
 		profile: {
 			id: null,
-			name: null
+			name: null,
+			is_line_manager: null
 		},
 		view: {
 			name: 'dash'
