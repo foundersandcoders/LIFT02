@@ -53,7 +53,7 @@
 	<div id="footer-content" class="footer-content">
 		<div id="footer-profile" class="flex flex-col justify-around px-2 py-2 h-full">
 			<div>
-				<p class="flex items-center h-8 text-sm">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
+				<p class="flex items-center h-8 text-sm mt-1">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
 			</div>
 		</div>
 
