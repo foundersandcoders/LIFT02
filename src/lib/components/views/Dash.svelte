@@ -92,28 +92,33 @@
 				{/await}
 			</div>
 
-			<div id="dash-tiles-bottom" class="dash-vertical-container">
-				<!-- Questions -->
-				{#await queryQuestions}
-					<div class="list-item">
-						<p class="text-center">Loading Questions...</p>
+			<div class="card bg-base-100 shadow-sm mt-4">
+				<div class="card-body p-4">
+					<h3 class="card-title text-base opacity-70 mb-2">Categories</h3>
+					<div class="dash-vertical-container">
+						<!-- Questions -->
+						{#await queryQuestions}
+							<div class="list-item">
+								<p class="text-center">Loading Questions...</p>
+							</div>
+						{:then result}
+							{#if result.data}
+								{#each extractCategories(result.data) as category}
+									{@const table = 'questions'}
+									<DashTile title={category.format} onclick={() => onclick(table, category)} />
+								{/each}
+							{:else}
+								<div class="list-item">
+									<p class="text-center">No Questions Found</p>
+								</div>
+							{/if}
+						{:catch error}
+							<div class="list-item">
+								<p class="text-center">Loading Questions...</p>
+							</div>
+						{/await}
 					</div>
-				{:then result}
-					{#if result.data}
-						{#each extractCategories(result.data) as category}
-							{@const table = 'questions'}
-							<DashTile title={category.format} onclick={() => onclick(table, category)} />
-						{/each}
-					{:else}
-						<div class="list-item">
-							<p class="text-center">No Questions Found</p>
-						</div>
-					{/if}
-				{:catch error}
-					<div class="list-item">
-						<p class="text-center">Loading Questions...</p>
-					</div>
-				{/await}
+				</div>
 			</div>
 		{/if}
 	</div>
