@@ -57,8 +57,44 @@ h3 {
 	@apply mb-2 text-center text-lg;
 }
 
+.dash-grid-1 {
+	@apply grid grid-cols-1 gap-4 p-4;
+}
+
+.dash-grid-2 {
+	@apply grid grid-cols-2 gap-4 p-4;
+}
+
+.dash-tile-rect {
+	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply cursor-pointer;
+}
+
+.dash-tile-square {
+	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply flex flex-col items-center justify-center text-center;
+	@apply cursor-pointer;
+	/* Height constraints relative to .list-item */
+	/* .list-item has m-2 (0.5rem top+bottom) + p-3 (0.75rem top+bottom) + content = base height */
+	/* Base height ≈ 1rem (margin) + 1.5rem (padding) + 1.5rem (content) = 4rem minimum */
+	min-height: 8rem; /* 2x base height */
+	max-height: 20rem; /* 5x base height */
+}
+
+.dash-vertical-container {
+	@apply flex flex-col space-y-4 px-4;
+}
+
+.footer {
+	@apply bg-primary h-20 text-primary-content;
+}
+
+.footer-content{
+	@apply flex flex-row flex-nowrap w-full justify-between align-middle;
+}
+
 .header {
-	@apply bg-primary sticky top-0 z-50 w-full flex-shrink-0 border-b border-gray-200;
+	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0 border-b border-gray-200;
 }
 
 .header-container-name {
@@ -147,6 +183,22 @@ h3 {
 	@apply bg-accent;
 }
 
+.action-content {
+	@apply flex w-full flex-row items-center space-x-2;
+}
+
+.action-question-preview {
+	@apply text-sm whitespace-nowrap text-gray-500 italic;
+}
+
+.action-separator {
+	@apply text-gray-400;
+}
+
+.action-description {
+	@apply text-base-content min-w-0 flex-1;
+}
+
 .btn-nav {
 	@apply btn btn-secondary text-secondary-content;
 }
@@ -165,9 +217,6 @@ h3 {
 
 .list-item {
 	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
-	/* from .tile 
-		@apply max-w-full cursor-pointer;
-		*/
 }
 
 .list-item-row {
@@ -186,22 +235,16 @@ h3 {
 	@apply flex-1;
 }
 
-.action-content {
-	@apply flex w-full flex-row items-center space-x-2;
-}
-
-.action-question-preview {
-	@apply text-sm whitespace-nowrap text-gray-500 italic;
-}
-
-.action-separator {
-	@apply text-gray-400;
-}
-
-.action-description {
-	@apply text-base-content min-w-0 flex-1;
-}
-
 .form-label {
 	@apply mx-1 mb-2 w-full;
+}
+
+@media (max-width: 375px) {
+	.dash-grid {
+		@apply grid-cols-1;
+	}
+
+	.dash-tile-square {
+		@apply aspect-auto min-h-[100px];
+	}
 }

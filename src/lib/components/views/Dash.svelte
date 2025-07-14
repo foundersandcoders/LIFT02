@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import ViewHeader from '../layouts/ViewHeader.svelte';
+	import DashTile from '../cards/DashTile.svelte';
 	import Tooltip from '../ui/Tooltip.svelte';
 	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestions } from '$lib/services/database/questions';
@@ -39,88 +40,81 @@
 <div id="dash-view" class="view">
 	<ViewHeader title="Dashboard" />
 
-	<div id="dash-content" class="view-content">
+	<div id="dash-tiles" class="view-content">
 		{#if app.profile.id == null}
-			<Tooltip text="Select a user in the User selector at bottom right" position="bottom">
-				<div class="list-item" tabindex="0" role="button" aria-label="No user selected">
-					<p class="text-center">No User Selected</p>
-				</div>
-			</Tooltip>
+			<div class="dash-grid-1">
+				<Tooltip text="Select a user in the User selector at bottom right" position="bottom">
+					<DashTile title="No Profile Selected" variant="square" disabled />
+				</Tooltip>
+			</div>
 		{:else}
-			<!-- Actions -->
-			{#await queryActions}
-				<button disabled class="list-item">
-					<p class="text-center">Loading Actions...</p>
-				</button>
-			{:then result}
-				{#if result && result.data}
-					{@const table = 'actions'}
-					{@const category = { raw: 'actions', format: 'Actions' }}
-					<button onclick={() => onclick(table, category)} class="list-item">
-						<p class="text-center">
-							{result.data.length > 0
-								? `${result.data.length} Active Actions`
-								: 'No Active Actions'}
-						</p>
-					</button>
-				{:else}
-					<div class="list-item">
-						<p class="text-center">No Active Actions</p>
-					</div>
-				{/if}
-			{:catch error}
-				<div class="list-item">
-					<p class="text-center">Error Getting Actions: {error.message}</p>
-				</div>
-			{/await}
+			<div id="dash-tiles-top" class="dash-grid-2">
+				<!-- Actions -->
+				{#await queryActions}
+					<DashTile title="Actions" loading={true} variant="square" disabled />
+				{:then result}
+					{#if result && result.data}
+						{@const table = 'actions'}
+						{@const category = { raw: 'actions', format: 'Actions' }}
+						{@const num = result.data.length}
+						{@const any = result.data.length > 0}
+						{@const name = "Active Actions"}
+						<DashTile
+							title={any ? `${num} ${name}` : `No ${name}`}
+							variant="square"
+							onclick={() => onclick(table, category)}
+						/>
+					{:else}
+						<DashTile title="No Active Actions" variant="square" disabled />
+					{/if}
+				{:catch error}
+					<DashTile title="Error Getting Actions" error={error.message} variant="square" disabled />
+				{/await}
 
-			<!-- Resources -->
-			{#await queryResources}
-				<button disabled class="list-item">
-					<p class="text-center">Loading Resources...</p>
-				</button>
-			{:then result}
-				{#if result && result.data}
+				<!-- Resources -->
+				{#await queryResources}
+					<DashTile title="Resources" loading={true} variant="square" disabled />
+				{:then}
 					{@const table = 'resources'}
 					{@const category = { raw: 'resources', format: 'Resources' }}
-					<button onclick={() => onclick(table, category)} class="list-item">
-						<p class="text-center">{result.data.length} Resources</p>
-					</button>
-				{:else}
-					<div class="list-item">
-						<p class="text-center">0 Resources</p>
-					</div>
-				{/if}
-			{:catch error}
-				<div class="list-item">
-					<p class="text-center">Error Getting Resources: {error.message}</p>
-				</div>
-			{/await}
+					<DashTile
+						title={'Resources'}
+						variant="square"
+						onclick={() => onclick(table, category)}
+					/>
+				{:catch error}
+					<DashTile
+						title="Error Getting Resources"
+						error={error.message}
+						variant="square"
+						disabled
+					/>
+				{/await}
+			</div>
 
-			<!-- Questions -->
-			{#await queryQuestions}
-				<div class="list-item">
-					<p class="text-center">Loading Questions...</p>
-				</div>
-			{:then result}
-				{#if result.data}
-					{#each extractCategories(result.data) as category}
-						<!-- [ ] Extract this button component into a separate <DashTile /> -->
-						{@const table = 'questions'}
-						<button onclick={() => onclick(table, category)} class="list-item">
-							<p class="text-center">{category.format}</p>
-						</button>
-					{/each}
-				{:else}
+			<div id="dash-tiles-bottom" class="dash-vertical-container">
+				<!-- Questions -->
+				{#await queryQuestions}
 					<div class="list-item">
-						<p class="text-center">No Questions Found</p>
+						<p class="text-center">Loading Questions...</p>
 					</div>
-				{/if}
-			{:catch}
-				<div class="list-item">
-					<p class="text-center">Loading Questions...</p>
-				</div>
-			{/await}
+				{:then result}
+					{#if result.data}
+						{#each extractCategories(result.data) as category}
+							{@const table = 'questions'}
+							<DashTile title={category.format} onclick={() => onclick(table, category)} />
+						{/each}
+					{:else}
+						<div class="list-item">
+							<p class="text-center">No Questions Found</p>
+						</div>
+					{/if}
+				{:catch error}
+					<div class="list-item">
+						<p class="text-center">Loading Questions...</p>
+					</div>
+				{/await}
+			</div>
 		{/if}
 	</div>
 </div>
