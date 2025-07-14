@@ -1,6 +1,18 @@
 <script lang="ts">
 	import '../app.css';
 	import { setContext } from 'svelte';
+	
+	// Prevent double initialization in development
+	let shouldInitialize = true;
+	if (typeof window !== 'undefined') {
+		if ((window as any).ALREADY_INITIALIZED) {
+			console.log('🔄 Skipping duplicate initialization');
+			shouldInitialize = false;
+		} else {
+			console.log('🚀 App initialization started');
+			(window as any).ALREADY_INITIALIZED = true;
+		}
+	}
 	import type {
 		AppState,
 		Detail,
@@ -73,28 +85,30 @@
 		}
 	});
 
-	// =2 App State Inspectors
-	$inspect(appState.profile.id).with((type, value) =>
-		console.log(`${preApp}${type} profile.id: ${value}`)
-	);
-	$inspect(appState.view.name).with((type, value) =>
-		console.log(`${preApp}${type} view.name: ${value}`)
-	);
-	$inspect(appState.list.table).with((type, value) =>
-		console.log(`${preApp}${type} list.table: ${value}`)
-	);
-	$inspect(appState.list.category.raw).with((type, value) =>
-		console.log(`${preApp}${type} list.cat.raw: ${value}`)
-	);
-	$inspect(appState.list.category.format).with((type, value) =>
-		console.log(`${preApp}${type} list.cat.format: ${value}`)
-	);
-	$inspect(appState.detail.table).with((type, value) =>
-		console.log(`${preApp}${type} detail.table: ${value}`)
-	);
-	$inspect(appState.detail.item.id).with((type, value) =>
-		console.log(`${preApp}${type} detail.item.rowId: ${value}`)
-	);
+	// =2 App State Inspectors (only initialize once)
+	if (shouldInitialize) {
+		$inspect(appState.profile.id).with((type, value) =>
+			console.log(`${preApp}${type} profile.id: ${value}`)
+		);
+		$inspect(appState.view.name).with((type, value) =>
+			console.log(`${preApp}${type} view.name: ${value}`)
+		);
+		$inspect(appState.list.table).with((type, value) =>
+			console.log(`${preApp}${type} list.table: ${value}`)
+		);
+		$inspect(appState.list.category.raw).with((type, value) =>
+			console.log(`${preApp}${type} list.cat.raw: ${value}`)
+		);
+		$inspect(appState.list.category.format).with((type, value) =>
+			console.log(`${preApp}${type} list.cat.format: ${value}`)
+		);
+		$inspect(appState.detail.table).with((type, value) =>
+			console.log(`${preApp}${type} detail.table: ${value}`)
+		);
+		$inspect(appState.detail.item.id).with((type, value) =>
+			console.log(`${preApp}${type} detail.item.rowId: ${value}`)
+		);
+	}
 
 	// =1 App Context
 	setContext('getApp', () => appState);

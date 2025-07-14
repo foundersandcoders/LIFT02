@@ -89,7 +89,7 @@ export async function generateEmailData(
 
 	// Build EmailData object
 	const emailData: EmailData = {
-		subject: 'My Neacons',
+		subject: '',
 		introduction: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
 		categories,
 		closing: 'Best regards,',
@@ -111,7 +111,6 @@ export function renderEmailToHTML(emailData: EmailData): string {
 		<div class="email-container max-w-4xl mx-auto bg-base-100">
 			<!-- Email Header -->
 			<div class="email-header mb-6 p-4">
-				<h1 class="text-xl font-semibold text-primary mb-2">${emailData.subject}</h1>
 				<div class="text-base-content/70 whitespace-pre-line">${emailData.introduction}</div>
 			</div>
 
