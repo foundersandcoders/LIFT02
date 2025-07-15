@@ -4,12 +4,16 @@ A digital workplace passport application that helps neurodivergent employees doc
 
 ---
 
-> [!CAUTION] Documentation Accuracy
+> [!CAUTION]
+> **Documentation Accuracy**<br/>
+> <br/>
 > This documentation is not up to date with the latest feature set & build. Many dev tools have been packaged in scripts. Start with `./package.json`.
 
 ---
 
-> [!TIP] Auto-Generated Documentation
+> [!TIP]
+> **Auto-Generated Documentation**<br/>
+> <br/>
 > Available on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
 
 ---
