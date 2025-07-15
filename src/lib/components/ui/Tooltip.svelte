@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { generateUniqueId } from '$lib/utils/random';
+	import { onMount, tick, untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
@@ -32,11 +33,24 @@
 
 	const tooltipId = generateUniqueId('tooltip');
 	let visible = $state(false);
-	let longPressTimer: number | undefined;
-	let hideTimer: number | undefined;
-	let showTimer: number | undefined;
+	let mounted = $state(false);
+	let touchDevice = $state(false); // Track if touch was used
+	let longPressTimer: ReturnType<typeof setTimeout> | undefined;
+	let hideTimer: ReturnType<typeof setTimeout> | undefined;
+	let showTimer: ReturnType<typeof setTimeout> | undefined;
 	let actualPosition = $state(position);
 	let tooltipElement = $state<HTMLDivElement>();
+
+	// Initialize component with proper cleanup
+	onMount(() => {
+		mounted = true;
+		return () => {
+			// Cleanup all timers on unmount
+			clearTimeout(longPressTimer);
+			clearTimeout(hideTimer);
+			clearTimeout(showTimer);
+		};
+	});
 
 	const adjustPosition = (element: HTMLDivElement) => {
 		if (!element) return;
@@ -94,44 +108,72 @@
 		actualPosition = newPosition;
 	};
 
-	const show = () => {
+	const show = async () => {
+		if (!mounted) return;
+		
 		clearTimeout(hideTimer);
 		clearTimeout(showTimer);
-		visible = true;
+		
+		untrack(() => {
+			visible = true;
+		});
 
-		// Adjust position after showing to check boundaries
-		setTimeout(() => {
-			if (tooltipElement) {
-				adjustPosition(tooltipElement);
-			}
-		}, 0);
+		// Wait for DOM update before adjusting position
+		await tick();
+		if (tooltipElement) {
+			adjustPosition(tooltipElement);
+		}
 	};
 
 	const hide = () => {
+		if (!mounted) return;
+		
 		clearTimeout(longPressTimer);
 		clearTimeout(showTimer);
-		visible = false;
-		actualPosition = position; // Reset to original position
+		
+		untrack(() => {
+			visible = false;
+			actualPosition = position; // Reset to original position
+		});
 	};
 
 	const scheduleShow = (delay: number = showDelay) => {
+		if (!mounted) return;
+		
 		clearTimeout(hideTimer);
 		if (delay > 0) {
-			showTimer = window.setTimeout(show, delay);
+			showTimer = setTimeout(show, delay);
 		} else {
 			show();
 		}
 	};
 
+	const handleMouseEnter = () => {
+		// Don't show on mouse events if touch was used
+		if (touchDevice) return;
+		scheduleShow();
+	};
+
+	const handleMouseLeave = () => {
+		// Don't hide on mouse events if touch was used
+		if (touchDevice) return;
+		scheduleHide();
+	};
+
 	const scheduleHide = (delay: number = hideDelay) => {
+		if (!mounted) return;
+		
 		clearTimeout(hideTimer);
 		clearTimeout(showTimer);
-		hideTimer = window.setTimeout(hide, delay);
+		hideTimer = setTimeout(hide, delay);
 	};
 
 	const handleTouchStart = () => {
+		if (!mounted) return;
+		
+		touchDevice = true; // Mark as touch device
 		clearTimeout(hideTimer);
-		longPressTimer = window.setTimeout(() => {
+		longPressTimer = setTimeout(() => {
 			show();
 			// Auto-hide after configured delay on mobile
 			scheduleHide(autoHideDelay);
@@ -149,22 +191,26 @@
 		clearTimeout(longPressTimer);
 	};
 
-	// Clean up timers on component destroy
+	// Reactive cleanup effect for state changes
 	$effect(() => {
-		return () => {
-			clearTimeout(longPressTimer);
-			clearTimeout(hideTimer);
-			clearTimeout(showTimer);
-		};
+		// This effect runs when visible state changes
+		if (visible && tooltipElement) {
+			// Ensure position is adjusted when tooltip becomes visible
+			tick().then(() => {
+				if (tooltipElement) {
+					adjustPosition(tooltipElement);
+				}
+			});
+		}
 	});
 </script>
 
 <div
 	class="relative inline-block"
-	onmouseenter={() => scheduleShow()}
-	onmouseleave={() => scheduleHide()}
-	onfocus={() => scheduleShow()}
-	onblur={() => scheduleHide()}
+	onmouseenter={handleMouseEnter}
+	onmouseleave={handleMouseLeave}
+	onfocus={() => !touchDevice && scheduleShow()}
+	onblur={() => !touchDevice && scheduleHide()}
 	ontouchstart={handleTouchStart}
 	ontouchend={handleTouchEnd}
 	ontouchmove={handleTouchMove}

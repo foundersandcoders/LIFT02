@@ -57,11 +57,11 @@ h3 {
 }
 
 .dash-grid-1 {
-	@apply grid grid-cols-1 gap-4 p-4;
+	@apply grid grid-cols-1 justify-items-center gap-4 p-4;
 }
 
 .dash-grid-2 {
-	@apply grid grid-cols-2 gap-4 p-4;
+	@apply grid grid-cols-2 gap-8;
 }
 
 .dash-tile-rect {
@@ -70,7 +70,7 @@ h3 {
 }
 
 .dash-tile-square {
-	@apply card border-primary bg-base-100 mx-2 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 my-1 rounded-lg border p-6 transition-shadow hover:shadow-md;
 	@apply flex flex-col items-center justify-center text-center;
 	@apply cursor-pointer;
 	/* Height constraints relative to .list-item */
@@ -78,8 +78,8 @@ h3 {
 	/* Base height ≈ 1rem (margin) + 1.5rem (padding) + 1.5rem (content) = 4rem minimum */
 	/* min-height: 8rem; /* 2x base height */
 	/* max-height: 10rem; 5x base height */
-	min-height: 5rem; /* 2x base height */
-	max-height: 8rem; /* 5x base height */
+	/* min-height: 3rem; /* 2x base height */
+	/* max-height: 4rem; 5x base height */
 }
 
 .dash-vertical-container {
@@ -122,8 +122,8 @@ h3 {
 }
 
 .view-header {
-	@apply bg-accent max-w-full p-4;
-	height: 4.5rem;
+	@apply bg-accent max-w-full p-3;
+	/* height: 4.5rem; */
 	display: grid;
 	grid-template-columns: 1fr auto;
 	align-items: center;
@@ -249,6 +249,6 @@ h3 {
 	}
 
 	.dash-tile-square {
-		@apply mx-2 my-1 aspect-auto min-h-[100px];
+		@apply my-1 aspect-auto min-h-[100px];
 	}
 }

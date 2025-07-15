@@ -3,7 +3,7 @@
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
-	import packageJson from '../../../../package.json';
+	import { version } from '$lib/version';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -30,7 +30,7 @@
 
 			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
 				<h1>LIFT</h1>
-				<p class="text-sm">{packageJson.version}</p>
+				<p class="text-sm">{version}</p>
 			</div>
 		</div>
 

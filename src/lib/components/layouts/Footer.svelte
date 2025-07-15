@@ -50,71 +50,61 @@
 </script>
 
 <footer id="footer" class="footer">
-	<div id="footer-content" class="footer-content">
-		<div id="footer-profile" class="flex flex-col justify-around px-2 py-2 h-full">
+	<div id="footer-content" class="mt-2 flex w-full flex-row items-center justify-around">
+		<!-- <div id="footer-profile" class="flex flex-col justify-around px-2 py-2 h-full">
 			<div>
 				<p class="flex items-center h-8 text-sm mt-1">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="flex space-x-2 px-2 py-2 h-full items-center justify-center">
-			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
-				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-				<span class="text-center">
-					<span class="hidden sm:inline">Terms of Use</span>
-					<span class="sm:hidden">Terms of<br />Use</span>
-				</span>
-			</button>
-			<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
-				<Icon src={ShieldCheck} class="h-5 w-5" />
-				<span class="text-center">
-					<span class="hidden sm:inline">Privacy Policy</span>
-					<span class="sm:hidden">Privacy<br />Policy</span>
-				</span>
-			</button>
-		</div>
+		<!-- Left spacer for balance -->
+		<!-- <div class="flex-1"></div> -->
 
-		<div id="footer-dev" class="px-2 py-2 h-full">
-			{#if devMode} <!-- Dev Mode Warning -->
-				<p>Dev Mode</p>
-			{/if}
+		<!-- Legal buttons centered -->
+		<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
+			<Icon src={ClipboardDocumentList} class="h-5 w-5" />
+			<span class="text-center">Terms of Use</span>
+		</button>
+		<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
+			<Icon src={ShieldCheck} class="h-5 w-5" />
+			<span class="text-center">Privacy Policy</span>
+		</button>
 
-			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-			{#if !profileId}
-				<div class="dropdown dropdown-top dropdown-end">
-					<button
-						type="button"
-						class="btn btn-sm text-xs"
-						onclick={toggleDropdown}
-						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-						aria-label="Select test user for development"
-						aria-expanded={dropdownExpanded}
-						aria-haspopup="listbox"
-					>
-						User ⬆️
-					</button>
-					<ul
-						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-						role="listbox"
-						aria-label="Available test users"
-					>
-						{#each sortedTestUsers as user (user.id)}
-							<li role="option" aria-selected={selectedUserId === user.id}>
-								<button
-									onclick={() => handleUserSelect(user.id, user.name)}
-									class="text-left"
-									aria-label="Select {user.name} as test user"
-								>
-									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-									{user.name}
-								</button>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			{/if}
-			<!-- ====================================================== -->
-		</div>
+		<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
+		{#if !profileId}
+			<div class="dropdown dropdown-top dropdown-end">
+				<button
+					type="button"
+					class="btn btn-sm text-xs"
+					onclick={toggleDropdown}
+					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
+					aria-label="Select test user for development"
+					aria-expanded={dropdownExpanded}
+					aria-haspopup="listbox"
+				>
+					User
+				</button>
+				<ul
+					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
+					role="listbox"
+					aria-label="Available test users"
+				>
+					{#each sortedTestUsers as user (user.id)}
+						<li role="option" aria-selected={selectedUserId === user.id}>
+							<button
+								onclick={() => handleUserSelect(user.id, user.name)}
+								class="text-left"
+								aria-label="Select {user.name} as test user"
+							>
+								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
+								{user.name}
+							</button>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+		<!-- ====================================================== -->
 	</div>
 </footer>
 
@@ -149,9 +139,7 @@
 	</p>
 
 	<h2>3. Your Content</h2>
-	<p>
-		You retain ownership of all content you create through our Service. By using Beacons, you:
-	</p>
+	<p>You retain ownership of all content you create through our Service. By using Beacons, you:</p>
 	<ul>
 		<li>Are responsible for the accuracy of your statements</li>
 		<li>Control which statements are marked as "public" and can be shared</li>
@@ -170,16 +158,16 @@
 
 	<h2>5. Legal Terms</h2>
 	<p>
-		<strong>Service Modifications:</strong> We may modify or discontinue the Service at any time
-		with reasonable notice.
+		<strong>Service Modifications:</strong> We may modify or discontinue the Service at any time with
+		reasonable notice.
 	</p>
 	<p>
-		<strong>Limitation of Liability:</strong> To the fullest extent permitted by law, LIFT shall
-		not be liable for any indirect, incidental, special, consequential, or punitive damages.
+		<strong>Limitation of Liability:</strong> To the fullest extent permitted by law, LIFT shall not
+		be liable for any indirect, incidental, special, consequential, or punitive damages.
 	</p>
 	<p>
-		<strong>Governing Law:</strong> These Terms are governed by the laws of [Jurisdiction], without
-		regard to its conflict of law principles.
+		<strong>Governing Law:</strong> These Terms are governed by the laws of [Jurisdiction], without regard
+		to its conflict of law principles.
 	</p>
 </InfoModal>
 
@@ -190,8 +178,7 @@
 >
 	<h2>How We Protect Your Data</h2>
 	<p>
-		At Beacons, we prioritize your privacy and ensure your personal information is handled
-		securely.
+		At Beacons, we prioritize your privacy and ensure your personal information is handled securely.
 	</p>
 	<ul>
 		<li>Your data is encrypted both in transit and at rest</li>
