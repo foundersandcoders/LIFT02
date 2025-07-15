@@ -1,127 +1,180 @@
 # LIFT Digital Workplace Passport
 
-## Intro
+A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
 
-> A digital workplace passport application that helps neurodivergent employees document and share their workplace needs with line managers, promoting a more inclusive workplace environment.
+---
 
-## Technology Stack
+> [!CAUTION] Documentation Accuracy
+> This documentation is not up to date with the latest feature set & build. Many dev tools have been packaged in scripts. Start with `./package.json`.
 
-- **Frontend**: Svelte 5 + SvelteKit
-- **Styling**: TailwindCSS
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Magic Link
-- **Testing**: Vitest + @testing-library/svelte
+---
 
-## Prerequisites
+> [!TIP] Auto-Generated Documentation
+> Available on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
+
+---
+
+- [1. Technology Stack](#1-technology-stack)
+- [2. Prerequisites](#2-prerequisites)
+  - [2.1. Node.js (v18+)](#21-nodejs-v18)
+  - [2.2. Docker Desktop](#22-docker-desktop)
+  - [2.3. git](#23-git)
+  - [2.4. PostgreSQL Client](#24-postgresql-client)
+- [3. Development Setup](#3-development-setup)
+  - [3.1. Clone the repository](#31-clone-the-repository)
+  - [3.2. Install dependencies](#32-install-dependencies)
+  - [3.3. Set up environment variables](#33-set-up-environment-variables)
+  - [3.4. Install Supabase CLI](#34-install-supabase-cli)
+  - [3.5. Start local Supabase instance](#35-start-local-supabase-instance)
+  - [3.6. Verify Setup](#36-verify-setup)
+- [4. Database Management](#4-database-management)
+  - [4.1. Local Development](#41-local-development)
+  - [4.2. Database Seeding](#42-database-seeding)
+  - [4.3. Production Deployment](#43-production-deployment)
+  - [4.4. Generating Types](#44-generating-types)
+  - [4.5. Accessing Local Services](#45-accessing-local-services)
+- [5. Troubleshooting](#5-troubleshooting)
+  - [5.1. Common Issues](#51-common-issues)
+  - [5.3. Getting Help](#53-getting-help)
+- [6. Development Scripts](#6-development-scripts)
+  - [6.1. Development Workflow](#61-development-workflow)
+  - [6.2. Testing](#62-testing)
+  - [6.3. Linting \& Formatting](#63-linting--formatting)
+  - [6.4. Building for Production](#64-building-for-production)
+  - [6.5. Preview the production build](#65-preview-the-production-build)
+- [7. Project Structure](#7-project-structure)
+- [8. Documentation](#8-documentation)
+
+---
+
+## 1. Technology Stack
+
+| Area                    | Technology                |
+| ----------------------- | ------------------------- |
+|   Frontend Framework    | Svelte 5                  |
+|   Fullstack Framework   | SvelteKit                 |
+|   Utility Classes       | TailwindCSS               |
+|   Component Classes     | DaisyUI                   |
+|   DB Query Language     | PostgreSQL                |
+|   Database Hosting      | Supabase                  |
+|   Auth Provider         | Supabase (Magic Link)     |
+|   Testing               | Vitest                    |
+|                         | `@testing-library/svelte` |
+
+---
+
+## 2. Prerequisites
 
 Before starting development, ensure you have the following installed:
 
-### Required Software
+### 2.1. Node.js (v18+)
 
-1. **Node.js** (v18 or higher)
+```bash
+# Check your version
+node --version
+```
 
-   ```bash
-   # Check your version
-   node --version
-   ```
+Download from [nodejs.org](https://nodejs.org/) if needed.
 
-   Download from [nodejs.org](https://nodejs.org/) if needed.
+### 2.2. Docker Desktop
 
-2. **Docker Desktop**
+- **macOS**: [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+- **Windows**: [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+- **Linux**: [Docker Engine installation](https://docs.docker.com/engine/install/)
 
-   - **macOS**: Download from [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-   - **Windows**: Download from [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-   - **Linux**: Follow [Docker Engine installation](https://docs.docker.com/engine/install/) for your distribution
+```bash
+# Verify Docker is running
+docker --version
+docker ps
+```
 
-   ```bash
-   # Verify Docker is running
-   docker --version
-   docker ps
-   ```
+### 2.3. git
 
-3. **Git**
+```bash
+# Check if installed
+git --version
+```
 
-   ```bash
-   # Check if installed
-   git --version
-   ```
+### 2.4. PostgreSQL Client
 
-4. **PostgreSQL Client** (Required for Linux, particularly Ubuntu)
+Required for Linux, particularly Ubuntu. This is needed for the seed scripts to work correctly with Supabase.
 
-   ```bash
-   # Check if installed
-   psql --version
+```bash
+# Check if installed
+psql --version
 
-   # If not installed (Ubuntu/Debian)
-   sudo apt-get update && sudo apt-get install postgresql-client
+# If not installed (Ubuntu/Debian)
+sudo apt-get update && sudo apt-get install postgresql-client
 
-   # If not installed (Fedora/RHEL)
-   sudo dnf install postgresql
-   ```
+# If not installed (Fedora/RHEL)
+sudo dnf install postgresql
+```
 
-   This is needed for the seed scripts to work correctly with Supabase.
+---
 
-## Development Setup
+## 3. Development Setup
 
-1. Clone the repository:
+### 3.1. Clone the repository
 
-   ```bash
-   git clone https://github.com/foundersandcoders/LIFT02.git
-   cd LIFT02
-   ```
+```bash
+git clone https://github.com/foundersandcoders/LIFT02.git
+cd LIFT02
+```
 
-2. Install dependencies:
+### 3.2. Install dependencies
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. Set up environment variables:
+### 3.3. Set up environment variables
 
-   ```bash
-   cp .env.example .env.local
-   ```
+```bash
+cp .env.example .env.local
+```
 
-   **Note**: The `.env.example` already contains the correct local development keys that Supabase always uses.
+**Note**: The `.env.example` already contains the correct local development keys that Supabase always uses.
 
-4. Install Supabase CLI:
+### 3.4. Install Supabase CLI
 
-   ```bash
-   # Using npm
-   npm install supabase --save-dev
+```bash
+# Using npm
+npm install supabase --save-dev
 
-   # Using Homebrew (macOS)
-   brew install supabase/tap/supabase
-   ```
+# Using Homebrew (macOS)
+brew install supabase/tap/supabase
+```
 
-   For other installation options, see the [Supabase CLI docs](https://supabase.com/docs/guides/cli/getting-started).
+For other installation options, see the [Supabase CLI docs](https://supabase.com/docs/guides/cli/getting-started).
 
-5. Start local Supabase instance:
+### 3.5. Start local Supabase instance
 
-   ```bash
-   supabase start
-   ```
+```bash
+supabase start
+```
 
-   **First time setup notes**:
+<h4>First time setup notes</h4>
 
-   - If Supabase Docker containers are not already downloaded, this command will automatically download them (~2-3GB total)
-   - The download may take 5-15 minutes depending on your internet connection
-   - Docker Desktop must be running before executing this command
-   - All database migrations will be automatically applied
+- If Supabase Docker containers are not already downloaded, this command will automatically download them (~2-3GB total)
+- The download may take 5-15 minutes depending on your internet connection
+- Docker Desktop must be running before executing this command
+- All database migrations will be automatically applied
 
-6. Verify setup:
+### 3.6. Verify Setup
 
-   ```bash
-   # Start the development server
-   npm run dev
+```bash
+# Start the development server
+npm run dev
 
-   # In another terminal, check Supabase Studio
-   open http://127.0.0.1:54323
-   ```
+# In another terminal, check Supabase Studio
+open http://127.0.0.1:54323
+```
 
-## Database Management
+---
 
-### Local Development
+## 4. Database Management
+
+### 4.1. Local Development
 
 Your local Supabase instance runs entirely in Docker containers. The database schema is automatically applied from the migrations when you start the instance.
 
@@ -139,25 +192,25 @@ supabase db reset
 supabase stop
 ```
 
-### Database Seeding
+### 4.2. Database Seeding
 
 The project uses a two-tier seeding strategy to separate real data from test data:
 
-#### 1. Questions Seed (Production Data)
+#### 4.2.1. Questions Seed (Production Data)
 
 - **File**: `supabase/seed.sql`
 - **Content**: Real workplace passport questions
 - **Auto-runs**: Automatically applied when you run `supabase db reset`
 - **Purpose**: Contains the actual questions users will answer
 
-#### 2. Test Data Seed (Development/Testing)
+#### 4.2.2. Test Data Seed (Development/Testing)
 
 - **File**: `supabase/test_data_seed.sql`
 - **Content**: Fake users, responses, actions, and sharing events
 - **Manual**: Run separately when you need test data
 - **Purpose**: Provides realistic test data for development and testing
 
-#### Adding Test Data to Local Database
+#### 4.2.3. Adding Test Data to Local Database
 
 After resetting your database, add test data for development:
 
@@ -180,7 +233,7 @@ chmod +x ./scripts/local-seed-test-data.sh
 - Workplace adjustments and actions linked to responses
 - Sample sharing events with line managers
 
-#### Environment-Smart Seeding Script
+#### 4.4.4. Environment-Smart Seeding Script
 
 The `prod-seed-test-data.sh` script automatically detects your environment:
 
@@ -196,11 +249,11 @@ The `prod-seed-test-data.sh` script automatically detects your environment:
 - Requires `DATABASE_URL` to be set
 - Connects to production Supabase instance
 
-### Production Deployment
+### 4.3. Production Deployment
 
 When ready to deploy schema changes to production:
 
-#### First Time: Linking Your Local Project to Production
+#### 4.3.1. First Time: Linking Your Local Project to Production
 
 If this is your first time pushing to production, you need to link your local project:
 
@@ -221,22 +274,23 @@ If this is your first time pushing to production, you need to link your local pr
    **Important**: When prompted to "Enter your database password (or leave blank to skip):", press **Enter** to skip. This avoids IPv6 connection issues while still linking the project successfully.
 
 3. **Push schema changes:**
-   ```bash
-   supabase db push
-   ```
 
-#### Subsequent Deployments
+```bash
+supabase db push
+```
+
+#### 4.3.2. Subsequent Deployments
 
 Once linked, you can push schema changes using one of these methods:
 
-**Option 1: Direct command with password**
+##### 4.3.2.1. Option 1: Direct command with password
 
 ```bash
 # Push local schema changes to production Supabase project
 npx supabase db push --password 'YOUR_DB_PASSWORD'
 ```
 
-**Option 2: Use the deployment script (recommended)**
+##### 4.3.2.2. Option 2: Use the deployment script (recommended)
 
 ```bash
 # Make script executable first (if needed)
@@ -245,14 +299,14 @@ chmod +x ./scripts/prod-run-migrations.sh
 ./scripts/prod-run-migrations.sh
 ```
 
-**Option 3: Traditional interactive prompt**
+##### 4.3.2.3. Option 3: Traditional interactive prompt
 
 ```bash
 # Push local schema changes to production Supabase project
 npx supabase db push
 ```
 
-#### Seeding Test Data in Production
+#### 4.3.3. Seeding Test Data in Production
 
 If you need test data in your production environment (e.g., for demos or testing):
 
@@ -279,7 +333,7 @@ If you need test data in your production environment (e.g., for demos or testing
 
 ⚠️ **Warning**: Only add test data to production if you need it for demos or testing. Real user data should come through the application interface.
 
-### Generating Types
+### 4.4. Generating Types
 
 Generate TypeScript types from your local database schema:
 
@@ -287,7 +341,7 @@ Generate TypeScript types from your local database schema:
 supabase gen types typescript --local > src/lib/types/supabase.ts
 ```
 
-### Accessing Local Services
+### 4.5. Accessing Local Services
 
 When running locally, you can access:
 
@@ -296,9 +350,11 @@ When running locally, you can access:
 - **Studio**: `http://127.0.0.1:54323`
 - **Email Testing (Inbucket)**: `http://127.0.0.1:54324`
 
-## Troubleshooting
+---
 
-### Common Issues
+## 5. Troubleshooting
+
+### 5.1. Common Issues
 
 1. **"Docker not found" error**
 
@@ -379,7 +435,7 @@ When running locally, you can access:
    2. Set the default platform before starting: `export DOCKER_DEFAULT_PLATFORM=linux/[your-arch]`
    3. Restart Supabase: `supabase start`
 
-### Getting Help
+### 5.3. Getting Help
 
 If you encounter issues not covered here:
 
@@ -387,7 +443,11 @@ If you encounter issues not covered here:
 2. Check `docker ps` to see running containers
 3. Check the [Supabase CLI docs](https://supabase.com/docs/guides/cli)
 
-## Development Workflow
+---
+
+## 6. Development Scripts
+
+### 6.1. Development Workflow
 
 Start the development server:
 
@@ -398,7 +458,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Testing
+### 6.2. Testing
 
 Run tests with Vitest:
 
@@ -413,7 +473,7 @@ npm run test:unit
 npm run test -- --coverage
 ```
 
-## Linting and Formatting
+### 6.3. Linting & Formatting
 
 ```bash
 # Format code
@@ -426,31 +486,51 @@ npm run lint
 npm run check
 ```
 
-## Building for Production
+### 6.4. Building for Production
 
 ```bash
 npm run build
 ```
 
-Preview the production build:
+### 6.5. Preview the production build
 
 ```bash
 npm run preview
 ```
 
-## Project Structure
+---
+
+## 7. Project Structure
 
 The project follows a standard SvelteKit structure:
 
-- `/src` - Application source code
-  - `/routes` - SvelteKit routes (pages)
-  - `/lib` - Shared components, utilities, and services
-- `/static` - Static assets
+```src
+.
+├── docs
+├── scripts
+├── src
+│   ├── lib
+│   │   ├── components
+│   │   │   ├── cards
+│   │   │   ├── layouts
+│   │   │   ├── logic
+│   │   │   ├── ui
+│   │   │   └── views
+│   │   ├── services
+│   │   │   └── database
+│   │   ├── types
+│   │   └── utils
+│   └── routes
+├── static
+│   └── logo
+└── supabase
+    ├── data
+    ├── generated
+    └── migrations
+```
 
-## Documentation
+---
 
-- [FUNCTIONAL.md](./docs/HITL_Docs/FUNCTIONAL.md) - Functional requirements
-- [ARCHITECTURE.md](./docs/HITL_Docs/ARCHITECTURE.md) - Technical architecture
-- [TESTING.md](./docs/HITL_Docs/TESTING.md) - Testing guide
+## 8. Documentation
 
-Explore this codebase on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/foundersandcoders/LIFT02)
+> [!WARNING] WIP
