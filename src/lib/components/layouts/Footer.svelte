@@ -139,7 +139,7 @@
 	</p>
 
 	<h2>3. Your Content</h2>
-	<p>You retain ownership of all content you create through our Service. By using Beacons, you:</p>
+	<p>You retain ownership of all content you create through our Service. By using Workwise, you:</p>
 	<ul>
 		<li>Are responsible for the accuracy of your statements</li>
 		<li>Control which statements are marked as "public" and can be shared</li>
@@ -148,7 +148,7 @@
 	</ul>
 
 	<h2>4. Acceptable Use</h2>
-	<p>You agree not to use Beacons to:</p>
+	<p>You agree not to use Workwise to:</p>
 	<ul>
 		<li>Create or share statements that are harmful, offensive, or discriminatory</li>
 		<li>Attempt to gain unauthorized access to other users' data</li>
@@ -178,7 +178,8 @@
 >
 	<h2>How We Protect Your Data</h2>
 	<p>
-		At Beacons, we prioritize your privacy and ensure your personal information is handled securely.
+		At Workwise, we prioritize your privacy and ensure your personal information is handled
+		securely.
 	</p>
 	<ul>
 		<li>Your data is encrypted both in transit and at rest</li>
