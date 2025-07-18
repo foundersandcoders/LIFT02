@@ -32,7 +32,7 @@ While we see this as a tool that employers would encourage new staff to use, the
    f. Workplace adjustments and support
    g. Additional information and resources
 3. Profile should include basic account details: name, pronouns, job title, line manager, employer, and options to edit these.
-4. Categories b-e include the questions as currently exist in the workplace passport, i.e. when the user clicks onto wellness at work, they are presented with the list of questions as they currently appear in the Beacons page
+4. Categories b-e include the questions as currently exist in the workplace passport, i.e. when the user clicks onto wellness at work, they are presented with the list of questions as they currently appear in the Workwise page
 5. When the user clicks on the question, a box pops up which allows them to enter their answer as free text.
 6. It is not mandatory for the user to complete each question.
 7. Following free text answer to be given an option of follow up actions, to include:

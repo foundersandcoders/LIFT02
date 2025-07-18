@@ -29,7 +29,7 @@
 			</div>
 
 			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
-				<h1>LIFT</h1>
+				<h1>Workwise</h1>
 				<p class="text-sm">{version}</p>
 			</div>
 		</div>
