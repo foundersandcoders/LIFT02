@@ -115,7 +115,7 @@
 <InfoModal show={showTermsModal} title="Terms of Use" onclose={() => (showTermsModal = false)}>
 	<h2>1. Introduction</h2>
 	<p>
-		Welcome to Beacons ("Service"), a workplace passport application provided by LIFT. By using our
+		Welcome to Workwise ("Service"), a workplace passport application provided by LIFT. By using our
 		Service, you agree to these Terms of Use. Please read them carefully.
 	</p>
 	<p>
