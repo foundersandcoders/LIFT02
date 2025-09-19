@@ -110,11 +110,11 @@ h3 {
 }
 
 .header-content {
-	@apply flex h-20 w-full flex-row items-center justify-between px-2 sm:px-6 lg:px-8;
+	@apply flex h-20 w-full flex-row items-center justify-between sm:px-2 lg:px-5;
 }
 
 .header-left {
-	@apply flex items-center space-x-4 px-2;
+	@apply flex items-center space-x-4;
 }
 
 .view {
@@ -122,7 +122,7 @@ h3 {
 }
 
 .view-header {
-	@apply bg-accent max-w-full p-3;
+	@apply bg-accent max-w-full py-2 sm:px-2 lg:px-5;
 	/* height: 4.5rem; */
 	display: grid;
 	grid-template-columns: 1fr auto;
