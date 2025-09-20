@@ -107,20 +107,3 @@
 	</dialog>
 {/if}
 
-<style>
-	.help-section {
-		border-bottom: 1px solid hsl(var(--bc) / 0.1);
-		padding-bottom: 1.5rem;
-	}
-	
-	.help-section:last-child {
-		border-bottom: none;
-		padding-bottom: 0;
-	}
-	
-	.screenshot-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-</style>

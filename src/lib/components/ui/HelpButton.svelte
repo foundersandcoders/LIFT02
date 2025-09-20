@@ -65,10 +65,13 @@
 
 	async function handleHelpClick() {
 		if (isLoading) return;
-		
+
+		const context = helpContext();
+		if (!context) return;
+
 		isLoading = true;
 		try {
-			helpContent = await getHelpContent(helpContext() as HelpContextKey);
+			helpContent = await getHelpContent(context as HelpContextKey);
 			showHelpModal = true;
 		} catch (error) {
 			console.error('Failed to load help content:', error);
