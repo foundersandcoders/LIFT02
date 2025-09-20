@@ -17,15 +17,19 @@
 	$effect(() => {
 		if (show && dialog) {
 			previouslyFocused = document.activeElement as HTMLElement;
+			document.body.inert = true;
 			dialog.showModal();
 			const autofocusElement = dialog.querySelector<HTMLElement>('[data-autofocus]');
 			if (autofocusElement) {
 				autofocusElement.focus();
 			}
-		} else if (!show && dialog && previouslyFocused) {
+		} else if (!show && dialog) {
 			dialog.close();
-			previouslyFocused.focus();
-			previouslyFocused = null;
+			document.body.inert = false;
+			if (previouslyFocused) {
+				previouslyFocused.focus();
+				previouslyFocused = null;
+			}
 		}
 	});
 </script>
