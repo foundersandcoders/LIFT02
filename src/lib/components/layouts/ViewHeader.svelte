@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HelpButton from '../ui/HelpButton.svelte';
+	import Breadcrumb from '../ui/Breadcrumb.svelte';
 
 	interface Props {
 		title: string;
@@ -10,7 +11,7 @@
 </script>
 
 <div id="{title}-header" class="view-header">
-	<h2 class="text-accent-content">{title}</h2>
+	<Breadcrumb />
 
 	<div class="flex items-center gap-3">
 		{#if onclick}

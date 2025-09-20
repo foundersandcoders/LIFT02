@@ -129,6 +129,7 @@ h3 {
 	align-items: center;
 }
 
+
 .view-layout {
 	/* DASH */
 	@apply max-w-full justify-around space-y-4 px-2;
@@ -256,6 +257,31 @@ h3 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.breadcrumb {
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+
+.breadcrumb-list {
+	@apply flex items-center space-x-2 m-0 p-0 list-none;
+}
+
+.breadcrumb-item {
+	@apply flex items-center;
+}
+
+.breadcrumb-link {
+	@apply text-accent-content hover:text-white transition-colors underline bg-transparent border-none cursor-pointer p-0 font-normal;
+}
+
+.breadcrumb-current {
+	@apply text-accent-content font-bold;
+}
+
+.breadcrumb-separator {
+	@apply text-accent-content/70 mx-2 font-normal;
 }
 
 @media (max-width: 375px) {
