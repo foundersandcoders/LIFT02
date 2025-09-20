@@ -61,7 +61,7 @@ h3 {
 }
 
 .dash-grid-2 {
-	@apply grid grid-cols-2 gap-8;
+	@apply mt-2 grid grid-cols-2;
 }
 
 .dash-tile-rect {
@@ -70,7 +70,7 @@ h3 {
 }
 
 .dash-tile-square {
-	@apply card border-primary bg-base-100 my-1 rounded-lg border p-6 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 mx-10 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
 	@apply flex flex-col items-center justify-center text-center;
 	@apply cursor-pointer;
 	/* Height constraints relative to .list-item */
@@ -87,8 +87,8 @@ h3 {
 }
 
 .footer {
-	@apply bg-primary text-primary-content h-20;
-	padding-bottom: env(safe-area-inset-bottom);
+	@apply bg-primary text-primary-content h-16;
+	/* padding-bottom: env(safe-area-inset-bottom); */
 	padding-left: env(safe-area-inset-left);
 	padding-right: env(safe-area-inset-right);
 }
@@ -106,11 +106,11 @@ h3 {
 }
 
 .header-container-logo {
-	@apply rounded-xl bg-white p-2 shadow-sm;
+	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
 }
 
 .header-content {
-	@apply flex h-20 w-full flex-row items-center justify-between sm:px-2 lg:px-5;
+	@apply flex h-20 w-full flex-row items-center justify-between px-5;
 }
 
 .header-left {
@@ -122,7 +122,7 @@ h3 {
 }
 
 .view-header {
-	@apply bg-accent max-w-full py-2 sm:px-2 lg:px-5;
+	@apply bg-accent h-14 max-w-full px-5;
 	/* height: 4.5rem; */
 	display: grid;
 	grid-template-columns: 1fr auto;

@@ -25,12 +25,12 @@
 	<div id="header-content" class="header-content">
 		<div id="header-left" class="header-left">
 			<div id="brand-logo" class="header-container-logo">
-				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-auto sm:h-10" />
+				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
 			</div>
 
 			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
 				<h1>Workwise</h1>
-				<p class="text-sm">{version}</p>
+				<!-- <p class="text-sm">{version}</p> -->
 			</div>
 		</div>
 
@@ -57,12 +57,12 @@
 					<button
 						id="email-button"
 						onclick={onEmailClick}
-						class="btn-nav"
+						class="w-8 h-8 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50"
 						type="button"
 						aria-label="Send Email to Line Manager"
 						disabled={isInEmailView}
 					>
-						<Icon src={Envelope} solid class="h-6 w-6" />
+						<Icon src={Envelope} solid class="h-4 w-4 text-white" />
 					</button>
 				</Tooltip>
 			{/if}

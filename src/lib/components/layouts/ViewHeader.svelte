@@ -13,9 +13,9 @@
 	<h2 class="text-accent-content">{title}</h2>
 
 	<div class="flex items-center gap-3">
-		<HelpButton />
 		{#if onclick}
 			<button {onclick} class="btn-nav border-primary"> Back </button>
 		{/if}
+		<HelpButton />
 	</div>
 </div>
