@@ -16,11 +16,12 @@
 
 	// Generate breadcrumb items based on current app state
 	const breadcrumbItems = $derived(() => {
-		const items: BreadcrumbItem[] = [];
 		const viewName = app.view.name;
 		const listTable = app.list.table;
 		const detailTable = app.detail.table;
-		const categoryFormat = app.list.category.format;
+		const categoryFormat = app.list.category?.format;
+
+		const items: BreadcrumbItem[] = [];
 
 		// Always start with Dashboard
 		items.push({
@@ -60,7 +61,8 @@
 						label: categoryFormat,
 						clickable: true,
 						action: () => {
-							setList({ table: 'questions', category: app.list.category });
+							const category = app.list.category || { raw: null, format: null };
+							setList({ table: 'questions', category });
 							setViewName('list');
 						}
 					});
@@ -106,14 +108,17 @@
 		return items;
 	});
 
+	// Cache the breadcrumb items to avoid multiple function calls
+	const items = $derived(breadcrumbItems());
+
 	// Always show breadcrumbs (at minimum shows current page)
-	const showBreadcrumbs = $derived(breadcrumbItems().length > 0);
+	const showBreadcrumbs = $derived(items.length > 0);
 </script>
 
 {#if showBreadcrumbs}
 	<nav class="breadcrumb" aria-label="Breadcrumb navigation">
 		<ol class="breadcrumb-list">
-			{#each breadcrumbItems() as item, index (item.label)}
+			{#each items as item, index (item.label)}
 				<li class="breadcrumb-item">
 					{#if item.clickable && item.action}
 						<button
@@ -126,7 +131,7 @@
 					{:else}
 						<span class="breadcrumb-current">{item.label}</span>
 					{/if}
-					{#if index < breadcrumbItems().length - 1}
+					{#if index < items.length - 1}
 						<span class="breadcrumb-separator" aria-hidden="true">→</span>
 					{/if}
 				</li>
