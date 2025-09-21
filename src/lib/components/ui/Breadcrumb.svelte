@@ -19,7 +19,7 @@
 		const viewName = app.view.name;
 		const listTable = app.list.table;
 		const detailTable = app.detail.table;
-		const categoryFormat = app.list.category?.format;
+		const categoryFormat = app.list.category.format;
 
 		const items: BreadcrumbItem[] = [];
 
