@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import { createAction, updateAction, archiveAction, getActionHistory } from '$lib/services/database/actions';
+	import {
+		createAction,
+		updateAction,
+		archiveAction,
+		getActionHistory
+	} from '$lib/services/database/actions';
 	import type { Action } from '$lib/types/tableMain';
 	import type { AppState } from '$lib/types/appState';
 	import ConfirmModal from './ConfirmModal.svelte';
@@ -50,7 +55,7 @@
 			const result = await getActionHistory(profileId, responseId);
 			if (result.data) {
 				// Filter to get only the latest version of each action (active ones)
-				const latestActions = result.data.filter(action => action.status === 'active');
+				const latestActions = result.data.filter((action) => action.status === 'active');
 				actions = latestActions;
 			}
 		} catch (error) {
@@ -150,9 +155,7 @@
 			const result = await updateAction(editingActionId, updateData);
 			if (result.data) {
 				// Update the action in the list
-				actions = actions.map(action =>
-					action.id === editingActionId ? result.data! : action
-				);
+				actions = actions.map((action) => (action.id === editingActionId ? result.data! : action));
 				cancelEdit();
 			}
 		} catch (error) {
@@ -174,7 +177,7 @@
 		try {
 			await archiveAction(actionToDelete);
 			// Remove from the list
-			actions = actions.filter(action => action.id !== actionToDelete);
+			actions = actions.filter((action) => action.id !== actionToDelete);
 			closeDeleteModal();
 		} catch (error) {
 			console.error('Failed to delete action:', error);
@@ -197,10 +200,9 @@
 
 <div class="actions-crud">
 	<div class="actions-header">
-		<h4 class="form-label">Actions for your manager</h4>
-		<p class="text-sm text-base-content/70 mb-3">
+		<h4 class="form-label">
 			Manage actions you'd like your manager to take in response to this question.
-		</p>
+		</h4>
 	</div>
 
 	<!-- Existing Actions List -->
@@ -221,7 +223,7 @@
 								class:border-error={editActionError}
 							></textarea>
 							{#if editActionError}
-								<div class="text-error text-sm mt-1">{editActionError}</div>
+								<div class="text-error mt-1 text-sm">{editActionError}</div>
 							{/if}
 							<div class="action-edit-buttons">
 								<button
@@ -236,11 +238,7 @@
 										Save
 									{/if}
 								</button>
-								<button
-									onclick={cancelEdit}
-									class="btn btn-sm"
-									disabled={isUpdating}
-								>
+								<button onclick={cancelEdit} class="btn btn-sm" disabled={isUpdating}>
 									Cancel
 								</button>
 							</div>
@@ -283,7 +281,7 @@
 		</div>
 	{:else}
 		<div class="no-actions">
-			<p class="text-sm text-base-content/60">No actions yet. Add one below.</p>
+			<p class="text-base-content/60 text-sm">No actions yet. Add one below.</p>
 		</div>
 	{/if}
 
@@ -298,14 +296,10 @@
 				class:border-error={newActionError}
 			></textarea>
 			{#if newActionError}
-				<div class="text-error text-sm mt-1">{newActionError}</div>
+				<div class="text-error mt-1 text-sm">{newActionError}</div>
 			{/if}
 			<div class="new-action-buttons">
-				<button
-					onclick={handleCreateAction}
-					class="btn-submit btn-sm"
-					disabled={isCreating}
-				>
+				<button onclick={handleCreateAction} class="btn-submit btn-sm" disabled={isCreating}>
 					{#if isCreating}
 						<span class="loading loading-spinner loading-xs"></span>
 						Creating...
@@ -314,7 +308,11 @@
 					{/if}
 				</button>
 				<button
-					onclick={() => { showNewActionForm = false; newActionError = ''; newActionDescription = ''; }}
+					onclick={() => {
+						showNewActionForm = false;
+						newActionError = '';
+						newActionDescription = '';
+					}}
 					class="btn btn-sm"
 					disabled={isCreating}
 				>
@@ -324,7 +322,7 @@
 		</div>
 	{:else}
 		<button
-			onclick={() => showNewActionForm = true}
+			onclick={() => (showNewActionForm = true)}
 			class="btn btn-outline btn-sm add-action-btn"
 		>
 			+ Add Action
