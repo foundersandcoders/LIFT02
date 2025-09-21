@@ -53,8 +53,6 @@
 	let table: TableName = $state('responses');
 	let connectionDetails = $state<QuestionConnections>({
 		responseInput: null,
-		actionsInput: null,
-		actionType: null,
 		responseId: null,
 		visibility: 'private'
 	});
@@ -72,11 +70,6 @@
 			connectionDetails.responseInput.trim() !== ''
 	);
 
-	const hasActionContent = $derived(
-		connectionDetails.actionsInput !== null &&
-			connectionDetails.actionsInput !== undefined &&
-			connectionDetails.actionsInput.trim() !== ''
-	);
 
 	const buttonConfig = $derived(() => {
 		return isUpdate
@@ -87,9 +80,6 @@
 	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
 	$inspect(hasResponseContent).with((type, value) =>
 		console.log(`📝 hasResponseContent: ${type} ${value}`)
-	);
-	$inspect(hasActionContent).with((type, value) =>
-		console.log(`📝 hasActionContent: ${type} ${value}`)
 	);
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
@@ -119,7 +109,6 @@
 
 		// Update visibility based on details or default to 'private'
 		visibility = connections.visibility || 'private';
-		connectionDetails.actionsInput = null;
 
 		const data = {
 			queryId: questionId,
@@ -189,7 +178,6 @@
 					{table}
 					{isUpdate}
 					{hasResponseContent}
-					{hasActionContent}
 					details={connectionDetails}
 					{visibility}
 				/>
@@ -199,7 +187,6 @@
 					{table}
 					{isUpdate}
 					{hasResponseContent}
-					{hasActionContent}
 					details={connectionDetails}
 					{visibility}
 					onclick={isUpdate ? openDeleteModal : undefined}

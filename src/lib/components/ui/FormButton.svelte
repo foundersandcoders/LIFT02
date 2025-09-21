@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createAction } from '$lib/services/database/actions';
 	import { createResponse } from '$lib/services/database/responses';
 	import type { QuestionConnections, RowId, TableName, ViewName } from '$lib/types/appState';
 	import { getContext } from 'svelte';
@@ -12,7 +11,6 @@
 		buttonType: 'primary' | 'secondary';
 		isUpdate: boolean;
 		hasResponseContent: boolean;
-		hasActionContent: boolean;
 		onclick?: () => void;
 	}
 
@@ -20,7 +18,6 @@
 		buttonType,
 		details,
 		hasResponseContent,
-		hasActionContent,
 		isUpdate,
 		table,
 		text,
@@ -61,7 +58,6 @@
 			table,
 			isUpdate,
 			hasResponseContent,
-			hasActionContent,
 			visibility,
 			profileId: profileId, // Force value resolution
 			questionId: questionId // Force value resolution
@@ -85,24 +81,6 @@
 				try {
 					const result = await createResponse(profileId, responseData);
 					console.log('✅ Response created successfully:', result);
-
-					// If user provided action data, create an action linked to this response
-					if (hasActionContent && result.data?.id) {
-						const actionData = {
-							description: details?.actionsInput,
-							type: '',
-							response_id: result.data.id
-						};
-
-						console.log('🎯 Creating action after response:', actionData);
-
-						try {
-							const actionResult = await createAction(profileId, actionData);
-							console.log('✅ Action created successfully:', actionResult);
-						} catch (actionError) {
-							console.error('❌ Action creation failed:', actionError);
-						}
-					}
 				} catch (error) {
 					console.error('❌ Response creation failed:', error);
 				}
@@ -129,21 +107,8 @@
 				}
 			}
 		} else if (table === 'actions') {
-			// Future ActionCard functionality - unchanged for now
-			const actionData = {
-				type: details?.actionType || '',
-				description: details?.actionsInput,
-				response_id: details?.responseId
-			};
-
-			console.log('🎯 ACTION BUTTON - Creating action:', actionData);
-
-			try {
-				const result = await createAction(profileId, actionData);
-				console.log('✅ Action created successfully:', result);
-			} catch (error) {
-				console.error('❌ Action creation failed:', error);
-			}
+			// Actions are now handled by ActionsCRUD component
+			console.log('🎯 ACTION BUTTON - Actions are managed by ActionsCRUD component');
 		}
 
 		clearDetail();
