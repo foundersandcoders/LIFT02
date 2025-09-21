@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
+	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
 	import { version } from '$lib/version';
 
@@ -35,6 +36,9 @@
 		</div>
 
 		<div id="header-right" class="flex items-center space-x-3">
+			<!-- Font Size Control -->
+			<FontSizeControl />
+
 			<!-- Profile Button -->
 			<!-- <button
 				id="profile-button"

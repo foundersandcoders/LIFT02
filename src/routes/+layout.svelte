@@ -106,9 +106,6 @@
 		$inspect(appState.detail.table).with((type, value) =>
 			console.log(`${preApp}${type} detail.table: ${value}`)
 		);
-		$inspect(appState.detail.item.id).with((type, value) =>
-			console.log(`${preApp}${type} detail.item.rowId: ${value}`)
-		);
 	}
 
 	// =1 App Context
