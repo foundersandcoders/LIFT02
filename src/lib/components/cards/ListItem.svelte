@@ -155,8 +155,10 @@
 							<Tooltip text="Question already answered or skipped" position="right">
 								<div
 									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default"
-								></div>
+									class="status-indicator-lg status-default flex items-center justify-center"
+								>
+									<span class="text-white text-xs">✓</span>
+								</div>
 							</Tooltip>
 						{:then response}
 							{@const hasValidStatus =
@@ -166,32 +168,40 @@
 								<Tooltip text="Question already answered or skipped" position="right">
 									<div
 										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-default"
-									></div>
+										class="status-indicator-lg status-default flex items-center justify-center"
+									>
+										<span class="text-white text-xs">✓</span>
+									</div>
 								</Tooltip>
 							{:else}
 								<!-- Magenta -->
 								<Tooltip text="Question requires attention from user" position="right">
 									<div
 										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-active"
-									></div>
+										class="status-indicator-lg status-active flex items-center justify-center"
+									>
+										<span class="text-white text-xs">?</span>
+									</div>
 								</Tooltip>
 							{/if}
 						{:catch}
 							<Tooltip text="Question already answered or skipped" position="right">
 								<div
 									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default"
-								></div>
+									class="status-indicator-lg status-default flex items-center justify-center"
+								>
+									<span class="text-white text-xs">✓</span>
+								</div>
 							</Tooltip>
 						{/await}
 					{:else}
 						<Tooltip text="Question already answered or skipped" position="right">
 							<div
 								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default"
-							></div>
+								class="status-indicator-lg status-default flex items-center justify-center"
+							>
+								<span class="text-white text-xs">✓</span>
+							</div>
 						</Tooltip>
 					{/if}
 				</div>
