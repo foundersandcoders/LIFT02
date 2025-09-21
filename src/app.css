@@ -284,6 +284,18 @@ h3 {
 	@apply text-accent-content/70 mx-2 font-normal;
 }
 
+.actions-crud {
+	@apply space-y-4;
+}
+
+.actions-header {
+	@apply mb-4;
+}
+
+.actions-list {
+	@apply space-y-3;
+}
+
 @media (max-width: 375px) {
 	.dash-grid {
 		@apply grid-cols-1;
