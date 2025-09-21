@@ -7,10 +7,9 @@
 
 	interface Props {
 		responseId: string | null;
-		questionId: string;
 	}
 
-	let { responseId, questionId }: Props = $props();
+	let { responseId }: Props = $props();
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -143,7 +142,7 @@
 
 <div class="actions-crud">
 	<div class="actions-header">
-		<label class="form-label">Actions for your manager</label>
+		<h4 class="form-label">Actions for your manager</h4>
 		<p class="text-sm text-base-content/70 mb-3">
 			Manage actions you'd like your manager to take in response to this question.
 		</p>

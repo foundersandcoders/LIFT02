@@ -179,7 +179,7 @@
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content">
-				<ActionsCRUD responseId={connectionDetails.responseId} {questionId} />
+				<ActionsCRUD responseId={connectionDetails.responseId} />
 			</div>
 
 			<div id="question-{questionId}-buttons" class="flex justify-around">
