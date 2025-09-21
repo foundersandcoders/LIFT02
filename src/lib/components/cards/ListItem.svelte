@@ -126,7 +126,11 @@
 >
 	<div
 		id="list-item-{item.id}-row"
-		class="flex w-full {table === 'questions' ? 'flex-row items-center justify-between' : table === 'resources' ? 'flex-row items-center justify-center' : 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
+		class="flex w-full {table === 'questions'
+			? 'flex-row items-center justify-between'
+			: table === 'resources'
+				? 'flex-row items-center justify-center'
+				: 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
 	>
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
@@ -157,7 +161,7 @@
 									id="list-item-{item.id}-status-icon"
 									class="status-indicator-lg status-default flex items-center justify-center"
 								>
-									<span class="text-white text-xs">✓</span>
+									<span class="text-s text-white">✓</span>
 								</div>
 							</Tooltip>
 						{:then response}
@@ -170,7 +174,7 @@
 										id="list-item-{item.id}-status-icon"
 										class="status-indicator-lg status-default flex items-center justify-center"
 									>
-										<span class="text-white text-xs">✓</span>
+										<span class="text-s text-white">✓</span>
 									</div>
 								</Tooltip>
 							{:else}
@@ -180,7 +184,7 @@
 										id="list-item-{item.id}-status-icon"
 										class="status-indicator-lg status-active flex items-center justify-center"
 									>
-										<span class="text-white text-xs">?</span>
+										<span class="text-s text-white">?</span>
 									</div>
 								</Tooltip>
 							{/if}
@@ -190,7 +194,7 @@
 									id="list-item-{item.id}-status-icon"
 									class="status-indicator-lg status-default flex items-center justify-center"
 								>
-									<span class="text-white text-xs">✓</span>
+									<span class="text-s text-white">✓</span>
 								</div>
 							</Tooltip>
 						{/await}
@@ -200,7 +204,7 @@
 								id="list-item-{item.id}-status-icon"
 								class="status-indicator-lg status-default flex items-center justify-center"
 							>
-								<span class="text-white text-xs">✓</span>
+								<span class="text-s text-white">✓</span>
 							</div>
 						</Tooltip>
 					{/if}
@@ -220,7 +224,7 @@
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-accent hover:text-accent-dark text-sm underline break-all"
+							class="text-accent hover:text-accent-dark text-sm break-all underline"
 							onclick={(e) => e.stopPropagation()}
 						>
 							{item.url}

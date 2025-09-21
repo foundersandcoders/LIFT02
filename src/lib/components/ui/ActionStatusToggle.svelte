@@ -20,5 +20,5 @@
 		{checked}
 		onchange={handleToggle}
 	/>
-	<span class="w-16 text-sm">{status === 'active' ? 'Active' : 'Archived'}</span>
+	<span class="w-16 text-sm">{status === 'active' ? 'Active' : 'Inactive'}</span>
 </label>
