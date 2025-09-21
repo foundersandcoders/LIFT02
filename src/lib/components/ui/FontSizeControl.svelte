@@ -49,14 +49,16 @@
 	<Tooltip text="Font size settings" position="bottom_left">
 		<button
 			onclick={toggleModal}
-			class="w-8 h-8 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors"
+			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors"
 			type="button"
 			aria-label="Font size settings"
 		>
-			<div class="flex flex-col items-center text-white leading-none">
-				<span class="text-[6px] leading-none">+</span>
-				<span class="italic font-serif text-xs leading-none">A</span>
-				<span class="text-[6px] leading-none">-</span>
+			<div class="flex items-center text-white leading-none gap-1">
+				<div class="flex flex-col items-center leading-none -space-y-1">
+					<span class="text-sm leading-none">+</span>
+					<span class="text-sm leading-none">-</span>
+				</div>
+				<span class="italic font-serif text-lg leading-none">A</span>
 			</div>
 		</button>
 	</Tooltip>
@@ -87,7 +89,7 @@
 						-
 					</button>
 
-					<span class="text-gray-700 font-medium px-4">{fontSizeLabels[fontSize]}</span>
+					<span class="text-gray-700 font-medium px-4 whitespace-nowrap">{fontSizeLabels[fontSize]}</span>
 
 					<button
 						onclick={increaseFontSize}

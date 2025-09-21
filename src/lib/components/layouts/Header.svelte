@@ -61,12 +61,12 @@
 					<button
 						id="email-button"
 						onclick={onEmailClick}
-						class="w-8 h-8 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50"
+						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50"
 						type="button"
 						aria-label="Send Email to Line Manager"
 						disabled={isInEmailView}
 					>
-						<Icon src={Envelope} solid class="h-4 w-4 text-white" />
+						<Icon src={Envelope} solid class="h-5 w-5 text-white" />
 					</button>
 				</Tooltip>
 			{/if}
