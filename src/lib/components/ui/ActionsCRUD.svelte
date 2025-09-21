@@ -29,6 +29,12 @@
 	// Edit action form state
 	let editDescription = $state('');
 
+	// Debouncing and validation states
+	let isCreating = $state(false);
+	let isUpdating = $state(false);
+	let newActionError = $state('');
+	let editActionError = $state('');
+
 	// Load actions when responseId changes
 	$effect(() => {
 		if (responseId && profileId) {
@@ -54,12 +60,39 @@
 		}
 	}
 
+	function validateActionDescription(description: string): string {
+		const trimmed = description.trim();
+		if (!trimmed) {
+			return 'Action description is required';
+		}
+		if (trimmed.length < 3) {
+			return 'Action description must be at least 3 characters';
+		}
+		if (trimmed.length > 500) {
+			return 'Action description must be less than 500 characters';
+		}
+		return '';
+	}
+
 	async function handleCreateAction() {
-		if (!profileId || !newActionDescription.trim()) return;
+		if (!profileId || isCreating) return;
+
+		// Clear previous error
+		newActionError = '';
+
+		// Validate description
+		const validationError = validateActionDescription(newActionDescription);
+		if (validationError) {
+			newActionError = validationError;
+			return;
+		}
+
+		// Prevent multiple concurrent requests
+		isCreating = true;
 
 		try {
 			const actionData = {
-				description: newActionDescription,
+				description: newActionDescription.trim(),
 				type: 'general', // Default type for now
 				response_id: responseId || undefined
 			};
@@ -69,10 +102,14 @@
 				actions = [...actions, result.data];
 				// Reset form
 				newActionDescription = '';
+				newActionError = '';
 				showNewActionForm = false;
 			}
 		} catch (error) {
 			console.error('Failed to create action:', error);
+			newActionError = 'Failed to create action. Please try again.';
+		} finally {
+			isCreating = false;
 		}
 	}
 
@@ -85,14 +122,28 @@
 	function cancelEdit() {
 		editingActionId = null;
 		editDescription = '';
+		editActionError = '';
 	}
 
 	async function handleUpdateAction() {
-		if (!editingActionId || !editDescription.trim()) return;
+		if (!editingActionId || isUpdating) return;
+
+		// Clear previous error
+		editActionError = '';
+
+		// Validate description
+		const validationError = validateActionDescription(editDescription);
+		if (validationError) {
+			editActionError = validationError;
+			return;
+		}
+
+		// Prevent multiple concurrent requests
+		isUpdating = true;
 
 		try {
 			const updateData = {
-				description: editDescription,
+				description: editDescription.trim(),
 				type: 'general' // Keep existing type logic for now
 			};
 
@@ -106,6 +157,9 @@
 			}
 		} catch (error) {
 			console.error('Failed to update action:', error);
+			editActionError = 'Failed to update action. Please try again.';
+		} finally {
+			isUpdating = false;
 		}
 	}
 
@@ -164,12 +218,29 @@
 								placeholder="Action description"
 								rows="2"
 								class="action-description-input"
+								class:border-error={editActionError}
 							></textarea>
+							{#if editActionError}
+								<div class="text-error text-sm mt-1">{editActionError}</div>
+							{/if}
 							<div class="action-edit-buttons">
-								<button onclick={handleUpdateAction} class="btn-submit btn-sm">
-									Save
+								<button
+									onclick={handleUpdateAction}
+									class="btn-submit btn-sm"
+									disabled={isUpdating}
+								>
+									{#if isUpdating}
+										<span class="loading loading-spinner loading-xs"></span>
+										Saving...
+									{:else}
+										Save
+									{/if}
 								</button>
-								<button onclick={cancelEdit} class="btn btn-sm">
+								<button
+									onclick={cancelEdit}
+									class="btn btn-sm"
+									disabled={isUpdating}
+								>
 									Cancel
 								</button>
 							</div>
@@ -224,12 +295,29 @@
 				placeholder="Describe the action you'd like your manager to take..."
 				rows="3"
 				class="action-description-input"
+				class:border-error={newActionError}
 			></textarea>
+			{#if newActionError}
+				<div class="text-error text-sm mt-1">{newActionError}</div>
+			{/if}
 			<div class="new-action-buttons">
-				<button onclick={handleCreateAction} class="btn-submit btn-sm">
-					Add Action
+				<button
+					onclick={handleCreateAction}
+					class="btn-submit btn-sm"
+					disabled={isCreating}
+				>
+					{#if isCreating}
+						<span class="loading loading-spinner loading-xs"></span>
+						Creating...
+					{:else}
+						Add Action
+					{/if}
 				</button>
-				<button onclick={() => showNewActionForm = false} class="btn btn-sm">
+				<button
+					onclick={() => { showNewActionForm = false; newActionError = ''; newActionDescription = ''; }}
+					class="btn btn-sm"
+					disabled={isCreating}
+				>
 					Cancel
 				</button>
 			</div>

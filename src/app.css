@@ -372,6 +372,21 @@ h3 {
 	@apply border-primary hover:border-accent w-full;
 }
 
+/* Error states */
+.border-error {
+	@apply border-error;
+}
+
+/* Loading states */
+.btn:disabled {
+	@apply opacity-50 cursor-not-allowed;
+}
+
+.loading-xs {
+	width: 1rem;
+	height: 1rem;
+}
+
 @media (max-width: 375px) {
 	.dash-grid {
 		@apply grid-cols-1;
