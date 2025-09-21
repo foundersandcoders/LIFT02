@@ -50,7 +50,8 @@
 		profile: {
 			id: null,
 			name: null,
-			is_line_manager: null
+			is_line_manager: null,
+			preferences: {}
 		},
 		view: {
 			name: 'dash'
