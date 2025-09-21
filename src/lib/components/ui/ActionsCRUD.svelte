@@ -77,7 +77,8 @@
 	}
 
 	function startEdit(action: Action) {
-		editingActionId = action.id || null;
+		if (!action.id) return; // Don't edit actions without IDs
+		editingActionId = action.id;
 		editDescription = action.description || '';
 	}
 
@@ -185,20 +186,24 @@
 								{/if}
 							</div>
 							<div class="action-buttons">
-								<button
-									onclick={() => startEdit(action)}
-									class="btn btn-sm"
-									aria-label="Edit action"
-								>
-									Edit
-								</button>
-								<button
-									onclick={() => confirmDelete(action.id || '')}
-									class="btn btn-sm btn-error"
-									aria-label="Delete action"
-								>
-									Delete
-								</button>
+								{#if action.id}
+									<button
+										onclick={() => startEdit(action)}
+										class="btn btn-sm"
+										aria-label="Edit action"
+									>
+										Edit
+									</button>
+								{/if}
+								{#if action.id}
+									<button
+										onclick={() => confirmDelete(action.id!)}
+										class="btn btn-sm btn-error"
+										aria-label="Delete action"
+									>
+										Delete
+									</button>
+								{/if}
 							</div>
 						</div>
 					{/if}
