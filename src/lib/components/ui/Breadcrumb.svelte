@@ -1,12 +1,28 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName, List } from '$lib/types/appState';
+	import { getQuestionById } from '$lib/services/database/questions';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 	const setList = getContext<(list: List) => void>('setList');
 
 	const app = $derived(getApp());
+
+	// Get current question title when in detail view
+	let questionTitle = $state<string | null>(null);
+
+	$effect(() => {
+		if (app.view.name === 'detail' && app.detail.item.id) {
+			getQuestionById(app.detail.item.id).then(result => {
+				if (result.data) {
+					questionTitle = result.data.preview;
+				}
+			});
+		} else {
+			questionTitle = null;
+		}
+	});
 
 	interface BreadcrumbItem {
 		label: string;
@@ -20,6 +36,9 @@
 		const listTable = app.list.table;
 		const detailTable = app.detail.table;
 		const categoryFormat = app.list.category.format;
+
+		// Debug logging
+		console.log('🔍 Breadcrumb Debug:', { viewName, listTable, detailTable, categoryFormat });
 
 		const items: BreadcrumbItem[] = [];
 
@@ -55,7 +74,8 @@
 			}
 		} else if (viewName === 'detail') {
 			// Add the list level first
-			if (detailTable === 'responses') {
+			if (detailTable === 'responses' || detailTable === 'questions' || !detailTable) {
+				// For questions/responses, show the category breadcrumb
 				if (categoryFormat) {
 					items.push({
 						label: categoryFormat,
@@ -66,11 +86,26 @@
 							setViewName('list');
 						}
 					});
+
+					// Add the specific item type
+					if (detailTable === 'questions') {
+						items.push({
+							label: questionTitle || 'Question',
+							clickable: false
+						});
+					} else if (detailTable === 'responses') {
+						items.push({
+							label: questionTitle || 'Response',
+							clickable: false
+						});
+					} else {
+						// Fallback for null detailTable
+						items.push({
+							label: questionTitle || 'Question',
+							clickable: false
+						});
+					}
 				}
-				items.push({
-					label: 'Response',
-					clickable: false
-				});
 			} else if (detailTable === 'actions') {
 				items.push({
 					label: 'Actions',
@@ -116,7 +151,7 @@
 </script>
 
 {#if showBreadcrumbs}
-	<nav class="breadcrumb" aria-label="Breadcrumb navigation">
+	<nav class="breadcrumb" aria-label="Breadcrumb navigation" style="min-width: 0;">
 		<ol class="breadcrumb-list">
 			{#each items as item, index (item.label)}
 				<li class="breadcrumb-item">

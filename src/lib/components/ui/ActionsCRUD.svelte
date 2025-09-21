@@ -25,17 +25,15 @@
 
 	// New action form state
 	let newActionDescription = $state('');
-	let newActionType = $state('');
 	let showNewActionForm = $state(false);
 
 	// Edit action form state
 	let editDescription = $state('');
-	let editType = $state('');
 
 	// Load actions when responseId changes
-	$effect(async () => {
+	$effect(() => {
 		if (responseId && profileId) {
-			await loadActions();
+			loadActions();
 		}
 	});
 
@@ -63,7 +61,7 @@
 		try {
 			const actionData = {
 				description: newActionDescription,
-				type: newActionType || 'general',
+				type: 'general', // Default type for now
 				response_id: responseId || undefined
 			};
 
@@ -72,7 +70,6 @@
 				actions = [...actions, result.data];
 				// Reset form
 				newActionDescription = '';
-				newActionType = '';
 				showNewActionForm = false;
 			}
 		} catch (error) {
@@ -83,13 +80,11 @@
 	function startEdit(action: Action) {
 		editingActionId = action.id || null;
 		editDescription = action.description || '';
-		editType = action.type || '';
 	}
 
 	function cancelEdit() {
 		editingActionId = null;
 		editDescription = '';
-		editType = '';
 	}
 
 	async function handleUpdateAction() {
@@ -98,7 +93,7 @@
 		try {
 			const updateData = {
 				description: editDescription,
-				type: editType
+				type: 'general' // Keep existing type logic for now
 			};
 
 			const result = await updateAction(editingActionId, updateData);
@@ -164,12 +159,6 @@
 					{#if editingActionId === action.id}
 						<!-- Edit Mode -->
 						<div class="action-edit-form">
-							<input
-								type="text"
-								bind:value={editType}
-								placeholder="Action type (optional)"
-								class="action-type-input"
-							/>
 							<textarea
 								bind:value={editDescription}
 								placeholder="Action description"
@@ -189,9 +178,6 @@
 						<!-- View Mode -->
 						<div class="action-view">
 							<div class="action-content">
-								{#if action.type && action.type !== 'general'}
-									<span class="action-type">{action.type}</span>
-								{/if}
 								<p class="action-description">{action.description}</p>
 								{#if action.created_at}
 									<span class="action-date">
@@ -229,12 +215,6 @@
 	<!-- Add New Action -->
 	{#if showNewActionForm}
 		<div class="new-action-form">
-			<input
-				type="text"
-				bind:value={newActionType}
-				placeholder="Action type (optional)"
-				class="action-type-input"
-			/>
 			<textarea
 				bind:value={newActionDescription}
 				placeholder="Describe the action you'd like your manager to take..."

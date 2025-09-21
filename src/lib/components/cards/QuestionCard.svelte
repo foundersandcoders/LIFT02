@@ -7,6 +7,7 @@
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
 	import ConfirmModal from '../ui/ConfirmModal.svelte';
+	import ActionsCRUD from '../ui/ActionsCRUD.svelte';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
@@ -178,19 +179,7 @@
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content">
-				<div id="question-{questionId}-action-response" class="flex flex-col">
-					<label for="question-{questionId}-action-response-text" class="form-label">
-						Would you like your manager to take any actions in response to this?
-					</label>
-
-					<textarea
-						id="question-{questionId}-actions-response-text"
-						bind:value={connectionDetails.actionsInput}
-						placeholder="Enter your response here..."
-						rows="3"
-						class="text-area form-textarea"
-					></textarea>
-				</div>
+				<ActionsCRUD responseId={connectionDetails.responseId} {questionId} />
 			</div>
 
 			<div id="question-{questionId}-buttons" class="flex justify-around">
