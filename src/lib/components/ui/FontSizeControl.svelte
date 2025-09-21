@@ -1,8 +1,21 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
+	import type { AppState, Profile } from '$lib/types/appState';
+	import { updateProfile } from '$lib/services/database/profiles';
 	import Tooltip from './Tooltip.svelte';
 
-	// Font size state
+	// Get app state from context
+	const getApp = getContext<() => AppState>('getApp');
+	const setProfile = getContext<(newProfile: Profile) => void>('setProfile');
+	const app = $derived(getApp());
+
+	// Font size state - read from appState preferences or default to medium
 	let fontSize = $state<'extra-small' | 'small' | 'medium' | 'large' | 'extra-large'>('medium');
+
+	// Keep fontSize in sync with appState preferences
+	$effect(() => {
+		fontSize = app.profile.preferences?.fontSize || 'medium';
+	});
 	let showModal = $state(false);
 
 	const fontSizeLabels = {
@@ -13,18 +26,47 @@
 		'extra-large': 'Extra Large'
 	};
 
+	// Helper function to update both local state and appState preferences
+	const updateFontSize = async (newSize: typeof fontSize) => {
+		fontSize = newSize;
+
+		// Update appState preferences immediately for UI responsiveness
+		const updatedProfile = {
+			...app.profile,
+			preferences: {
+				...app.profile.preferences,
+				fontSize: newSize
+			}
+		};
+		setProfile(updatedProfile);
+
+		// Save to database if user is logged in
+		if (app.profile.id) {
+			try {
+				const result = await updateProfile(app.profile.id, {
+					preferences: updatedProfile.preferences
+				});
+				if (result.error) {
+					console.error('Database error saving font size preference:', result.error);
+				}
+			} catch (error) {
+				console.error('Failed to save font size preference:', error);
+			}
+		}
+	};
+
 	const increaseFontSize = () => {
-		if (fontSize === 'extra-small') fontSize = 'small';
-		else if (fontSize === 'small') fontSize = 'medium';
-		else if (fontSize === 'medium') fontSize = 'large';
-		else if (fontSize === 'large') fontSize = 'extra-large';
+		if (fontSize === 'extra-small') updateFontSize('small');
+		else if (fontSize === 'small') updateFontSize('medium');
+		else if (fontSize === 'medium') updateFontSize('large');
+		else if (fontSize === 'large') updateFontSize('extra-large');
 	};
 
 	const decreaseFontSize = () => {
-		if (fontSize === 'extra-large') fontSize = 'large';
-		else if (fontSize === 'large') fontSize = 'medium';
-		else if (fontSize === 'medium') fontSize = 'small';
-		else if (fontSize === 'small') fontSize = 'extra-small';
+		if (fontSize === 'extra-large') updateFontSize('large');
+		else if (fontSize === 'large') updateFontSize('medium');
+		else if (fontSize === 'medium') updateFontSize('small');
+		else if (fontSize === 'small') updateFontSize('extra-small');
 	};
 
 	const toggleModal = () => {

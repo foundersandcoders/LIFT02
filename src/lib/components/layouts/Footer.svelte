@@ -18,7 +18,7 @@
 
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
 	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
-	const setTestUser = getContext<(userId: string, userName: string) => void>('setTestUser');
+	const setTestUser = getContext<(userId: string, userName: string) => Promise<void>>('setTestUser');
 
 	const sortedTestUsers = $derived(
 		[...(getTestUsers() || [])]
@@ -32,8 +32,8 @@
 	let dropdownExpanded = $state(false);
 	let selectedUserId = $state<string | null>(null);
 
-	function handleUserSelect(userId: string, userName: string) {
-		setTestUser(userId, userName);
+	async function handleUserSelect(userId: string, userName: string) {
+		await setTestUser(userId, userName);
 		selectedUserId = userId;
 		console.log('Test user selected:', userName, userId);
 
