@@ -37,8 +37,6 @@
 		const detailTable = app.detail.table;
 		const categoryFormat = app.list.category.format;
 
-		// Debug logging
-		console.log('🔍 Breadcrumb Debug:', { viewName, listTable, detailTable, categoryFormat });
 
 		const items: BreadcrumbItem[] = [];
 

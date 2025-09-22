@@ -22,14 +22,15 @@
 		RowId,
 		TableName,
 		View,
-		ViewName
+		ViewName,
+		UserPreferences
 	} from '$lib/types/appState';
 	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from '$lib/utils/inspector';
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
 
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	import { getAllProfiles } from '$lib/services/database/profiles';
+	import { getAllProfiles, getProfile } from '$lib/services/database/profiles';
 	import { onMount } from 'svelte';
 	// ======================================================
 
@@ -50,7 +51,8 @@
 		profile: {
 			id: null,
 			name: null,
-			is_line_manager: null
+			is_line_manager: null,
+			preferences: {}
 		},
 		view: {
 			name: 'dash'
@@ -106,9 +108,6 @@
 		$inspect(appState.detail.table).with((type, value) =>
 			console.log(`${preApp}${type} detail.table: ${value}`)
 		);
-		$inspect(appState.detail.item.id).with((type, value) =>
-			console.log(`${preApp}${type} detail.item.rowId: ${value}`)
-		);
 	}
 
 	// =1 App Context
@@ -162,9 +161,25 @@
 	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
 	// Add context for test users
 	setContext('getTestUsers', () => testUsers);
-	setContext('setTestUser', (userId: string, userName: string) => {
+	setContext('setTestUser', async (userId: string, userName: string) => {
+		// Set basic info immediately for UI responsiveness
 		appState.profile.id = userId;
 		appState.profile.name = userName;
+
+		// Load full profile data including preferences
+		try {
+			const result = await getProfile(userId);
+			if (result.data) {
+				appState.profile = {
+					id: result.data.user_id,
+					name: result.data.name,
+					is_line_manager: result.data.is_line_manager,
+					preferences: (result.data.preferences as UserPreferences) || {}
+				};
+			}
+		} catch (error) {
+			console.error('Failed to load profile preferences:', error);
+		}
 	});
 
 	// Fetch all profiles for testing dropdown
@@ -175,7 +190,11 @@
 			const result = await getAllProfiles();
 			if (!cancelled) {
 				if (result.data) {
-					testUsers = result.data;
+					testUsers = result.data.map(user => ({
+						...user,
+						id: user.user_id,
+						preferences: (user.preferences as UserPreferences) || {}
+					}));
 					console.log('Test users loaded:', testUsers.length);
 				} else if (result.error) {
 					console.warn('Could not load test users for development:', result.error.message);

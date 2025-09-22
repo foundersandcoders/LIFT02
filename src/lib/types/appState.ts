@@ -39,6 +39,11 @@ export interface Profile {
 	id: null | RowId;
 	name: null | string;
 	is_line_manager: boolean | null;
+	preferences?: UserPreferences;
+}
+
+export interface UserPreferences {
+	fontSize?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large';
 }
 
 export interface QuestionConnections {
