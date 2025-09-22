@@ -7,6 +7,7 @@
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
 	import ConfirmModal from '../ui/ConfirmModal.svelte';
+	import ActionsCRUD from '../ui/ActionsCRUD.svelte';
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
@@ -52,8 +53,6 @@
 	let table: TableName = $state('responses');
 	let connectionDetails = $state<QuestionConnections>({
 		responseInput: null,
-		actionsInput: null,
-		actionType: null,
 		responseId: null,
 		visibility: 'private'
 	});
@@ -71,11 +70,6 @@
 			connectionDetails.responseInput.trim() !== ''
 	);
 
-	const hasActionContent = $derived(
-		connectionDetails.actionsInput !== null &&
-			connectionDetails.actionsInput !== undefined &&
-			connectionDetails.actionsInput.trim() !== ''
-	);
 
 	const buttonConfig = $derived(() => {
 		return isUpdate
@@ -86,9 +80,6 @@
 	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
 	$inspect(hasResponseContent).with((type, value) =>
 		console.log(`📝 hasResponseContent: ${type} ${value}`)
-	);
-	$inspect(hasActionContent).with((type, value) =>
-		console.log(`📝 hasActionContent: ${type} ${value}`)
 	);
 	$inspect(buttonConfig().primaryText).with((type, value) =>
 		console.log(`🔘 Button 1: ${type} ${value}`)
@@ -118,7 +109,6 @@
 
 		// Update visibility based on details or default to 'private'
 		visibility = connections.visibility || 'private';
-		connectionDetails.actionsInput = null;
 
 		const data = {
 			queryId: questionId,
@@ -178,19 +168,7 @@
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content">
-				<div id="question-{questionId}-action-response" class="flex flex-col">
-					<label for="question-{questionId}-action-response-text" class="form-label">
-						Would you like your manager to take any actions in response to this?
-					</label>
-
-					<textarea
-						id="question-{questionId}-actions-response-text"
-						bind:value={connectionDetails.actionsInput}
-						placeholder="Enter your response here..."
-						rows="3"
-						class="text-area form-textarea"
-					></textarea>
-				</div>
+				<ActionsCRUD responseId={connectionDetails.responseId} />
 			</div>
 
 			<div id="question-{questionId}-buttons" class="flex justify-around">
@@ -200,7 +178,6 @@
 					{table}
 					{isUpdate}
 					{hasResponseContent}
-					{hasActionContent}
 					details={connectionDetails}
 					{visibility}
 				/>
@@ -210,7 +187,6 @@
 					{table}
 					{isUpdate}
 					{hasResponseContent}
-					{hasActionContent}
 					details={connectionDetails}
 					{visibility}
 					onclick={isUpdate ? openDeleteModal : undefined}

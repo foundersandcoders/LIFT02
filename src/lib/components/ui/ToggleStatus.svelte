@@ -11,7 +11,9 @@
 </script>
 
 <fieldset id="vis" class="form-fieldset">
-	<label for="vis-label" class="label text-sm"> Visibility to employer </label>
+	<label for="vis-label" class="label text-sm">
+		Visibility to employer. This answer and actions will be included on the email
+	</label>
 
 	<label class="flex items-center gap-2">
 		<Tooltip

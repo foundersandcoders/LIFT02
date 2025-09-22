@@ -43,8 +43,6 @@ export interface Profile {
 
 export interface QuestionConnections {
 	responseInput: string | null;
-	actionsInput: string | null;
-	actionType: string | null;
 	responseId: RowId | null;
 	visibility: 'public' | 'private';
 }
