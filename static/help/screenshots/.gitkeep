@@ -1,0 +1,18 @@
+# Screenshots Directory
+
+This directory contains screenshots for the help system.
+
+Current placeholders:
+- dashboard-no-profile.png (coming soon)
+- dashboard-with-profile.png (coming soon) 
+- actions-list.png (coming soon)
+- resources-view.png (coming soon)
+- categories-overview.png (coming soon)
+- response-editing.png (coming soon)
+- email-preview.png (coming soon)
+
+Screenshots should be:
+- Consistent viewport size
+- Use existing app styling
+- Include realistic but privacy-safe demo data
+- Highlight important UI elements where relevant

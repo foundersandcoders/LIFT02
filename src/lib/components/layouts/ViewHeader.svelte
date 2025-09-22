@@ -1,4 +1,6 @@
 <script lang="ts">
+	import HelpButton from '../ui/HelpButton.svelte';
+
 	interface Props {
 		title: string;
 		onclick?: () => void;
@@ -8,9 +10,12 @@
 </script>
 
 <div id="{title}-header" class="view-header">
-	<h2 class="text-accent-content flex items-center">{title}</h2>
+	<h2 class="text-accent-content">{title}</h2>
 
-	{#if onclick}
-		<button {onclick} class="btn-nav border-primary"> Back </button>
-	{/if}
+	<div class="flex items-center gap-3">
+		{#if onclick}
+			<button {onclick} class="btn-nav border-primary"> Back </button>
+		{/if}
+		<HelpButton />
+	</div>
 </div>
