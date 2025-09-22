@@ -2,6 +2,8 @@
 	import { getQuestionById, createResponse } from '$lib/services/database';
 	import FormButton from '../ui/FormButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
+	import SaveStatus from '../ui/SaveStatus.svelte';
+	import { debounce } from '$lib/utils/autosave';
 	import type { TableName, QuestionConnections, RowId, ViewName } from '$lib/types/appState';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
@@ -123,12 +125,47 @@
 	};
 
 	let visibility = $state('private');
+	let privacySaveStatus = $state<'idle' | 'saving' | 'saved' | 'error'>('idle');
+	let privacySaveError = $state<string | null>(null);
+
 	$inspect(visibility).with((type, value) =>
 		console.log(`📝 visibility (local): ${type} ${value}`)
 	);
 
+	const savePrivacySetting = async () => {
+		if (!profileId || !questionId) return;
+
+		try {
+			privacySaveStatus = 'saving';
+			privacySaveError = null;
+
+			// Use existing response data but update visibility
+			const responseData = {
+				response_text: connectionDetails.responseInput,
+				question_id: questionId,
+				status: connectionDetails.responseInput ? 'answered' : 'unanswered',
+				visibility
+			};
+
+			await createResponse(profileId, responseData);
+
+			privacySaveStatus = 'saved';
+
+			// Reset to idle after 2 seconds
+			setTimeout(() => {
+				if (privacySaveStatus === 'saved') {
+					privacySaveStatus = 'idle';
+				}
+			}, 2000);
+		} catch (error) {
+			privacySaveStatus = 'error';
+			privacySaveError = error instanceof Error ? error.message : 'Save failed';
+		}
+	};
+
 	const toggleVisibility = () => {
 		visibility = visibility === 'public' ? 'private' : 'public';
+		savePrivacySetting();
 	};
 </script>
 
@@ -151,7 +188,10 @@
 			<div id="question-{questionId}-header" class="card-header">
 				<h3>{data.question.data.preview}</h3>
 
-				<ToggleStatus {visibility} {toggleVisibility} />
+				<div class="flex flex-col gap-1">
+					<ToggleStatus {visibility} {toggleVisibility} />
+					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
+				</div>
 			</div>
 
 			<div id="question-{questionId}-response" class="card-content flex flex-col">
