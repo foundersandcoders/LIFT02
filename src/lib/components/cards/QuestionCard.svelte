@@ -3,6 +3,7 @@
 	import FormButton from '../ui/FormButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
 	import SaveStatus from '../ui/SaveStatus.svelte';
+	import UndoButton from '../ui/UndoButton.svelte';
 	import { debounce } from '$lib/utils/autosave';
 	import type { TableName, QuestionConnections, RowId, ViewName } from '$lib/types/appState';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
@@ -128,6 +129,10 @@
 	let privacySaveStatus = $state<'idle' | 'saving' | 'saved' | 'error'>('idle');
 	let privacySaveError = $state<string | null>(null);
 
+	// Simple undo functionality
+	let previousText = $state<string>('');
+	let canUndo = $state(false);
+
 	$inspect(visibility).with((type, value) =>
 		console.log(`📝 visibility (local): ${type} ${value}`)
 	);
@@ -167,6 +172,39 @@
 		visibility = visibility === 'public' ? 'private' : 'public';
 		savePrivacySetting();
 	};
+
+	// Save text when user focuses (starts editing)
+	const saveTextOnFocus = () => {
+		const currentText = connectionDetails.responseInput || '';
+		console.log('Focus - saving initial text:', { currentText });
+		previousText = currentText;
+		canUndo = false; // No undo available yet
+	};
+
+	// Enable undo when user starts typing
+	const enableUndo = () => {
+		canUndo = true;
+		console.log('Input changed - undo now available');
+	};
+
+	const handleUndo = () => {
+		console.log('Undo clicked:', { canUndo, previousText, currentText: connectionDetails.responseInput });
+		if (canUndo) {
+			connectionDetails.responseInput = previousText;
+			canUndo = false;
+		}
+	};
+
+	const handleKeydown = (event: KeyboardEvent) => {
+		const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
+		const ctrlKey = isMac ? event.metaKey : event.ctrlKey;
+
+		if (ctrlKey && event.key === 'z' && !event.shiftKey) {
+			event.preventDefault();
+			handleUndo();
+		}
+	};
+
 </script>
 
 <ConfirmModal
@@ -204,7 +242,14 @@
 					class="text-area form-textarea"
 					rows="4"
 					bind:value={connectionDetails.responseInput}
+					onfocus={saveTextOnFocus}
+					oninput={enableUndo}
+					onkeydown={handleKeydown}
 				></textarea>
+
+				<div class="mt-2">
+					<UndoButton canUndo={canUndo} onclick={handleUndo} />
+				</div>
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content">

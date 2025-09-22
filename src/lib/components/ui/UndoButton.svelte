@@ -11,9 +11,9 @@
 	<button
 		type="button"
 		{onclick}
-		class="btn btn-sm btn-ghost text-xs"
+		class="btn-submit btn-sm"
 		title="Undo last change (Ctrl+Z)"
 	>
-		↶ Undo
+		Undo
 	</button>
 {/if}

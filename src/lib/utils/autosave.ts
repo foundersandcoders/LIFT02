@@ -14,8 +14,8 @@ export function debounce(func: () => void, delay: number) {
 
 // Create simple undo stack for text content
 export function createUndoStack() {
-	let history: string[] = [];
-	let currentIndex = -1;
+	let history = $state<string[]>([]);
+	let currentIndex = $state(-1);
 
 	function push(content: string) {
 		// Remove any future history if we're in the middle
@@ -42,9 +42,7 @@ export function createUndoStack() {
 		return null;
 	}
 
-	function canUndo(): boolean {
-		return currentIndex > 0;
-	}
+	const canUndo = $derived(currentIndex > 0);
 
 	function clear() {
 		history = [];
