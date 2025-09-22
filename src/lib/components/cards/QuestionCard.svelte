@@ -133,6 +133,11 @@
 	let previousText = $state<string>('');
 	let canUndo = $state(false);
 
+	// Save state tracking
+	let lastSavedText = $state<string>('');
+	let hasChanges = $state(false);
+	let isSaving = $state(false);
+
 	$inspect(visibility).with((type, value) =>
 		console.log(`📝 visibility (local): ${type} ${value}`)
 	);
@@ -173,18 +178,58 @@
 		savePrivacySetting();
 	};
 
-	// Save text when user focuses (starts editing)
+	// Initialize when user focuses (starts editing)
 	const saveTextOnFocus = () => {
 		const currentText = connectionDetails.responseInput || '';
 		console.log('Focus - saving initial text:', { currentText });
 		previousText = currentText;
+		// Initialize lastSavedText if not set (first time)
+		if (lastSavedText === '') {
+			lastSavedText = currentText;
+		}
 		canUndo = false; // No undo available yet
+		checkForChanges();
 	};
 
-	// Enable undo when user starts typing
-	const enableUndo = () => {
+	// Check for changes and enable undo when user types
+	const handleInput = () => {
 		canUndo = true;
-		console.log('Input changed - undo now available');
+		checkForChanges();
+		console.log('Input changed - undo available, checking for changes');
+	};
+
+	// Check if current text differs from last saved
+	const checkForChanges = () => {
+		const currentText = connectionDetails.responseInput || '';
+		hasChanges = currentText !== lastSavedText;
+	};
+
+	// Save response to database
+	const saveResponse = async () => {
+		if (!profileId || !questionId || isSaving) return;
+
+		try {
+			isSaving = true;
+			const currentText = connectionDetails.responseInput || '';
+
+			const responseData = {
+				response_text: currentText,
+				question_id: questionId,
+				status: currentText.trim() ? 'answered' : 'unanswered',
+				visibility
+			};
+
+			await createResponse(profileId, responseData);
+
+			// Update saved state
+			lastSavedText = currentText;
+			hasChanges = false;
+			console.log('Response saved successfully');
+		} catch (error) {
+			console.error('Failed to save response:', error);
+		} finally {
+			isSaving = false;
+		}
 	};
 
 	const handleUndo = () => {
@@ -192,6 +237,7 @@
 		if (canUndo) {
 			connectionDetails.responseInput = previousText;
 			canUndo = false;
+			checkForChanges(); // Check if we need to enable OK button after undo
 		}
 	};
 
@@ -243,11 +289,24 @@
 					rows="4"
 					bind:value={connectionDetails.responseInput}
 					onfocus={saveTextOnFocus}
-					oninput={enableUndo}
+					oninput={handleInput}
 					onkeydown={handleKeydown}
 				></textarea>
 
-				<div class="mt-2">
+				<div class="flex items-center gap-2 mt-2">
+					<button
+						onclick={saveResponse}
+						disabled={!hasChanges || isSaving}
+						class="btn-submit btn-sm"
+						title="Save response to database"
+					>
+						{#if isSaving}
+							<span class="loading loading-spinner loading-xs"></span>
+							Saving...
+						{:else}
+							OK
+						{/if}
+					</button>
 					<UndoButton canUndo={canUndo} onclick={handleUndo} />
 				</div>
 			</div>
