@@ -108,6 +108,10 @@ h3 {
 	@apply flex w-full flex-row flex-nowrap justify-between align-middle;
 }
 
+.footer-text {
+	@apply text-base font-medium;
+}
+
 .header {
 	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0;
 	@apply flex items-center justify-between px-5;
@@ -156,11 +160,14 @@ h3 {
 }
 
 .view-header {
-	@apply bg-accent h-14 max-w-full px-5;
-	/* height: 4.5rem; */
+	@apply bg-accent max-w-full px-5;
+	min-height: 3.5rem;
 	display: grid;
 	grid-template-columns: 1fr auto;
-	align-items: center;
+	align-items: start;
+	gap: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
 .view-layout {
@@ -170,7 +177,7 @@ h3 {
 
 .view-content {
 	/* LIST */
-	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-5xl flex-1 flex-col overflow-y-auto px-2;
+	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-3xl flex-1 flex-col overflow-y-auto px-2;
 }
 
 .card-container {
@@ -299,19 +306,22 @@ h3 {
 
 .breadcrumb-list {
 	@apply m-0 flex list-none items-center p-0;
-	white-space: nowrap;
-	overflow: hidden;
 	min-width: 0;
 	flex: 1;
+	flex-wrap: wrap;
+	gap: 0;
 }
 
 .breadcrumb-item {
-	@apply flex flex-shrink-0 items-center;
+	@apply flex items-center;
+	flex-shrink: 0;
+	/* Allow wrapping but keep items together with their separators */
 }
 
 .breadcrumb-item:last-child {
-	@apply min-w-0 flex-shrink;
-	max-width: 100%;
+	@apply min-w-0;
+	flex-shrink: 1;
+	/* Last item can shrink and truncate if really needed */
 }
 
 .breadcrumb-link {
@@ -327,7 +337,40 @@ h3 {
 
 .breadcrumb-separator {
 	@apply text-accent-content/70 flex-shrink-0 font-normal;
-	margin: 0 0.25rem;
+	margin: 0 0.125rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+	.breadcrumb {
+		font-size: 1rem;
+	}
+
+	.breadcrumb-list {
+		line-height: 1.4;
+		/* Better line spacing for wrapped breadcrumbs */
+	}
+
+	.breadcrumb-link {
+		@apply text-sm;
+	}
+
+	.breadcrumb-current {
+		@apply text-sm;
+	}
+
+	.breadcrumb-separator {
+		margin: 0 0.0625rem;
+	}
+}
+
+/* Very small screens: More aggressive wrapping */
+@media (max-width: 480px) {
+	.breadcrumb-item {
+		/* Allow more aggressive wrapping on very small screens */
+		flex-shrink: 1;
+		min-width: fit-content;
+	}
 }
 
 .actions-crud {
@@ -347,15 +390,23 @@ h3 {
 }
 
 .action-view {
-	@apply flex items-start justify-between gap-3;
+	@apply flex flex-col gap-2;
 }
 
 .action-content {
-	@apply flex-1;
+	/* Not needed - remove this wrapper */
 }
 
 .action-description {
-	@apply text-base-content mb-2 font-medium;
+	@apply text-base-content font-medium;
+	/* Give description its own full-width row */
+	word-break: break-word;
+	overflow-wrap: break-word;
+}
+
+.action-meta {
+	@apply flex justify-between items-center flex-wrap gap-2;
+	/* Date on left, buttons on right, can wrap if needed */
 }
 
 .action-date {
@@ -363,7 +414,18 @@ h3 {
 }
 
 .action-buttons {
-	@apply flex flex-shrink-0 gap-2;
+	@apply flex gap-2;
+}
+
+/* Small screens: Force buttons to wrap below date */
+@media (max-width: 480px) {
+	.action-meta {
+		@apply flex-col items-start gap-2;
+	}
+
+	.action-buttons {
+		@apply self-end;
+	}
 }
 
 .action-edit-form {

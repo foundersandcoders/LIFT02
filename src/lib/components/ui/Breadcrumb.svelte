@@ -165,7 +165,7 @@
 						<span class="breadcrumb-current">{item.label}</span>
 					{/if}
 					{#if index < items.length - 1}
-						<span class="breadcrumb-separator" aria-hidden="true">→</span>
+						<span class="breadcrumb-separator" aria-hidden="true">›</span>
 					{/if}
 				</li>
 			{/each}

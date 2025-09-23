@@ -245,33 +245,33 @@
 					{:else}
 						<!-- View Mode -->
 						<div class="action-view">
-							<div class="action-content">
-								<p class="action-description">{action.description}</p>
+							<p class="action-description">{action.description}</p>
+							<div class="action-meta">
 								{#if action.created_at}
 									<span class="action-date">
 										Created {new Date(action.created_at).toLocaleDateString()}
 									</span>
 								{/if}
-							</div>
-							<div class="action-buttons">
-								{#if action.id}
-									<button
-										onclick={() => startEdit(action)}
-										class="btn btn-sm"
-										aria-label="Edit action"
-									>
-										Edit
-									</button>
-								{/if}
-								{#if action.id}
-									<button
-										onclick={() => confirmDelete(action.id!)}
-										class="btn btn-sm btn-error"
-										aria-label="Delete action"
-									>
-										Delete
-									</button>
-								{/if}
+								<div class="action-buttons">
+									{#if action.id}
+										<button
+											onclick={() => startEdit(action)}
+											class="btn btn-sm"
+											aria-label="Edit action"
+										>
+											Edit
+										</button>
+									{/if}
+									{#if action.id}
+										<button
+											onclick={() => confirmDelete(action.id!)}
+											class="btn btn-sm btn-error"
+											aria-label="Delete action"
+										>
+											Delete
+										</button>
+									{/if}
+								</div>
 							</div>
 						</div>
 					{/if}
