@@ -1,4 +1,4 @@
-import type { Action, Response } from '$lib/types/tableMain';
+import type { Response } from '$lib/types/tableMain';
 
 /**
    * Get the latest version of each response for a 
@@ -47,33 +47,3 @@ export function filterLatestResponses(responses: Response[]): Response[] {
 	return result;
 }
 
-/**
-   * Get the latest version of each action for a 
-  user+response combination
-   */
-export function filterLatestActions(actions: Action[]): Action[] {
-	const latestActionsMap = new Map<string, Action>();
-	for (const action of actions) {
-		const userId = action.user_id;
-		const questionId = action.question_id || '';
-		const key = userId + '-' + questionId;
-		const existing = latestActionsMap.get(key);
-
-		// Validate creation date data integrity
-		if (!action.created_at) {
-			console.warn(`Action ${action.id} has no created_at timestamp`);
-		}
-		if (existing && !existing.created_at) {
-			console.warn(`Existing action ${existing.id} has no created_at timestamp`);
-		}
-
-		// Use creation date to determine latest action
-		const actionDate = new Date(action.created_at || 0);
-		const existingDate = new Date(existing?.created_at || 0);
-
-		if (!existing || actionDate > existingDate) {
-			latestActionsMap.set(key, action);
-		}
-	}
-	return Array.from(latestActionsMap.values());
-}

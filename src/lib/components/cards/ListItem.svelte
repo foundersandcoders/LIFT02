@@ -4,8 +4,7 @@
 	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
 	import {
-		updateAction,
-		updateActionStatus as updateActionStatus_DB
+		updateActionStatus as updateActionStatusDB
 	} from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
@@ -89,7 +88,7 @@
 		}
 
 		// Perform database update
-		const result = await updateActionStatus_DB(actionId, newStatus);
+		const result = await updateActionStatusDB(actionId, newStatus);
 
 		if (result.error) {
 			// Rollback on error

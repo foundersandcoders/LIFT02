@@ -4,7 +4,7 @@
 		createAction,
 		updateAction,
 		archiveAction,
-		getActionHistory
+		getActionsByResponseId
 	} from '$lib/services/database/actions';
 	import type { Action } from '$lib/types/tableMain';
 	import type { AppState } from '$lib/types/appState';
@@ -52,11 +52,10 @@
 
 		isLoading = true;
 		try {
-			const result = await getActionHistory(profileId, responseId);
+			const result = await getActionsByResponseId(profileId, responseId);
 			if (result.data) {
-				// Filter to get only the latest version of each action (active ones)
-				const latestActions = result.data.filter((action) => action.status === 'active');
-				actions = latestActions;
+				// Show only active actions (multiple actions per response now supported)
+				actions = result.data.filter((action: Action) => action.status === 'active');
 			}
 		} catch (error) {
 			console.error('Failed to load actions:', error);

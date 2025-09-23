@@ -9,7 +9,6 @@ export interface Action {
 	question_id?: string;
 	type: string;
 	description?: string;
-	version: number;
 	status: 'active' | 'archived';
 	created_at?: string;
 	updated_at?: string;
