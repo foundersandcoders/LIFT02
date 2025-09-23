@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { getQuestionById, createResponse } from '$lib/services/database';
+	import { getActionsByResponseId, deleteAction } from '$lib/services/database/actions';
+	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
 	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
 	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
+	import type { Action } from '$lib/types/tableMain';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
@@ -34,20 +37,45 @@
 	};
 
 	const deleteResponse = async () => {
-		if (!profileId) {
-			throw new Error('Cannot delete response without a profile ID.');
+		if (!profileId || !connectionDetails.responseId) {
+			throw new Error('Cannot delete response without a profile ID and response ID.');
 		}
 
-		const responseData = {
-			response_text: null,
-			question_id: questionId,
-			status: 'skipped',
-			visibility: 'private' // Force private for skipped/deleted responses
-		};
+		console.log('🎯 Deleting response and all associated actions:', connectionDetails.responseId);
 
-		console.log('🎯 Deleting response:', responseData);
-		await createResponse(profileId, responseData);
-		console.log('✅ Response deleted successfully:');
+		try {
+			// First, get all actions for this response (both active and archived)
+			const actionsResult = await getActionsByResponseId(profileId, connectionDetails.responseId);
+
+			if (actionsResult.data && actionsResult.data.length > 0) {
+				console.log(`🗑️ Deleting ${actionsResult.data.length} associated actions...`);
+
+				// Delete all actions (both active and archived)
+				await Promise.all(
+					actionsResult.data.map((action: Action) => {
+						if (action.id) {
+							console.log(`Deleting action: ${action.id} (${action.status})`);
+							return deleteAction(action.id);
+						}
+					}).filter(Boolean)
+				);
+			}
+
+			// Now delete the response itself
+			const { error } = await supabase
+				.from('responses')
+				.delete()
+				.eq('id', connectionDetails.responseId);
+
+			if (error) {
+				throw error;
+			}
+
+			console.log('✅ Response and all associated actions deleted successfully');
+		} catch (error) {
+			console.error('❌ Failed to delete response:', error);
+			throw error;
+		}
 	};
 
 	let connectionDetails = $state<QuestionConnections>({
