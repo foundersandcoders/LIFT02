@@ -8,13 +8,13 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 
 ## Core Database Patterns
 
-### Versioning System
+### Simplified Response System
 
-- **Response Versioning**: Each user response edit creates a new row with incremented `version` field
-- **Action Versioning**: Actions follow the same versioning pattern as responses
-- **Sequences**: `response_version_seq` and `action_version_seq` manage version incrementing
-- **Historical Preservation**: All previous versions remain in database for audit trails
-- **Latest Version Logic**: Client-side filtering determines latest versions using `filterLatestResponses()` and `filterLatestActions()` utilities
+- **One Response Per Question**: Each user can have only one response per question (enforced by unique constraint)
+- **Simple Updates**: Response edits directly update the existing record, no versioning
+- **Action Versioning**: Actions still use versioning system for their historical preservation
+- **Sequence Management**: Only `action_version_seq` remains for action versioning
+- **Direct Database Operations**: No client-side filtering needed for responses
 
 ### Sharing System Architecture
 
@@ -44,12 +44,12 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 - Ordered presentation via `order` field
 - Preview text for dashboard tiles
 
-**responses** - User answers with versioning
+**responses** - User answers (simplified)
 
-- Versioned responses using incremental `version` field (no `is_latest` field)
+- One response per user+question combination (unique constraint enforced)
 - Status: 'answered' or 'skipped'
 - Visibility: 'public' or 'private'
-- Latest versions determined by client-side filtering by highest version per user+question
+- No versioning - direct updates to existing records
 
 **actions** - Follow-up actions with versioning
 
@@ -90,9 +90,10 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 
 ### Schema Evolution Notes
 
-- **Removed `is_latest` field**: Previously used boolean field removed from responses and actions tables
-- **Version-only approach**: Now relies solely on incremental `version` field with client-side filtering
-- **Data seeding compatibility**: All seeding scripts updated to work without `is_latest` field
+- **Simplified Response Model**: Removed versioning system from responses (2025-09-23)
+- **Unique Constraint**: Added `responses_user_question_unique` constraint to prevent duplicates
+- **Actions Retain Versioning**: Actions still use incremental `version` field with client-side filtering
+- **Data seeding compatibility**: All seeding scripts updated to work without response versioning
 
 ## Data Management Strategy
 
@@ -124,16 +125,15 @@ The LIFT Digital Workplace Passport uses a sophisticated PostgreSQL database hos
 
 ## Query Patterns
 
-### Versioning Queries
+### Common Query Patterns
 
 ```sql
--- Get all responses (latest filtering done client-side)
+-- Get user's responses (no filtering needed)
 SELECT * FROM responses WHERE user_id = $user_id ORDER BY created_at DESC;
 
--- Get response history for a specific question
+-- Get specific response for a user+question
 SELECT * FROM responses
-WHERE user_id = $user_id AND question_id = $question_id
-ORDER BY version DESC;
+WHERE user_id = $user_id AND question_id = $question_id;
 
 -- Get latest action for a response (database-level optimization)
 SELECT * FROM actions
@@ -147,13 +147,13 @@ JOIN sharing_event_responses ser ON r.id = ser.response_id
 WHERE ser.sharing_event_id = $sharing_event_id;
 ```
 
-### Client-Side Version Filtering
+### Response and Action Handling
 
-The application uses utility functions to determine latest versions:
+The application handles responses and actions differently:
 
-- `filterLatestResponses(responses[])` - Returns highest version per user+question combination
-- `filterLatestActions(actions[])` - Returns highest version per user+response combination
-- Database service functions like `getLatestResponses()` and `getLatestActions()` automatically apply these filters
+- **Responses**: Direct database operations, no filtering needed due to unique constraint
+- **Actions**: Use `filterLatestActions(actions[])` utility for highest version per user+response
+- Database service functions like `getLatestResponses()` return responses directly, `getLatestActions()` applies filtering
 
 ### Security Patterns
 
@@ -204,11 +204,11 @@ supabase db push                    # Deploy to production
 
 ### Common Issues
 
-- **Version Sequence Conflicts**: Reset sequences after data cleanup
+- **Action Version Sequence Conflicts**: Reset action sequences after data cleanup
 - **Foreign Key Violations**: Follow proper deletion order (sharing → actions → responses → profiles → users)
 - **RLS Policies**: Ensure proper authentication context for data access
 - **Migration Conflicts**: Use `supabase db pull` to sync remote changes
-- **Version Filtering**: Use client-side filtering utilities rather than database `is_latest` queries
+- **Response Uniqueness**: Unique constraint prevents duplicate responses per user+question
 - **Production Seeding**: Ensure API queries use proper URL encoding for reserved words like `"order"`
 
 ### Debugging Patterns
@@ -218,9 +218,10 @@ supabase db push                    # Deploy to production
 - Verify RLS policies with `EXPLAIN` queries in authenticated context
 - Test version filtering logic with `filterLatestResponses()` and `filterLatestActions()` utilities
 
-### Version Management Best Practices
+### Data Management Best Practices
 
-- Always use `getLatestResponses()` and `getLatestActions()` for current data
-- Use `getResponseHistory()` and `getActionHistory()` for full version trails
-- For single-item queries, prefer database-level filtering (e.g., `getLatestActionByResponseId()`)
-- For batch operations, use client-side filtering utilities for consistency
+- **Responses**: Use `getUserResponses()`, `getResponseById()`, `upsertResponse()` for current data
+- **Actions**: Use `getLatestActions()` and `getActionHistory()` for version-aware operations
+- **Single Response Queries**: Direct database lookup (no versioning complexity)
+- **Batch Operations**: Actions still require client-side filtering utilities for consistency
+- **Updates**: Responses use direct updates, actions create new versions

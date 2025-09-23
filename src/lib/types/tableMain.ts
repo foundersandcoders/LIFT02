@@ -40,7 +40,6 @@ export interface Response {
 	response_text: string;
 	status?: 'answered' | 'skipped';
 	visibility: 'public' | 'private';
-	version: number;
 	created_at?: string;
 	updated_at?: string;
 	shares?: Share[];

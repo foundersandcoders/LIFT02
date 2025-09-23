@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getQuestionById, createResponse, updateResponse, getResponseHistory } from '$lib/services/database';
+	import { getQuestionById, upsertResponse, updateResponse } from '$lib/services/database';
 	import { getActionsByResponseId, deleteAction } from '$lib/services/database/actions';
 	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
@@ -133,24 +133,15 @@
 	let lastSavedText = $state<string>('');
 	let hasChanges = $state(false);
 	let isSaving = $state(false);
+	let saveError = $state<string | null>(null);
 
-	// Helper function to save or update response (prevents duplicates)
+	// Helper function to save or update response using upsert pattern
 	const saveOrUpdateResponse = async (responseData: any) => {
 		if (!profileId || !questionId) return null;
 
-		// Check if response exists first
-		const existingResponses = await getResponseHistory(profileId, questionId);
-
-		if (existingResponses.data && existingResponses.data.length > 0) {
-			// Update existing response (latest version)
-			const latestResponse = existingResponses.data[0];
-			const result = await updateResponse(latestResponse.id!, responseData);
-			return result;
-		} else {
-			// Create new response
-			const result = await createResponse(profileId, responseData);
-			return result;
-		}
+		// Use upsert function which handles create or update automatically
+		const result = await upsertResponse(profileId, questionId, responseData);
+		return result;
 	};
 
 	const savePrivacySetting = async () => {
@@ -160,15 +151,12 @@
 			privacySaveStatus = 'saving';
 			privacySaveError = null;
 
-			// Only update privacy if response already exists
-			const existingResponses = await getResponseHistory(profileId, questionId);
+			// Use simplified updateResponse function
+			const result = await updateResponse(profileId, questionId, { visibility });
 
-			if (existingResponses.data && existingResponses.data.length > 0) {
-				// Update only the visibility field of existing response
-				const latestResponse = existingResponses.data[0];
-				await updateResponse(latestResponse.id!, { visibility });
+			if (!result.data) {
+				throw new Error('Failed to update visibility');
 			}
-			// Note: Toggle is disabled when no response exists, so this case shouldn't occur
 
 			privacySaveStatus = 'saved';
 
@@ -204,6 +192,7 @@
 	// Check for changes and enable undo when user types
 	const handleInput = () => {
 		canUndo = true;
+		saveError = null; // Clear error when user starts typing
 		checkForChanges();
 	};
 
@@ -219,6 +208,7 @@
 
 		try {
 			isSaving = true;
+			saveError = null; // Clear any previous errors
 			const currentText = connectionDetails.responseInput || '';
 
 			const responseData = {
@@ -240,6 +230,7 @@
 			hasChanges = false;
 		} catch (error) {
 			console.error('Failed to save response:', error);
+			saveError = 'Failed to save response. Please try again.';
 		} finally {
 			isSaving = false;
 		}
@@ -321,6 +312,11 @@
 					</button>
 					<UndoButton canUndo={canUndo} onclick={handleUndo} />
 				</div>
+				{#if saveError}
+					<div class="text-error text-sm mt-2">
+						{saveError}
+					</div>
+				{/if}
 			</div>
 
 			<div id="question-{questionId}-actions" class="card-content">

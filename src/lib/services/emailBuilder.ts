@@ -4,7 +4,6 @@ import { getUserResponses } from '$lib/services/database/responses';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
-import { filterLatestResponses } from '$lib/utils/versionFilter';
 
 export async function generateEmailData(
 	userId: string,
@@ -19,8 +18,8 @@ export async function generateEmailData(
 		throw new Error('Error loading responses');
 	}
 
-	// Get only the latest versions of responses
-	const responses = filterLatestResponses(responsesResult.data);
+	// With the simplified system, all responses are already the latest version
+	const responses = responsesResult.data;
 
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
