@@ -109,12 +109,38 @@ h3 {
 	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
 }
 
+/* Hide logo on very small screens to prevent overlap */
+@media (max-width: 250px) {
+	.header-container-logo {
+		display: none;
+	}
+}
+
 .header-content {
-	@apply flex h-20 w-full flex-row items-center justify-between px-5;
+	@apply flex h-20 w-full items-center justify-between px-5;
 }
 
 .header-left {
 	@apply flex items-center space-x-4;
+}
+
+/* Ensure no overlap on small screens */
+@media (max-width: 480px) {
+	.header-content {
+		@apply px-3;
+	}
+
+	.header-left {
+		@apply min-w-0 flex-1 space-x-2;
+	}
+
+	.header-container-name h1 {
+		@apply truncate text-base;
+	}
+
+	#header-right {
+		@apply flex-shrink-0 space-x-2;
+	}
 }
 
 .view {
@@ -160,7 +186,7 @@ h3 {
 }
 
 .form-fieldset {
-	@apply border-primary flex justify-between rounded-xl border-2 p-4;
+	@apply border-primary flex items-start justify-between rounded-xl border-2 p-4;
 }
 
 .status-indicator {

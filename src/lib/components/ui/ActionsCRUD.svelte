@@ -322,9 +322,9 @@
 	{:else}
 		<button
 			onclick={() => (showNewActionForm = true)}
-			class="btn btn-outline btn-sm add-action-btn"
+			class="btn-submit btn-sm"
 		>
-			+ Add Action
+			Add Action
 		</button>
 	{/if}
 </div>

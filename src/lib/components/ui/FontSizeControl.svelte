@@ -88,7 +88,7 @@
 </script>
 
 <div class="relative flex items-center">
-	<Tooltip text="Font size settings" position="bottom_left">
+	<Tooltip text="Font size settings" position="top_left">
 		<button
 			onclick={toggleModal}
 			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors"
@@ -116,7 +116,7 @@
 			aria-label="Close font size modal"
 		></div>
 
-		<div class="absolute top-10 right-0 bg-white rounded-lg shadow-lg border border-gray-200 p-4 min-w-48 z-50">
+		<div class="absolute bottom-12 right-0 bg-white rounded-lg shadow-lg border border-gray-200 p-4 min-w-48 z-50">
 			<div class="flex flex-col space-y-3">
 				<h3 class="font-medium text-gray-900 mb-2">Font Size</h3>
 

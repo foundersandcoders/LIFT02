@@ -4,6 +4,7 @@
 	import { getContext } from 'svelte';
 	import type { Profile } from '$lib/types/appState';
 	import InfoModal from '../ui/InfoModal.svelte';
+	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import { Icon, ClipboardDocumentList, ShieldCheck } from 'svelte-hero-icons';
 
 	let { devMode, profileId } = $props();
@@ -50,61 +51,62 @@
 </script>
 
 <footer id="footer" class="footer">
-	<div id="footer-content" class="mt-2 flex w-full flex-row items-center justify-around">
-		<!-- <div id="footer-profile" class="flex flex-col justify-around px-2 py-2 h-full">
-			<div>
-				<p class="flex items-center h-8 text-sm mt-1">{#if profileId} Logged In {:else} Not Logged In {/if}</p>
-			</div>
-		</div> -->
+	<div id="footer-content" class="mt-2 flex w-full flex-row items-center justify-between px-4">
+		<!-- Left side: Test user dropdown (when logged out) -->
+		<div class="flex-shrink-0">
+			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
+			{#if !profileId}
+				<div class="dropdown dropdown-top dropdown-end">
+					<button
+						type="button"
+						class="btn btn-sm text-xs"
+						onclick={toggleDropdown}
+						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
+						aria-label="Select test user for development"
+						aria-expanded={dropdownExpanded}
+						aria-haspopup="listbox"
+					>
+						User
+					</button>
+					<ul
+						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
+						role="listbox"
+						aria-label="Available test users"
+					>
+						{#each sortedTestUsers as user (user.id)}
+							<li role="option" aria-selected={selectedUserId === user.id}>
+								<button
+									onclick={() => handleUserSelect(user.id, user.name)}
+									class="text-left"
+									aria-label="Select {user.name} as test user"
+								>
+									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
+									{user.name}
+								</button>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
+			<!-- ====================================================== -->
+		</div>
 
-		<!-- Left spacer for balance -->
-		<!-- <div class="flex-1"></div> -->
+		<!-- Center: Legal buttons -->
+		<div class="flex items-center space-x-4">
+			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
+				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
+				<span class="text-center">Terms of Use</span>
+			</button>
+			<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
+				<Icon src={ShieldCheck} class="h-5 w-5" />
+				<span class="text-center">Privacy Policy</span>
+			</button>
+		</div>
 
-		<!-- Legal buttons centered -->
-		<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
-			<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-			<span class="text-center">Terms of Use</span>
-		</button>
-		<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
-			<Icon src={ShieldCheck} class="h-5 w-5" />
-			<span class="text-center">Privacy Policy</span>
-		</button>
-
-		<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-		{#if !profileId}
-			<div class="dropdown dropdown-top dropdown-end">
-				<button
-					type="button"
-					class="btn btn-sm text-xs"
-					onclick={toggleDropdown}
-					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-					aria-label="Select test user for development"
-					aria-expanded={dropdownExpanded}
-					aria-haspopup="listbox"
-				>
-					User
-				</button>
-				<ul
-					class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-					role="listbox"
-					aria-label="Available test users"
-				>
-					{#each sortedTestUsers as user (user.id)}
-						<li role="option" aria-selected={selectedUserId === user.id}>
-							<button
-								onclick={() => handleUserSelect(user.id, user.name)}
-								class="text-left"
-								aria-label="Select {user.name} as test user"
-							>
-								<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-								{user.name}
-							</button>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		{/if}
-		<!-- ====================================================== -->
+		<!-- Right side: Font Size Control -->
+		<div class="flex-shrink-0">
+			<FontSizeControl />
+		</div>
 	</div>
 </footer>
 
