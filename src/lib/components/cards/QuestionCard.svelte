@@ -212,7 +212,7 @@
 
 			const result = await createResponse(profileId, responseData);
 
-			if (result.data) {
+			if (result.data?.id) {
 				// Update the connectionDetails with the new response ID
 				connectionDetails.responseId = result.data.id;
 			}
