@@ -265,7 +265,7 @@
 									{#if action.id}
 										<button
 											onclick={() => confirmDelete(action.id!)}
-											class="btn btn-sm btn-error"
+											class="btn btn-sm"
 											aria-label="Delete action"
 										>
 											Delete
