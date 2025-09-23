@@ -20,14 +20,24 @@
 	const onEmailClick = () => {
 		setViewName('email');
 	};
+
+	const onLogoClick = () => {
+		setViewName('dash');
+	};
 </script>
 
 <header class="header">
 	<div id="header-content" class="header-content">
 		<div id="header-left" class="header-left">
-			<div id="brand-logo" class="header-container-logo">
+			<button
+				id="brand-logo"
+				class="header-container-logo cursor-pointer hover:opacity-80 transition-opacity"
+				onclick={onLogoClick}
+				type="button"
+				aria-label="Go to dashboard"
+			>
 				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
-			</div>
+			</button>
 
 			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
 				<h1>Workwise</h1>
