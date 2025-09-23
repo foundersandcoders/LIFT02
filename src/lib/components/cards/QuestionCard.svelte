@@ -210,7 +210,12 @@
 				visibility
 			};
 
-			await createResponse(profileId, responseData);
+			const result = await createResponse(profileId, responseData);
+
+			if (result.data) {
+				// Update the connectionDetails with the new response ID
+				connectionDetails.responseId = result.data.id;
+			}
 
 			// Update saved state
 			lastSavedText = currentText;

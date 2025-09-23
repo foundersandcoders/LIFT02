@@ -192,9 +192,9 @@ echo "-- ===========================================" >> supabase/generated/test
 echo "" >> supabase/generated/test_fake_data.sql
 
 # Add actions
-echo "$TEST_DATA" | jq -r '.actions[] | 
-"INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027, " + (.version | tostring) + ");"' >> supabase/generated/test_fake_data.sql
+echo "$TEST_DATA" | jq -r '.actions[] |
+"INSERT INTO actions (id, user_id, response_id, type, description, status) VALUES
+  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027);"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql

@@ -323,8 +323,15 @@
 		<button
 			onclick={() => (showNewActionForm = true)}
 			class="btn-submit btn-sm"
+			disabled={!responseId}
+			title={!responseId ? "Save your response first to add actions" : "Add a new action"}
 		>
 			Add Action
 		</button>
+		{#if !responseId}
+			<p class="text-sm text-base-content/70 mt-2">
+				💡 Save your response first to add actions
+			</p>
+		{/if}
 	{/if}
 </div>

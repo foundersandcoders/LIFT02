@@ -624,8 +624,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440001",
 			"type": "workplace_adjustment",
 			"description": "Provide noise-cancelling headphones and assign desk in quieter area of office",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440002",
@@ -633,8 +632,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440007",
 			"type": "workplace_adjustment",
 			"description": "Relocate to corner desk away from main walkway to reduce interruptions",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440003",
@@ -642,8 +640,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440008",
 			"type": "communication",
 			"description": "Send written agendas 24 hours before meetings",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440004",
@@ -651,8 +648,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440009",
 			"type": "schedule_adjustment",
 			"description": "Allow flexible start times between 8-10am based on focus patterns",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440005",
@@ -660,8 +656,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440008",
 			"type": "schedule_adjustment",
 			"description": "Allow 15-minute breaks every 90 minutes during long meetings",
-			"status": "archived",
-			"version": 1
+			"status": "archived"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440006",
@@ -669,8 +664,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440010",
 			"type": "communication",
 			"description": "Provide written instructions for important tasks and confirm understanding",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440010",
@@ -678,8 +672,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440020",
 			"type": "communication",
 			"description": "Provide 48-hour advance notice for project changes when possible",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440011",
@@ -687,8 +680,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440025",
 			"type": "support",
 			"description": "Schedule regular feedback sessions to reduce anxiety about work quality",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440012",
@@ -696,8 +688,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440026",
 			"type": "schedule_adjustment",
 			"description": "Schedule important meetings before 2pm when energy levels are higher",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440013",
@@ -705,8 +696,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440027",
 			"type": "communication",
 			"description": "Provide clear deadlines with built-in buffer time for quality checks",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440014",
@@ -714,8 +704,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440028",
 			"type": "schedule_adjustment",
 			"description": "Allow flexible scheduling to work around energy levels and fatigue",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440015",
@@ -723,8 +712,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440029",
 			"type": "communication",
 			"description": "Provide written briefs and feedback for design projects",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440020",
@@ -732,8 +720,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440030",
 			"type": "workplace_adjustment",
 			"description": "Install desk lamp with adjustable lighting to replace fluorescent overhead",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440021",
@@ -741,8 +728,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440037",
 			"type": "support",
 			"description": "Provide access to quiet room for breaks and sensory reset",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440022",
@@ -750,8 +736,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440034",
 			"type": "communication",
 			"description": "Send all work instructions via email rather than verbal communication",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440023",
@@ -759,8 +744,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440035",
 			"type": "schedule_adjustment",
 			"description": "Provide 48-hour notice for any schedule changes or meeting rearrangements",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440024",
@@ -768,8 +752,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440036",
 			"type": "workplace_adjustment",
 			"description": "Relocate to quieter area near window for natural light",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440025",
@@ -777,8 +760,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440037",
 			"type": "equipment",
 			"description": "Provide noise-cancelling headphones for focus periods",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440026",
@@ -786,8 +768,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440037",
 			"type": "communication",
 			"description": "Provide structured meeting agendas in advance",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440030",
@@ -795,8 +776,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440047",
 			"type": "equipment",
 			"description": "Provide adjustable standing desk to manage back pain",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440031",
@@ -804,8 +784,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440042",
 			"type": "workplace_adjustment",
 			"description": "Allow regular position changes and walking breaks throughout the day",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440032",
@@ -813,8 +792,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440043",
 			"type": "schedule_adjustment",
 			"description": "Allow early finish on Tuesdays and Thursdays for school pickup (3:15pm)",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440033",
@@ -822,8 +800,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440044",
 			"type": "remote_work",
 			"description": "Allow work from home when children are unwell",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440034",
@@ -831,8 +808,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440047",
 			"type": "equipment",
 			"description": "Provide ergonomic chair with proper lumbar support",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440035",
@@ -840,8 +816,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440048",
 			"type": "schedule_adjustment",
 			"description": "Avoid early morning meetings before 9am due to school drop-off routines",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440036",
@@ -849,8 +824,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440047",
 			"type": "equipment",
 			"description": "Set up ergonomic monitor setup to reduce neck strain",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440040",
@@ -858,8 +832,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440053",
 			"type": "schedule_adjustment",
 			"description": "Allow 30-minute break on Fridays between 12-2pm for prayers",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440041",
@@ -867,8 +840,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440052",
 			"type": "support",
 			"description": "Adjust workload expectations during Ramadan fasting period",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440042",
@@ -876,8 +848,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440054",
 			"type": "event_planning",
 			"description": "Ensure halal food options at all team events and social gatherings",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440043",
@@ -885,8 +856,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440056",
 			"type": "communication",
 			"description": "Provide advance notice of team events to arrange appropriate meals",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440044",
@@ -894,8 +864,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440055",
 			"type": "workplace_adjustment",
 			"description": "Provide access to quiet space for daily prayers",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440045",
@@ -903,8 +872,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440057",
 			"type": "communication",
 			"description": "Schedule direct face-to-face discussions for important concerns rather than email",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		},
 		{
 			"id": "770e8400-e29b-41d4-a716-446655440046",
@@ -912,8 +880,7 @@
 			"response_id": "660e8400-e29b-41d4-a716-446655440057",
 			"type": "development",
 			"description": "Provide opportunities to mentor junior team members on projects",
-			"status": "active",
-			"version": 1
+			"status": "active"
 		}
 	],
 	"sharing_events": [
