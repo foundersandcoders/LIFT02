@@ -26,25 +26,21 @@
 </script>
 
 <header class="header">
-	<div id="header-content" class="header-content">
-		<div id="header-left" class="header-left">
-			<button
-				id="brand-logo"
-				class="header-container-logo cursor-pointer hover:opacity-80 transition-opacity"
-				onclick={onLogoClick}
-				type="button"
-				aria-label="Go to dashboard"
-			>
-				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
-			</button>
+	<div class="header-left">
+		<button
+			id="brand-logo"
+			class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+			onclick={onLogoClick}
+			type="button"
+			aria-label="Go to dashboard"
+		>
+			<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
+		</button>
 
-			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
-				<h1>Workwise</h1>
-				<!-- <p class="text-sm">{version}</p> -->
-			</div>
-		</div>
+		<h1>Workwise</h1>
+	</div>
 
-		<div id="header-right" class="flex items-center space-x-3">
+	<div class="header-right">
 			<!-- Email Button -->
 			{#if app.profile.id}
 				<Tooltip
@@ -76,6 +72,5 @@
 			>
 				Profile
 			</button> -->
-		</div>
 	</div>
 </header>

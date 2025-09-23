@@ -110,34 +110,31 @@ h3 {
 
 .header {
 	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0;
-}
-
-.header-container-name {
-	@apply w-auto;
-}
-
-.header-container-logo {
-	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
-}
-
-/* Hide logo on very small screens to prevent overlap */
-@media (max-width: 250px) {
-	.header-container-logo {
-		display: none;
-	}
-}
-
-.header-content {
-	@apply flex h-20 w-full items-center justify-between px-5;
+	@apply flex items-center justify-between px-5;
 }
 
 .header-left {
 	@apply flex items-center space-x-4;
 }
 
+.header-right {
+	@apply flex items-center space-x-3;
+}
+
+.logo-button {
+	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
+}
+
+/* Hide logo on very small screens to prevent overlap */
+@media (max-width: 250px) {
+	.logo-button {
+		display: none;
+	}
+}
+
 /* Ensure no overlap on small screens */
 @media (max-width: 480px) {
-	.header-content {
+	.header {
 		@apply px-3;
 	}
 
@@ -145,11 +142,11 @@ h3 {
 		@apply min-w-0 flex-1 space-x-2;
 	}
 
-	.header-container-name h1 {
-		@apply truncate text-base;
+	.header-left h1 {
+		@apply truncate;
 	}
 
-	#header-right {
+	.header-right {
 		@apply flex-shrink-0 space-x-2;
 	}
 }
