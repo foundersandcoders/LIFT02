@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { getQuestionById, createResponse } from '$lib/services/database';
-	import FormButton from '../ui/FormButton.svelte';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
 	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
-	import { debounce } from '$lib/utils/autosave';
-	import type { TableName, QuestionConnections, RowId, ViewName } from '$lib/types/appState';
+	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
@@ -52,44 +50,14 @@
 		console.log('✅ Response deleted successfully:');
 	};
 
-	// TODO This should be read from appState context
-	let table: TableName = $state('responses');
 	let connectionDetails = $state<QuestionConnections>({
 		responseInput: null,
 		responseId: null,
 		visibility: 'private'
 	});
 
-	$inspect(connectionDetails.responseId).with((type, value) =>
-		console.log(`🆔 responseId: ${type} ${value}`)
-	);
-
-	// Button State
-	const isUpdate = $derived(connectionDetails.responseId !== null);
-
-	const hasResponseContent = $derived(
-		connectionDetails.responseInput !== null &&
-			connectionDetails.responseInput !== undefined &&
-			connectionDetails.responseInput.trim() !== ''
-	);
 
 
-	const buttonConfig = $derived(() => {
-		return isUpdate
-			? { primaryText: 'Submit', secondaryText: 'Delete' }
-			: { primaryText: 'Submit', secondaryText: 'Skip' };
-	});
-
-	$inspect(isUpdate).with((type, value) => console.log(`🔄 isUpdate: ${type} ${value}`));
-	$inspect(hasResponseContent).with((type, value) =>
-		console.log(`📝 hasResponseContent: ${type} ${value}`)
-	);
-	$inspect(buttonConfig().primaryText).with((type, value) =>
-		console.log(`🔘 Button 1: ${type} ${value}`)
-	);
-	$inspect(buttonConfig().secondaryText).with((type, value) =>
-		console.log(`🔘 Button 2: ${type} ${value}`)
-	);
 
 	interface Props {
 		questionId: string;
@@ -138,9 +106,6 @@
 	let hasChanges = $state(false);
 	let isSaving = $state(false);
 
-	$inspect(visibility).with((type, value) =>
-		console.log(`📝 visibility (local): ${type} ${value}`)
-	);
 
 	const savePrivacySetting = async () => {
 		if (!profileId || !questionId) return;
@@ -181,7 +146,6 @@
 	// Initialize when user focuses (starts editing)
 	const saveTextOnFocus = () => {
 		const currentText = connectionDetails.responseInput || '';
-		console.log('Focus - saving initial text:', { currentText });
 		previousText = currentText;
 		// Initialize lastSavedText if not set (first time)
 		if (lastSavedText === '') {
@@ -195,7 +159,6 @@
 	const handleInput = () => {
 		canUndo = true;
 		checkForChanges();
-		console.log('Input changed - undo available, checking for changes');
 	};
 
 	// Check if current text differs from last saved
@@ -224,7 +187,6 @@
 			// Update saved state
 			lastSavedText = currentText;
 			hasChanges = false;
-			console.log('Response saved successfully');
 		} catch (error) {
 			console.error('Failed to save response:', error);
 		} finally {
@@ -233,7 +195,6 @@
 	};
 
 	const handleUndo = () => {
-		console.log('Undo clicked:', { canUndo, previousText, currentText: connectionDetails.responseInput });
 		if (canUndo) {
 			connectionDetails.responseInput = previousText;
 			canUndo = false;
@@ -255,8 +216,8 @@
 
 <ConfirmModal
 	show={showDeleteModal}
-	title="Confirm Deletion"
-	message="Are you sure you want to delete this response? This action cannot be undone."
+	title="Delete Response & Actions"
+	message="Are you sure you want to delete this response and all related actions? This action cannot be undone."
 	onConfirm={deleteResponse}
 	onSuccess={clearDetail}
 	onCancel={closeDeleteModal}
@@ -315,27 +276,18 @@
 				<ActionsCRUD responseId={connectionDetails.responseId} />
 			</div>
 
-			<div id="question-{questionId}-buttons" class="flex justify-around">
-				<FormButton
-					text={buttonConfig().primaryText}
-					buttonType="primary"
-					{table}
-					{isUpdate}
-					{hasResponseContent}
-					details={connectionDetails}
-					{visibility}
-				/>
-				<FormButton
-					text={buttonConfig().secondaryText}
-					buttonType="secondary"
-					{table}
-					{isUpdate}
-					{hasResponseContent}
-					details={connectionDetails}
-					{visibility}
-					onclick={isUpdate ? openDeleteModal : undefined}
-				/>
-			</div>
+			{#if connectionDetails.responseId}
+				<div class="flex justify-end mx-4 mb-4 mt-2">
+					<button
+						onclick={openDeleteModal}
+						class="btn btn-error btn-sm"
+						title="Delete this response and all related actions"
+					>
+						Delete Response & Actions
+					</button>
+				</div>
+			{/if}
+
 		{:else}
 			<section
 				id="question-not-found"
