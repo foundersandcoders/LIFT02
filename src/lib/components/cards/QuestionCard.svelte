@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getQuestionById, createResponse } from '$lib/services/database';
+	import { getQuestionById, createResponse, updateResponse, getResponseHistory } from '$lib/services/database';
 	import { getActionsByResponseId, deleteAction } from '$lib/services/database/actions';
 	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
@@ -134,6 +134,24 @@
 	let hasChanges = $state(false);
 	let isSaving = $state(false);
 
+	// Helper function to save or update response (prevents duplicates)
+	const saveOrUpdateResponse = async (responseData: any) => {
+		if (!profileId || !questionId) return null;
+
+		// Check if response exists first
+		const existingResponses = await getResponseHistory(profileId, questionId);
+
+		if (existingResponses.data && existingResponses.data.length > 0) {
+			// Update existing response (latest version)
+			const latestResponse = existingResponses.data[0];
+			const result = await updateResponse(latestResponse.id!, responseData);
+			return result;
+		} else {
+			// Create new response
+			const result = await createResponse(profileId, responseData);
+			return result;
+		}
+	};
 
 	const savePrivacySetting = async () => {
 		if (!profileId || !questionId) return;
@@ -142,15 +160,15 @@
 			privacySaveStatus = 'saving';
 			privacySaveError = null;
 
-			// Use existing response data but update visibility
-			const responseData = {
-				response_text: connectionDetails.responseInput,
-				question_id: questionId,
-				status: connectionDetails.responseInput ? 'answered' : 'unanswered',
-				visibility
-			};
+			// Only update privacy if response already exists
+			const existingResponses = await getResponseHistory(profileId, questionId);
 
-			await createResponse(profileId, responseData);
+			if (existingResponses.data && existingResponses.data.length > 0) {
+				// Update only the visibility field of existing response
+				const latestResponse = existingResponses.data[0];
+				await updateResponse(latestResponse.id!, { visibility });
+			}
+			// Note: Toggle is disabled when no response exists, so this case shouldn't occur
 
 			privacySaveStatus = 'saved';
 
@@ -210,10 +228,10 @@
 				visibility
 			};
 
-			const result = await createResponse(profileId, responseData);
+			const result = await saveOrUpdateResponse(responseData);
 
-			if (result.data?.id) {
-				// Update the connectionDetails with the new response ID
+			if (result?.data?.id) {
+				// Update the connectionDetails with the response ID
 				connectionDetails.responseId = result.data.id;
 			}
 
@@ -267,7 +285,7 @@
 				<h3>{data.question.data.preview}</h3>
 
 				<div class="flex flex-col gap-1">
-					<ToggleStatus {visibility} {toggleVisibility} />
+					<ToggleStatus {visibility} {toggleVisibility} disabled={!connectionDetails.responseId} />
 					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
 				</div>
 			</div>

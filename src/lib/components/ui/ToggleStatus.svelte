@@ -1,12 +1,14 @@
 <script lang="ts">
 	import Tooltip from './Tooltip.svelte';
 
-	let { visibility, toggleVisibility } = $props();
+	let { visibility, toggleVisibility, disabled = false } = $props();
 
 	const checked = visibility === 'private' ? false : true;
 
 	const onclick = () => {
-		toggleVisibility();
+		if (!disabled) {
+			toggleVisibility();
+		}
 	};
 </script>
 
@@ -17,10 +19,18 @@
 
 	<label class="flex items-center gap-2 flex-shrink-0">
 		<Tooltip
-			text="Public responses are included in emails shared with line managers"
+			text={disabled ? "Save your response first to change visibility" : "Public responses are included in emails shared with line managers"}
 			position="left"
 		>
-			<input id="vis-toggle" type="checkbox" {checked} {onclick} class="toggle toggle-accent" />
+			<input
+				id="vis-toggle"
+				type="checkbox"
+				{checked}
+				{onclick}
+				{disabled}
+				class="toggle toggle-accent"
+				class:opacity-50={disabled}
+			/>
 		</Tooltip>
 		{visibility}
 	</label>
