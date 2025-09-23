@@ -61,7 +61,7 @@ h3 {
 }
 
 .dash-grid-2 {
-	@apply mt-2 grid grid-cols-2;
+	@apply mt-2 grid grid-cols-2 gap-2;
 }
 
 .dash-tile-rect {
@@ -70,9 +70,9 @@ h3 {
 }
 
 .dash-tile-square {
-	@apply card border-primary bg-base-100 mx-10 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 mx-2 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
 	@apply flex flex-col items-center justify-center text-center;
-	@apply cursor-pointer;
+	@apply min-w-0 cursor-pointer;
 	/* Height constraints relative to .list-item */
 	/* .list-item has m-2 (0.5rem top+bottom) + p-3 (0.75rem top+bottom) + content = base height */
 	/* Base height ≈ 1rem (margin) + 1.5rem (padding) + 1.5rem (content) = 4rem minimum */
@@ -83,14 +83,25 @@ h3 {
 }
 
 .dash-vertical-container {
-	@apply flex flex-col space-y-4 px-4;
+	@apply flex flex-col space-y-4;
 }
 
 .footer {
 	@apply bg-primary text-primary-content h-16;
-	/* padding-bottom: env(safe-area-inset-bottom); */
-	padding-left: env(safe-area-inset-left);
-	padding-right: env(safe-area-inset-right);
+	container-type: inline-size;
+}
+
+/* Container queries for footer text hiding */
+@container (max-width: 300px) {
+	.footer-text {
+		display: none;
+	}
+}
+
+@container (min-width: 301px) {
+	.footer-text {
+		display: inline;
+	}
 }
 
 .footer-content {
@@ -435,11 +446,11 @@ h3 {
 }
 
 @media (max-width: 375px) {
-	.dash-grid {
-		@apply grid-cols-1;
+	.dash-grid-2 {
+		@apply grid-cols-1 gap-4;
 	}
 
 	.dash-tile-square {
-		@apply my-1 aspect-auto min-h-[100px];
+		@apply mx-4 my-1 aspect-auto min-h-[100px];
 	}
 }

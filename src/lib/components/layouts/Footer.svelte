@@ -2,12 +2,11 @@
 	import { dev } from '$app/environment';
 	import StateTable from '$lib/components/logic/StateTable.svelte';
 	import { getContext } from 'svelte';
-	import type { Profile } from '$lib/types/appState';
 	import InfoModal from '../ui/InfoModal.svelte';
 	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import { Icon, ClipboardDocumentList, ShieldCheck } from 'svelte-hero-icons';
 
-	let { devMode, profileId } = $props();
+	let { devMode } = $props();
 
 	const toggleDevMode = getContext<() => void>('setDevMode');
 	const onToggleDevMode = () => {
@@ -17,97 +16,32 @@
 	let showTermsModal = $state(false);
 	let showPrivacyModal = $state(false);
 
-	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
-	const setTestUser = getContext<(userId: string, userName: string) => Promise<void>>('setTestUser');
-
-	const sortedTestUsers = $derived(
-		[...(getTestUsers() || [])]
-			.filter(
-				(user): user is Profile & { id: string; name: string } =>
-					user.id !== null && user.name !== null && user.is_line_manager === false
-			)
-			.sort((a, b) => a.id.localeCompare(b.id))
-	);
-
-	let dropdownExpanded = $state(false);
-	let selectedUserId = $state<string | null>(null);
-
-	async function handleUserSelect(userId: string, userName: string) {
-		await setTestUser(userId, userName);
-		selectedUserId = userId;
-		console.log('Test user selected:', userName, userId);
-
-		// Close dropdown after selection
-		dropdownExpanded = false;
-		const dropdown = document.activeElement as HTMLElement;
-		dropdown?.blur();
-	}
-
-	function toggleDropdown() {
-		dropdownExpanded = !dropdownExpanded;
-	}
-	// ======================================================
 </script>
 
-<footer id="footer" class="footer">
-	<div id="footer-content" class="mt-2 flex w-full flex-row items-center justify-between px-4">
-		<!-- Left side: Test user dropdown (when logged out) -->
-		<div class="flex-shrink-0">
-			<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-			{#if !profileId}
-				<div class="dropdown dropdown-top dropdown-end">
-					<button
-						type="button"
-						class="btn btn-sm text-xs"
-						onclick={toggleDropdown}
-						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-						aria-label="Select test user for development"
-						aria-expanded={dropdownExpanded}
-						aria-haspopup="listbox"
-					>
-						User
-					</button>
-					<ul
-						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-						role="listbox"
-						aria-label="Available test users"
-					>
-						{#each sortedTestUsers as user (user.id)}
-							<li role="option" aria-selected={selectedUserId === user.id}>
-								<button
-									onclick={() => handleUserSelect(user.id, user.name)}
-									class="text-left"
-									aria-label="Select {user.name} as test user"
-								>
-									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-									{user.name}
-								</button>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			{/if}
-			<!-- ====================================================== -->
-		</div>
+<footer class="footer flex items-center justify-between px-6">
+	<!-- Left: Terms of Use -->
+	<button
+		class="btn btn-ghost btn-sm !flex-row !flex items-center"
+		onclick={() => (showTermsModal = true)}
+		aria-label="Terms of Use"
+	>
+		<Icon src={ClipboardDocumentList} class="h-5 w-5" />
+		<span class="footer-text">Terms of Use</span>
+	</button>
 
-		<!-- Center: Legal buttons -->
-		<div class="flex items-center space-x-4">
-			<button class="btn btn-ghost btn-sm" onclick={() => (showTermsModal = true)}>
-				<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-				<span class="text-center">Terms of Use</span>
-			</button>
-			<button class="btn btn-ghost btn-sm" onclick={() => (showPrivacyModal = true)}>
-				<Icon src={ShieldCheck} class="h-5 w-5" />
-				<span class="text-center">Privacy Policy</span>
-			</button>
-		</div>
+	<!-- Center: Privacy Policy -->
+	<button
+		class="btn btn-ghost btn-sm !flex-row !flex items-center"
+		onclick={() => (showPrivacyModal = true)}
+		aria-label="Privacy Policy"
+	>
+		<Icon src={ShieldCheck} class="h-5 w-5" />
+		<span class="footer-text">Privacy Policy</span>
+	</button>
 
-		<!-- Right side: Font Size Control -->
-		<div class="flex-shrink-0">
-			<FontSizeControl />
-		</div>
-	</div>
+	<!-- Right: Font Size Control -->
+	<FontSizeControl />
+
 </footer>
 
 {#if devMode}
