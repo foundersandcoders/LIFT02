@@ -13,7 +13,7 @@
 </script>
 
 <fieldset id="vis" class="form-fieldset">
-	<label for="vis-label" class="label text-sm whitespace-normal break-words flex-1 pr-4">
+	<label for="vis-toggle" class="label text-sm whitespace-normal break-words flex-1 pr-4">
 		Visibility to employer. This answer and actions will be included on the email
 	</label>
 
