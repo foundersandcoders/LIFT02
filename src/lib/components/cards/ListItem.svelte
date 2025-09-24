@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
+	import type { AppState, Detail, List, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
 	import {
@@ -8,6 +8,8 @@
 	} from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
+	import { getQuestionById } from '$lib/services/database/questions';
+	import { makePretty } from '$lib/utils/textTools';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 	import { fade } from 'svelte/transition';
 	import Tooltip from '../ui/Tooltip.svelte';
@@ -65,16 +67,66 @@
 
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
+	const setDetailTable = getContext<(table: TableName | null) => void>('setDetailTable');
+	const setDetailItemId = getContext<(id: string | null) => void>('setDetailItemId');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const setList = getContext<(list: List) => void>('setList');
 
 	const onclick = (table: null | TableName, item: null | Action | Question) => {
-		setViewName('detail');
+		setDetailTable(table);
+		setDetailItemId(item ? item.id || null : null);
 		setDetail({
 			table: table,
 			item: {
 				id: item ? item.id || null : null
 			}
 		});
+		setViewName('detail');
+	};
+
+	const handleActionClick = async (action: Action) => {
+		if (!action.question_id) return;
+
+		// Get question data to determine the proper category for breadcrumb
+		const questionResult = await getQuestionById(action.question_id);
+		if (questionResult.data) {
+			const category = {
+				raw: questionResult.data.category,
+				format: makePretty(questionResult.data.category, 'db-category-name', 'tile-text')
+			};
+
+			// Set list context to questions with proper category for correct breadcrumb
+			setList({ table: 'questions', category });
+		}
+
+		setDetailTable('questions');
+		setDetailItemId(action.question_id);
+		setDetail({
+			table: 'questions',
+			item: {
+				id: action.question_id
+			}
+		});
+		setViewName('detail');
+	};
+
+	const handleListItemClick = (event: MouseEvent) => {
+		if (table === 'questions') {
+			onclick(table, item as Question);
+			return;
+		}
+
+		if (table === 'actions') {
+			const actionItem = item as Action;
+			if (!actionItem.question_id) return;
+
+			const target = event.target as HTMLElement | null;
+			if (target && target.closest('[data-action-toggle="true"]')) {
+				return;
+			}
+
+			handleActionClick(actionItem);
+		}
 	};
 
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
@@ -117,10 +169,12 @@
 
 <button
 	id="list-item-{item.id}"
-	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
-	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
+	class="list-item {table === 'questions' || (table === 'actions' && (item as Action).question_id)
+		? 'cursor-pointer'
+		: 'cursor-default'}"
+	onclick={handleListItemClick}
 	tabindex="0"
-	disabled={table === 'actions' || table === 'resources'}
+	disabled={table === 'resources'}
 	transition:fade={{ duration: 300 }}
 >
 	<div
@@ -142,7 +196,11 @@
 				</p>
 			</div>
 			<!-- Toggle with responsive margin -->
-			<div id="list-item-{item.id}-action" class="mt-4 self-end md:mt-0 md:self-center">
+			<div
+				id="list-item-{item.id}-action"
+				class="mt-4 self-end md:mt-0 md:self-center"
+				data-action-toggle="true"
+			>
 				<ActionStatusToggle
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}

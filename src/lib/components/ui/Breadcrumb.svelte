@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, ViewName, List } from '$lib/types/appState';
+	import type { AppState, ViewName, List, ItemCategory } from '$lib/types/appState';
 	import { getQuestionById } from '$lib/services/database/questions';
+	import { makePretty } from '$lib/utils/textTools';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
@@ -11,16 +12,25 @@
 
 	// Get current question title when in detail view
 	let questionTitle = $state<string | null>(null);
+	let questionCategory = $state<ItemCategory | null>(null);
 
 	$effect(() => {
-		if (app.view.name === 'detail' && app.detail.item.id) {
-			getQuestionById(app.detail.item.id).then(result => {
+		if (app.view.name === 'detail' && app.detail.table === 'questions' && app.detail.item.id) {
+			getQuestionById(app.detail.item.id).then((result) => {
 				if (result.data) {
 					questionTitle = result.data.preview;
+					const raw = result.data.category;
+					if (raw) {
+						questionCategory = {
+							raw,
+							format: makePretty(raw, 'db-table-name', 'tile-text')
+						};
+					}
 				}
 			});
 		} else {
 			questionTitle = null;
+			questionCategory = null;
 		}
 	});
 
@@ -35,7 +45,9 @@
 		const viewName = app.view.name;
 		const listTable = app.list.table;
 		const detailTable = app.detail.table;
-		const categoryFormat = app.list.category.format;
+		const derivedCategory: ItemCategory | null = app.list.category.format
+			? app.list.category
+			: questionCategory;
 
 
 		const items: BreadcrumbItem[] = [];
@@ -49,9 +61,9 @@
 
 		// Add intermediate levels based on current view
 		if (viewName === 'list') {
-			if (listTable === 'questions' && categoryFormat) {
+			if (listTable === 'questions' && app.list.category.format) {
 				items.push({
-					label: categoryFormat,
+					label: app.list.category.format,
 					clickable: false
 				});
 			} else if (listTable === 'actions') {
@@ -73,13 +85,12 @@
 		} else if (viewName === 'detail') {
 			// Add the list level first
 			if (detailTable === 'responses' || detailTable === 'questions' || !detailTable) {
-				// For questions/responses, show the category breadcrumb
-				if (categoryFormat) {
+				const category = derivedCategory;
+				if (category?.format) {
 					items.push({
-						label: categoryFormat,
+						label: category.format,
 						clickable: true,
 						action: () => {
-							const category = app.list.category || { raw: null, format: null };
 							setList({ table: 'questions', category });
 							setViewName('list');
 						}
