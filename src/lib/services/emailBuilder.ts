@@ -4,6 +4,14 @@ import { getUserResponses } from '$lib/services/database/responses';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
+import DOMPurify from 'isomorphic-dompurify';
+
+/**
+ * Sanitize user input to prevent XSS attacks
+ */
+function sanitizeText(text: string): string {
+	return DOMPurify.sanitize(text, { ALLOWED_TAGS: [] });
+}
 
 export async function generateEmailData(
 	userId: string,
@@ -132,11 +140,11 @@ export function renderEmailToHTML(emailData: EmailData): string {
 				<div class="qa-item py-3 border-b border-base-300/50">
 					<div class="question mb-3">
 						<span class="question-label font-bold text-accent text-base">Q:</span>
-						<span class="question-text font-semibold text-base-content text-base ml-2">${item.questionText}</span>
+						<span class="question-text font-semibold text-base-content text-base ml-2">${sanitizeText(item.questionText)}</span>
 					</div>
 					<div class="answer mt-2">
 						<span class="answer-label font-medium text-secondary">A:</span>
-						<span class="answer-text text-base-content/80 ml-2">${item.responseText}</span>
+						<span class="answer-text text-base-content/80 ml-2">${sanitizeText(item.responseText)}</span>
 					</div>
 					${
 						item.actions && item.actions.length > 0
@@ -148,7 +156,7 @@ export function renderEmailToHTML(emailData: EmailData): string {
 									.map(
 										(action) => `
 									<li class="action-item text-sm text-base-content/70">
-										${action.description}
+										${sanitizeText(action.description)}
 									</li>
 								`
 									)
@@ -173,8 +181,8 @@ export function renderEmailToHTML(emailData: EmailData): string {
 
 			<!-- Email Footer -->
 			<div class="email-footer mt-8 p-4 bg-base-200 rounded-lg text-base-content/70">
-				<div class="closing">${emailData.closing}</div>
-				<div class="signature font-medium text-base-content">${emailData.signature}</div>
+				<div class="closing">${sanitizeText(emailData.closing)}</div>
+				<div class="signature font-medium text-base-content">${sanitizeText(emailData.signature)}</div>
 			</div>
 		</div>
 	`;

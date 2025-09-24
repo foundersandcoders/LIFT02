@@ -55,6 +55,7 @@
 		"@tailwindcss/vite": "^4.1.10",
 		"daisyui": "^5.0.43",
 		"dotenv": "^16.5.0",
+		"isomorphic-dompurify": "^2.28.0",
 		"tailwindcss": "^4.1.10",
 		"zod": "^3.25.51"
 	}
