@@ -15,7 +15,8 @@ function sanitizeText(text: string): string {
 
 export async function generateEmailData(
 	userId: string,
-	userName?: string | null
+	userName?: string | null,
+	customNotes?: string | null
 ): Promise<EmailData> {
 	// Get all public responses for user
 	const responsesResult = await getUserResponses(userId, {
@@ -101,6 +102,7 @@ export async function generateEmailData(
 		categories,
 		closing: 'Best regards,',
 		signature: userName || '[Your name]',
+		customNotes: customNotes?.trim() || null,
 		metadata: {
 			userId,
 			userName: userName ?? null,
