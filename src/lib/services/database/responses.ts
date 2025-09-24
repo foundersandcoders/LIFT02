@@ -124,18 +124,10 @@ export async function createResponse(
 	userId: string,
 	data: Omit<ResponseInsert, 'user_id'>
 ): Result<Response> {
-	console.groupCollapsed('🗄️ Database: createResponse');
-	console.log('📥 Input parameters:', {
-		userId,
-		data
-	});
-
 	const insertData = {
 		...data,
 		user_id: userId
 	};
-
-	console.log('📤 Sending to Supabase:', insertData);
 
 	const { data: response, error } = await supabase
 		.from('responses')
@@ -144,12 +136,8 @@ export async function createResponse(
 		.single();
 
 	if (error) {
-		console.error('❌ Database error:', error);
-		console.groupEnd();
 		return { data: null, error };
 	}
-
-	console.log('✅ Raw database response:', response);
 
 	// Convert database type to tableMain type
 	const convertedData = response
@@ -165,9 +153,6 @@ export async function createResponse(
 			}
 		: null;
 
-	console.log('🔄 Converted response data:', convertedData);
-	console.groupEnd();
-
 	return { data: convertedData, error: null };
 }
 
@@ -179,13 +164,6 @@ export async function updateResponse(
 	questionId: string,
 	data: Partial<Omit<ResponseInsert, 'user_id' | 'question_id'>>
 ): Result<Response> {
-	console.groupCollapsed('🗄️ Database: updateResponse');
-	console.log('📥 Input parameters:', {
-		userId,
-		questionId,
-		data
-	});
-
 	// Update the response directly
 	const { data: updatedResponse, error } = await supabase
 		.from('responses')
@@ -196,12 +174,8 @@ export async function updateResponse(
 		.single();
 
 	if (error) {
-		console.error('❌ Database error:', error);
-		console.groupEnd();
 		return { data: null, error };
 	}
-
-	console.log('✅ Raw database response:', updatedResponse);
 
 	// Convert database type to tableMain type
 	const convertedData = updatedResponse
@@ -217,9 +191,6 @@ export async function updateResponse(
 			}
 		: null;
 
-	console.log('🔄 Converted response data:', convertedData);
-	console.groupEnd();
-
 	return { data: convertedData, error: null };
 }
 
@@ -231,31 +202,20 @@ export async function upsertResponse(
 	questionId: string,
 	data: Omit<ResponseInsert, 'user_id' | 'question_id'>
 ): Result<Response> {
-	console.groupCollapsed('🗄️ Database: upsertResponse');
-	console.log('📥 Input parameters:', {
-		userId,
-		questionId,
-		data
-	});
-
 	// Try to update first
 	const updateResult = await updateResponse(userId, questionId, data);
 
 	if (updateResult.data) {
 		// Update succeeded
-		console.log('✅ Response updated successfully');
-		console.groupEnd();
 		return updateResult;
 	}
 
 	// Update failed, try to create
-	console.log('📝 Response not found, creating new one');
 	const createResult = await createResponse(userId, {
 		...data,
 		question_id: questionId
 	});
 
-	console.groupEnd();
 	return createResult;
 }
 

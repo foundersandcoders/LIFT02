@@ -39,7 +39,6 @@
 			throw new Error('Cannot delete response without a profile ID and response ID.');
 		}
 
-		console.log('🎯 Deleting response and all associated actions:', connectionDetails.responseId);
 
 		try {
 			// Delete response - CASCADE will automatically delete associated actions
@@ -52,7 +51,6 @@
 				throw error;
 			}
 
-			console.log('✅ Response and all associated actions deleted successfully (CASCADE)');
 		} catch (error) {
 			console.error('❌ Failed to delete response:', error);
 			throw error;
@@ -72,15 +70,8 @@
 	let { questionId }: Props = $props();
 
 	const getData = async () => {
-		console.groupCollapsed('🏗️ QuestionCard: getData');
-		console.log('📍 Question ID:', questionId);
-		console.log('👤 Profile ID:', profileId);
-
 		const question = await getQuestionById(questionId);
-		console.log('❓ Question:', question.data);
-
 		const connections = await getQuestionConnections(profileId || '', questionId);
-		console.log('📝 Connections:', connections);
 
 		connectionDetails = connections;
 
@@ -92,9 +83,6 @@
 			question: question || null,
 			details: connectionDetails || null
 		};
-
-		console.log('📤 Return:', data);
-		console.groupEnd();
 
 		return data;
 	};
