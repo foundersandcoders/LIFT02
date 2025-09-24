@@ -189,6 +189,16 @@
 			saveError = null; // Clear any previous errors
 			const currentText = connectionDetails.responseInput || '';
 
+			// Prevent saving empty responses
+			if (!currentText.trim()) {
+				saveError = 'Response cannot be empty';
+				// Auto-restore previous text to help user
+				if (canUndo) {
+					handleUndo();
+				}
+				return;
+			}
+
 			const responseData = {
 				response_text: currentText,
 				question_id: questionId,
