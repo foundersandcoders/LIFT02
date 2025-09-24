@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { getQuestionById, upsertResponse, updateResponse } from '$lib/services/database';
-	import { getActionsByResponseId, deleteAction } from '$lib/services/database/actions';
 	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
 	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
 	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
-	import type { Action } from '$lib/types/tableMain';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
 	import type { AppState } from '$lib/types/appState';
@@ -44,24 +42,7 @@
 		console.log('🎯 Deleting response and all associated actions:', connectionDetails.responseId);
 
 		try {
-			// First, get all actions for this response (both active and archived)
-			const actionsResult = await getActionsByResponseId(profileId, connectionDetails.responseId);
-
-			if (actionsResult.data && actionsResult.data.length > 0) {
-				console.log(`🗑️ Deleting ${actionsResult.data.length} associated actions...`);
-
-				// Delete all actions (both active and archived)
-				await Promise.all(
-					actionsResult.data.map((action: Action) => {
-						if (action.id) {
-							console.log(`Deleting action: ${action.id} (${action.status})`);
-							return deleteAction(action.id);
-						}
-					}).filter(Boolean)
-				);
-			}
-
-			// Now delete the response itself
+			// Delete response - CASCADE will automatically delete associated actions
 			const { error } = await supabase
 				.from('responses')
 				.delete()
@@ -71,7 +52,7 @@
 				throw error;
 			}
 
-			console.log('✅ Response and all associated actions deleted successfully');
+			console.log('✅ Response and all associated actions deleted successfully (CASCADE)');
 		} catch (error) {
 			console.error('❌ Failed to delete response:', error);
 			throw error;
@@ -83,9 +64,6 @@
 		responseId: null,
 		visibility: 'private'
 	});
-
-
-
 
 	interface Props {
 		questionId: string;
@@ -272,11 +250,15 @@
 		</div>
 	{:then data}
 		{#if data.question && data.question.data}
-			<div id="question-{questionId}-header" class="card-header">
+			<div id="question-{questionId}-header" class="card-header relative">
 				<h3>{data.question.data.preview}</h3>
 
 				<div class="flex flex-col gap-1">
 					<ToggleStatus {visibility} {toggleVisibility} disabled={!connectionDetails.responseId} />
+				</div>
+
+				<!-- Position save status absolutely to prevent layout shifts -->
+				<div class="absolute top-4 right-4">
 					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
 				</div>
 			</div>
@@ -296,7 +278,7 @@
 					onkeydown={handleKeydown}
 				></textarea>
 
-				<div class="flex items-center gap-2 mt-2">
+				<div class="mt-2 flex items-center gap-2">
 					<button
 						onclick={saveResponse}
 						disabled={!hasChanges || isSaving}
@@ -310,10 +292,10 @@
 							OK
 						{/if}
 					</button>
-					<UndoButton canUndo={canUndo} onclick={handleUndo} />
+					<UndoButton {canUndo} onclick={handleUndo} />
 				</div>
 				{#if saveError}
-					<div class="text-error text-sm mt-2">
+					<div class="text-error mt-2 text-sm">
 						{saveError}
 					</div>
 				{/if}
@@ -324,7 +306,7 @@
 			</div>
 
 			{#if connectionDetails.responseId}
-				<div class="flex justify-end mx-4 mb-4 mt-2">
+				<div class="mx-4 mt-2 mb-4 flex justify-end">
 					<button
 						onclick={openDeleteModal}
 						class="btn btn-error btn-sm"
@@ -334,7 +316,6 @@
 					</button>
 				</div>
 			{/if}
-
 		{:else}
 			<section
 				id="question-not-found"
