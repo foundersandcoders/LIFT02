@@ -122,15 +122,15 @@
 		return result;
 	};
 
-	const savePrivacySetting = async () => {
-		if (!profileId || !questionId) return;
+	const savePrivacySetting = async (newVisibility: string) => {
+		if (!profileId || !questionId) return { success: false };
 
 		try {
 			privacySaveStatus = 'saving';
 			privacySaveError = null;
 
 			// Use simplified updateResponse function
-			const result = await updateResponse(profileId, questionId, { visibility });
+			const result = await updateResponse(profileId, questionId, { visibility: newVisibility });
 
 			if (!result.data) {
 				throw new Error('Failed to update visibility');
@@ -144,15 +144,34 @@
 					privacySaveStatus = 'idle';
 				}
 			}, 2000);
+
+			return { success: true };
 		} catch (error) {
 			privacySaveStatus = 'error';
 			privacySaveError = error instanceof Error ? error.message : 'Save failed';
+			return { success: false };
 		}
 	};
 
-	const toggleVisibility = () => {
-		visibility = visibility === 'public' ? 'private' : 'public';
-		savePrivacySetting();
+	const toggleVisibility = async () => {
+		const previousVisibility = visibility;
+		const newVisibility = visibility === 'public' ? 'private' : 'public';
+
+		// Optimistic update - change UI immediately
+		visibility = newVisibility;
+
+		try {
+			const result = await savePrivacySetting(newVisibility);
+
+			if (!result.success) {
+				// Rollback on failure
+				visibility = previousVisibility;
+			}
+		} catch (error) {
+			// Rollback on error
+			visibility = previousVisibility;
+			console.error('Failed to toggle visibility:', error);
+		}
 	};
 
 	// Initialize when user focuses (starts editing)
