@@ -158,7 +158,7 @@ export function renderEmailToHTML(emailData: EmailData): string {
 			<div class="email-header mb-6 p-4">
 				${
 					emailData.manager?.email
-						? `<div class="manager-info mb-4 text-sm text-base-content/60">
+						? `<div class="manager-info mb-4 p-3 bg-base-200 border border-base-300 rounded-lg text-sm text-base-content/70">
 							<strong>To:</strong> ${sanitizeText(emailData.manager.name || 'Line Manager')}
 							&lt;${sanitizeText(emailData.manager.email)}&gt;
 						</div>`
