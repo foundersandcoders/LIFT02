@@ -1,6 +1,8 @@
 import { getActionsByResponseIds } from '$lib/services/database/actions';
 import { getQuestionById } from '$lib/services/database/questions';
 import { getUserResponses } from '$lib/services/database/responses';
+import { getProfile } from '$lib/services/database/profiles';
+import { supabase } from '$lib/services/supabaseClient';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
@@ -18,6 +20,37 @@ export async function generateEmailData(
 	userName?: string | null,
 	customNotes?: string | null
 ): Promise<EmailData> {
+	// Get user profile to extract manager information
+	const profileResult = await getProfile(userId);
+	let managerInfo: { name?: string; email?: string } | undefined;
+
+	if (profileResult.data?.line_manager) {
+		try {
+			// Get line manager details from line_managers table
+			const { data: lineManagerData } = await supabase
+				.from('line_managers')
+				.select('email, line_manager_id')
+				.eq('id', profileResult.data.line_manager)
+				.single();
+
+			if (lineManagerData) {
+				// Get manager profile to get their name
+				const { data: managerProfile } = await supabase
+					.from('profiles')
+					.select('name')
+					.eq('id', lineManagerData.line_manager_id)
+					.single();
+
+				managerInfo = {
+					name: managerProfile?.name || undefined,
+					email: lineManagerData.email || undefined
+				};
+			}
+		} catch (error) {
+			console.warn('Failed to fetch line manager details:', error);
+		}
+	}
+
 	// Get all public responses for user
 	const responsesResult = await getUserResponses(userId, {
 		visibility: 'public'
@@ -98,11 +131,14 @@ export async function generateEmailData(
 	// Build EmailData object
 	const emailData: EmailData = {
 		subject: '',
-		introduction: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
+		introduction: managerInfo?.name
+			? `Dear ${managerInfo.name},\n\nHere are my workplace needs and accommodations:`
+			: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
 		categories,
 		closing: 'Best regards,',
 		signature: userName || '[Your name]',
 		customNotes: customNotes?.trim() || null,
+		manager: managerInfo,
 		metadata: {
 			userId,
 			userName: userName ?? null,
@@ -185,6 +221,16 @@ export function renderEmailToHTML(emailData: EmailData): string {
 			<div class="email-footer mt-8 p-4 bg-base-200 rounded-lg text-base-content/70">
 				<div class="closing">${sanitizeText(emailData.closing)}</div>
 				<div class="signature font-medium text-base-content">${sanitizeText(emailData.signature)}</div>
+				${
+					emailData.manager?.email
+						? `<div class="manager-info mt-4 pt-4 border-t border-base-300">
+							<div class="text-sm text-base-content/60">
+								<strong>To:</strong> ${sanitizeText(emailData.manager.name || 'Line Manager')}
+								&lt;${sanitizeText(emailData.manager.email)}&gt;
+							</div>
+						</div>`
+						: ''
+				}
 			</div>
 		</div>
 	`;
