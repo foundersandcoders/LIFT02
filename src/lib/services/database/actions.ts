@@ -51,7 +51,6 @@ export async function getUserActions(
 			response_id: dbAction.response_id || undefined,
 			type: dbAction.type,
 			description: dbAction.description || undefined,
-			version: dbAction.version || 1,
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
@@ -79,7 +78,6 @@ export async function getActionById(id: string): Result<Action> {
 				response_id: data.response_id || undefined,
 				type: data.type,
 				description: data.description || undefined,
-				version: data.version || 1,
 				status: data.status as 'active' | 'archived',
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
@@ -90,15 +88,15 @@ export async function getActionById(id: string): Result<Action> {
 }
 
 /**
- * Get action history for a specific response
+ * Get actions for a specific response
  */
-export async function getActionHistory(userId: string, responseId: string): Results<Action> {
+export async function getActionsByResponseId(userId: string, responseId: string): Results<Action> {
 	const { data, error } = await supabase
 		.from('actions')
 		.select('*')
 		.eq('user_id', userId)
 		.eq('response_id', responseId)
-		.order('version', { ascending: false });
+		.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
@@ -112,7 +110,6 @@ export async function getActionHistory(userId: string, responseId: string): Resu
 			response_id: dbAction.response_id || undefined,
 			type: dbAction.type,
 			description: dbAction.description || undefined,
-			version: dbAction.version || 1,
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
@@ -126,7 +123,7 @@ export async function getActionHistory(userId: string, responseId: string): Resu
  */
 export async function createAction(
 	userId: string,
-	data: Omit<ActionInsert, 'user_id' | 'version' | 'status'>
+	data: Omit<ActionInsert, 'user_id' | 'status'>
 ): Result<Action> {
 	const { data: action, error } = await supabase
 		.from('actions')
@@ -134,7 +131,6 @@ export async function createAction(
 			{
 				...data,
 				user_id: userId,
-				version: 1,
 				status: 'active'
 			}
 		])
@@ -154,7 +150,6 @@ export async function createAction(
 				response_id: action.response_id || undefined,
 				type: action.type,
 				description: action.description || undefined,
-				version: action.version || 1,
 				status: action.status as 'active' | 'archived',
 				created_at: action.created_at || undefined,
 				updated_at: action.updated_at || undefined
@@ -169,50 +164,33 @@ export async function createAction(
  */
 export async function updateAction(
 	id: string,
-	data: Omit<ActionUpdate, 'version' | 'status'>
+	data: Omit<ActionUpdate, 'status'>
 ): Result<Action> {
-	// First, get the current action to get its version
-	const { data: currentAction, error: fetchError } = await supabase
+	const { data: updatedAction, error } = await supabase
 		.from('actions')
-		.select('*')
+		.update({
+			...data,
+			updated_at: new Date().toISOString()
+		})
 		.eq('id', id)
-		.single();
-
-	if (fetchError) {
-		return { data: null, error: fetchError };
-	}
-
-	// Create a new version
-	const { data: newAction, error: insertError } = await supabase
-		.from('actions')
-		.insert([
-			{
-				...currentAction,
-				...data,
-				id: undefined, // Let Supabase generate a new ID
-				version: currentAction.version + 1,
-				status: currentAction.status // Preserve the status
-			}
-		])
 		.select()
 		.single();
 
-	if (insertError) {
-		return { data: null, error: insertError };
+	if (error) {
+		return { data: null, error };
 	}
 
 	// Convert database type to tableMain type
-	const convertedData = newAction
+	const convertedData = updatedAction
 		? {
-				id: newAction.id,
-				user_id: newAction.user_id || '',
-				response_id: newAction.response_id || undefined,
-				type: newAction.type,
-				description: newAction.description || undefined,
-				version: newAction.version || 1,
-				status: newAction.status as 'active' | 'archived',
-				created_at: newAction.created_at || undefined,
-				updated_at: newAction.updated_at || undefined
+				id: updatedAction.id,
+				user_id: updatedAction.user_id || '',
+				response_id: updatedAction.response_id || undefined,
+				type: updatedAction.type,
+				description: updatedAction.description || undefined,
+				status: updatedAction.status as 'active' | 'archived',
+				created_at: updatedAction.created_at || undefined,
+				updated_at: updatedAction.updated_at || undefined
 			}
 		: null;
 
@@ -220,50 +198,51 @@ export async function updateAction(
 }
 
 /**
- * Archive an action
+ * Archive an action (set status to 'archived')
  */
 export async function archiveAction(id: string): Result<Action> {
-	// First, get the current action
-	const { data: currentAction, error: fetchError } = await supabase
+	return updateActionStatus(id, 'archived');
+}
+
+/**
+ * Activate an action (set status to 'active')
+ */
+export async function activateAction(id: string): Result<Action> {
+	return updateActionStatus(id, 'active');
+}
+
+/**
+ * Update an action's status
+ */
+export async function updateActionStatus(
+	id: string,
+	newStatus: 'active' | 'archived'
+): Result<Action> {
+	const { data: updatedAction, error } = await supabase
 		.from('actions')
-		.select('*')
+		.update({
+			status: newStatus,
+			updated_at: new Date().toISOString()
+		})
 		.eq('id', id)
-		.single();
-
-	if (fetchError) {
-		return { data: null, error: fetchError };
-	}
-
-	// Create a new version with archived status
-	const { data: newAction, error: insertError } = await supabase
-		.from('actions')
-		.insert([
-			{
-				...currentAction,
-				id: undefined, // Let Supabase generate a new ID
-				version: currentAction.version + 1,
-				status: 'archived'
-			}
-		])
 		.select()
 		.single();
 
-	if (insertError) {
-		return { data: null, error: insertError };
+	if (error) {
+		return { data: null, error };
 	}
 
 	// Convert database type to tableMain type
-	const convertedData = newAction
+	const convertedData = updatedAction
 		? {
-				id: newAction.id,
-				user_id: newAction.user_id || '',
-				response_id: newAction.response_id || undefined,
-				type: newAction.type,
-				description: newAction.description || undefined,
-				version: newAction.version || 1,
-				status: newAction.status as 'active' | 'archived',
-				created_at: newAction.created_at || undefined,
-				updated_at: newAction.updated_at || undefined
+				id: updatedAction.id,
+				user_id: updatedAction.user_id || '',
+				response_id: updatedAction.response_id || undefined,
+				type: updatedAction.type,
+				description: updatedAction.description || undefined,
+				status: updatedAction.status as 'active' | 'archived',
+				created_at: updatedAction.created_at || undefined,
+				updated_at: updatedAction.updated_at || undefined
 			}
 		: null;
 
@@ -300,7 +279,6 @@ export async function getLatestActions(
 			response_id: dbAction.response_id || undefined,
 			type: dbAction.type,
 			description: dbAction.description || undefined,
-			version: dbAction.version || 1,
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined,
@@ -310,6 +288,22 @@ export async function getLatestActions(
 
 	// Return all actions without filtering
 	return { data: convertedData || [], error: null };
+}
+
+/**
+ * Delete an action
+ */
+export async function deleteAction(id: string): Result<boolean> {
+	const { error } = await supabase
+		.from('actions')
+		.delete()
+		.eq('id', id);
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	return { data: true, error: null };
 }
 
 /**
@@ -324,7 +318,8 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 		.from('actions')
 		.select('*')
 		.in('response_id', responseIds)
-		.order('version', { ascending: false });
+		.eq('status', 'active')
+		.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
@@ -338,7 +333,6 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 			response_id: dbAction.response_id || undefined,
 			type: dbAction.type,
 			description: dbAction.description || undefined,
-			version: dbAction.version || 1,
 			status: dbAction.status as 'active' | 'archived',
 			created_at: dbAction.created_at || undefined,
 			updated_at: dbAction.updated_at || undefined
@@ -348,20 +342,16 @@ export async function getActionsByResponseIds(responseIds: string[]): Results<Ac
 }
 
 /**
- * Get the latest action for a specific response
- *
- * Note: This function uses database-level filtering (.limit(1)) for efficiency
- * instead of the filterLatestActions utility. This is intentional for single-item
- * queries where database filtering is more performant than client-side filtering.
- * For batch operations, use getActionsByResponseIds + filterLatestActions instead.
+ * Get the first active action for a specific response
  */
-export async function getLatestActionByResponseId(responseId: string): Result<Action> {
+export async function getFirstActiveActionByResponseId(responseId: string): Result<Action> {
 	const { data, error } = await supabase
 		.from('actions')
 		.select('*')
 		.eq('response_id', responseId)
-		.order('version', { ascending: false })
-		.limit(1); // Database-level filtering for efficiency
+		.eq('status', 'active')
+		.order('created_at', { ascending: true })
+		.limit(1);
 
 	if (error) {
 		return { data: null, error };
@@ -376,7 +366,6 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 					response_id: data[0].response_id || undefined,
 					type: data[0].type,
 					description: data[0].description || undefined,
-					version: data[0].version || 1,
 					status: data[0].status as 'active' | 'archived',
 					created_at: data[0].created_at || undefined,
 					updated_at: data[0].updated_at || undefined
@@ -386,42 +375,3 @@ export async function getLatestActionByResponseId(responseId: string): Result<Ac
 	return { data: convertedData, error: null };
 }
 
-/**
- * Update an action's status (active/archived) by creating a new version
- *
- * This function specifically handles status changes and creates a new version
- * of the action with the updated status, following the versioning pattern.
- */
-export async function updateActionStatus(
-	id: string,
-	newStatus: 'active' | 'archived'
-): Result<Action> {
-	// Update the existing action's status
-	const { data: updatedAction, error: updateError } = await supabase
-		.from('actions')
-		.update({ status: newStatus })
-		.eq('id', id)
-		.select()
-		.single();
-
-	if (updateError) {
-		return { data: null, error: updateError };
-	}
-
-	// Convert database type to tableMain type
-	const convertedData = updatedAction
-		? {
-				id: updatedAction.id,
-				user_id: updatedAction.user_id || '',
-				response_id: updatedAction.response_id || undefined,
-				type: updatedAction.type,
-				description: updatedAction.description || undefined,
-				version: updatedAction.version || 1,
-				status: updatedAction.status as 'active' | 'archived',
-				created_at: updatedAction.created_at || undefined,
-				updated_at: updatedAction.updated_at || undefined
-			}
-		: null;
-
-	return { data: convertedData, error: null };
-}

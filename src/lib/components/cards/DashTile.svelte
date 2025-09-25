@@ -38,6 +38,6 @@
 	{:else if error}
 		<p class="text-center">Error: {error}</p>
 	{:else}
-		<p class="text-center">{title}</p>
+		<p class="text-center break-words hyphens-auto">{title}</p>
 	{/if}
 </button>

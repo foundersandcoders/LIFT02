@@ -2,7 +2,6 @@
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
-	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
 	import { version } from '$lib/version';
 
@@ -20,36 +19,28 @@
 	const onEmailClick = () => {
 		setViewName('email');
 	};
+
+	const onLogoClick = () => {
+		setViewName('dash');
+	};
 </script>
 
 <header class="header">
-	<div id="header-content" class="header-content">
-		<div id="header-left" class="header-left">
-			<div id="brand-logo" class="header-container-logo">
-				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
-			</div>
+	<div class="header-left">
+		<button
+			id="brand-logo"
+			class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+			onclick={onLogoClick}
+			type="button"
+			aria-label="Go to dashboard"
+		>
+			<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
+		</button>
 
-			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
-				<h1>Workwise</h1>
-				<!-- <p class="text-sm">{version}</p> -->
-			</div>
-		</div>
+		<h1>Workwise</h1>
+	</div>
 
-		<div id="header-right" class="flex items-center space-x-3">
-			<!-- Font Size Control -->
-			<FontSizeControl />
-
-			<!-- Profile Button -->
-			<!-- <button
-				id="profile-button"
-				onclick={onProfileClick}
-				class="btn-nav"
-				type="button"
-				aria-label="View Profile"
-			>
-				Profile
-			</button> -->
-
+	<div class="header-right">
 			<!-- Email Button -->
 			{#if app.profile.id}
 				<Tooltip
@@ -70,6 +61,16 @@
 					</button>
 				</Tooltip>
 			{/if}
-		</div>
+
+			<!-- Profile Button -->
+			<!-- <button
+				id="profile-button"
+				onclick={onProfileClick}
+				class="btn-nav"
+				type="button"
+				aria-label="View Profile"
+			>
+				Profile
+			</button> -->
 	</div>
 </header>

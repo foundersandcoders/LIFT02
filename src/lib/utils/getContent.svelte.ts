@@ -1,6 +1,5 @@
 import { getLatestResponses } from '$lib/services/database/responses';
 import type { QuestionConnections } from '$lib/types/appState';
-import { filterLatestResponses } from '$lib/utils/versionFilter';
 
 export const getQuestionConnections = async (
 	user_id: string,
@@ -12,8 +11,8 @@ export const getQuestionConnections = async (
 	const response = await getLatestResponses(user_id);
 	console.log('📊 Latest responses from DB:', response);
 
-	const latestResponsesData = response.data ? filterLatestResponses(response.data) : [];
-	console.log('🔍 Filtered latest responses:', latestResponsesData);
+	const latestResponsesData = response.data || [];
+	console.log('🔍 Latest responses (no filtering needed):', latestResponsesData);
 
 	const questionResponse = latestResponsesData.find((r) => r.question_id === questionId);
 	console.log('🎯 Found response for this question:', questionResponse);

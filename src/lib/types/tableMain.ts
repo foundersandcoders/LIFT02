@@ -9,7 +9,6 @@ export interface Action {
 	question_id?: string;
 	type: string;
 	description?: string;
-	version: number;
 	status: 'active' | 'archived';
 	created_at?: string;
 	updated_at?: string;
@@ -41,7 +40,6 @@ export interface Response {
 	response_text: string;
 	status?: 'answered' | 'skipped';
 	visibility: 'public' | 'private';
-	version: number;
 	created_at?: string;
 	updated_at?: string;
 	shares?: Share[];
