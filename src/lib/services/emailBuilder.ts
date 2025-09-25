@@ -156,6 +156,14 @@ export function renderEmailToHTML(emailData: EmailData): string {
 		<div class="email-container max-w-4xl mx-auto bg-base-100">
 			<!-- Email Header -->
 			<div class="email-header mb-6 p-4">
+				${
+					emailData.manager?.email
+						? `<div class="manager-info mb-4 text-sm text-base-content/60">
+							<strong>To:</strong> ${sanitizeText(emailData.manager.name || 'Line Manager')}
+							&lt;${sanitizeText(emailData.manager.email)}&gt;
+						</div>`
+						: ''
+				}
 				<div class="text-base-content/70 whitespace-pre-line">${emailData.introduction}</div>
 			</div>
 
@@ -221,16 +229,6 @@ export function renderEmailToHTML(emailData: EmailData): string {
 			<div class="email-footer mt-8 p-4 bg-base-200 rounded-lg text-base-content/70">
 				<div class="closing">${sanitizeText(emailData.closing)}</div>
 				<div class="signature font-medium text-base-content">${sanitizeText(emailData.signature)}</div>
-				${
-					emailData.manager?.email
-						? `<div class="manager-info mt-4 pt-4 border-t border-base-300">
-							<div class="text-sm text-base-content/60">
-								<strong>To:</strong> ${sanitizeText(emailData.manager.name || 'Line Manager')}
-								&lt;${sanitizeText(emailData.manager.email)}&gt;
-							</div>
-						</div>`
-						: ''
-				}
 			</div>
 		</div>
 	`;
