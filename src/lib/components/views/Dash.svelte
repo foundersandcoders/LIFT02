@@ -112,55 +112,39 @@
 				<!-- ====================================================== -->
 			</div>
 		{:else}
-			<div id="dash-tiles-top" class="dash-grid-2">
-				<!-- Actions -->
-				{#await queryActions}
-					<DashTile title="Actions" loading={true} variant="square" disabled />
-				{:then result}
-					{#if result && result.data}
-						{@const table = 'actions'}
-						{@const category = { raw: 'actions', format: 'Actions' }}
-						{@const num = result.data.length}
-						{@const any = result.data.length > 0}
-						{@const name = "Active Actions"}
-						<DashTile
-							title={any ? `${num} ${name}` : `No ${name}`}
-							variant="square"
-							onclick={() => onclick(table, category)}
-						/>
-					{:else}
-						<DashTile title="No Active Actions" variant="square" disabled />
-					{/if}
-				{:catch error}
-					<DashTile title="Error Getting Actions" error={error.message} variant="square" disabled />
-				{/await}
-
-				<!-- Resources -->
-				{#await queryResources}
-					<DashTile title="Resources" loading={true} variant="square" disabled />
-				{:then}
-					{@const table = 'resources'}
-					{@const category = { raw: 'resources', format: 'Resources' }}
-					<DashTile
-						title={'Resources'}
-						variant="square"
-						onclick={() => onclick(table, category)}
-					/>
-				{:catch error}
-					<DashTile
-						title="Error Getting Resources"
-						error={error.message}
-						variant="square"
-						disabled
-					/>
-				{/await}
+			<!-- Actions Section -->
+			<div class="card bg-base-100 shadow-sm mt-4">
+				<div class="card-body p-4">
+					<h3 class="card-title text-base opacity-70 mb-2">Actions</h3>
+					<div class="dash-vertical-container">
+						{#await queryActions}
+							<DashTile title="Loading Actions..." loading={true} disabled />
+						{:then result}
+							{#if result && result.data}
+								{@const table = 'actions'}
+								{@const category = { raw: 'actions', format: 'Actions' }}
+								{@const num = result.data.length}
+								{@const any = result.data.length > 0}
+								{@const name = "Active Actions"}
+								<DashTile
+									title={any ? `${num} ${name}` : `No ${name}`}
+									onclick={() => onclick(table, category)}
+								/>
+							{:else}
+								<DashTile title="No Active Actions" disabled />
+							{/if}
+						{:catch error}
+							<DashTile title="Error Getting Actions" error={error.message} disabled />
+						{/await}
+					</div>
+				</div>
 			</div>
 
+			<!-- Categories Section -->
 			<div class="card bg-base-100 shadow-sm mt-4">
 				<div class="card-body p-4">
 					<h3 class="card-title text-base opacity-70 mb-2">Categories</h3>
 					<div class="dash-vertical-container">
-						<!-- Questions -->
 						{#await queryQuestions}
 							<div class="list-item">
 								<p class="text-center">Loading Questions...</p>
@@ -180,6 +164,31 @@
 							<div class="list-item">
 								<p class="text-center">Loading Questions...</p>
 							</div>
+						{/await}
+					</div>
+				</div>
+			</div>
+
+			<!-- Resources Section -->
+			<div class="card bg-base-100 shadow-sm mt-4">
+				<div class="card-body p-4">
+					<h3 class="card-title text-base opacity-70 mb-2">Resources</h3>
+					<div class="dash-vertical-container">
+						{#await queryResources}
+							<DashTile title="Loading Resources..." loading={true} disabled />
+						{:then}
+							{@const table = 'resources'}
+							{@const category = { raw: 'resources', format: 'Resources' }}
+							<DashTile
+								title={'Resources'}
+								onclick={() => onclick(table, category)}
+							/>
+						{:catch error}
+							<DashTile
+								title="Error Getting Resources"
+								error={error.message}
+								disabled
+							/>
 						{/await}
 					</div>
 				</div>

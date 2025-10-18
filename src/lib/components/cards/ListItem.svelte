@@ -116,17 +116,7 @@
 			return;
 		}
 
-		if (table === 'actions') {
-			const actionItem = item as Action;
-			if (!actionItem.question_id) return;
-
-			const target = event.target as HTMLElement | null;
-			if (target && target.closest('[data-action-toggle="true"]')) {
-				return;
-			}
-
-			handleActionClick(actionItem);
-		}
+		// Actions are no longer clickable - handled by icon button instead
 	};
 
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
@@ -169,25 +159,18 @@
 
 <button
 	id="list-item-{item.id}"
-	class="list-item {table === 'questions' || (table === 'actions' && (item as Action).question_id)
-		? 'cursor-pointer'
-		: 'cursor-default'}"
+	class="list-item list-item-{table}"
 	onclick={handleListItemClick}
-	tabindex="0"
-	disabled={table === 'resources'}
+	tabindex="{table === 'questions' ? '0' : '-1'}"
 	transition:fade={{ duration: 300 }}
 >
 	<div
 		id="list-item-{item.id}-row"
-		class="flex w-full {table === 'questions'
-			? 'flex-row items-center justify-between'
-			: table === 'resources'
-				? 'flex-row items-center justify-center'
-				: 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
+		class="list-item-row-{table}"
 	>
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
-			<div class="flex flex-col">
+			<div class="flex flex-col flex-1 min-w-0">
 				<p class="action-question-preview text-left">
 					{item.question_preview || 'Question not found'}
 				</p>
@@ -195,16 +178,36 @@
 					{item.description || 'No description'}
 				</p>
 			</div>
-			<!-- Toggle with responsive margin -->
+			<!-- Action controls -->
 			<div
 				id="list-item-{item.id}-action"
-				class="mt-4 self-end md:mt-0 md:self-center"
-				data-action-toggle="true"
+				class="mt-4 flex items-center gap-2 self-end md:mt-0 md:self-center"
 			>
-				<ActionStatusToggle
-					status={localStatus}
-					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
-				/>
+				<!-- View question button -->
+				{#if (item as Action).question_id}
+					<Tooltip text="View related question" position="left">
+						<button
+							class="btn btn-ghost btn-sm"
+							onclick={(e) => {
+								e.stopPropagation();
+								handleActionClick(item as Action);
+							}}
+							aria-label="View related question"
+						>
+							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+							</svg>
+						</button>
+					</Tooltip>
+				{/if}
+				<!-- Status toggle -->
+				<div data-action-toggle="true">
+					<ActionStatusToggle
+						status={localStatus}
+						onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
+					/>
+				</div>
 			</div>
 		{:else}
 			<!-- Original layout for other table types -->
@@ -270,7 +273,7 @@
 
 			<div
 				id="list-item-{item.id}-title"
-				class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
+				class="{table === 'actions' ? 'list-item-content-actions' : 'list-item-content'} prose text-{textAlign}"
 			>
 				{#if table == 'questions' && item}
 					<p class="truncate">{item.preview}</p>
@@ -281,7 +284,7 @@
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-accent hover:text-accent-dark text-sm break-all underline"
+							class="resource-link"
 							onclick={(e) => e.stopPropagation()}
 						>
 							{item.url}

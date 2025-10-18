@@ -13,7 +13,7 @@
 	};
 </script>
 
-<label class="flex items-center gap-2">
+<label class="flex items-center gap-1">
 	<input
 		type="checkbox"
 		class="toggle border-accent-dark bg-accent checked:border-gray-500 checked:bg-gray-400 checked:text-gray-800"
