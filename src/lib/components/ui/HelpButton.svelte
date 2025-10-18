@@ -48,7 +48,7 @@
 		// Detail view - determine what type of detail
 		if (viewName === 'detail') {
 			const detailTable = app.detail.table;
-			if (detailTable === 'responses') {
+			if (detailTable === 'responses' || detailTable === 'questions') {
 				return 'responses';
 			}
 			if (detailTable === 'actions') {

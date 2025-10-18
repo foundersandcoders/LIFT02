@@ -46,7 +46,7 @@
 		}}
 	>
 		<div class="modal-box modal-box-custom">
-			<h3 class="text-lg font-bold">{title}</h3>
+			<h3 class="text-base-content text-lg font-bold">{title}</h3>
 			<div class="prose max-w-none overflow-y-auto py-4">
 				{@render children()}
 			</div>

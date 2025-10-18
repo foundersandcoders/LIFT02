@@ -53,7 +53,7 @@
 		}}
 	>
 		<div class="modal-box modal-box-help">
-			<h3 class="text-lg font-bold mb-4">{helpContent.title}</h3>
+			<h3 class="text-base-content text-lg font-bold mb-4">{helpContent.title}</h3>
 			
 			<div class="prose max-w-none space-y-6">
 				{#each helpContent.sections as section}

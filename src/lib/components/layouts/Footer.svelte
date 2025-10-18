@@ -4,6 +4,7 @@
 	import { getContext } from 'svelte';
 	import InfoModal from '../ui/InfoModal.svelte';
 	import FontSizeControl from '../ui/FontSizeControl.svelte';
+	import HelpButton from '../ui/HelpButton.svelte';
 	import { Icon, ClipboardDocumentList, ShieldCheck } from 'svelte-hero-icons';
 
 	let { devMode } = $props();
@@ -18,30 +19,28 @@
 
 </script>
 
-<footer class="footer flex items-center justify-between">
-	<!-- Left: Terms of Use -->
+<footer class="footer">
 	<button
 		class="btn btn-ghost btn-sm !flex-row !flex items-center"
 		onclick={() => (showTermsModal = true)}
 		aria-label="Terms of Use"
 	>
-		<Icon src={ClipboardDocumentList} class="h-5 w-5" />
-		<span class="footer-text">Terms of Use</span>
+		<Icon src={ClipboardDocumentList} class="h-7 w-7" />
+		<span class="footer-text">Terms</span>
 	</button>
 
-	<!-- Center: Privacy Policy -->
 	<button
 		class="btn btn-ghost btn-sm !flex-row !flex items-center"
 		onclick={() => (showPrivacyModal = true)}
 		aria-label="Privacy Policy"
 	>
-		<Icon src={ShieldCheck} class="h-5 w-5" />
-		<span class="footer-text">Privacy Policy</span>
+		<Icon src={ShieldCheck} class="h-7 w-7" />
+		<span class="footer-text">Privacy</span>
 	</button>
 
-	<!-- Right: Font Size Control -->
-	<FontSizeControl />
+	<HelpButton />
 
+	<FontSizeControl />
 </footer>
 
 {#if devMode}

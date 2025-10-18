@@ -181,33 +181,30 @@
 			<!-- Action controls -->
 			<div
 				id="list-item-{item.id}-action"
-				class="mt-4 flex items-center gap-2 self-end md:mt-0 md:self-center"
+				class="mt-4 flex w-full items-center justify-between gap-2 md:mt-0 md:w-auto"
 			>
 				<!-- View question button -->
 				{#if (item as Action).question_id}
-					<Tooltip text="View related question" position="left">
+					<Tooltip text="Go to question" position="top">
 						<button
-							class="btn btn-ghost btn-sm"
+							class="btn btn-ghost btn-sm p-0"
 							onclick={(e) => {
 								e.stopPropagation();
 								handleActionClick(item as Action);
 							}}
-							aria-label="View related question"
+							aria-label="Go to question"
 						>
 							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
 							</svg>
 						</button>
 					</Tooltip>
 				{/if}
 				<!-- Status toggle -->
-				<div data-action-toggle="true">
-					<ActionStatusToggle
-						status={localStatus}
-						onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
-					/>
-				</div>
+				<ActionStatusToggle
+					status={localStatus}
+					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
+				/>
 			</div>
 		{:else}
 			<!-- Original layout for other table types -->

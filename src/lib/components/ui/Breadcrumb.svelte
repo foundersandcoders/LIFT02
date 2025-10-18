@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import type { AppState, ViewName, List, ItemCategory } from '$lib/types/appState';
 	import { getQuestionById } from '$lib/services/database/questions';
 	import { makePretty } from '$lib/utils/textTools';
@@ -13,6 +13,54 @@
 	// Get current question title when in detail view
 	let questionTitle = $state<string | null>(null);
 	let questionCategory = $state<ItemCategory | null>(null);
+
+	// Track which breadcrumb items are on a wrapped line
+	let wrappedItems = $state<Set<number>>(new Set());
+	let breadcrumbList: HTMLElement | null = null;
+
+	// Detect wrapped breadcrumb items
+	function checkWrapping() {
+		if (!breadcrumbList) return;
+
+		const listItems = breadcrumbList.querySelectorAll('.breadcrumb-item');
+		if (listItems.length === 0) return;
+
+		const newWrappedItems = new Set<number>();
+		let previousTop: number | null = null;
+
+		listItems.forEach((item, index) => {
+			const rect = item.getBoundingClientRect();
+			const currentTop = rect.top;
+
+			// If this item's top is different from previous, it's on a new line
+			if (previousTop !== null && currentTop > previousTop + 5) {
+				// Item is wrapped to a new line
+				newWrappedItems.add(index);
+			}
+
+			previousTop = currentTop;
+		});
+
+		wrappedItems = newWrappedItems;
+	}
+
+	// Check wrapping on mount and when items change
+	onMount(() => {
+		checkWrapping();
+		// Also check on resize
+		const resizeObserver = new ResizeObserver(() => checkWrapping());
+		if (breadcrumbList) {
+			resizeObserver.observe(breadcrumbList);
+		}
+		return () => resizeObserver.disconnect();
+	});
+
+	// Re-check when items change
+	$effect(() => {
+		// Trigger re-check when items array changes
+		items.length;
+		setTimeout(checkWrapping, 0);
+	});
 
 	$effect(() => {
 		if (app.view.name === 'detail' && app.detail.table === 'questions' && app.detail.item.id) {
@@ -161,9 +209,12 @@
 
 {#if showBreadcrumbs}
 	<nav class="breadcrumb" aria-label="Breadcrumb navigation" style="min-width: 0;">
-		<ol class="breadcrumb-list">
+		<ol class="breadcrumb-list" bind:this={breadcrumbList}>
 			{#each items as item, index (item.label)}
 				<li class="breadcrumb-item">
+					{#if wrappedItems.has(index)}
+						<span class="breadcrumb-continuation" aria-hidden="true">↳</span>
+					{/if}
 					{#if item.clickable && item.action}
 						<button
 							class="breadcrumb-link"

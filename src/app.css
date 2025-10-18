@@ -97,8 +97,19 @@ h3 {
 	@apply flex flex-col space-y-4;
 }
 
+/* Reduce spacing on mobile */
+@media (max-width: 480px) {
+	.dash-vertical-container {
+		@apply space-y-2;
+	}
+
+	.card-title {
+		@apply mb-0;
+	}
+}
+
 .footer {
-	@apply bg-primary text-primary-content h-16 px-6;
+	@apply bg-primary text-primary-content flex h-16 items-center justify-between px-6;
 	container-type: inline-size;
 }
 
@@ -183,23 +194,23 @@ h3 {
 
 .view-header {
 	@apply bg-accent max-w-full px-5;
-	min-height: 3.5rem;
+	min-height: 44px;
 	display: grid;
 	grid-template-columns: 1fr auto;
 	align-items: start;
 	gap: 1rem;
 	padding-top: 1rem;
-	padding-bottom: 1rem;
+	padding-bottom: 0.75rem;
 }
 
 /* Make view-header more compact on mobile */
 @media (max-width: 480px) {
 	.view-header {
 		@apply px-3;
-		min-height: 2.5rem;
+		min-height: 44px;
+		gap: 0.5rem;
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
-		gap: 0.5rem;
 	}
 }
 
@@ -210,7 +221,7 @@ h3 {
 
 .view-content {
 	/* LIST */
-	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-3xl flex-1 flex-col overflow-y-auto px-2;
+	@apply list mx-auto flex w-full max-w-3xl flex-1 flex-col overflow-y-auto px-2 py-2;
 }
 
 .card-container {
@@ -285,7 +296,13 @@ h3 {
 }
 
 .btn-nav {
-	@apply btn btn-secondary text-secondary-content;
+	@apply btn btn-sm btn-ghost text-accent-content border-2 border-white text-base;
+	height: 1.75rem;
+	min-height: 1.75rem;
+}
+
+.btn-nav:hover {
+	@apply bg-white/20;
 }
 
 .btn-nav:disabled {
@@ -385,17 +402,28 @@ h3 {
 }
 
 .breadcrumb-list {
-	@apply m-0 flex list-none items-center p-0;
+	@apply m-0 flex list-none items-start p-0;
 	min-width: 0;
 	flex: 1;
 	flex-wrap: wrap;
-	gap: 0;
+	gap: 0 0.5rem;
+	align-content: flex-start;
+	row-gap: 0.25rem;
 }
 
 .breadcrumb-item {
-	@apply flex items-center;
+	@apply flex items-start;
 	flex-shrink: 0;
 	/* Allow wrapping but keep items together with their separators */
+}
+
+/* Continuation indicator for wrapped breadcrumb lines */
+.breadcrumb-continuation {
+	@apply text-accent-content/50;
+	margin-right: 0.25rem;
+	font-size: 1rem;
+	line-height: 1;
+	user-select: none;
 }
 
 .breadcrumb-item:last-child {
