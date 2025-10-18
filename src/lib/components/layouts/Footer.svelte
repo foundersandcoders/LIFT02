@@ -18,7 +18,7 @@
 
 </script>
 
-<footer class="footer flex items-center justify-between px-6">
+<footer class="footer flex items-center justify-between">
 	<!-- Left: Terms of Use -->
 	<button
 		class="btn btn-ghost btn-sm !flex-row !flex items-center"

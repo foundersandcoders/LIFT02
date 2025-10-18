@@ -9,6 +9,9 @@
 	const setProfile = getContext<(newProfile: Profile) => void>('setProfile');
 	const app = $derived(getApp());
 
+	// Check if user is loaded
+	const isUserLoaded = $derived(!!app.profile.id);
+
 	// Font size state - read from appState preferences or default to medium
 	let fontSize = $state<'extra-small' | 'small' | 'medium' | 'large' | 'extra-large'>('medium');
 
@@ -88,10 +91,11 @@
 </script>
 
 <div class="relative flex items-center">
-	<Tooltip text="Font size settings" position="top_left">
+	<Tooltip text={isUserLoaded ? "Font size settings" : "Font size settings (disabled until user is loaded)"} position="top_left">
 		<button
 			onclick={toggleModal}
-			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors"
+			disabled={!isUserLoaded}
+			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 			type="button"
 			aria-label="Font size settings"
 		>

@@ -1,12 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	let {
-		show,
-		title,
-		onclose,
-		children
-	} = $props<{
+	let { show, title, onclose, children } = $props<{
 		show: boolean;
 		title: string;
 		onclose: () => void;
@@ -50,13 +45,13 @@
 			}
 		}}
 	>
-		<div class="modal-box">
+		<div class="modal-box modal-box-custom">
 			<h3 class="text-lg font-bold">{title}</h3>
-			<div class="prose py-4 max-w-none">
+			<div class="prose max-w-none overflow-y-auto py-4">
 				{@render children()}
 			</div>
 			<div class="modal-action">
-				<button class="btn" onclick={onclose} data-autofocus>Close</button>
+				<button class="btn btn-primary" onclick={onclose} data-autofocus>Close</button>
 			</div>
 		</div>
 	</dialog>

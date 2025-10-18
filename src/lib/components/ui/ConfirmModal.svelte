@@ -103,7 +103,7 @@
 				<div class="alert alert-error">{errorMessage}</div>
 			{/if}
 			<div class="modal-action">
-				<button class="btn" onclick={onCancel} disabled={isLoading}>Cancel</button>
+				<button class="btn btn-primary" onclick={onCancel} disabled={isLoading}>Cancel</button>
 				<button class="btn btn-primary" onclick={handleConfirm} disabled={isLoading} data-autofocus>
 					{#if isLoading}
 						<span class="loading loading-spinner"></span>

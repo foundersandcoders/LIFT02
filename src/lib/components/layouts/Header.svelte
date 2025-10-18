@@ -23,19 +23,90 @@
 	const onLogoClick = () => {
 		setViewName('dash');
 	};
+
+	// Long press for version display
+	let showVersion = $state(false);
+	let longPressTimer: ReturnType<typeof setTimeout> | null = null;
+
+	const onLogoTouchStart = (e: TouchEvent) => {
+		longPressTimer = setTimeout(() => {
+			showVersion = true;
+		}, 500);
+	};
+
+	const onLogoTouchEnd = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+		// Hide version after 2 seconds
+		if (showVersion) {
+			setTimeout(() => {
+				showVersion = false;
+			}, 2000);
+		}
+	};
+
+	const onLogoTouchCancel = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+	};
+
+	// For desktop: use mousedown/mouseup
+	const onLogoMouseDown = () => {
+		longPressTimer = setTimeout(() => {
+			showVersion = true;
+		}, 500);
+	};
+
+	const onLogoMouseUp = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+		// Hide version after 2 seconds
+		if (showVersion) {
+			setTimeout(() => {
+				showVersion = false;
+			}, 2000);
+		}
+	};
+
+	const onLogoMouseLeave = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+	};
 </script>
 
 <header class="header">
 	<div class="header-left">
-		<button
-			id="brand-logo"
-			class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
-			onclick={onLogoClick}
-			type="button"
-			aria-label="Go to dashboard"
-		>
-			<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
-		</button>
+		<div class="relative">
+			<button
+				id="brand-logo"
+				class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+				onclick={onLogoClick}
+				ontouchstart={onLogoTouchStart}
+				ontouchend={onLogoTouchEnd}
+				ontouchcancel={onLogoTouchCancel}
+				onmousedown={onLogoMouseDown}
+				onmouseup={onLogoMouseUp}
+				onmouseleave={onLogoMouseLeave}
+				type="button"
+				aria-label="Go to dashboard"
+			>
+				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-16 md:h-10 md:w-20" />
+			</button>
+
+			{#if showVersion}
+				<div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white text-gray-800 px-3 py-1 rounded-md shadow-lg text-sm font-medium whitespace-nowrap z-50">
+					v{version}
+				</div>
+			{/if}
+		</div>
 
 		<h1>Workwise</h1>
 	</div>

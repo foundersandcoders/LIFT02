@@ -52,7 +52,7 @@
 			}
 		}}
 	>
-		<div class="modal-box max-w-4xl">
+		<div class="modal-box modal-box-help">
 			<h3 class="text-lg font-bold mb-4">{helpContent.title}</h3>
 			
 			<div class="prose max-w-none space-y-6">
@@ -105,7 +105,7 @@
 			</div>
 			
 			<div class="modal-action">
-				<button class="btn" onclick={onclose} data-autofocus>Close</button>
+				<button class="btn btn-primary" onclick={onclose} data-autofocus>Close</button>
 			</div>
 		</div>
 	</dialog>

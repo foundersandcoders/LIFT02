@@ -13,10 +13,7 @@
 <div id="{title}-header" class="view-header">
 	<Breadcrumb />
 
-	<div class="flex items-start gap-3 pt-1">
-		{#if onclick}
-			<button {onclick} class="btn-nav border-primary"> Back </button>
-		{/if}
+	<div class="flex items-start gap-2 pt-1 md:gap-3">
 		<HelpButton />
 	</div>
 </div>
