@@ -11,6 +11,7 @@
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 	import { fade } from 'svelte/transition';
 	import Tooltip from '../ui/Tooltip.svelte';
+	import ProgressIndicator from '../ui/ProgressIndicator.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -214,55 +215,28 @@
 					{#if app.profile.id}
 						{#await questionResponse}
 							<Tooltip text="Question already answered or skipped" position="right">
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default flex items-center justify-center"
-								>
-									<span class="text-s text-white">✓</span>
-								</div>
+								<ProgressIndicator completed={1} total={1} size="lg" />
 							</Tooltip>
 						{:then response}
 							{@const hasValidStatus =
 								response && response.status && ['answered', 'skipped'].includes(response.status)}
 							{#if hasValidStatus}
-								<!-- Grey -->
 								<Tooltip text="Question already answered or skipped" position="right">
-									<div
-										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-default flex items-center justify-center"
-									>
-										<span class="text-s text-white">✓</span>
-									</div>
+									<ProgressIndicator completed={1} total={1} size="lg" />
 								</Tooltip>
 							{:else}
-								<!-- Magenta -->
 								<Tooltip text="Question requires attention from user" position="right">
-									<div
-										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-active flex items-center justify-center"
-									>
-										<span class="text-s text-white">?</span>
-									</div>
+									<ProgressIndicator completed={0} total={1} size="lg" />
 								</Tooltip>
 							{/if}
 						{:catch}
 							<Tooltip text="Question already answered or skipped" position="right">
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default flex items-center justify-center"
-								>
-									<span class="text-s text-white">✓</span>
-								</div>
+								<ProgressIndicator completed={1} total={1} size="lg" />
 							</Tooltip>
 						{/await}
 					{:else}
 						<Tooltip text="Question already answered or skipped" position="right">
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default flex items-center justify-center"
-							>
-								<span class="text-s text-white">✓</span>
-							</div>
+							<ProgressIndicator completed={1} total={1} size="lg" />
 						</Tooltip>
 					{/if}
 				</div>

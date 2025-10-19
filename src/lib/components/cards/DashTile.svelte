@@ -1,17 +1,6 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import { getLatestActions } from '$lib/services/database/actions';
-	import { getQuestions } from '$lib/services/database/questions';
-	import { getResources } from '$lib/services/database/resources';
-	import type { Question } from '$lib/types/tableMain';	
-	import { makePretty } from '$lib/utils/textTools';
-	
-	import type { AppState, ItemCategory, List, TableName, ViewName } from '$lib/types/appState';
-
-	const getApp = getContext<() => AppState>('getApp');
-	const app = $derived(getApp());
-	const setList = getContext<(list: List) => void>('setList');
-	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	import Tooltip from '../ui/Tooltip.svelte';
+	import ProgressIndicator from '../ui/ProgressIndicator.svelte';
 
 	interface Props {
 		title: string | null;
@@ -20,6 +9,10 @@
 		disabled?: boolean;
 		onclick?: () => void;
 		variant?: 'square' | 'default';
+		showStatus?: boolean;
+		completed?: number;
+		total?: number;
+		completionText?: string;
 	}
 
 	let {
@@ -28,8 +21,14 @@
 		error = null,
 		disabled = false,
 		onclick,
-		variant = 'default'
+		variant = 'default',
+		showStatus = false,
+		completed = 0,
+		total = 0,
+		completionText = ''
 	}: Props = $props();
+
+	const isComplete = $derived(completed === total && total > 0);
 </script>
 
 <button class={variant === 'square' ? 'dash-tile-square' : 'dash-tile-rect'} {onclick} {disabled}>
@@ -38,6 +37,16 @@
 	{:else if error}
 		<p class="text-center">Error: {error}</p>
 	{:else}
-		<p class="text-center break-words hyphens-auto">{title}</p>
+		<div class="flex w-full items-center justify-between gap-2">
+			{#if showStatus}
+				<Tooltip
+					text={isComplete ? 'All questions answered' : `${completed}/${total} questions answered`}
+					position="right"
+				>
+					<ProgressIndicator {completed} {total} size="lg" />
+				</Tooltip>
+			{/if}
+			<p class="text-center break-words hyphens-auto flex-1">{title}</p>
+		</div>
 	{/if}
 </button>

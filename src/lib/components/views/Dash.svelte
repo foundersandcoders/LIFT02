@@ -7,6 +7,7 @@
 	import { getLatestActions } from '$lib/services/database/actions';
 	import { getQuestions } from '$lib/services/database/questions';
 	import { getResources } from '$lib/services/database/resources';
+	import { getUserResponses } from '$lib/services/database/responses';
 	import type { Question } from '$lib/types/tableMain';
 	import type { AppState, ItemCategory, List, TableName, ViewName, Profile } from '$lib/types/appState';
 	import { makePretty } from '$lib/utils/textTools';
@@ -22,6 +23,7 @@
 	let queryActions = $derived(app.profile.id ? getLatestActions(app.profile.id, false) : null);
 	let queryQuestions = $state(getQuestions());
 	let queryResources = $state(getResources());
+	let queryResponses = $derived(app.profile.id ? getUserResponses(app.profile.id) : null);
 
 	function extractCategories(questions: Question[]): ItemCategory[] {
 		// TODO: Move extractCategories() to a utils file
@@ -149,15 +151,27 @@
 				<div class="card-body p-4">
 					<h3 class="card-title text-base opacity-70 mb-0">Categories</h3>
 					<div class="dash-vertical-container">
-						{#await queryQuestions}
+						{#await Promise.all([queryQuestions, queryResponses])}
 							<div class="list-item">
 								<p class="text-center">Loading Questions...</p>
 							</div>
-						{:then result}
-							{#if result.data}
-								{#each extractCategories(result.data) as category}
+						{:then [questionsResult, responsesResult]}
+							{#if questionsResult.data}
+								{#each extractCategories(questionsResult.data) as category}
 									{@const table = 'questions'}
-									<DashTile title={category.format} onclick={() => onclick(table, category)} />
+									{@const categoryQuestions = questionsResult.data.filter(q => q.category === category.raw)}
+									{@const total = categoryQuestions.length}
+									{@const answeredQuestionIds = new Set(responsesResult?.data?.map(r => r.question_id) || [])}
+									{@const completed = categoryQuestions.filter(q => answeredQuestionIds.has(q.id)).length}
+									{@const completionText = `${completed}/${total}`}
+									<DashTile
+										title={category.format}
+										onclick={() => onclick(table, category)}
+										showStatus={true}
+										{completed}
+										{total}
+										{completionText}
+									/>
 								{/each}
 							{:else}
 								<div class="list-item">
