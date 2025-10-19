@@ -1,11 +1,7 @@
 <script lang="ts">
 	import type { HelpContent } from '$lib/types/help';
 
-	let {
-		show,
-		helpContent,
-		onclose
-	} = $props<{
+	let { show, helpContent, onclose } = $props<{
 		show: boolean;
 		helpContent: HelpContent | null;
 		onclose: () => void;
@@ -52,49 +48,48 @@
 			}
 		}}
 	>
-		<div class="modal-box modal-box-help">
-			<h3 class="text-base-content text-lg font-bold mb-4">{helpContent.title}</h3>
-			
-			<div class="prose max-w-none space-y-6">
+		<div class="modal-box modal-box-help flex flex-col">
+			<h3 class="text-base-content mb-4 flex-shrink-0 text-lg font-bold">{helpContent.title}</h3>
+
+			<div class="prose max-w-none flex-grow space-y-6 overflow-y-scroll">
 				{#each helpContent.sections as section}
 					<div class="help-section">
 						{#if section.heading}
-							<h4 class="text-base font-semibold mb-2">{section.heading}</h4>
+							<h4 class="mb-2 text-base font-semibold">{section.heading}</h4>
 						{/if}
-						
+
 						<p class="mb-4">{section.text}</p>
-						
+
+						<!-- Screenshots commented out - doesn't make sense to show screenshot of the current page
 						{#if section.screenshot}
 							<div class="screenshot-container mb-4">
-								<div class="screenshot-placeholder bg-base-200 border-2 border-dashed border-base-300 rounded-lg p-8 text-center max-w-2xl">
+								<img
+									src={section.screenshot.src}
+									alt={section.screenshot.alt}
+									class="rounded-lg border border-base-300 shadow-md w-full max-w-md mx-auto"
+									onerror={(e) => {
+										e.currentTarget.style.display = 'none';
+										const placeholder = e.currentTarget.nextElementSibling;
+										if (placeholder) placeholder.style.display = 'block';
+									}}
+								/>
+								<div class="screenshot-placeholder bg-base-200 border-2 border-dashed border-base-300 rounded-lg p-8 text-center max-w-md mx-auto" style="display: none;">
 									<p class="text-base-content/50 text-sm">
 										📷 Screenshot: {section.screenshot.caption || section.screenshot.alt}
 									</p>
 									<p class="text-xs text-base-content/40 mt-2">
-										(Screenshots will be added in a future update)
+										(Screenshot not available)
 									</p>
 								</div>
-								<!-- 
-								<img
-									src={section.screenshot.src}
-									alt={section.screenshot.alt}
-									class="rounded-lg border border-base-300 shadow-md w-full max-w-2xl"
-									onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-								/>
-								<div class="screenshot-placeholder bg-base-200 border-2 border-dashed border-base-300 rounded-lg p-8 text-center max-w-2xl" style="display: none;">
-									<p class="text-base-content/50 text-sm">
-										📷 Screenshot: {section.screenshot.caption || section.screenshot.alt}
-									</p>
-								</div>
-								-->
 								{#if section.screenshot.caption}
-									<p class="text-sm text-base-content/70 mt-2 italic">{section.screenshot.caption}</p>
+									<p class="text-sm text-base-content/70 mt-2 italic text-center">{section.screenshot.caption}</p>
 								{/if}
 							</div>
 						{/if}
-						
+						-->
+
 						{#if section.callouts}
-							<ul class="list-disc list-inside space-y-1 bg-base-200 p-4 rounded-lg">
+							<ul class="bg-base-200 list-inside list-disc space-y-1 rounded-lg p-4">
 								{#each section.callouts as callout}
 									<li class="text-sm">{callout}</li>
 								{/each}
@@ -103,11 +98,12 @@
 					</div>
 				{/each}
 			</div>
-			
-			<div class="modal-action">
+
+			<div
+				class="border-base-300 mt-4 flex flex-shrink-0 items-center justify-end border-t pt-4"
+			>
 				<button class="btn btn-primary" onclick={onclose} data-autofocus>Close</button>
 			</div>
 		</div>
 	</dialog>
 {/if}
-

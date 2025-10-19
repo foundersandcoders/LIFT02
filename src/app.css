@@ -56,6 +56,23 @@ h3 {
 	@apply mb-2 text-center text-lg;
 }
 
+/* Override prose headings in modals to be visible */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+	color: var(--color-base-content);
+}
+
+.prose p,
+.prose li,
+.prose ul,
+.prose ol {
+	color: var(--color-base-content);
+}
+
 .dash-grid-1 {
 	@apply grid grid-cols-1 justify-items-center gap-4 p-4;
 }
@@ -94,15 +111,16 @@ h3 {
 }
 
 .dash-vertical-container {
-	@apply flex flex-col space-y-4;
+	@apply flex flex-col;
 }
 
-/* Reduce spacing on mobile */
-@media (max-width: 480px) {
-	.dash-vertical-container {
-		@apply space-y-2;
-	}
+/* Remove gap from card-body */
+.card-body {
+	gap: 0;
+}
 
+/* Mobile card title spacing */
+@media (max-width: 480px) {
 	.card-title {
 		@apply mb-0;
 	}
@@ -624,11 +642,13 @@ h3 {
 
 /* Modal styles */
 .modal-box-custom {
-	@apply m-4 overflow-y-auto;
+	@apply m-4 mx-auto;
 	max-height: calc(100vh - 2rem);
+	overflow-y: scroll;
 }
 
 .modal-box-help {
-	@apply m-4 max-w-4xl overflow-y-auto;
+	@apply m-4 max-w-4xl mx-auto;
 	max-height: calc(100vh - 2rem);
+	height: calc(100vh - 2rem);
 }

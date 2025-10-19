@@ -3,9 +3,7 @@
 	import type { AppState, Detail, List, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
-	import {
-		updateActionStatus as updateActionStatusDB
-	} from '$lib/services/database/actions';
+	import { updateActionStatus as updateActionStatusDB } from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import { getQuestionById } from '$lib/services/database/questions';
@@ -161,16 +159,13 @@
 	id="list-item-{item.id}"
 	class="list-item list-item-{table}"
 	onclick={handleListItemClick}
-	tabindex="{table === 'questions' ? '0' : '-1'}"
+	tabindex={table === 'questions' ? 0 : -1}
 	transition:fade={{ duration: 300 }}
 >
-	<div
-		id="list-item-{item.id}-row"
-		class="list-item-row-{table}"
-	>
+	<div id="list-item-{item.id}-row" class="list-item-row-{table}">
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
-			<div class="flex flex-col flex-1 min-w-0">
+			<div class="flex min-w-0 flex-1 flex-col">
 				<p class="action-question-preview text-left">
 					{item.question_preview || 'Question not found'}
 				</p>
@@ -185,17 +180,22 @@
 			>
 				<!-- View question button -->
 				{#if (item as Action).question_id}
-					<Tooltip text="Go to question" position="top">
+					<Tooltip text="Go to related question" position="top">
 						<button
 							class="btn btn-ghost btn-sm p-0"
 							onclick={(e) => {
 								e.stopPropagation();
 								handleActionClick(item as Action);
 							}}
-							aria-label="Go to question"
+							aria-label="Go to related question"
 						>
 							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+								/>
 							</svg>
 						</button>
 					</Tooltip>
@@ -270,7 +270,9 @@
 
 			<div
 				id="list-item-{item.id}-title"
-				class="{table === 'actions' ? 'list-item-content-actions' : 'list-item-content'} prose text-{textAlign}"
+				class="{table === 'actions'
+					? 'list-item-content-actions'
+					: 'list-item-content'} prose text-{textAlign}"
 			>
 				{#if table == 'questions' && item}
 					<p class="truncate">{item.preview}</p>
