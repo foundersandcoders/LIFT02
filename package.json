@@ -1,7 +1,7 @@
 {
 	"name": "workwise",
 	"private": true,
-	"version": "0.6.016",
+	"version": "0.6.017",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
