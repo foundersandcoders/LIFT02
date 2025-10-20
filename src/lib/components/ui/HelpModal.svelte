@@ -48,10 +48,10 @@
 			}
 		}}
 	>
-		<div class="modal-box modal-box-help flex flex-col">
+		<div class="modal-box modal-box-help flex max-h-full flex-col">
 			<h3 class="text-base-content mb-4 flex-shrink-0 text-lg font-bold">{helpContent.title}</h3>
 
-			<div class="prose max-w-none flex-grow space-y-6 overflow-y-scroll">
+			<div class="prose max-w-none min-h-0 flex-1 space-y-6 overflow-y-auto">
 				{#each helpContent.sections as section}
 					<div class="help-section">
 						{#if section.heading}

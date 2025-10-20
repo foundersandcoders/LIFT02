@@ -18,6 +18,11 @@
 	};
 	const onEmailClick = () => {
 		setViewName('email');
+		// Move focus to back button after navigation
+		setTimeout(() => {
+			const backButton = document.querySelector<HTMLButtonElement>('[aria-label*="Back"]');
+			backButton?.focus();
+		}, 0);
 	};
 
 	const onLogoClick = () => {
@@ -123,12 +128,18 @@
 					<button
 						id="email-button"
 						onclick={onEmailClick}
-						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50"
+						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						type="button"
 						aria-label="Send Email to Line Manager"
 						disabled={isInEmailView}
 					>
-						<Icon src={Envelope} solid class="h-5 w-5 text-white" />
+						<Icon
+							src={Envelope}
+							solid
+							class="h-5 w-5 transition-colors {isInEmailView
+								? 'text-white/40'
+								: 'text-white'}"
+						/>
 					</button>
 				</Tooltip>
 			{/if}

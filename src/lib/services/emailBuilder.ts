@@ -1,7 +1,7 @@
 import { getActionsByResponseIds } from '$lib/services/database/actions';
+import { getProfile } from '$lib/services/database/profiles';
 import { getQuestionById } from '$lib/services/database/questions';
 import { getUserResponses } from '$lib/services/database/responses';
-import { getProfile } from '$lib/services/database/profiles';
 import { supabase } from '$lib/services/supabaseClient';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
@@ -132,8 +132,8 @@ export async function generateEmailData(
 	const emailData: EmailData = {
 		subject: '',
 		introduction: managerInfo?.name
-			? `Dear ${managerInfo.name},\n\nHere are my workplace needs and accommodations:`
-			: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
+			? `Dear ${managerInfo.name},\nHere are my workplace needs and accommodations:`
+			: 'Dear Line Manager,\nHere are my workplace needs and accommodations:',
 		categories,
 		closing: 'Best regards,',
 		signature: userName || '[Your name]',

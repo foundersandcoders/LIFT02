@@ -644,11 +644,20 @@ h3 {
 .modal-box-custom {
 	@apply m-4 mx-auto;
 	max-height: calc(100vh - 2rem);
-	overflow-y: scroll;
+	height: auto;
 }
 
 .modal-box-help {
 	@apply m-4 max-w-4xl mx-auto;
 	max-height: calc(100vh - 2rem);
-	height: calc(100vh - 2rem);
+	height: auto;
+}
+
+/* Ensure modals fit on mobile */
+@media (max-height: 600px) {
+	.modal-box-custom,
+	.modal-box-help {
+		@apply m-2;
+		max-height: calc(100vh - 1rem);
+	}
 }
