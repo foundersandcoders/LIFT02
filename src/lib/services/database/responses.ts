@@ -196,27 +196,47 @@ export async function updateResponse(
 
 /**
  * Create or update a response (upsert pattern)
+ * Uses PostgreSQL's ON CONFLICT to handle the unique constraint on (user_id, question_id)
  */
 export async function upsertResponse(
 	userId: string,
 	questionId: string,
 	data: Omit<ResponseInsert, 'user_id' | 'question_id'>
 ): Result<Response> {
-	// Try to update first
-	const updateResult = await updateResponse(userId, questionId, data);
+	const upsertData = {
+		...data,
+		user_id: userId,
+		question_id: questionId
+	};
 
-	if (updateResult.data) {
-		// Update succeeded
-		return updateResult;
+	// Use Supabase's upsert with onConflict to handle unique constraint
+	const { data: response, error } = await supabase
+		.from('responses')
+		.upsert(upsertData, {
+			onConflict: 'user_id,question_id'
+		})
+		.select()
+		.single();
+
+	if (error) {
+		return { data: null, error };
 	}
 
-	// Update failed, try to create
-	const createResult = await createResponse(userId, {
-		...data,
-		question_id: questionId
-	});
+	// Convert database type to tableMain type
+	const convertedData = response
+		? {
+				id: response.id,
+				user_id: response.user_id || '',
+				question_id: response.question_id || '',
+				response_text: response.response_text || undefined,
+				status: response.status as 'answered' | 'skipped',
+				visibility: response.visibility as 'public' | 'private',
+				created_at: response.created_at || undefined,
+				updated_at: response.updated_at || undefined
+			}
+		: null;
 
-	return createResult;
+	return { data: convertedData, error: null };
 }
 
 /**

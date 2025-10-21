@@ -38,10 +38,13 @@ echo "📝 Committing version change..."
 git add "package.json" "src/lib/version.ts"
 git commit -m "chore: bump version to $NEW_VERSION" || echo "⚠️  No changes to commit"
 
-echo "🏗️  Building and deploying to production..."
+echo "🏗️  Building and deploying to PREVIEW (not production)..."
 
-# Deploy to Vercel
-npx vercel --prod
+# Deploy to Vercel PREVIEW (not production)
+# IMPORTANT: We deploy to preview only. Production is manually controlled.
+npx vercel
 
 echo "🎉 Deployment completed! New version: $NEW_VERSION"
-echo "🔗 Check your deployment at: https://lift02.vercel.app"
+echo "⚠️  This was deployed as a PREVIEW deployment (not production)"
+echo "🔗 Check the deployment URL from the vercel output above"
+echo "📌 To deploy to production, use: npx vercel --prod (manual only!)"
