@@ -65,7 +65,9 @@
       ],
       "job_title": "Software Developer",
       "is_line_manager": false,
-      "line_manager": "440e8400-e29b-41d4-a716-446655440001"
+      "line_manager": "440e8400-e29b-41d4-a716-446655440001",
+      "line_manager_name": "Sarah Wilson",
+      "line_manager_email": "sarah.wilson@techcorp.com"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440002",
@@ -78,7 +80,9 @@
       ],
       "job_title": "UX Designer",
       "is_line_manager": false,
-      "line_manager": "440e8400-e29b-41d4-a716-446655440002"
+      "line_manager": "440e8400-e29b-41d4-a716-446655440002",
+      "line_manager_name": "Mike Johnson",
+      "line_manager_email": "mike.johnson@creative.com"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440003",
@@ -91,7 +95,9 @@
       ],
       "job_title": "Data Analyst",
       "is_line_manager": false,
-      "line_manager": "440e8400-e29b-41d4-a716-446655440003"
+      "line_manager": "440e8400-e29b-41d4-a716-446655440003",
+      "line_manager_name": "Lisa Brown",
+      "line_manager_email": "lisa.brown@dataflow.com"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440004",
@@ -104,7 +110,9 @@
       ],
       "job_title": "Product Manager",
       "is_line_manager": false,
-      "line_manager": "440e8400-e29b-41d4-a716-446655440004"
+      "line_manager": "440e8400-e29b-41d4-a716-446655440004",
+      "line_manager_name": "David Kim",
+      "line_manager_email": "david.kim@innovatecorp.com"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440005",
@@ -117,7 +125,9 @@
       ],
       "job_title": "Marketing Specialist",
       "is_line_manager": false,
-      "line_manager": "440e8400-e29b-41d4-a716-446655440005"
+      "line_manager": "440e8400-e29b-41d4-a716-446655440005",
+      "line_manager_name": "Emma Rodriguez",
+      "line_manager_email": "emma.rodriguez@brandworks.com"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440010",
@@ -130,7 +140,9 @@
       ],
       "job_title": "Engineering Manager",
       "is_line_manager": true,
-      "line_manager": null
+      "line_manager": null,
+      "line_manager_name": null,
+      "line_manager_email": null
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440011",
@@ -143,7 +155,9 @@
       ],
       "job_title": "Design Director",
       "is_line_manager": true,
-      "line_manager": null
+      "line_manager": null,
+      "line_manager_name": null,
+      "line_manager_email": null
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440012",
@@ -156,7 +170,9 @@
       ],
       "job_title": "Analytics Lead",
       "is_line_manager": true,
-      "line_manager": null
+      "line_manager": null,
+      "line_manager_name": null,
+      "line_manager_email": null
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440013",
@@ -169,7 +185,9 @@
       ],
       "job_title": "Product Director",
       "is_line_manager": true,
-      "line_manager": null
+      "line_manager": null,
+      "line_manager_name": null,
+      "line_manager_email": null
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440014",
@@ -182,7 +200,9 @@
       ],
       "job_title": "Marketing Director",
       "is_line_manager": true,
-      "line_manager": null
+      "line_manager": null,
+      "line_manager_name": null,
+      "line_manager_email": null
     }
   ],
   "responses": [
