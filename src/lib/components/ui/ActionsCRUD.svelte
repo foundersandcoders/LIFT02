@@ -9,6 +9,7 @@
 	import type { Action } from '$lib/types/tableMain';
 	import type { AppState } from '$lib/types/appState';
 	import ConfirmModal from './ConfirmModal.svelte';
+	import Tooltip from './Tooltip.svelte';
 
 	interface Props {
 		responseId: string | null;
@@ -320,14 +321,15 @@
 			</div>
 		</div>
 	{:else}
-		<button
-			onclick={() => (showNewActionForm = true)}
-			class="btn-submit btn-sm"
-			disabled={!responseId}
-			title={!responseId ? "Save your response first to add actions" : "Add a new action"}
-		>
-			Add Action
-		</button>
+		<Tooltip text={!responseId ? "Save your response first to add actions" : "Add a new action"} position="top_right">
+			<button
+				onclick={() => (showNewActionForm = true)}
+				class="btn-submit btn-sm"
+				disabled={!responseId}
+			>
+				Add Action
+			</button>
+		</Tooltip>
 		{#if !responseId}
 			<p class="text-sm text-base-content/70 mt-2">
 				💡 Save your response first to add actions

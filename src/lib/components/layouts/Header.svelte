@@ -17,9 +17,14 @@
 	// Check if user has any answered questions
 	let hasAnsweredQuestions = $state(false);
 
+	// Re-check responses whenever view changes or profile loads
 	$effect(() => {
-		if (app.profile.id) {
-			getUserResponses(app.profile.id).then((result) => {
+		// Track view name and profile id to trigger re-check
+		const viewName = app.view.name;
+		const profileId = app.profile.id;
+
+		if (profileId) {
+			getUserResponses(profileId).then((result) => {
 				if (result.data) {
 					hasAnsweredQuestions = result.data.some(r => r.status === 'answered');
 				}

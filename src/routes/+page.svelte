@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { supabase } from '$lib/services/supabaseClient';
+	import { Icon, Envelope } from 'svelte-hero-icons';
 
 	let email = $state('');
 	let loading = $state(false);
@@ -34,13 +35,15 @@
 	}
 </script>
 
-<div class="flex min-h-screen items-center justify-center bg-base-200 p-4">
+<div class="flex min-h-screen items-start justify-center bg-base-200 p-4 pt-20">
 	<div class="card w-full max-w-md bg-base-100 shadow-xl">
 		<div class="card-body">
 			<h2 class="card-title text-2xl font-bold">LIFT Digital Workplace Passport</h2>
 
 			{#if !sent}
-				<p class="text-sm opacity-70">Sign in with your email to access your workplace passport</p>
+				<p class="text-sm opacity-70">
+					Enter your email to sign in or create a new account. We'll send you a magic link.
+				</p>
 
 				<form onsubmit={handleSubmit} class="mt-4 space-y-4">
 					<div class="form-control">
@@ -70,6 +73,7 @@
 							<span class="loading loading-spinner"></span>
 							Sending magic link...
 						{:else}
+							<Icon src={Envelope} solid class="h-5 w-5" />
 							Send magic link
 						{/if}
 					</button>
@@ -92,7 +96,7 @@
 					<div>
 						<h3 class="font-bold">Check your email!</h3>
 						<div class="text-xs">
-							We've sent a magic link to <strong>{email}</strong>. Click the link to sign in.
+							We've sent a magic link to <strong>{email}</strong>. Click the link to continue.
 						</div>
 					</div>
 				</div>

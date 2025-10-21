@@ -4,6 +4,7 @@
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
 	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
+	import Tooltip from '../ui/Tooltip.svelte';
 	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
 	import { getQuestionConnections } from '$lib/utils/getContent.svelte';
 	import { getContext } from 'svelte';
@@ -296,19 +297,20 @@
 				></textarea>
 
 				<div class="mt-2 flex items-center gap-2">
-					<button
-						onclick={saveResponse}
-						disabled={!hasChanges || isSaving}
-						class="btn-submit btn-sm"
-						title="Save response to database"
-					>
-						{#if isSaving}
-							<span class="loading loading-spinner loading-xs"></span>
-							Saving...
-						{:else}
-							OK
-						{/if}
-					</button>
+					<Tooltip text="Save response to database" position="top_right">
+						<button
+							onclick={saveResponse}
+							disabled={!hasChanges || isSaving}
+							class="btn-submit btn-sm"
+						>
+							{#if isSaving}
+								<span class="loading loading-spinner loading-xs"></span>
+								Saving...
+							{:else}
+								OK
+							{/if}
+						</button>
+					</Tooltip>
 					<UndoButton {canUndo} onclick={handleUndo} />
 				</div>
 				{#if saveError}
@@ -324,13 +326,14 @@
 
 			{#if connectionDetails.responseId}
 				<div class="mx-4 mt-2 mb-4 flex justify-end">
-					<button
-						onclick={openDeleteModal}
-						class="btn btn-error btn-sm"
-						title="Delete this response and all related actions"
-					>
-						Delete Response & Actions
-					</button>
+					<Tooltip text="Delete this response and all related actions" position="left">
+						<button
+							onclick={openDeleteModal}
+							class="btn btn-error btn-sm"
+						>
+							Delete Response & Actions
+						</button>
+					</Tooltip>
 				</div>
 			{/if}
 		{:else}

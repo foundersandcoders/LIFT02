@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { Profile } from '$lib/types/appState';
+	import type { Profile, UserPreferences } from '$lib/types/appState';
 	import { updateProfile } from '$lib/services/database/profiles';
 
 	interface Props {
@@ -45,7 +45,7 @@
 					id: result.data.user_id,
 					name: result.data.name,
 					is_line_manager: result.data.is_line_manager,
-					preferences: result.data.preferences || {}
+					preferences: (result.data.preferences as UserPreferences) || {}
 				});
 			}
 
@@ -61,8 +61,8 @@
 {#if show}
 	<div class="modal modal-open">
 		<div class="modal-box max-w-md">
-			<h3 class="text-lg font-bold mb-4">Complete Your Profile</h3>
-			<p class="text-sm opacity-70 mb-4">
+			<h3 class="mb-4 text-lg font-bold">Complete Your Profile</h3>
+			<p class="mb-4 text-sm opacity-70">
 				Welcome! Please provide your name and optionally your line manager's details.
 			</p>
 
@@ -86,7 +86,7 @@
 				<!-- Line Manager Name (optional) -->
 				<div class="form-control">
 					<label for="lineManagerName" class="label">
-						<span class="label-text">Line Manager Name (optional)</span>
+						<span class="label-text">Line Manager Name</span>
 					</label>
 					<input
 						id="lineManagerName"
@@ -101,7 +101,7 @@
 				<!-- Line Manager Email (optional) -->
 				<div class="form-control">
 					<label for="lineManagerEmail" class="label">
-						<span class="label-text">Line Manager Email (optional)</span>
+						<span class="label-text">Line Manager Email</span>
 					</label>
 					<input
 						id="lineManagerEmail"
