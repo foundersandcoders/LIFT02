@@ -3,7 +3,7 @@
 	import ViewHeader from '../layouts/ViewHeader.svelte';
 	import { getQuestionById } from '$lib/services/database/questions';
 	import { getActionById } from '$lib/services/database/actions';
-	import type { ItemCategory, RowId, TableName, ViewName } from '$lib/types/appState';
+	import type { RowId, TableName, ViewName } from '$lib/types/appState';
 	import type { Question } from '$lib/types/tableMain';
 	import { getContext } from 'svelte';
 
@@ -12,14 +12,17 @@
 		return result.data || null;
 	};
 
-	const getTable = getContext<() => TableName>('getListTable');
-	let table = $derived(getTable());
+	const getListTable = getContext<() => TableName | null>('getListTable');
+	const getDetailTable = getContext<() => TableName | null>('getDetailTable');
+	let listTable = $derived(getListTable());
+	let detailTable = $derived(getDetailTable());
+	let table = $derived(detailTable ?? listTable ?? null);
 
 	const getDetailItemId = getContext<() => RowId>('getDetailItemId');
 	let itemId = $derived(getDetailItemId());
 
 	let question: Promise<Question | null> | null = $derived(
-		table == 'questions' && itemId ? getQuestion(itemId) : null
+		table === 'questions' && itemId ? getQuestion(itemId) : null
 	);
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
@@ -35,7 +38,7 @@
 	<ViewHeader {title} {onclick} />
 
 	<div id="detail-content" class="view-content">
-		{#if table == 'questions'}
+		{#if table === 'questions'}
 			{#await question}
 				<p>Loading...</p>
 			{:then question}
@@ -45,7 +48,7 @@
 					No question found
 				{/if}
 			{/await}
-		{:else if table == 'actions' && itemId}
+		{:else if table === 'actions' && itemId}
 			{#await getActionById(itemId)}
 				<p>Loading action...</p>
 			{:then result}

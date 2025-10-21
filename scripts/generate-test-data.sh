@@ -173,16 +173,15 @@ echo "-- ===========================================" >> supabase/generated/test
 echo "" >> supabase/generated/test_fake_data.sql
 
 # Add responses with dynamic question lookup
-echo "$TEST_DATA" | jq -r '.responses[] | 
-"INSERT INTO responses (id, user_id, question_id, response_text, status, visibility, version) 
-SELECT 
+echo "$TEST_DATA" | jq -r '.responses[] |
+"INSERT INTO responses (id, user_id, question_id, response_text, status, visibility)
+SELECT
   \u0027" + .id + "\u0027::uuid,
   \u0027" + .user_id + "\u0027::uuid,
   q.id,
   \u0027" + (.response_text | gsub("\u0027"; "\u0027\u0027")) + "\u0027,
   \u0027" + .status + "\u0027,
-  \u0027" + .visibility + "\u0027,
-  " + (.version | tostring) + "
+  \u0027" + .visibility + "\u0027
 FROM questions q WHERE q.category = \u0027" + .question_category + "\u0027 AND q.\"order\" = " + (.question_order | tostring) + ";"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
@@ -192,9 +191,9 @@ echo "-- ===========================================" >> supabase/generated/test
 echo "" >> supabase/generated/test_fake_data.sql
 
 # Add actions
-echo "$TEST_DATA" | jq -r '.actions[] | 
-"INSERT INTO actions (id, user_id, response_id, type, description, status, version) VALUES
-  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027, " + (.version | tostring) + ");"' >> supabase/generated/test_fake_data.sql
+echo "$TEST_DATA" | jq -r '.actions[] |
+"INSERT INTO actions (id, user_id, response_id, type, description, status) VALUES
+  (\u0027" + .id + "\u0027::uuid, \u0027" + .user_id + "\u0027::uuid, \u0027" + .response_id + "\u0027::uuid, \u0027" + .type + "\u0027, \u0027" + (.description | gsub("\u0027"; "\u0027\u0027")) + "\u0027, \u0027" + .status + "\u0027);"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
@@ -340,9 +339,7 @@ echo "$TEST_DATA" | jq -r '.organizations | map("    \u0027" + .id + "\u0027::uu
 cat >> supabase/generated/delete_test_fake_data.sql << 'EOF'
 );
 
--- Reset sequences to ensure clean state
-SELECT setval('response_version_seq', 1, false);
-SELECT setval('action_version_seq', 1, false);
+-- No sequences to reset after removing versioning system
 
 -- Verification queries (uncomment to see results)
 /*

@@ -48,7 +48,7 @@
 		// Detail view - determine what type of detail
 		if (viewName === 'detail') {
 			const detailTable = app.detail.table;
-			if (detailTable === 'responses') {
+			if (detailTable === 'responses' || detailTable === 'questions') {
 				return 'responses';
 			}
 			if (detailTable === 'actions') {
@@ -86,10 +86,10 @@
 	}
 </script>
 
-<Tooltip text="Get help" position="bottom_left">
+<Tooltip text="Get help" position="top_right">
 	<button
 		id="help-button"
-		class="w-8 h-8 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors text-white font-bold text-base disabled:opacity-50"
+		class="hover:bg-opacity-20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-transparent text-base font-bold text-white transition-colors hover:bg-white disabled:opacity-50"
 		type="button"
 		aria-label="Get help for current section"
 		onclick={handleHelpClick}
@@ -99,8 +99,4 @@
 	</button>
 </Tooltip>
 
-<HelpModal
-	show={showHelpModal}
-	{helpContent}
-	onclose={closeHelpModal}
-/>
+<HelpModal show={showHelpModal} {helpContent} onclose={closeHelpModal} />

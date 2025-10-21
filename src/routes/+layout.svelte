@@ -219,5 +219,5 @@
 		{@render children()}
 	</main>
 
-	<Footer {devMode} profileId={appState.profile.id} />
+	<Footer {devMode} />
 </div>

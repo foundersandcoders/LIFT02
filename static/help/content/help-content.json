@@ -16,9 +16,10 @@
         "text": "To begin using your workplace passport:",
         "callouts": [
           "Select your profile from the dropdown menu",
-          "Explore the category tiles to see available topics",
-          "Click on any category to start adding your responses",
-          "Use the email button to share your responses with your line manager"
+          "The dashboard is organized into three sections: Actions, Categories, and Resources",
+          "Click on any category tile to start adding your responses",
+          "Use the email button in the header to share your responses with your line manager",
+          "Access help anytime by clicking the 'i' button in the footer"
         ]
       }
     ]
@@ -28,21 +29,23 @@
     "sections": [
       {
         "heading": "Dashboard Overview",
-        "text": "Your dashboard shows category tiles representing different workplace topics. Each tile displays your progress and allows you to navigate to specific areas.",
+        "text": "Your dashboard is organized into three main sections: Actions (personal plans), Categories (workplace topics), and Resources (support materials). Each section contains tiles that allow you to navigate to specific areas.",
         "screenshot": {
           "src": "/help/screenshots/dashboard-with-profile.png",
-          "alt": "Dashboard with category tiles showing user progress",
-          "caption": "Dashboard showing your progress across different categories"
+          "alt": "Dashboard with three sections showing Actions, Categories, and Resources",
+          "caption": "Dashboard showing Actions, Categories, and Resources sections"
         }
       },
       {
         "heading": "Using the Dashboard",
         "text": "Here's how to navigate your workplace passport:",
         "callouts": [
-          "Click on any category tile to explore questions in that area",
-          "View your response progress on each tile",
-          "Access your actions and resources from the dedicated tiles",
-          "Use the email button in the header to share your responses"
+          "Actions section: View and manage your personal action items",
+          "Categories section: Click category tiles to explore questions and add responses",
+          "Resources section: Access helpful workplace support materials",
+          "Use the email button in the header to share your public responses",
+          "Click the 'i' button in the footer to access help anytime",
+          "Adjust text size using the font control in the footer"
         ]
       },
       {
@@ -56,27 +59,26 @@
     "sections": [
       {
         "heading": "About Actions",
-        "text": "Actions are personal plans you create to help address workplace challenges. They help you track your progress and can be shared with your line manager.",
+        "text": "Actions are personal plans you create to help address workplace challenges. Each action is linked to a question from your workplace passport.",
         "screenshot": {
           "src": "/help/screenshots/actions-list.png",
-          "alt": "Actions list showing personal action items",
-          "caption": "Your personal actions list with progress tracking"
+          "alt": "Actions list showing action items with status toggles and link icons",
+          "caption": "Your personal actions list with Active/Inactive toggles"
         }
       },
       {
-        "heading": "Working with Actions",
-        "text": "You can manage your actions in several ways:",
+        "heading": "Managing Actions",
+        "text": "On this page you can:",
         "callouts": [
-          "Add new actions using the 'Add Action' button",
-          "Mark actions as complete when finished",
-          "Edit existing actions to update progress",
-          "Set actions as public/private to control sharing",
-          "Track your overall progress over time"
+          "Toggle between Active and Inactive status for each action",
+          "Click the link icon to view the related question",
+          "Use 'Show inactive' toggle to see archived actions",
+          "Set actions as public/private to control sharing"
         ]
       },
       {
-        "heading": "Sharing Actions",
-        "text": "Public actions can be included in emails to your line manager, helping them understand your proactive approach to workplace challenges."
+        "heading": "Sharing",
+        "text": "Public actions are included in emails to your line manager, helping them understand your proactive approach to workplace challenges."
       }
     ]
   },
@@ -84,21 +86,21 @@
     "title": "Workplace Resources",
     "sections": [
       {
-        "heading": "Available Resources",
+        "heading": "About Resources",
         "text": "Resources are helpful materials, links, and information related to workplace support and neurodivergent needs.",
         "screenshot": {
           "src": "/help/screenshots/resources-view.png",
-          "alt": "Resources page showing available support materials",
+          "alt": "Resources page showing available support materials with clickable links",
           "caption": "Browse available workplace support resources"
         }
       },
       {
-        "heading": "Using Resources",
+        "heading": "What You'll Find Here",
         "text": "Resources can help you:",
         "callouts": [
           "Learn about workplace accommodations",
           "Find support materials for specific challenges",
-          "Access external links and tools",
+          "Access external links and tools (click the URL to open in a new tab)",
           "Discover best practices for workplace inclusion",
           "Get guidance on communicating your needs"
         ]
@@ -109,53 +111,70 @@
     "title": "Question Categories",
     "sections": [
       {
-        "heading": "Exploring Categories",
-        "text": "Categories group related workplace topics and questions. Each category contains questions you can respond to about your workplace needs and preferences.",
+        "heading": "About Categories",
+        "text": "Categories group related workplace topics and questions. Each question helps you document your workplace needs and preferences.",
         "screenshot": {
           "src": "/help/screenshots/categories-overview.png",
-          "alt": "Category view showing available questions",
-          "caption": "Questions within a category ready for your responses"
+          "alt": "Category view showing available questions with status indicators",
+          "caption": "Questions within a category - checkmark shows answered, question mark shows needs attention"
         }
       },
       {
-        "heading": "Responding to Questions",
-        "text": "When exploring categories:",
+        "heading": "Question Status",
+        "text": "Understanding the indicators:",
         "callouts": [
-          "Click on any question to add or edit your response",
-          "Provide detailed, honest responses about your needs",
-          "Set response visibility (public/private)",
-          "Save your responses to track your workplace passport",
-          "Return anytime to update or refine your answers"
+          "Question mark (?) - Questions that need your attention",
+          "Checkmark (✓) - Questions already answered or skipped",
+          "Click any question to add or edit your response",
+          "Set response visibility (public/private) for each answer"
         ]
       }
     ]
   },
   "responses": {
-    "title": "Your Responses",
+    "title": "Managing Your Response",
     "sections": [
       {
-        "heading": "Managing Your Responses",
-        "text": "Your responses document your workplace needs, preferences, and experiences. You have full control over what you share and with whom.",
+        "heading": "About Responses",
+        "text": "Your responses document your workplace needs, preferences, and experiences. You have full control over what you share.",
         "screenshot": {
           "src": "/help/screenshots/response-editing.png",
-          "alt": "Response editing interface showing privacy controls",
+          "alt": "Response editing interface showing privacy controls and action buttons",
           "caption": "Edit responses and control their visibility"
         }
       },
       {
-        "heading": "Response Privacy",
-        "text": "You control the visibility of each response:",
+        "heading": "Your Options",
+        "text": "On this page you can:",
         "callouts": [
-          "Public responses can be shared with your line manager",
-          "Private responses remain confidential to you",
-          "Change visibility settings anytime",
-          "Only you decide what information to share",
-          "Your privacy is always protected"
+          "Provide a detailed response explaining your needs or preferences",
+          "Mark the question as 'Not Applicable' if it doesn't apply to you",
+          "Skip the question to answer it later",
+          "Edit or update your response anytime",
+          "Delete your response if you no longer want it saved",
+          "Toggle between public and private visibility"
         ]
       },
       {
-        "heading": "Editing Responses",
-        "text": "You can update your responses as your needs change or as you gain new insights about your workplace preferences."
+        "heading": "Privacy Control",
+        "text": "You control the visibility:",
+        "callouts": [
+          "Public - Can be shared with your line manager via email",
+          "Private - Remains confidential to you only",
+          "Change the setting anytime using the toggle"
+        ]
+      },
+      {
+        "heading": "Creating Actions",
+        "text": "Once you've answered this question, you can create personal action items:",
+        "callouts": [
+          "Actions help you address workplace challenges proactively",
+          "Click 'Add Action' to create a plan linked to this question",
+          "Edit or delete actions anytime",
+          "Set actions as Active/Inactive to manage priorities",
+          "Control action visibility (public/private)",
+          "Public actions appear in emails to your line manager"
+        ]
       }
     ]
   },
@@ -163,28 +182,27 @@
     "title": "Email Preview",
     "sections": [
       {
-        "heading": "Sharing Your Workplace Passport",
-        "text": "The email preview shows a summary of your public responses and actions that can be shared with your line manager.",
+        "heading": "What You're Seeing",
+        "text": "This preview shows a summary of your public responses and actions formatted as an email for your line manager.",
         "screenshot": {
           "src": "/help/screenshots/email-preview.png",
-          "alt": "Email preview showing formatted workplace passport summary",
+          "alt": "Email preview showing formatted workplace passport summary with send button",
           "caption": "Preview your workplace passport before sharing"
         }
       },
       {
         "heading": "Before Sending",
-        "text": "Review the email content carefully:",
+        "text": "Review the content carefully:",
         "callouts": [
           "Check that all information accurately represents your needs",
           "Verify only public responses and actions are included",
-          "Ensure the tone and content feel appropriate",
-          "Add any additional context if needed",
+          "Use the notes field at the bottom for additional context (sparingly - the app tracks everything through questions, responses, and actions)",
           "Remember you control when and what to share"
         ]
       },
       {
-        "heading": "Sending the Email",
-        "text": "When you're ready, the email will be sent to your line manager with a professional summary of your workplace passport, helping facilitate productive conversations about your needs."
+        "heading": "Sending",
+        "text": "When you're ready, enter your line manager's email address and click send. The email will be sent with a professional summary of your workplace passport."
       }
     ]
   }

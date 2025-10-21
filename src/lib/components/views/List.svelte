@@ -95,7 +95,7 @@
 
 	<div id="list-content" class="view-content">
 		{#if table == 'actions'}
-			<div class="mb-4 px-4">
+			<div class="m-2 px-4">
 				<ShowArchivedToggle {showArchived} onToggle={handleToggleArchived} />
 			</div>
 			{#if isLoading}

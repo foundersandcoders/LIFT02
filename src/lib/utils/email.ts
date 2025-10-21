@@ -4,6 +4,11 @@ export interface EmailData {
 	categories: EmailCategory[];
 	closing: string;
 	signature: string;
+	customNotes?: string | null;
+	manager?: {
+		name?: string;
+		email?: string;
+	};
 	metadata: EmailMetadata;
 }
 

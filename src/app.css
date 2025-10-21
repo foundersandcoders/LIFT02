@@ -56,65 +56,154 @@ h3 {
 	@apply mb-2 text-center text-lg;
 }
 
+/* Override prose headings in modals to be visible */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+	color: var(--color-base-content);
+}
+
+.prose p,
+.prose li,
+.prose ul,
+.prose ol {
+	color: var(--color-base-content);
+}
+
 .dash-grid-1 {
 	@apply grid grid-cols-1 justify-items-center gap-4 p-4;
 }
 
 .dash-grid-2 {
-	@apply mt-2 grid grid-cols-2;
+	@apply mt-2 grid grid-cols-2 gap-2;
 }
 
 .dash-tile-rect {
-	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 shadow-sm transition-all;
 	@apply cursor-pointer;
+}
+
+.dash-tile-rect:disabled {
+	@apply cursor-not-allowed opacity-60;
 }
 
 .dash-tile-square {
-	@apply card border-primary bg-base-100 mx-10 my-1 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 mx-2 my-1 rounded-lg border p-3 shadow-sm transition-all;
 	@apply flex flex-col items-center justify-center text-center;
-	@apply cursor-pointer;
-	/* Height constraints relative to .list-item */
-	/* .list-item has m-2 (0.5rem top+bottom) + p-3 (0.75rem top+bottom) + content = base height */
-	/* Base height ≈ 1rem (margin) + 1.5rem (padding) + 1.5rem (content) = 4rem minimum */
-	/* min-height: 8rem; /* 2x base height */
-	/* max-height: 10rem; 5x base height */
-	/* min-height: 3rem; /* 2x base height */
-	/* max-height: 4rem; 5x base height */
+	@apply min-w-0 cursor-pointer;
+}
+
+.dash-tile-square:hover:not(:disabled) {
+	@apply border-secondary shadow-md;
+	transform: translateY(-1px);
+}
+
+.dash-tile-square:active:not(:disabled) {
+	@apply shadow-sm;
+	transform: translateY(0);
+}
+
+.dash-tile-square:disabled {
+	@apply cursor-not-allowed opacity-60;
 }
 
 .dash-vertical-container {
-	@apply flex flex-col space-y-4 px-4;
+	@apply flex flex-col;
+}
+
+/* Remove gap from card-body */
+.card-body {
+	gap: 0;
+}
+
+/* Mobile card title spacing */
+@media (max-width: 480px) {
+	.card-title {
+		@apply mb-0;
+	}
 }
 
 .footer {
-	@apply bg-primary text-primary-content h-16;
-	/* padding-bottom: env(safe-area-inset-bottom); */
-	padding-left: env(safe-area-inset-left);
-	padding-right: env(safe-area-inset-right);
+	@apply bg-primary text-primary-content flex h-16 items-center justify-between px-6;
+	container-type: inline-size;
+}
+
+/* Reduce footer padding and height on small screens */
+@media (max-width: 480px) {
+	.footer {
+		@apply h-12 px-3;
+	}
+}
+
+/* Container queries for footer text hiding */
+@container (max-width: 500px) {
+	.footer-text {
+		display: none;
+	}
+}
+
+@container (min-width: 501px) {
+	.footer-text {
+		display: inline;
+	}
 }
 
 .footer-content {
 	@apply flex w-full flex-row flex-nowrap justify-between align-middle;
 }
 
+.footer-text {
+	@apply text-base font-medium;
+}
+
 .header {
 	@apply bg-primary sticky top-0 z-50 h-20 w-full flex-shrink-0;
-}
-
-.header-container-name {
-	@apply w-auto;
-}
-
-.header-container-logo {
-	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
-}
-
-.header-content {
-	@apply flex h-20 w-full flex-row items-center justify-between px-5;
+	@apply flex items-center justify-between px-5;
 }
 
 .header-left {
 	@apply flex items-center space-x-4;
+}
+
+.header-right {
+	@apply flex items-center space-x-3;
+}
+
+.logo-button {
+	@apply flex-shrink-0 rounded-xl bg-white p-2 shadow-sm;
+}
+
+/* Hide logo on very small screens to prevent overlap */
+@media (max-width: 250px) {
+	.logo-button {
+		display: none;
+	}
+}
+
+/* Ensure no overlap on small screens */
+@media (max-width: 480px) {
+	.header {
+		@apply h-16 px-3;
+	}
+
+	.header-left {
+		@apply min-w-0 flex-1 space-x-2;
+	}
+
+	.header-left h1 {
+		@apply truncate text-xl;
+	}
+
+	.header-right {
+		@apply flex-shrink-0 space-x-2;
+	}
+
+	.logo-button {
+		@apply p-1;
+	}
 }
 
 .view {
@@ -122,11 +211,25 @@ h3 {
 }
 
 .view-header {
-	@apply bg-accent h-14 max-w-full px-5;
-	/* height: 4.5rem; */
+	@apply bg-accent max-w-full px-5;
+	min-height: 44px;
 	display: grid;
 	grid-template-columns: 1fr auto;
-	align-items: center;
+	align-items: start;
+	gap: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 0.75rem;
+}
+
+/* Make view-header more compact on mobile */
+@media (max-width: 480px) {
+	.view-header {
+		@apply px-3;
+		min-height: 44px;
+		gap: 0.5rem;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
 }
 
 .view-layout {
@@ -136,7 +239,7 @@ h3 {
 
 .view-content {
 	/* LIST */
-	@apply list /* justify-left */ m-2 mx-auto flex w-full max-w-5xl flex-1 flex-col overflow-y-auto px-2;
+	@apply list mx-auto flex w-full max-w-3xl flex-1 flex-col overflow-y-auto px-2 py-2;
 }
 
 .card-container {
@@ -145,6 +248,13 @@ h3 {
 
 .card-header {
 	@apply card bg-base-100 mt-6 mb-4 max-w-full p-2 shadow;
+}
+
+/* Reduce top margin on mobile */
+@media (max-width: 480px) {
+	.card-header {
+		@apply mt-2;
+	}
 }
 
 .card-content {
@@ -160,7 +270,7 @@ h3 {
 }
 
 .form-fieldset {
-	@apply border-primary flex justify-between rounded-xl border-2 p-4;
+	@apply border-primary flex items-start justify-between rounded-xl border-2 p-4;
 }
 
 .status-indicator {
@@ -204,7 +314,13 @@ h3 {
 }
 
 .btn-nav {
-	@apply btn btn-secondary text-secondary-content;
+	@apply btn btn-sm btn-ghost text-accent-content border-2 border-white text-base;
+	height: 1.75rem;
+	min-height: 1.75rem;
+}
+
+.btn-nav:hover {
+	@apply bg-white/20;
 }
 
 .btn-nav:disabled {
@@ -220,15 +336,55 @@ h3 {
 }
 
 .list-item {
-	@apply card border-primary bg-base-100 m-2 rounded-lg border p-3 transition-shadow hover:shadow-md;
+	@apply card border-primary bg-base-100 m-2 cursor-default rounded-lg border p-3 shadow-sm;
+}
+
+.list-item-questions {
+	@apply cursor-pointer transition-all;
+}
+
+.list-item-questions:hover {
+	@apply border-secondary shadow-md;
+}
+
+.list-item-actions {
+	/* No hover effects */
+}
+
+.list-item-resources {
+	/* No hover effects */
 }
 
 .list-item-row {
 	@apply flex w-full flex-row items-center justify-between;
 }
 
+.list-item-row-questions {
+	@apply flex w-full flex-row items-center justify-between;
+}
+
+.list-item-row-resources {
+	@apply flex w-full flex-row items-center justify-center;
+}
+
+.list-item-row-actions {
+	@apply flex w-full flex-col items-start md:flex-row md:items-center md:justify-between;
+}
+
 .list-item-content {
 	@apply min-w-0 flex-1 px-3;
+}
+
+.list-item-content-actions {
+	@apply max-w-none min-w-0 flex-1 px-3;
+}
+
+.resource-link {
+	@apply text-accent text-sm break-all underline;
+}
+
+.resource-link:hover {
+	color: var(--color-accent-dark);
 }
 
 .list-item-wrapper {
@@ -264,20 +420,34 @@ h3 {
 }
 
 .breadcrumb-list {
-	@apply m-0 flex list-none items-center p-0;
-	white-space: nowrap;
-	overflow: hidden;
+	@apply m-0 flex list-none items-start p-0;
 	min-width: 0;
 	flex: 1;
+	flex-wrap: wrap;
+	gap: 0 0.5rem;
+	align-content: flex-start;
+	row-gap: 0.25rem;
 }
 
 .breadcrumb-item {
-	@apply flex flex-shrink-0 items-center;
+	@apply flex items-start;
+	flex-shrink: 0;
+	/* Allow wrapping but keep items together with their separators */
+}
+
+/* Continuation indicator for wrapped breadcrumb lines */
+.breadcrumb-continuation {
+	@apply text-accent-content/50;
+	margin-right: 0.25rem;
+	font-size: 1rem;
+	line-height: 1;
+	user-select: none;
 }
 
 .breadcrumb-item:last-child {
-	@apply min-w-0 flex-shrink;
-	max-width: 100%;
+	@apply min-w-0;
+	flex-shrink: 1;
+	/* Last item can shrink and truncate if really needed */
 }
 
 .breadcrumb-link {
@@ -293,7 +463,40 @@ h3 {
 
 .breadcrumb-separator {
 	@apply text-accent-content/70 flex-shrink-0 font-normal;
-	margin: 0 0.25rem;
+	margin: 0 0.125rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+	.breadcrumb {
+		font-size: 1rem;
+	}
+
+	.breadcrumb-list {
+		line-height: 1.4;
+		/* Better line spacing for wrapped breadcrumbs */
+	}
+
+	.breadcrumb-link {
+		@apply text-sm;
+	}
+
+	.breadcrumb-current {
+		@apply text-sm;
+	}
+
+	.breadcrumb-separator {
+		margin: 0 0.0625rem;
+	}
+}
+
+/* Very small screens: More aggressive wrapping */
+@media (max-width: 480px) {
+	.breadcrumb-item {
+		/* Allow more aggressive wrapping on very small screens */
+		flex-shrink: 1;
+		min-width: fit-content;
+	}
 }
 
 .actions-crud {
@@ -313,15 +516,23 @@ h3 {
 }
 
 .action-view {
-	@apply flex items-start justify-between gap-3;
+	@apply flex flex-col gap-2;
 }
 
 .action-content {
-	@apply flex-1;
+	/* Not needed - remove this wrapper */
 }
 
 .action-description {
-	@apply text-base-content mb-2 font-medium;
+	@apply text-base-content font-medium;
+	/* Give description its own full-width row */
+	word-break: break-word;
+	overflow-wrap: break-word;
+}
+
+.action-meta {
+	@apply flex flex-wrap items-center justify-between gap-2;
+	/* Date on left, buttons on right, can wrap if needed */
 }
 
 .action-date {
@@ -329,7 +540,18 @@ h3 {
 }
 
 .action-buttons {
-	@apply flex flex-shrink-0 gap-2;
+	@apply flex gap-2;
+}
+
+/* Small screens: Force buttons to wrap below date */
+@media (max-width: 480px) {
+	.action-meta {
+		@apply flex-col items-start gap-2;
+	}
+
+	.action-buttons {
+		@apply self-end;
+	}
 }
 
 .action-edit-form {
@@ -409,11 +631,33 @@ h3 {
 }
 
 @media (max-width: 375px) {
-	.dash-grid {
-		@apply grid-cols-1;
+	.dash-grid-2 {
+		@apply grid-cols-1 gap-4;
 	}
 
 	.dash-tile-square {
-		@apply my-1 aspect-auto min-h-[100px];
+		@apply mx-4 my-1 aspect-auto min-h-[100px];
+	}
+}
+
+/* Modal styles */
+.modal-box-custom {
+	@apply m-4 mx-auto;
+	max-height: calc(100vh - 2rem);
+	height: auto;
+}
+
+.modal-box-help {
+	@apply m-4 max-w-4xl mx-auto;
+	max-height: calc(100vh - 2rem);
+	height: auto;
+}
+
+/* Ensure modals fit on mobile */
+@media (max-height: 600px) {
+	.modal-box-custom,
+	.modal-box-help {
+		@apply m-2;
+		max-height: calc(100vh - 1rem);
 	}
 }

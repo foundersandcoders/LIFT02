@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AppState, Detail, TableName, ViewName } from '$lib/types/appState';
+	import type { AppState, Detail, List, TableName, ViewName } from '$lib/types/appState';
 	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
 	import { randomNum } from '$lib/utils/random';
-	import {
-		updateAction,
-		updateActionStatus as updateActionStatus_DB
-	} from '$lib/services/database/actions';
+	import { updateActionStatus as updateActionStatusDB } from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
 	import { getActionsByResponseIds } from '$lib/services/database/actions';
+	import { getQuestionById } from '$lib/services/database/questions';
+	import { makePretty } from '$lib/utils/textTools';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
 	import { fade } from 'svelte/transition';
 	import Tooltip from '../ui/Tooltip.svelte';
+	import ProgressIndicator from '../ui/ProgressIndicator.svelte';
 
 	const getDevMode = getContext<() => boolean>('getDevMode');
 	const devMode = $derived(getDevMode());
@@ -66,16 +66,56 @@
 
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
+	const setDetailTable = getContext<(table: TableName | null) => void>('setDetailTable');
+	const setDetailItemId = getContext<(id: string | null) => void>('setDetailItemId');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const setList = getContext<(list: List) => void>('setList');
 
 	const onclick = (table: null | TableName, item: null | Action | Question) => {
-		setViewName('detail');
+		setDetailTable(table);
+		setDetailItemId(item ? item.id || null : null);
 		setDetail({
 			table: table,
 			item: {
 				id: item ? item.id || null : null
 			}
 		});
+		setViewName('detail');
+	};
+
+	const handleActionClick = async (action: Action) => {
+		if (!action.question_id) return;
+
+		// Get question data to determine the proper category for breadcrumb
+		const questionResult = await getQuestionById(action.question_id);
+		if (questionResult.data) {
+			const category = {
+				raw: questionResult.data.category,
+				format: makePretty(questionResult.data.category, 'db-category-name', 'tile-text')
+			};
+
+			// Set list context to questions with proper category for correct breadcrumb
+			setList({ table: 'questions', category });
+		}
+
+		setDetailTable('questions');
+		setDetailItemId(action.question_id);
+		setDetail({
+			table: 'questions',
+			item: {
+				id: action.question_id
+			}
+		});
+		setViewName('detail');
+	};
+
+	const handleListItemClick = (event: MouseEvent) => {
+		if (table === 'questions') {
+			onclick(table, item as Question);
+			return;
+		}
+
+		// Actions are no longer clickable - handled by icon button instead
 	};
 
 	const handleStatusToggle = async (newStatus: 'active' | 'archived', actionId: string) => {
@@ -89,7 +129,7 @@
 		}
 
 		// Perform database update
-		const result = await updateActionStatus_DB(actionId, newStatus);
+		const result = await updateActionStatusDB(actionId, newStatus);
 
 		if (result.error) {
 			// Rollback on error
@@ -118,23 +158,15 @@
 
 <button
 	id="list-item-{item.id}"
-	class="list-item {table === 'questions' ? 'cursor-pointer' : 'cursor-default'}"
-	onclick={table === 'questions' ? () => onclick(table, item) : undefined}
-	tabindex="0"
-	disabled={table === 'actions' || table === 'resources'}
+	class="list-item list-item-{table}"
+	onclick={handleListItemClick}
+	tabindex={table === 'questions' ? 0 : -1}
 	transition:fade={{ duration: 300 }}
 >
-	<div
-		id="list-item-{item.id}-row"
-		class="flex w-full {table === 'questions'
-			? 'flex-row items-center justify-between'
-			: table === 'resources'
-				? 'flex-row items-center justify-center'
-				: 'flex-col items-start md:flex-row md:items-center md:justify-between'}"
-	>
+	<div id="list-item-{item.id}-row" class="list-item-row-{table}">
 		{#if table === 'actions'}
 			<!-- Text content for actions, stacked vertically -->
-			<div class="flex flex-col">
+			<div class="flex min-w-0 flex-1 flex-col">
 				<p class="action-question-preview text-left">
 					{item.question_preview || 'Question not found'}
 				</p>
@@ -142,8 +174,34 @@
 					{item.description || 'No description'}
 				</p>
 			</div>
-			<!-- Toggle with responsive margin -->
-			<div id="list-item-{item.id}-action" class="mt-4 self-end md:mt-0 md:self-center">
+			<!-- Action controls -->
+			<div
+				id="list-item-{item.id}-action"
+				class="mt-4 flex w-full items-center justify-between gap-2 md:mt-0 md:w-auto"
+			>
+				<!-- View question button -->
+				{#if (item as Action).question_id}
+					<Tooltip text="Go to related question" position="top">
+						<button
+							class="btn btn-ghost btn-sm p-0"
+							onclick={(e) => {
+								e.stopPropagation();
+								handleActionClick(item as Action);
+							}}
+							aria-label="Go to related question"
+						>
+							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+								/>
+							</svg>
+						</button>
+					</Tooltip>
+				{/if}
+				<!-- Status toggle -->
 				<ActionStatusToggle
 					status={localStatus}
 					onStatusChange={(newStatus) => handleStatusToggle(newStatus, item.id)}
@@ -157,55 +215,28 @@
 					{#if app.profile.id}
 						{#await questionResponse}
 							<Tooltip text="Question already answered or skipped" position="right">
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default flex items-center justify-center"
-								>
-									<span class="text-s text-white">✓</span>
-								</div>
+								<ProgressIndicator completed={1} total={1} size="lg" />
 							</Tooltip>
 						{:then response}
 							{@const hasValidStatus =
 								response && response.status && ['answered', 'skipped'].includes(response.status)}
 							{#if hasValidStatus}
-								<!-- Grey -->
 								<Tooltip text="Question already answered or skipped" position="right">
-									<div
-										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-default flex items-center justify-center"
-									>
-										<span class="text-s text-white">✓</span>
-									</div>
+									<ProgressIndicator completed={1} total={1} size="lg" />
 								</Tooltip>
 							{:else}
-								<!-- Magenta -->
 								<Tooltip text="Question requires attention from user" position="right">
-									<div
-										id="list-item-{item.id}-status-icon"
-										class="status-indicator-lg status-active flex items-center justify-center"
-									>
-										<span class="text-s text-white">?</span>
-									</div>
+									<ProgressIndicator completed={0} total={1} size="lg" />
 								</Tooltip>
 							{/if}
 						{:catch}
 							<Tooltip text="Question already answered or skipped" position="right">
-								<div
-									id="list-item-{item.id}-status-icon"
-									class="status-indicator-lg status-default flex items-center justify-center"
-								>
-									<span class="text-s text-white">✓</span>
-								</div>
+								<ProgressIndicator completed={1} total={1} size="lg" />
 							</Tooltip>
 						{/await}
 					{:else}
 						<Tooltip text="Question already answered or skipped" position="right">
-							<div
-								id="list-item-{item.id}-status-icon"
-								class="status-indicator-lg status-default flex items-center justify-center"
-							>
-								<span class="text-s text-white">✓</span>
-							</div>
+							<ProgressIndicator completed={1} total={1} size="lg" />
 						</Tooltip>
 					{/if}
 				</div>
@@ -213,7 +244,9 @@
 
 			<div
 				id="list-item-{item.id}-title"
-				class="list-item-content prose text-{textAlign} {table === 'actions' ? 'max-w-none' : ''}"
+				class="{table === 'actions'
+					? 'list-item-content-actions'
+					: 'list-item-content'} prose text-{textAlign}"
 			>
 				{#if table == 'questions' && item}
 					<p class="truncate">{item.preview}</p>
@@ -224,7 +257,7 @@
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-accent hover:text-accent-dark text-sm break-all underline"
+							class="resource-link"
 							onclick={(e) => e.stopPropagation()}
 						>
 							{item.url}

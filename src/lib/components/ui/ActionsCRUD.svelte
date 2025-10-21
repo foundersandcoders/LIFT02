@@ -4,7 +4,7 @@
 		createAction,
 		updateAction,
 		archiveAction,
-		getActionHistory
+		getActionsByResponseId
 	} from '$lib/services/database/actions';
 	import type { Action } from '$lib/types/tableMain';
 	import type { AppState } from '$lib/types/appState';
@@ -52,11 +52,10 @@
 
 		isLoading = true;
 		try {
-			const result = await getActionHistory(profileId, responseId);
+			const result = await getActionsByResponseId(profileId, responseId);
 			if (result.data) {
-				// Filter to get only the latest version of each action (active ones)
-				const latestActions = result.data.filter((action) => action.status === 'active');
-				actions = latestActions;
+				// Show only active actions (multiple actions per response now supported)
+				actions = result.data.filter((action: Action) => action.status === 'active');
 			}
 		} catch (error) {
 			console.error('Failed to load actions:', error);
@@ -246,33 +245,33 @@
 					{:else}
 						<!-- View Mode -->
 						<div class="action-view">
-							<div class="action-content">
-								<p class="action-description">{action.description}</p>
+							<p class="action-description">{action.description}</p>
+							<div class="action-meta">
 								{#if action.created_at}
 									<span class="action-date">
 										Created {new Date(action.created_at).toLocaleDateString()}
 									</span>
 								{/if}
-							</div>
-							<div class="action-buttons">
-								{#if action.id}
-									<button
-										onclick={() => startEdit(action)}
-										class="btn btn-sm"
-										aria-label="Edit action"
-									>
-										Edit
-									</button>
-								{/if}
-								{#if action.id}
-									<button
-										onclick={() => confirmDelete(action.id!)}
-										class="btn btn-sm btn-error"
-										aria-label="Delete action"
-									>
-										Delete
-									</button>
-								{/if}
+								<div class="action-buttons">
+									{#if action.id}
+										<button
+											onclick={() => startEdit(action)}
+											class="btn btn-sm"
+											aria-label="Edit action"
+										>
+											Edit
+										</button>
+									{/if}
+									{#if action.id}
+										<button
+											onclick={() => confirmDelete(action.id!)}
+											class="btn btn-sm"
+											aria-label="Delete action"
+										>
+											Delete
+										</button>
+									{/if}
+								</div>
 							</div>
 						</div>
 					{/if}
@@ -323,9 +322,16 @@
 	{:else}
 		<button
 			onclick={() => (showNewActionForm = true)}
-			class="btn btn-outline btn-sm add-action-btn"
+			class="btn-submit btn-sm"
+			disabled={!responseId}
+			title={!responseId ? "Save your response first to add actions" : "Add a new action"}
 		>
-			+ Add Action
+			Add Action
 		</button>
+		{#if !responseId}
+			<p class="text-sm text-base-content/70 mt-2">
+				💡 Save your response first to add actions
+			</p>
+		{/if}
 	{/if}
 </div>

@@ -1,6 +1,5 @@
 import { supabase } from '$lib/services/supabaseClient';
 import type { Response } from '$lib/types/tableMain';
-import { filterLatestResponses } from '$lib/utils/versionFilter';
 import type {
 	Database,
 	FilterOptions,
@@ -46,7 +45,6 @@ export async function getUserResponses(
 			response_text: dbResponse.response_text || undefined,
 			status: dbResponse.status as 'answered' | 'skipped',
 			visibility: dbResponse.visibility as 'public' | 'private',
-			version: dbResponse.version || 1,
 			created_at: dbResponse.created_at || undefined,
 			updated_at: dbResponse.updated_at || undefined
 		})) || [];
@@ -80,7 +78,6 @@ export async function getResponseById(id: string): Result<Response> {
 				response_text: data.response_text || undefined,
 				status: data.status as 'answered' | 'skipped',
 				visibility: data.visibility as 'public' | 'private',
-				version: data.version || 1,
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
 			}
@@ -90,15 +87,15 @@ export async function getResponseById(id: string): Result<Response> {
 }
 
 /**
- * Get response history for a specific question
+ * Get user's response for a specific question
  */
-export async function getResponseHistory(userId: string, questionId: string): Results<Response> {
+export async function getUserResponse(userId: string, questionId: string): Results<Response> {
 	const { data, error } = await supabase
 		.from('responses')
 		.select('*')
 		.eq('user_id', userId)
 		.eq('question_id', questionId)
-		.order('version', { ascending: false });
+		.order('created_at', { ascending: false });
 
 	if (error) {
 		return { data: null, error };
@@ -113,7 +110,6 @@ export async function getResponseHistory(userId: string, questionId: string): Re
 			response_text: dbResponse.response_text || undefined,
 			status: dbResponse.status as 'answered' | 'skipped',
 			visibility: dbResponse.visibility as 'public' | 'private',
-			version: dbResponse.version || 1,
 			created_at: dbResponse.created_at || undefined,
 			updated_at: dbResponse.updated_at || undefined
 		})) || null;
@@ -126,21 +122,12 @@ export async function getResponseHistory(userId: string, questionId: string): Re
  */
 export async function createResponse(
 	userId: string,
-	data: Omit<ResponseInsert, 'user_id' | 'version'>
+	data: Omit<ResponseInsert, 'user_id'>
 ): Result<Response> {
-	console.groupCollapsed('🗄️ Database: createResponse');
-	console.log('📥 Input parameters:', {
-		userId,
-		data
-	});
-
 	const insertData = {
 		...data,
-		user_id: userId,
-		version: 1
+		user_id: userId
 	};
-
-	console.log('📤 Sending to Supabase:', insertData);
 
 	const { data: response, error } = await supabase
 		.from('responses')
@@ -149,12 +136,8 @@ export async function createResponse(
 		.single();
 
 	if (error) {
-		console.error('❌ Database error:', error);
-		console.groupEnd();
 		return { data: null, error };
 	}
-
-	console.log('✅ Raw database response:', response);
 
 	// Convert database type to tableMain type
 	const convertedData = response
@@ -165,70 +148,75 @@ export async function createResponse(
 				response_text: response.response_text || undefined,
 				status: response.status as 'answered' | 'skipped',
 				visibility: response.visibility as 'public' | 'private',
-				version: response.version || 1,
 				created_at: response.created_at || undefined,
 				updated_at: response.updated_at || undefined
 			}
 		: null;
 
-	console.log('🔄 Converted response data:', convertedData);
-	console.groupEnd();
+	return { data: convertedData, error: null };
+}
+
+/**
+ * Update an existing response (simple update, no versioning)
+ */
+export async function updateResponse(
+	userId: string,
+	questionId: string,
+	data: Partial<Omit<ResponseInsert, 'user_id' | 'question_id'>>
+): Result<Response> {
+	// Update the response directly
+	const { data: updatedResponse, error } = await supabase
+		.from('responses')
+		.update(data)
+		.eq('user_id', userId)
+		.eq('question_id', questionId)
+		.select()
+		.single();
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	// Convert database type to tableMain type
+	const convertedData = updatedResponse
+		? {
+				id: updatedResponse.id,
+				user_id: updatedResponse.user_id || '',
+				question_id: updatedResponse.question_id || '',
+				response_text: updatedResponse.response_text || undefined,
+				status: updatedResponse.status as 'answered' | 'skipped',
+				visibility: updatedResponse.visibility as 'public' | 'private',
+				created_at: updatedResponse.created_at || undefined,
+				updated_at: updatedResponse.updated_at || undefined
+			}
+		: null;
 
 	return { data: convertedData, error: null };
 }
 
 /**
- * Update an existing response
+ * Create or update a response (upsert pattern)
  */
-export async function updateResponse(
-	id: string,
-	data: Omit<ResponseUpdate, 'version'>
+export async function upsertResponse(
+	userId: string,
+	questionId: string,
+	data: Omit<ResponseInsert, 'user_id' | 'question_id'>
 ): Result<Response> {
-	// First, get the current response to get its version
-	const { data: currentResponse, error: fetchError } = await supabase
-		.from('responses')
-		.select('*')
-		.eq('id', id)
-		.single();
+	// Try to update first
+	const updateResult = await updateResponse(userId, questionId, data);
 
-	if (fetchError) {
-		return { data: null, error: fetchError };
+	if (updateResult.data) {
+		// Update succeeded
+		return updateResult;
 	}
 
-	// Create a new version
-	const { data: newResponse, error: insertError } = await supabase
-		.from('responses')
-		.insert([
-			{
-				...currentResponse,
-				...data,
-				id: undefined, // Let Supabase generate a new ID
-				version: currentResponse.version + 1
-			}
-		])
-		.select()
-		.single();
+	// Update failed, try to create
+	const createResult = await createResponse(userId, {
+		...data,
+		question_id: questionId
+	});
 
-	if (insertError) {
-		return { data: null, error: insertError };
-	}
-
-	// Convert database type to tableMain type
-	const convertedData = newResponse
-		? {
-				id: newResponse.id,
-				user_id: newResponse.user_id || '',
-				question_id: newResponse.question_id || '',
-				response_text: newResponse.response_text || undefined,
-				status: newResponse.status as 'answered' | 'skipped',
-				visibility: newResponse.visibility as 'public' | 'private',
-				version: newResponse.version || 1,
-				created_at: newResponse.created_at || undefined,
-				updated_at: newResponse.updated_at || undefined
-			}
-		: null;
-
-	return { data: convertedData, error: null };
+	return createResult;
 }
 
 /**
@@ -242,8 +230,7 @@ export async function skipQuestion(userId: string, questionId: string): Result<R
 				user_id: userId,
 				question_id: questionId,
 				status: 'skipped',
-				visibility: 'private',
-				version: 1
+				visibility: 'private'
 			}
 		])
 		.select()
@@ -262,7 +249,6 @@ export async function skipQuestion(userId: string, questionId: string): Result<R
 				response_text: data.response_text || undefined,
 				status: data.status as 'answered' | 'skipped',
 				visibility: data.visibility as 'public' | 'private',
-				version: data.version || 1,
 				created_at: data.created_at || undefined,
 				updated_at: data.updated_at || undefined
 			}
@@ -294,13 +280,12 @@ export async function getLatestResponses(userId: string): Results<Response> {
 			response_text: dbResponse.response_text || undefined,
 			status: dbResponse.status as 'answered' | 'skipped',
 			visibility: dbResponse.visibility as 'public' | 'private',
-			version: dbResponse.version || 1,
 			created_at: dbResponse.created_at || undefined,
 			updated_at: dbResponse.updated_at || undefined
 		})) || [];
 
-	// Use utility function to get latest versions
-	const latestResponses = filterLatestResponses(convertedData);
+	// Since we no longer have versioning, all responses are already the latest
+	const latestResponses = convertedData;
 
 	return { data: latestResponses, error: null };
 }

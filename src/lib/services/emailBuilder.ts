@@ -1,15 +1,56 @@
 import { getActionsByResponseIds } from '$lib/services/database/actions';
+import { getProfile } from '$lib/services/database/profiles';
 import { getQuestionById } from '$lib/services/database/questions';
 import { getUserResponses } from '$lib/services/database/responses';
+import { supabase } from '$lib/services/supabaseClient';
 import type { Action } from '$lib/types/tableMain';
 import type { EmailCategory, EmailData, EmailItem } from '$lib/utils/email';
 import { makePretty } from '$lib/utils/textTools';
-import { filterLatestResponses } from '$lib/utils/versionFilter';
+import DOMPurify from 'isomorphic-dompurify';
+
+/**
+ * Sanitize user input to prevent XSS attacks
+ */
+function sanitizeText(text: string): string {
+	return DOMPurify.sanitize(text, { ALLOWED_TAGS: [] });
+}
 
 export async function generateEmailData(
 	userId: string,
-	userName?: string | null
+	userName?: string | null,
+	customNotes?: string | null
 ): Promise<EmailData> {
+	// Get user profile to extract manager information
+	const profileResult = await getProfile(userId);
+	let managerInfo: { name?: string; email?: string } | undefined;
+
+	if (profileResult.data?.line_manager) {
+		try {
+			// Get line manager details from line_managers table
+			const { data: lineManagerData } = await supabase
+				.from('line_managers')
+				.select('email, line_manager_id')
+				.eq('id', profileResult.data.line_manager)
+				.single();
+
+			if (lineManagerData) {
+				// Get manager profile to get their name
+				const { data: managerProfile } = await supabase
+					.from('profiles')
+					.select('name')
+					.eq('id', lineManagerData.line_manager_id)
+					.single();
+
+				managerInfo = {
+					name: managerProfile?.name || undefined,
+					email: lineManagerData.email || undefined
+				};
+			}
+		} catch (error) {
+			console.warn('Failed to fetch line manager details:', error);
+		}
+	}
+
 	// Get all public responses for user
 	const responsesResult = await getUserResponses(userId, {
 		visibility: 'public'
@@ -19,8 +60,8 @@ export async function generateEmailData(
 		throw new Error('Error loading responses');
 	}
 
-	// Get only the latest versions of responses
-	const responses = filterLatestResponses(responsesResult.data);
+	// With the simplified system, all responses are already the latest version
+	const responses = responsesResult.data;
 
 	// Group responses by category
 	const categoryGroups: { [category: string]: EmailItem[] } = {};
@@ -90,10 +131,14 @@ export async function generateEmailData(
 	// Build EmailData object
 	const emailData: EmailData = {
 		subject: '',
-		introduction: 'Dear Line Manager,\n\nHere are my workplace needs and accommodations:',
+		introduction: managerInfo?.name
+			? `Dear ${managerInfo.name},\nHere are my workplace needs and accommodations:`
+			: 'Dear Line Manager,\nHere are my workplace needs and accommodations:',
 		categories,
 		closing: 'Best regards,',
 		signature: userName || '[Your name]',
+		customNotes: customNotes?.trim() || null,
+		manager: managerInfo,
 		metadata: {
 			userId,
 			userName: userName ?? null,
@@ -111,6 +156,14 @@ export function renderEmailToHTML(emailData: EmailData): string {
 		<div class="email-container max-w-4xl mx-auto bg-base-100">
 			<!-- Email Header -->
 			<div class="email-header mb-6 p-4">
+				${
+					emailData.manager?.email
+						? `<div class="manager-info mb-4 p-3 bg-base-200 border border-base-300 rounded-lg text-sm text-base-content/70">
+							<strong>To:</strong> ${sanitizeText(emailData.manager.name || 'Line Manager')}
+							&lt;${sanitizeText(emailData.manager.email)}&gt;
+						</div>`
+						: ''
+				}
 				<div class="text-base-content/70 whitespace-pre-line">${emailData.introduction}</div>
 			</div>
 
@@ -133,11 +186,11 @@ export function renderEmailToHTML(emailData: EmailData): string {
 				<div class="qa-item py-3 border-b border-base-300/50">
 					<div class="question mb-3">
 						<span class="question-label font-bold text-accent text-base">Q:</span>
-						<span class="question-text font-semibold text-base-content text-base ml-2">${item.questionText}</span>
+						<span class="question-text font-semibold text-base-content text-base ml-2">${sanitizeText(item.questionText)}</span>
 					</div>
 					<div class="answer mt-2">
 						<span class="answer-label font-medium text-secondary">A:</span>
-						<span class="answer-text text-base-content/80 ml-2">${item.responseText}</span>
+						<span class="answer-text text-base-content/80 ml-2">${sanitizeText(item.responseText)}</span>
 					</div>
 					${
 						item.actions && item.actions.length > 0
@@ -149,7 +202,7 @@ export function renderEmailToHTML(emailData: EmailData): string {
 									.map(
 										(action) => `
 									<li class="action-item text-sm text-base-content/70">
-										${action.description}
+										${sanitizeText(action.description)}
 									</li>
 								`
 									)
@@ -174,8 +227,8 @@ export function renderEmailToHTML(emailData: EmailData): string {
 
 			<!-- Email Footer -->
 			<div class="email-footer mt-8 p-4 bg-base-200 rounded-lg text-base-content/70">
-				<div class="closing">${emailData.closing}</div>
-				<div class="signature font-medium text-base-content">${emailData.signature}</div>
+				<div class="closing">${sanitizeText(emailData.closing)}</div>
+				<div class="signature font-medium text-base-content">${sanitizeText(emailData.signature)}</div>
 			</div>
 		</div>
 	`;

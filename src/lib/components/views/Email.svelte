@@ -14,8 +14,9 @@
 
 	let emailContent = $state('Loading email preview...');
 	let showModal = $state(false);
+	let customNotes = $state('');
 
-	// Generate email content when profileId is available
+	// Generate email content when profileId or notes change
 	$effect(() => {
 		if (!profileId) {
 			emailContent = `
@@ -27,7 +28,7 @@
 			return;
 		}
 
-		generateEmailData(profileId, profileName)
+		generateEmailData(profileId, profileName, customNotes)
 			.then((emailData) => {
 				emailContent = renderEmailToHTML(emailData);
 			})
@@ -72,6 +73,17 @@
 		<div class="m-2 flex-1 overflow-y-auto">
 			<div class="card-content">
 				{@html emailContent}
+
+				<!-- Custom Notes Input - Inside Email Preview -->
+				<div class="custom-notes-input mt-6 mb-4 p-4 bg-base-100 rounded border-l-4 border-accent">
+					<label for="custom-notes" class="form-label block mb-2">Additional Notes (Optional)</label>
+					<textarea
+						id="custom-notes"
+						bind:value={customNotes}
+						placeholder="Add any additional notes or context for your line manager..."
+						class="form-textarea w-full h-24 resize-none"
+					></textarea>
+				</div>
 			</div>
 		</div>
 

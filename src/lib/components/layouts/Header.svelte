@@ -2,7 +2,6 @@
 	import { getContext } from 'svelte';
 	import type { AppState, ViewName } from '$lib/types/appState';
 	import Tooltip from '../ui/Tooltip.svelte';
-	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
 	import { version } from '$lib/version';
 
@@ -19,37 +18,105 @@
 	};
 	const onEmailClick = () => {
 		setViewName('email');
+		// Move focus to back button after navigation
+		setTimeout(() => {
+			const backButton = document.querySelector<HTMLButtonElement>('[aria-label*="Back"]');
+			backButton?.focus();
+		}, 0);
+	};
+
+	const onLogoClick = () => {
+		setViewName('dash');
+	};
+
+	// Long press for version display
+	let showVersion = $state(false);
+	let longPressTimer: ReturnType<typeof setTimeout> | null = null;
+
+	const onLogoTouchStart = (e: TouchEvent) => {
+		longPressTimer = setTimeout(() => {
+			showVersion = true;
+		}, 500);
+	};
+
+	const onLogoTouchEnd = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+		// Hide version after 2 seconds
+		if (showVersion) {
+			setTimeout(() => {
+				showVersion = false;
+			}, 2000);
+		}
+	};
+
+	const onLogoTouchCancel = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+	};
+
+	// For desktop: use mousedown/mouseup
+	const onLogoMouseDown = () => {
+		longPressTimer = setTimeout(() => {
+			showVersion = true;
+		}, 500);
+	};
+
+	const onLogoMouseUp = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
+		// Hide version after 2 seconds
+		if (showVersion) {
+			setTimeout(() => {
+				showVersion = false;
+			}, 2000);
+		}
+	};
+
+	const onLogoMouseLeave = () => {
+		if (longPressTimer) {
+			clearTimeout(longPressTimer);
+			longPressTimer = null;
+		}
 	};
 </script>
 
 <header class="header">
-	<div id="header-content" class="header-content">
-		<div id="header-left" class="header-left">
-			<div id="brand-logo" class="header-container-logo">
-				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-10 w-20" />
-			</div>
+	<div class="header-left">
+		<div class="relative">
+			<button
+				id="brand-logo"
+				class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+				onclick={onLogoClick}
+				ontouchstart={onLogoTouchStart}
+				ontouchend={onLogoTouchEnd}
+				ontouchcancel={onLogoTouchCancel}
+				onmousedown={onLogoMouseDown}
+				onmouseup={onLogoMouseUp}
+				onmouseleave={onLogoMouseLeave}
+				type="button"
+				aria-label="Go to dashboard"
+			>
+				<img alt="LIFT logo" src="/logo/LIFT_logo_gradient_clean.svg" class="h-8 w-16 md:h-10 md:w-20" />
+			</button>
 
-			<div id="app-name" class="header-container-name flex flex-row items-end gap-2">
-				<h1>Workwise</h1>
-				<!-- <p class="text-sm">{version}</p> -->
-			</div>
+			{#if showVersion}
+				<div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white text-gray-800 px-3 py-1 rounded-md shadow-lg text-sm font-medium whitespace-nowrap z-50">
+					v{version}
+				</div>
+			{/if}
 		</div>
 
-		<div id="header-right" class="flex items-center space-x-3">
-			<!-- Font Size Control -->
-			<FontSizeControl />
+		<h1>Workwise</h1>
+	</div>
 
-			<!-- Profile Button -->
-			<!-- <button
-				id="profile-button"
-				onclick={onProfileClick}
-				class="btn-nav"
-				type="button"
-				aria-label="View Profile"
-			>
-				Profile
-			</button> -->
-
+	<div class="header-right">
 			<!-- Email Button -->
 			{#if app.profile.id}
 				<Tooltip
@@ -61,15 +128,31 @@
 					<button
 						id="email-button"
 						onclick={onEmailClick}
-						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50"
+						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						type="button"
 						aria-label="Send Email to Line Manager"
 						disabled={isInEmailView}
 					>
-						<Icon src={Envelope} solid class="h-5 w-5 text-white" />
+						<Icon
+							src={Envelope}
+							solid
+							class="h-5 w-5 transition-colors {isInEmailView
+								? 'text-white/40'
+								: 'text-white'}"
+						/>
 					</button>
 				</Tooltip>
 			{/if}
-		</div>
+
+			<!-- Profile Button -->
+			<!-- <button
+				id="profile-button"
+				onclick={onProfileClick}
+				class="btn-nav"
+				type="button"
+				aria-label="View Profile"
+			>
+				Profile
+			</button> -->
 	</div>
 </header>

@@ -135,9 +135,7 @@ WHERE id IN (
     '990e8400-e29b-41d4-a716-446655440005'::uuid
 );
 
--- Reset sequences to ensure clean state
-SELECT setval('response_version_seq', 1, false);
-SELECT setval('action_version_seq', 1, false);
+-- No sequences to reset after removing versioning system
 
 -- Verification queries (uncomment to see results)
 /*
