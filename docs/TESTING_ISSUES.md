@@ -122,10 +122,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #14 - Email button on email preview
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: On the email preview page, the email button at the top-right corner in the header should not be translucent. It should be removed on this page.
 - **Location**: Email Preview
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/layouts/Header.svelte` (line 148)
+- **Solution**: Added `!isInEmailView` condition to the email button's `{#if}` block to completely hide it when viewing email preview, and removed `isInEmailView` from the `isDisabled` logic since button is now hidden
 
 ---
 

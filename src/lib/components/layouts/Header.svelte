@@ -144,14 +144,12 @@
 	</div>
 
 	<div class="header-right">
-			<!-- Email Button -->
-			{#if app.profile.id}
-				{@const isDisabled = isInEmailView || !hasAnsweredQuestions}
+			<!-- Email Button - hidden when viewing email preview -->
+			{#if app.profile.id && !isInEmailView}
+				{@const isDisabled = !hasAnsweredQuestions}
 				{@const tooltipText = !hasAnsweredQuestions
 					? 'Answer at least one public question to generate an email'
-					: isInEmailView
-						? 'Currently viewing email preview'
-						: 'Generate an email summary of your responses and actions to share with your line manager'}
+					: 'Generate an email summary of your responses and actions to share with your line manager'}
 				<Tooltip
 					text={tooltipText}
 					position="bottom_left"
