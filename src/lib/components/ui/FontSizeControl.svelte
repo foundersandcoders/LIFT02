@@ -104,7 +104,7 @@
 					<span class="text-sm leading-none">+</span>
 					<span class="text-sm leading-none">-</span>
 				</div>
-				<span class="italic font-serif text-lg leading-none">A</span>
+				<span class="font-serif text-lg leading-none">A</span>
 			</div>
 		</button>
 	</Tooltip>

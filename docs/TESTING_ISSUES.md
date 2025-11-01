@@ -140,10 +140,14 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #18 - Remove italics
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: Remove all use of italics across the site
 - **Location**: All pages
-- **Files affected**: TBD
+- **Files affected**:
+  - `src/app.css` (line 321)
+  - `src/lib/components/ui/FontSizeControl.svelte` (line 107)
+  - `src/lib/components/ui/HelpModal.svelte` (line 85)
+- **Solution**: Removed `italic` class/styling from action question preview text, font size control icon, and help modal screenshot captions
 
 ---
 
@@ -167,4 +171,4 @@ Track testing issues and their resolution status. Work through these one by one,
 
 - **Total Issues**: 17
 - **Completed**: 7
-- **Remaining**: 9 (1 rejected)
+- **Remaining**: 9 (1 rejected - Issue 5)

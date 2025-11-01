@@ -201,7 +201,7 @@
 <div class="actions-crud">
 	<div class="actions-header">
 		<h4 class="form-label">
-			Manage actions you'd like your manager to take in response to this question.
+			The actions you'd like your manager to take in response to this question.
 		</h4>
 	</div>
 
@@ -321,7 +321,10 @@
 			</div>
 		</div>
 	{:else}
-		<Tooltip text={!responseId ? "Save your response first to add actions" : "Add a new action"} position="top_right">
+		<Tooltip
+			text={!responseId ? 'Save your response first to add actions' : 'Add a new action'}
+			position="top_right"
+		>
 			<button
 				onclick={() => (showNewActionForm = true)}
 				class="btn-submit btn-sm"
@@ -331,9 +334,7 @@
 			</button>
 		</Tooltip>
 		{#if !responseId}
-			<p class="text-sm text-base-content/70 mt-2">
-				💡 Save your response first to add actions
-			</p>
+			<p class="text-base-content/70 mt-2 text-sm">💡 Save your response first to add actions</p>
 		{/if}
 	{/if}
 </div>

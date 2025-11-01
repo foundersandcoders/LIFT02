@@ -318,7 +318,7 @@ h3 {
 }
 
 .action-question-preview {
-	@apply text-sm whitespace-nowrap text-gray-500 italic;
+	@apply text-sm whitespace-nowrap text-gray-500;
 }
 
 .action-separator {
