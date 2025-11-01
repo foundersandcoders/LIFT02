@@ -19,9 +19,16 @@
 
 {#if status !== 'idle' && status !== 'saving'}
 	<div class="text-xs font-medium {statusClass}">
-		{statusText}
-		{#if status === 'error' && error}
-			<span class="text-gray-500">({error})</span>
+		<!-- Commented out "Saved" message - keeping error messages visible -->
+		{#if status === 'error'}
+			{statusText}
+			{#if error}
+				<span class="text-gray-500">({error})</span>
+			{/if}
 		{/if}
+		<!-- Uncomment below to show "Saved" message -->
+		<!-- {#if status === 'saved'}
+			{statusText}
+		{/if} -->
 	</div>
 {/if}

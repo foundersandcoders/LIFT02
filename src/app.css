@@ -535,6 +535,12 @@ h3 {
 	@apply card border-primary bg-base-100 mb-3 rounded-lg border-2 p-3 transition-shadow hover:shadow-md;
 }
 
+/* Remove hover effects from action items in email preview (not editable) */
+#email-content .action-item {
+	@apply hover:shadow-none;
+	cursor: default;
+}
+
 .action-view {
 	@apply flex flex-col gap-2;
 }

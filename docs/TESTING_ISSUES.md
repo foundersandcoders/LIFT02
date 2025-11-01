@@ -113,10 +113,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #13 - Email preview hover effects
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: When sending an email to the manager, in the email preview, actions fields should not have hover effect as they are not editable.
 - **Location**: Email Preview
-- **Files affected**: TBD
+- **Files affected**: `src/app.css` (lines 538-542)
+- **Solution**: Added CSS rule to remove hover effects from `.action-item` elements within `#email-content`, setting `hover:shadow-none` and `cursor: default`
 
 ---
 
