@@ -12,7 +12,8 @@
 <div id="{title}-header" class="view-header">
 	<Breadcrumb />
 
-	<div class="flex items-start gap-2 md:gap-3">
+	<!-- Back button commented out - use breadcrumb navigation instead -->
+	<!-- <div class="flex items-start gap-2 md:gap-3">
 		{#if onclick}
 			<button {onclick} class="btn-nav" aria-label="Go back">
 				<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,5 +22,5 @@
 				<span>Back</span>
 			</button>
 		{/if}
-	</div>
+	</div> -->
 </div>
