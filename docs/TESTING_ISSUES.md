@@ -131,10 +131,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #17 - Replace ampersands
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: Please replace all ampersands with 'and' in full
 - **Location**: All pages
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/cards/QuestionCard.svelte` (lines 267, 342)
+- **Solution**: Replaced "Delete Response & Actions" with "Delete Response and Actions" in both the modal title and button text
 
 ---
 

@@ -264,7 +264,7 @@
 
 <ConfirmModal
 	show={showDeleteModal}
-	title="Delete Response & Actions"
+	title="Delete Response and Actions"
 	message="Are you sure you want to delete this response and all related actions? This action cannot be undone."
 	onConfirm={deleteResponse}
 	onSuccess={clearDetail}
@@ -339,7 +339,7 @@
 				<div class="mx-4 mt-2 mb-4 flex justify-end">
 					<Tooltip text="Delete this response and all related actions" position="left">
 						<button onclick={openDeleteModal} class="btn btn-error btn-sm">
-							Delete Response & Actions
+							Delete Response and Actions
 						</button>
 					</Tooltip>
 				</div>
