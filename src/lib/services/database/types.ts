@@ -578,4 +578,3 @@ export interface FilterOptions {
 	visibility?: 'public' | 'private';
 	status?: string;
 }
-
