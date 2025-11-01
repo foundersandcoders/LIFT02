@@ -26,7 +26,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession } }) => {
 				id: result.data.user_id,
 				name: result.data.name,
 				is_line_manager: result.data.is_line_manager,
-				preferences: result.data.preferences || {}
+				preferences: (result.data.preferences as import('$lib/types/appState').UserPreferences) || {}
 			};
 			console.log('✅ Profile loaded:', profile);
 		} else if (result.error) {
