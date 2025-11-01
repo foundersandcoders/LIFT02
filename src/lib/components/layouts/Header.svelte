@@ -113,7 +113,7 @@
 		<div class="relative">
 			<button
 				id="brand-logo"
-				class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+				class="logo-button"
 				onclick={onLogoClick}
 				ontouchstart={onLogoTouchStart}
 				ontouchend={onLogoTouchEnd}
