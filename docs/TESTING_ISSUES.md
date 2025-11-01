@@ -152,7 +152,7 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #20 - Manager actions field text
-- [ ] **Status**: Not started
+- [x] **Status**: Not started
 - **Description**: Change the field on manager actions to 'The actions you'd like your manager to take in response to this question.'
 - **Location**: All forms
 - **Files affected**: TBD
@@ -171,4 +171,4 @@ Track testing issues and their resolution status. Work through these one by one,
 
 - **Total Issues**: 17
 - **Completed**: 7
-- **Remaining**: 9 (1 rejected - Issue 5)
+- **Remaining**: 9 (2 rejected - Issue 5, issue 21)
