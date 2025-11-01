@@ -95,11 +95,11 @@
 		<button
 			onclick={toggleModal}
 			disabled={!isUserLoaded}
-			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group"
 			type="button"
 			aria-label="Font size settings"
 		>
-			<div class="flex items-center text-white leading-none gap-1">
+			<div class="flex items-center text-white leading-none gap-1 transition-transform group-hover:scale-125">
 				<div class="flex flex-col items-center leading-none -space-y-1">
 					<span class="text-sm leading-none">+</span>
 					<span class="text-sm leading-none">-</span>

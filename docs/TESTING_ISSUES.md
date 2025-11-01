@@ -14,10 +14,15 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #2 - Icon hover effects
-- [ ] **Status**: Not started
-- **Description**: The icons in these three buttons should turn pink when hovered: generate an email summary, get help, font size settings. Otherwise, they will disappear with a white hover background.
-- **Location**: All pages
-- **Files affected**: TBD
+- [x] **Status**: ✅ Fixed
+- **Description**: The icons in these four buttons should have a visible hover effect: generate an email summary, get help, font size settings, profile settings. Previously they had a white background that made icons disappear.
+- **Location**: All pages (header and footer)
+- **Files affected**:
+  - `src/lib/components/layouts/Header.svelte` (email button - line 161, 169)
+  - `src/lib/components/ui/HelpButton.svelte` (help button - line 92)
+  - `src/lib/components/ui/FontSizeControl.svelte` (font size button - line 98, 102)
+  - `src/lib/components/ui/ProfileButton.svelte` (profile button - line 28, 32)
+- **Solution**: Removed white background hover effect and added 25% scale zoom on icon/text only (not border) using `transition-transform hover:scale-125` and `group-hover:scale-125`
 
 ---
 
@@ -144,5 +149,5 @@ Track testing issues and their resolution status. Work through these one by one,
 ## Progress Summary
 
 - **Total Issues**: 17
-- **Completed**: 1
-- **Remaining**: 16
+- **Completed**: 2
+- **Remaining**: 15
