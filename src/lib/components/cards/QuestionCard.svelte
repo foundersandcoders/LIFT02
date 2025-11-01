@@ -102,6 +102,7 @@
 	let hasChanges = $state(false);
 	let isSaving = $state(false);
 	let saveError = $state<string | null>(null);
+	let saveSuccess = $state(false);
 
 	// Helper function to save or update response using upsert pattern
 	const saveOrUpdateResponse = async (responseData: any) => {
@@ -228,9 +229,15 @@
 			// Update saved state
 			lastSavedText = currentText;
 			hasChanges = false;
+			saveSuccess = true;
 
 			// Trigger re-check of email button enablement
 			triggerResponsesChanged();
+
+			// Clear success message after 2 seconds
+			setTimeout(() => {
+				saveSuccess = false;
+			}, 2000);
 		} catch (error) {
 			console.error('Failed to save response:', error);
 			saveError = 'Failed to save response. Please try again.';
@@ -310,15 +317,13 @@
 							disabled={!hasChanges || isSaving}
 							class="btn-submit btn-sm"
 						>
-							{#if isSaving}
-								<span class="loading loading-spinner loading-xs"></span>
-								Saving...
-							{:else}
-								Save
-							{/if}
+							Save
 						</button>
 					</Tooltip>
 					<UndoButton {canUndo} onclick={handleUndo} />
+					{#if saveSuccess}
+						<span class="text-success text-sm font-medium">Saved</span>
+					{/if}
 				</div>
 				{#if saveError}
 					<div class="text-error mt-2 text-sm">

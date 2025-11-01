@@ -86,10 +86,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #10 - Save confirmation
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: After editing and saving a field, there should be a confirmation message to let users know the changes have been saved.
 - **Location**: All forms
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/cards/QuestionCard.svelte` (lines 105, 232, 329-331)
+- **Solution**: Added `saveSuccess` state that shows "Saved" message for 2 seconds after successfully saving response text. Message appears inline next to Save/Undo buttons in green text.
 
 ---
 
