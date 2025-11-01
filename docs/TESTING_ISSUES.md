@@ -48,18 +48,22 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #5 - Back button position
-- [ ] **Status**: Not started
-- **Description**: The 'back' button should be on the left side of the breadcrumb, on the same line.
+- [ ] **Status**: ❌ Not implemented - breaks layout
+- **Description**: The 'back' button should be on the left side of the breadcrumb, on the same line. Remove the icon, only text "back"
 - **Location**: All pages
-- **Files affected**: TBD
+- **Files affected**: N/A
+- **Reason not implemented**: Moving the back button to the left side of the breadcrumb breaks all the style logic. The current grid layout has the breadcrumb on the left and back button on the right, which is intentional for the overall design system.
 
 ---
 
 ### Issue #6 - Action status terminology
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: It is not intuitive to use 'active' and 'inactive' to describe actions. Using 'to do' and 'done' should be clearer. So the toggle module can be: [Link button] To do [toggle] Done. At the same time, the 'Show Inactive' toggle at the top should change to 'Show done actions'.
 - **Location**: Actions
-- **Files affected**: TBD
+- **Files affected**:
+  - `src/lib/components/ui/ActionStatusToggle.svelte` (lines 17, 24)
+  - `src/lib/components/ui/ShowArchivedToggle.svelte` (line 14)
+- **Solution**: Added static labels "To do" and "Done" on either side of the toggle switch. Changed "Show Inactive" to "Show done actions" in the filter toggle. Layout: [Link button] To do [toggle] Done
 
 ---
 
@@ -154,5 +158,5 @@ Track testing issues and their resolution status. Work through these one by one,
 ## Progress Summary
 
 - **Total Issues**: 17
-- **Completed**: 4
-- **Remaining**: 13
+- **Completed**: 5
+- **Remaining**: 11 (1 rejected)
