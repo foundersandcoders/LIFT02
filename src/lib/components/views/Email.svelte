@@ -70,9 +70,9 @@
 	<ViewHeader title="Email Preview" onclick={onBackClick} />
 
 	<div id="email-content" class="view-content">
-		<div class="m-2 flex-1 overflow-y-auto">
-			<div class="card-content">
-				<div class="max-w-4xl mx-auto">
+		<div class="flex-1 overflow-y-auto">
+			<div class="card bg-base-100 shadow-sm mt-2">
+				<div class="card-body p-4">
 					{@html emailContent}
 
 					<!-- Custom Notes Input - Inside Email Preview -->
@@ -85,20 +85,20 @@
 							class="form-textarea w-full h-24 resize-none"
 						></textarea>
 					</div>
+
+					<!-- Send Button -->
+					<div class="mt-4 flex justify-end">
+						<button
+							onclick={onSendClick}
+							class="btn-submit"
+							type="button"
+							aria-label="Send email to line manager"
+						>
+							Send
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Action Buttons -->
-		<div class="m-2 flex flex-shrink-0 justify-around space-x-4">
-			<button
-				onclick={onSendClick}
-				class="btn-submit"
-				type="button"
-				aria-label="Send email to line manager"
-			>
-				Send
-			</button>
 		</div>
 	</div>
 </div>
