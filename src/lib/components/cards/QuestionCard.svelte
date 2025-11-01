@@ -283,14 +283,14 @@
 	{:then data}
 		{#if data.question && data.question.data}
 			<div id="question-{questionId}-header" class="card-header relative">
-				<h3>{data.question.data.preview}</h3>
+				<h3 class="pr-16">{data.question.data.preview}</h3>
 
 				<div class="flex flex-col gap-1">
 					<ToggleStatus {visibility} {toggleVisibility} disabled={!connectionDetails.responseId} />
 				</div>
 
 				<!-- Position save status absolutely to prevent layout shifts -->
-				<div class="absolute top-4 right-4">
+				<div class="absolute top-4 right-4 z-10">
 					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
 				</div>
 			</div>

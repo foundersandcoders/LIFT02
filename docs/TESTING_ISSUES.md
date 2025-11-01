@@ -104,10 +104,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #12 - Mobile saved message overlap
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: When switching the 'Visibility to employer' toggle on mobile, 'Saved' message overlaps with section heading.
 - **Location**: All forms
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/ui/SaveStatus.svelte` (lines 9-22), `src/lib/components/cards/QuestionCard.svelte` (line 286, 293)
+- **Solution**: Removed "Saving..." state to eliminate visual flicker. Added `pr-16` padding to heading to reserve space for "Saved" message. Added `z-10` to ensure message appears above heading on mobile.
 
 ---
 
