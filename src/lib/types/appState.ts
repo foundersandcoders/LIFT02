@@ -10,6 +10,7 @@ export interface AppState {
 	list: List;
 	detail: Detail;
 	dev: DevState;
+	responsesChangedTrigger: number; // Counter to trigger re-checks when responses change
 }
 
 export interface Detail {

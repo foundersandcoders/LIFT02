@@ -17,16 +17,17 @@
 	// Check if user has any answered questions
 	let hasAnsweredQuestions = $state(false);
 
-	// Re-check responses whenever view changes or profile loads
+	// Re-check responses whenever view changes, profile loads, or responses change
 	$effect(() => {
-		// Track view name and profile id to trigger re-check
+		// Track view name, profile id, and responses trigger to re-check
 		const viewName = app.view.name;
 		const profileId = app.profile.id;
+		const trigger = app.responsesChangedTrigger; // Watch for response changes
 
 		if (profileId) {
 			getUserResponses(profileId).then((result) => {
 				if (result.data) {
-					hasAnsweredQuestions = result.data.some(r => r.status === 'answered');
+					hasAnsweredQuestions = result.data.some(r => r.status === 'answered' && r.visibility === 'public');
 				}
 			});
 		} else {
@@ -147,7 +148,7 @@
 			{#if app.profile.id}
 				{@const isDisabled = isInEmailView || !hasAnsweredQuestions}
 				{@const tooltipText = !hasAnsweredQuestions
-					? 'Answer at least one question to generate an email'
+					? 'Answer at least one public question to generate an email'
 					: isInEmailView
 						? 'Currently viewing email preview'
 						: 'Generate an email summary of your responses and actions to share with your line manager'}

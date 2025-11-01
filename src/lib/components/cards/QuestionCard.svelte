@@ -29,6 +29,7 @@
 
 	const setQuestionId = getContext<(newDetail: RowId | null) => void>('setDetailItemId');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const triggerResponsesChanged = getContext<() => void>('triggerResponsesChanged');
 
 	const clearDetail = () => {
 		setViewName('list');
@@ -127,6 +128,9 @@
 
 			privacySaveStatus = 'saved';
 
+			// Trigger re-check of email button enablement
+			triggerResponsesChanged();
+
 			// Reset to idle after 2 seconds
 			setTimeout(() => {
 				if (privacySaveStatus === 'saved') {
@@ -224,6 +228,9 @@
 			// Update saved state
 			lastSavedText = currentText;
 			hasChanges = false;
+
+			// Trigger re-check of email button enablement
+			triggerResponsesChanged();
 		} catch (error) {
 			console.error('Failed to save response:', error);
 			saveError = 'Failed to save response. Please try again.';
