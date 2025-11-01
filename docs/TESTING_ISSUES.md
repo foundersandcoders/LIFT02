@@ -68,18 +68,20 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #8 - Page title
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: The website should have a proper page title as displayed in the browser tab.
 - **Location**: All pages
-- **Files affected**: TBD
+- **Files affected**: `src/app.html` (line 7)
+- **Solution**: Added `<title>LIFT Workwise</title>` to the HTML head in app.html
 
 ---
 
 ### Issue #9 - Save button text
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: The OK button should have text 'Save' instead.
 - **Location**: All forms
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/cards/QuestionCard.svelte` (lines 239, 310)
+- **Solution**: Changed button text from "OK" to "Save" in QuestionCard component. Also updated comment reference to "Save button".
 
 ---
 
@@ -158,5 +160,5 @@ Track testing issues and their resolution status. Work through these one by one,
 ## Progress Summary
 
 - **Total Issues**: 17
-- **Completed**: 5
-- **Remaining**: 11 (1 rejected)
+- **Completed**: 7
+- **Remaining**: 9 (1 rejected)

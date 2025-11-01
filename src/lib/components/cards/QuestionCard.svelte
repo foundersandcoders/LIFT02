@@ -236,7 +236,7 @@
 		if (canUndo) {
 			connectionDetails.responseInput = previousText;
 			canUndo = false;
-			checkForChanges(); // Check if we need to enable OK button after undo
+			checkForChanges(); // Check if we need to enable Save button after undo
 		}
 	};
 
@@ -307,7 +307,7 @@
 								<span class="loading loading-spinner loading-xs"></span>
 								Saving...
 							{:else}
-								OK
+								Save
 							{/if}
 						</button>
 					</Tooltip>
