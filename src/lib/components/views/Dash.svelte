@@ -95,8 +95,8 @@
 									{@const table = 'questions'}
 									{@const categoryQuestions = questionsResult.data.filter((q: Question) => q.category === category.raw)}
 									{@const total = categoryQuestions.length}
-									{@const answeredQuestionIds = new Set(responsesResult?.data?.map((r: Response) => r.question_id) || [])}
-									{@const completed = categoryQuestions.filter((q: Question) => answeredQuestionIds.has(q.id)).length}
+									{@const answeredQuestionIds = new Set(responsesResult?.data?.map((r: Response) => r.question_id).filter((id): id is string => Boolean(id)) || [])}
+									{@const completed = categoryQuestions.filter((q: Question) => q.id && answeredQuestionIds.has(q.id)).length}
 									{@const completionText = `${completed}/${total}`}
 									<DashTile
 										title={category.format}

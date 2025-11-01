@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { Profile } from '$lib/types/appState';
+	import type { Profile, UserPreferences } from '$lib/types/appState';
 	import { updateProfile, getProfile } from '$lib/services/database/profiles';
 
 	interface Props {
@@ -65,7 +65,7 @@
 					id: result.data.user_id,
 					name: result.data.name,
 					is_line_manager: result.data.is_line_manager,
-					preferences: result.data.preferences || {}
+					preferences: (result.data.preferences as UserPreferences) || {}
 				});
 			}
 

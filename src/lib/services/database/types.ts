@@ -554,3 +554,28 @@ export const Constants = {
   },
 } as const
 
+// Database service layer types
+export type DbResult<T> = Promise<{
+	data: T | null;
+	error: any;
+}>;
+
+export type DbResultMany<T> = Promise<{
+	data: T[] | null;
+	error: any;
+}>;
+
+export interface QueryOptions {
+	orderBy?: {
+		column: string;
+		ascending?: boolean;
+	};
+	limit?: number;
+	offset?: number;
+}
+
+export interface FilterOptions {
+	visibility?: 'public' | 'private';
+	status?: string;
+}
+

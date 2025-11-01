@@ -2,7 +2,6 @@
 	import { getQuestionById, upsertResponse, updateResponse } from '$lib/services/database';
 	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
 	import Tooltip from '../ui/Tooltip.svelte';
 	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
@@ -41,7 +40,6 @@
 			throw new Error('Cannot delete response without a profile ID and response ID.');
 		}
 
-
 		try {
 			// Delete response - CASCADE will automatically delete associated actions
 			const { error } = await supabase
@@ -52,7 +50,6 @@
 			if (error) {
 				throw error;
 			}
-
 		} catch (error) {
 			console.error('❌ Failed to delete response:', error);
 			throw error;
@@ -263,7 +260,6 @@
 			handleUndo();
 		}
 	};
-
 </script>
 
 <ConfirmModal
@@ -282,17 +278,20 @@
 		</div>
 	{:then data}
 		{#if data.question && data.question.data}
-			<div id="question-{questionId}-header" class="card-header relative">
-				<h3 class="pr-16">{data.question.data.preview}</h3>
+			<!-- Question Title -->
+			<div class="px-4 pt-4">
+				<h3>{data.question.data.preview}</h3>
+			</div>
 
-				<div class="flex flex-col gap-1">
-					<ToggleStatus {visibility} {toggleVisibility} disabled={!connectionDetails.responseId} />
-				</div>
-
-				<!-- Position save status absolutely to prevent layout shifts -->
-				<div class="absolute top-4 right-4 z-10">
-					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
-				</div>
+			<!-- Privacy Section -->
+			<div>
+				<ToggleStatus
+					{visibility}
+					{toggleVisibility}
+					disabled={!connectionDetails.responseId}
+					saveStatus={privacySaveStatus}
+					saveError={privacySaveError}
+				/>
 			</div>
 
 			<div id="question-{questionId}-response" class="card-content flex flex-col">
@@ -339,10 +338,7 @@
 			{#if connectionDetails.responseId}
 				<div class="mx-4 mt-2 mb-4 flex justify-end">
 					<Tooltip text="Delete this response and all related actions" position="left">
-						<button
-							onclick={openDeleteModal}
-							class="btn btn-error btn-sm"
-						>
+						<button onclick={openDeleteModal} class="btn btn-error btn-sm">
 							Delete Response & Actions
 						</button>
 					</Tooltip>
