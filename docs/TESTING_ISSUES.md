@@ -36,10 +36,14 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #4 - Button hover effects
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: Each button should have a hover effect. It can be thicker border.
-- **Location**: Dashboard
-- **Files affected**: TBD
+- **Location**: Dashboard and question lists
+- **Files affected**: `src/app.css` (lines 89-91, 106, 353)
+- **Solution**: Added inset box-shadow on hover to create a thicker border effect that grows inward (doesn't affect layout). Applied to:
+  - `.dash-tile-rect` (2px inset)
+  - `.dash-tile-square` (2px inset combined with existing shadow)
+  - `.list-item-questions` (2px inset combined with existing shadow)
 
 ---
 
@@ -150,5 +154,5 @@ Track testing issues and their resolution status. Work through these one by one,
 ## Progress Summary
 
 - **Total Issues**: 17
-- **Completed**: 3
-- **Remaining**: 14
+- **Completed**: 4
+- **Remaining**: 13
