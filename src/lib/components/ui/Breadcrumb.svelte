@@ -16,7 +16,7 @@
 
 	// Track which breadcrumb items are on a wrapped line
 	let wrappedItems = $state<Set<number>>(new Set());
-	let breadcrumbList: HTMLElement | null = null;
+	let breadcrumbList = $state<HTMLElement | null>(null);
 
 	// Detect wrapped breadcrumb items
 	function checkWrapping() {
@@ -101,10 +101,12 @@
 		const items: BreadcrumbItem[] = [];
 
 		// Always start with Dashboard
+		// Dashboard is only clickable if we're NOT already on the dashboard
+		const isDashboard = viewName === 'dash';
 		items.push({
 			label: 'Dashboard',
-			clickable: true,
-			action: () => setViewName('dash')
+			clickable: !isDashboard,
+			action: !isDashboard ? () => setViewName('dash') : undefined
 		});
 
 		// Add intermediate levels based on current view

@@ -27,10 +27,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #3 - Dashboard breadcrumb styling
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: When on the dashboard page, 'Dashboard' in breadcrumb should be bold, not underlined, and not clickable, because it is the current page the user is on.
 - **Location**: Dashboard
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/ui/Breadcrumb.svelte` (line 105-109)
+- **Solution**: Changed Dashboard breadcrumb item to be non-clickable (`clickable: false`) when current view is dashboard. The existing CSS already styles non-clickable items as bold without underline using `.breadcrumb-current` class.
 
 ---
 
@@ -149,5 +150,5 @@ Track testing issues and their resolution status. Work through these one by one,
 ## Progress Summary
 
 - **Total Issues**: 17
-- **Completed**: 2
-- **Remaining**: 15
+- **Completed**: 3
+- **Remaining**: 14
