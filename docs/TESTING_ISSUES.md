@@ -95,10 +95,11 @@ Track testing issues and their resolution status. Work through these one by one,
 ---
 
 ### Issue #11 - Visibility text styling
-- [ ] **Status**: Not started
+- [x] **Status**: ✅ Fixed
 - **Description**: This line of text should be black instead of grey and it misses a full stop: 'Visibility to employer. This answer and actions will be included on the email'
 - **Location**: All forms
-- **Files affected**: TBD
+- **Files affected**: `src/lib/components/ui/ToggleStatus.svelte` (line 16-17)
+- **Solution**: Added `text-base-content` class to make text black instead of grey, and added full stop at end of sentence
 
 ---
 
