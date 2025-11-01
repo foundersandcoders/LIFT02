@@ -8,7 +8,7 @@
 	import { getQuestions } from '$lib/services/database/questions';
 	import { getResources } from '$lib/services/database/resources';
 	import { getUserResponses } from '$lib/services/database/responses';
-	import type { Question } from '$lib/types/tableMain';
+	import type { Question, Response } from '$lib/types/tableMain';
 	import type { AppState, ItemCategory, List, TableName, ViewName, Profile } from '$lib/types/appState';
 	import { makePretty } from '$lib/utils/textTools';
 
@@ -41,38 +41,6 @@
 		setList({ table, category });
 		setViewName('list');
 	};
-
-	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	const getTestUsers = getContext<() => Profile[]>('getTestUsers');
-	const setTestUser = getContext<(userId: string, userName: string) => Promise<void>>('setTestUser');
-
-	const sortedTestUsers = $derived(
-		[...(getTestUsers() || [])]
-			.filter(
-				(user): user is Profile & { id: string; name: string } =>
-					user.id !== null && user.name !== null && user.is_line_manager === false
-			)
-			.sort((a, b) => a.id.localeCompare(b.id))
-	);
-
-	let dropdownExpanded = $state(false);
-	let selectedUserId = $state<string | null>(null);
-
-	async function handleUserSelect(userId: string, userName: string) {
-		await setTestUser(userId, userName);
-		selectedUserId = userId;
-		console.log('Test user selected:', userName, userId);
-
-		// Close dropdown after selection
-		dropdownExpanded = false;
-		const dropdown = document.activeElement as HTMLElement;
-		dropdown?.blur();
-	}
-
-	function toggleDropdown() {
-		dropdownExpanded = !dropdownExpanded;
-	}
-	// ======================================================
 </script>
 
 <div id="dash-view" class="view">
@@ -81,41 +49,7 @@
 	<div id="dash-tiles" class="view-content">
 		{#if app.profile.id == null}
 			<div class="dash-grid-1">
-				<DashTile title="No Profile Selected" variant="square" disabled />
-
-				<!-- ========== TESTING ONLY - REMOVE WHEN DONE ========== -->
-				<div class="dropdown mt-4">
-					<button
-						type="button"
-						class="btn btn-primary btn-sm"
-						onclick={toggleDropdown}
-						onkeydown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleDropdown() : null)}
-						aria-label="Select test user for development"
-						aria-expanded={dropdownExpanded}
-						aria-haspopup="listbox"
-					>
-						Select Test User
-					</button>
-					<ul
-						class="dropdown-content menu bg-base-100 rounded-box text-base-content z-1 w-52 p-2 shadow-sm"
-						role="listbox"
-						aria-label="Available test users"
-					>
-						{#each sortedTestUsers as user (user.id)}
-							<li role="option" aria-selected={selectedUserId === user.id}>
-								<button
-									onclick={() => handleUserSelect(user.id, user.name)}
-									class="text-left"
-									aria-label="Select {user.name} as test user"
-								>
-									<span class="text-xs opacity-60">{user.id.slice(-2)}</span>
-									{user.name}
-								</button>
-							</li>
-						{/each}
-					</ul>
-				</div>
-				<!-- ====================================================== -->
+				<DashTile title="Loading Profile..." loading={true} disabled />
 			</div>
 		{:else}
 			<!-- Actions Section -->
@@ -159,10 +93,10 @@
 							{#if questionsResult.data}
 								{#each extractCategories(questionsResult.data) as category}
 									{@const table = 'questions'}
-									{@const categoryQuestions = questionsResult.data.filter(q => q.category === category.raw)}
+									{@const categoryQuestions = questionsResult.data.filter((q: Question) => q.category === category.raw)}
 									{@const total = categoryQuestions.length}
-									{@const answeredQuestionIds = new Set(responsesResult?.data?.map(r => r.question_id) || [])}
-									{@const completed = categoryQuestions.filter(q => answeredQuestionIds.has(q.id)).length}
+									{@const answeredQuestionIds = new Set(responsesResult?.data?.map((r: Response) => r.question_id) || [])}
+									{@const completed = categoryQuestions.filter((q: Question) => q.id && answeredQuestionIds.has(q.id)).length}
 									{@const completionText = `${completed}/${total}`}
 									<DashTile
 										title={category.format}

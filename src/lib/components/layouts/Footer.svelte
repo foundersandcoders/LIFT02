@@ -4,6 +4,7 @@
 	import { getContext } from 'svelte';
 	import FontSizeControl from '../ui/FontSizeControl.svelte';
 	import HelpButton from '../ui/HelpButton.svelte';
+	import ProfileButton from '../ui/ProfileButton.svelte';
 
 	let { devMode } = $props();
 
@@ -15,6 +16,8 @@
 
 <footer class="footer">
 	<HelpButton />
+
+	<ProfileButton />
 
 	<FontSizeControl />
 </footer>

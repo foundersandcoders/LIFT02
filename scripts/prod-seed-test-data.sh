@@ -112,7 +112,10 @@ PROFILES_JSON=$(echo "$TEST_DATA" | jq '[.users[] | {
     name: .name,
     pronouns: .pronouns,
     job_title: .job_title,
-    is_line_manager: .is_line_manager
+    is_line_manager: .is_line_manager,
+    email: .email,
+    line_manager_name: .line_manager_name,
+    line_manager_email: .line_manager_email
 }]')
 
 PROFILE_RESPONSE=$(curl -s -X POST "$API_URL/profiles" \

@@ -86,14 +86,17 @@ cat > supabase/generated/test_fake_data.sql << 'EOF'
 -- DO NOT EDIT MANUALLY - run scripts/generate-test-data.sh to regenerate
 
 -- ===========================================
--- ORGANIZATIONS
+-- ORGANIZATIONS (skipped - using simplified line manager fields instead)
 -- ===========================================
+-- We now use line_manager_name and line_manager_email fields directly on profiles
+-- The old organizations and line_managers tables are kept for backward compatibility
+-- but not populated in test data
 
 EOF
 
-# Add organizations
-echo "$TEST_DATA" | jq -r '.organizations[] | 
-"INSERT INTO organizations (id, name) VALUES (\u0027" + .id + "\u0027::uuid, \u0027" + .name + "\u0027);"' >> supabase/generated/test_fake_data.sql
+# Skip organizations - we're using simplified approach
+# echo "$TEST_DATA" | jq -r '.organizations[] |
+# "INSERT INTO organizations (id, name) VALUES (\u0027" + .id + "\u0027::uuid, \u0027" + .name + "\u0027);"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
@@ -135,36 +138,37 @@ echo "$TEST_DATA" | jq -r '.users[] |
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
-echo "-- PROFILES (step 1: without line_manager FK)" >> supabase/generated/test_fake_data.sql
+echo "-- PROFILES (auto-created by trigger, update with additional fields)" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
 echo "" >> supabase/generated/test_fake_data.sql
 
-# Add profiles without line_manager FK first
-echo "INSERT INTO profiles (id, user_id, name, pronouns, job_title, is_line_manager) VALUES" >> supabase/generated/test_fake_data.sql
-
-echo "$TEST_DATA" | jq -r '.users | length as $len | to_entries | map(
-  "  (\u0027" + .value.id + "\u0027::uuid, \u0027" + .value.id + "\u0027::uuid, \u0027" + .value.name + "\u0027, ARRAY[" + (.value.pronouns | map("\u0027" + . + "\u0027") | join(", ")) + "], \u0027" + .value.job_title + "\u0027, " + (.value.is_line_manager | tostring) + ")" + (if (.key == ($len - 1)) then ";" else "," end)
-) | join("\n")' >> supabase/generated/test_fake_data.sql
-
-echo "" >> supabase/generated/test_fake_data.sql
-echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
-echo "-- LINE MANAGERS" >> supabase/generated/test_fake_data.sql
-echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
-echo "" >> supabase/generated/test_fake_data.sql
-
-# Add line managers
-echo "$TEST_DATA" | jq -r '.line_managers[] | 
-"INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES (\u0027" + .id + "\u0027::uuid, \u0027" + .line_manager_id + "\u0027::uuid, \u0027" + .organization_id + "\u0027::uuid, \u0027" + .email + "\u0027);"' >> supabase/generated/test_fake_data.sql
+# Update profiles created by trigger with additional fields
+echo "$TEST_DATA" | jq -r '.users[] |
+"UPDATE profiles SET
+  name = \u0027" + .name + "\u0027,
+  pronouns = ARRAY[" + (.pronouns | map("\u0027" + . + "\u0027") | join(", ")) + "],
+  job_title = \u0027" + .job_title + "\u0027,
+  is_line_manager = " + (.is_line_manager | tostring) + ",
+  line_manager_name = " + (if .line_manager_name then "\u0027" + .line_manager_name + "\u0027" else "NULL" end) + ",
+  line_manager_email = " + (if .line_manager_email then "\u0027" + .line_manager_email + "\u0027" else "NULL" end) + "
+WHERE user_id = \u0027" + .id + "\u0027::uuid;"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
-echo "-- PROFILES (step 2: update line_manager FK)" >> supabase/generated/test_fake_data.sql
+echo "-- LINE MANAGERS (skipped - using simplified approach)" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql
+echo "-- We now store line manager info directly on profiles via:" >> supabase/generated/test_fake_data.sql
+echo "-- - line_manager_name (TEXT)" >> supabase/generated/test_fake_data.sql
+echo "-- - line_manager_email (TEXT)" >> supabase/generated/test_fake_data.sql
 echo "" >> supabase/generated/test_fake_data.sql
 
-# Update profiles to set line_manager FK
-echo "$TEST_DATA" | jq -r '.users[] | select(.line_manager != null) | 
-"UPDATE profiles SET line_manager = \u0027" + .line_manager + "\u0027::uuid WHERE id = \u0027" + .id + "\u0027::uuid;"' >> supabase/generated/test_fake_data.sql
+# Skip line_managers table - we're using simplified approach
+# echo "$TEST_DATA" | jq -r '.line_managers[] |
+# "INSERT INTO line_managers (id, line_manager_id, organization_id, email) VALUES (\u0027" + .id + "\u0027::uuid, \u0027" + .line_manager_id + "\u0027::uuid, \u0027" + .organization_id + "\u0027::uuid, \u0027" + .email + "\u0027);"' >> supabase/generated/test_fake_data.sql
+
+# Skip old line_manager FK update
+# echo "$TEST_DATA" | jq -r '.users[] | select(.line_manager != null) |
+# "UPDATE profiles SET line_manager = \u0027" + .line_manager + "\u0027::uuid WHERE id = \u0027" + .id + "\u0027::uuid;"' >> supabase/generated/test_fake_data.sql
 
 echo "" >> supabase/generated/test_fake_data.sql
 echo "-- ===========================================" >> supabase/generated/test_fake_data.sql

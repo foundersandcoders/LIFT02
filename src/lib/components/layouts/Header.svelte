@@ -4,6 +4,7 @@
 	import Tooltip from '../ui/Tooltip.svelte';
 	import { Icon, Envelope } from 'svelte-hero-icons';
 	import { version } from '$lib/version';
+	import { getUserResponses } from '$lib/services/database/responses';
 
 	const getApp = getContext<() => AppState>('getApp');
 	const app = $derived(getApp());
@@ -12,6 +13,26 @@
 
 	// Check if currently in email view
 	const isInEmailView = $derived(app.view.name === 'email');
+
+	// Check if user has any answered questions
+	let hasAnsweredQuestions = $state(false);
+
+	// Re-check responses whenever view changes or profile loads
+	$effect(() => {
+		// Track view name and profile id to trigger re-check
+		const viewName = app.view.name;
+		const profileId = app.profile.id;
+
+		if (profileId) {
+			getUserResponses(profileId).then((result) => {
+				if (result.data) {
+					hasAnsweredQuestions = result.data.some(r => r.status === 'answered');
+				}
+			});
+		} else {
+			hasAnsweredQuestions = false;
+		}
+	});
 	const onProfileClick = () => {
 		// setViewName('profile');
 		console.log('Profile Clicked');
@@ -113,16 +134,25 @@
 			{/if}
 		</div>
 
-		<h1>Workwise</h1>
+		<div class="flex flex-col">
+			<h1>Workwise</h1>
+			{#if app.profile.name}
+				<span class="text-xs text-white opacity-70">Logged in as: {app.profile.name}</span>
+			{/if}
+		</div>
 	</div>
 
 	<div class="header-right">
 			<!-- Email Button -->
 			{#if app.profile.id}
-				<Tooltip
-					text={isInEmailView
+				{@const isDisabled = isInEmailView || !hasAnsweredQuestions}
+				{@const tooltipText = !hasAnsweredQuestions
+					? 'Answer at least one question to generate an email'
+					: isInEmailView
 						? 'Currently viewing email preview'
 						: 'Generate an email summary of your responses and actions to share with your line manager'}
+				<Tooltip
+					text={tooltipText}
 					position="bottom_left"
 				>
 					<button
@@ -131,12 +161,12 @@
 						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						type="button"
 						aria-label="Send Email to Line Manager"
-						disabled={isInEmailView}
+						disabled={isDisabled}
 					>
 						<Icon
 							src={Envelope}
 							solid
-							class="h-5 w-5 transition-colors {isInEmailView
+							class="h-5 w-5 transition-colors {isDisabled
 								? 'text-white/40'
 								: 'text-white'}"
 						/>

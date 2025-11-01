@@ -40,7 +40,7 @@
 		"prettier-plugin-sql": "^0.19.1",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.12",
-		"supabase": "^2.40.7",
+		"supabase": "^2.53.6",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"svelte-hero-icons": "^5.2.0",
@@ -51,6 +51,7 @@
 	},
 	"dependencies": {
 		"@fontsource/metropolis": "^5.2.5",
+		"@supabase/ssr": "^0.7.0",
 		"@supabase/supabase-js": "^2.49.8",
 		"@tailwindcss/vite": "^4.1.10",
 		"daisyui": "^5.0.43",

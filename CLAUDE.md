@@ -233,6 +233,29 @@ Before submitting any code, ensure the following steps are completed:
 
 ## Deployment (Vercel)
 
+### IMPORTANT: Production Deployment Rules
+
+⚠️ **CRITICAL**: Production (`https://lift02.vercel.app`) is MANUALLY controlled. DO NOT deploy to production accidentally.
+
+**Deployment Commands:**
+
+```bash
+# PREVIEW deployment (safe - for testing)
+npm run deploy
+# or
+npx vercel
+
+# PRODUCTION deployment (MANUAL ONLY - requires explicit approval)
+npx vercel --prod
+```
+
+**Safe Workflow:**
+1. Work on feature branches (e.g., `feat/implement_auth`)
+2. Use `npm run deploy` to create preview deployments for testing
+3. Preview deployments get unique URLs like `https://lift02-xyz123.vercel.app`
+4. Only deploy to production after explicit approval
+5. Production is controlled from `main` branch only
+
 ### Environment Variables Setup
 
 Set these environment variables in Vercel dashboard (Settings > Environment Variables):

@@ -16,7 +16,7 @@
 
 	// Track which breadcrumb items are on a wrapped line
 	let wrappedItems = $state<Set<number>>(new Set());
-	let breadcrumbList: HTMLElement | null = null;
+	let breadcrumbList = $state<HTMLElement | null>(null);
 
 	// Detect wrapped breadcrumb items
 	function checkWrapping() {

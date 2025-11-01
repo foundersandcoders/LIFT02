@@ -29,10 +29,6 @@
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
 
-	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	import { getAllProfiles, getProfile } from '$lib/services/database/profiles';
-	import { onMount } from 'svelte';
-	// ======================================================
 
 	// Dev Mode
 	let devMode = $state<boolean>(false);
@@ -41,10 +37,6 @@
 	setContext('setDevMode', () => {
 		devMode = !devMode;
 	});
-
-	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	let testUsers = $state<Profile[]>([]);
-	// ======================================================
 
 	// =1 App State
 	let appState = $state<AppState>({
@@ -157,56 +149,6 @@
 	setContext('setViewName', (newView: ViewName) => {
 		appState.view.name = newView;
 	});
-
-	// ========== TESTING ONLY - REMOVE WHEN DONE ==========
-	// Add context for test users
-	setContext('getTestUsers', () => testUsers);
-	setContext('setTestUser', async (userId: string, userName: string) => {
-		// Set basic info immediately for UI responsiveness
-		appState.profile.id = userId;
-		appState.profile.name = userName;
-
-		// Load full profile data including preferences
-		try {
-			const result = await getProfile(userId);
-			if (result.data) {
-				appState.profile = {
-					id: result.data.user_id,
-					name: result.data.name,
-					is_line_manager: result.data.is_line_manager,
-					preferences: (result.data.preferences as UserPreferences) || {}
-				};
-			}
-		} catch (error) {
-			console.error('Failed to load profile preferences:', error);
-		}
-	});
-
-	// Fetch all profiles for testing dropdown
-	onMount(() => {
-		let cancelled = false;
-
-		(async () => {
-			const result = await getAllProfiles();
-			if (!cancelled) {
-				if (result.data) {
-					testUsers = result.data.map(user => ({
-						...user,
-						id: user.user_id,
-						preferences: (user.preferences as UserPreferences) || {}
-					}));
-					console.log('Test users loaded:', testUsers.length);
-				} else if (result.error) {
-					console.warn('Could not load test users for development:', result.error.message);
-				}
-			}
-		})();
-
-		return () => {
-			cancelled = true;
-		};
-	});
-	// ======================================================
 
 	// =1 Child Props
 	let { children } = $props();
