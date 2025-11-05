@@ -89,13 +89,15 @@
 <Tooltip text="Get help" position="top_right">
 	<button
 		id="help-button"
-		class="hover:bg-opacity-20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-transparent text-base font-bold text-white transition-colors hover:bg-white disabled:opacity-50"
+		class="group flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-transparent text-base font-bold text-white disabled:opacity-50"
 		type="button"
 		aria-label="Get help for current section"
 		onclick={handleHelpClick}
 		disabled={isLoading}
 	>
-		{isLoading ? '...' : 'i'}
+		<div class="transition-transform group-hover:scale-150">
+			{isLoading ? '...' : 'i'}
+		</div>
 	</button>
 </Tooltip>
 

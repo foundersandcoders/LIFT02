@@ -66,7 +66,8 @@
 		dev: {
 			testProfileId: '550e8400-e29b-41d4-a716-446655440001',
 			testProfileName: 'Perico Palotes'
-		}
+		},
+		responsesChangedTrigger: 0
 	});
 
 	// [!] Check this doesn't break the mock login
@@ -148,6 +149,9 @@
 	});
 	setContext('setViewName', (newView: ViewName) => {
 		appState.view.name = newView;
+	});
+	setContext('triggerResponsesChanged', () => {
+		appState.responsesChangedTrigger++;
 	});
 
 	// =1 Child Props

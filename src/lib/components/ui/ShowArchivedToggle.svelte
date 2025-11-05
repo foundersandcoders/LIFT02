@@ -11,7 +11,7 @@
 </script>
 
 <label class="flex items-center justify-end gap-2">
-	<span class="text-sm">Show Inactive</span>
+	<span class="text-sm">Show done actions</span>
 	<input
 		type="checkbox"
 		class="toggle border-grey-500 bg-grey-400 checked:border-accent-dark checked:bg-accent checked:text-gray-800"

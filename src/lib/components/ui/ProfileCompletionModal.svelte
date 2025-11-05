@@ -61,7 +61,7 @@
 {#if show}
 	<div class="modal modal-open">
 		<div class="modal-box max-w-md">
-			<h3 class="mb-4 text-lg font-bold">Complete Your Profile</h3>
+			<h3 class="mb-4 text-lg font-bold">Complete your profile</h3>
 			<p class="mb-4 text-sm opacity-70">
 				Welcome! Please provide your name and optionally your line manager's details.
 			</p>
@@ -70,7 +70,7 @@
 				<!-- Name (required) -->
 				<div class="form-control">
 					<label for="name" class="label">
-						<span class="label-text">Your Name *</span>
+						<span class="label-text">Your name *</span>
 					</label>
 					<input
 						id="name"
@@ -86,7 +86,7 @@
 				<!-- Line Manager Name (optional) -->
 				<div class="form-control">
 					<label for="lineManagerName" class="label">
-						<span class="label-text">Line Manager Name</span>
+						<span class="label-text">Line manager name</span>
 					</label>
 					<input
 						id="lineManagerName"
@@ -101,7 +101,7 @@
 				<!-- Line Manager Email (optional) -->
 				<div class="form-control">
 					<label for="lineManagerEmail" class="label">
-						<span class="label-text">Line Manager Email</span>
+						<span class="label-text">Line manager email</span>
 					</label>
 					<input
 						id="lineManagerEmail"
@@ -125,7 +125,7 @@
 							<span class="loading loading-spinner"></span>
 							Saving...
 						{:else}
-							Save Profile
+							Save profile
 						{/if}
 					</button>
 				</div>

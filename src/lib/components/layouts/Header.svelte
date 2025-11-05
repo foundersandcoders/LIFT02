@@ -17,16 +17,17 @@
 	// Check if user has any answered questions
 	let hasAnsweredQuestions = $state(false);
 
-	// Re-check responses whenever view changes or profile loads
+	// Re-check responses whenever view changes, profile loads, or responses change
 	$effect(() => {
-		// Track view name and profile id to trigger re-check
+		// Track view name, profile id, and responses trigger to re-check
 		const viewName = app.view.name;
 		const profileId = app.profile.id;
+		const trigger = app.responsesChangedTrigger; // Watch for response changes
 
 		if (profileId) {
 			getUserResponses(profileId).then((result) => {
 				if (result.data) {
-					hasAnsweredQuestions = result.data.some(r => r.status === 'answered');
+					hasAnsweredQuestions = result.data.some(r => r.status === 'answered' && r.visibility === 'public');
 				}
 			});
 		} else {
@@ -113,7 +114,7 @@
 		<div class="relative">
 			<button
 				id="brand-logo"
-				class="logo-button cursor-pointer hover:opacity-80 transition-opacity"
+				class="logo-button"
 				onclick={onLogoClick}
 				ontouchstart={onLogoTouchStart}
 				ontouchend={onLogoTouchEnd}
@@ -143,14 +144,12 @@
 	</div>
 
 	<div class="header-right">
-			<!-- Email Button -->
-			{#if app.profile.id}
-				{@const isDisabled = isInEmailView || !hasAnsweredQuestions}
+			<!-- Email Button - hidden when viewing email preview -->
+			{#if app.profile.id && !isInEmailView}
+				{@const isDisabled = !hasAnsweredQuestions}
 				{@const tooltipText = !hasAnsweredQuestions
-					? 'Answer at least one question to generate an email'
-					: isInEmailView
-						? 'Currently viewing email preview'
-						: 'Generate an email summary of your responses and actions to share with your line manager'}
+					? 'Answer at least one public question to generate an email'
+					: 'Generate an email summary of your responses and actions to share with your line manager'}
 				<Tooltip
 					text={tooltipText}
 					position="bottom_left"
@@ -158,15 +157,15 @@
 					<button
 						id="email-button"
 						onclick={onEmailClick}
-						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group"
 						type="button"
-						aria-label="Send Email to Line Manager"
+						aria-label="Send email to line manager"
 						disabled={isDisabled}
 					>
 						<Icon
 							src={Envelope}
 							solid
-							class="h-5 w-5 transition-colors {isDisabled
+							class="h-5 w-5 transition-transform group-hover:scale-125 {isDisabled
 								? 'text-white/40'
 								: 'text-white'}"
 						/>

@@ -2,7 +2,6 @@
 	import { getQuestionById, upsertResponse, updateResponse } from '$lib/services/database';
 	import { supabase } from '$lib/services/supabaseClient';
 	import ToggleStatus from '../ui/ToggleStatus.svelte';
-	import SaveStatus from '../ui/SaveStatus.svelte';
 	import UndoButton from '../ui/UndoButton.svelte';
 	import Tooltip from '../ui/Tooltip.svelte';
 	import type { QuestionConnections, RowId, ViewName } from '$lib/types/appState';
@@ -29,6 +28,7 @@
 
 	const setQuestionId = getContext<(newDetail: RowId | null) => void>('setDetailItemId');
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
+	const triggerResponsesChanged = getContext<() => void>('triggerResponsesChanged');
 
 	const clearDetail = () => {
 		setViewName('list');
@@ -40,7 +40,6 @@
 			throw new Error('Cannot delete response without a profile ID and response ID.');
 		}
 
-
 		try {
 			// Delete response - CASCADE will automatically delete associated actions
 			const { error } = await supabase
@@ -51,7 +50,6 @@
 			if (error) {
 				throw error;
 			}
-
 		} catch (error) {
 			console.error('❌ Failed to delete response:', error);
 			throw error;
@@ -101,6 +99,7 @@
 	let hasChanges = $state(false);
 	let isSaving = $state(false);
 	let saveError = $state<string | null>(null);
+	let saveSuccess = $state(false);
 
 	// Helper function to save or update response using upsert pattern
 	const saveOrUpdateResponse = async (responseData: any) => {
@@ -126,6 +125,9 @@
 			}
 
 			privacySaveStatus = 'saved';
+
+			// Trigger re-check of email button enablement
+			triggerResponsesChanged();
 
 			// Reset to idle after 2 seconds
 			setTimeout(() => {
@@ -224,6 +226,15 @@
 			// Update saved state
 			lastSavedText = currentText;
 			hasChanges = false;
+			saveSuccess = true;
+
+			// Trigger re-check of email button enablement
+			triggerResponsesChanged();
+
+			// Clear success message after 2 seconds
+			setTimeout(() => {
+				saveSuccess = false;
+			}, 2000);
 		} catch (error) {
 			console.error('Failed to save response:', error);
 			saveError = 'Failed to save response. Please try again.';
@@ -236,7 +247,7 @@
 		if (canUndo) {
 			connectionDetails.responseInput = previousText;
 			canUndo = false;
-			checkForChanges(); // Check if we need to enable OK button after undo
+			checkForChanges(); // Check if we need to enable Save button after undo
 		}
 	};
 
@@ -249,12 +260,11 @@
 			handleUndo();
 		}
 	};
-
 </script>
 
 <ConfirmModal
 	show={showDeleteModal}
-	title="Delete Response & Actions"
+	title="Delete response and actions"
 	message="Are you sure you want to delete this response and all related actions? This action cannot be undone."
 	onConfirm={deleteResponse}
 	onSuccess={clearDetail}
@@ -268,17 +278,20 @@
 		</div>
 	{:then data}
 		{#if data.question && data.question.data}
-			<div id="question-{questionId}-header" class="card-header relative">
+			<!-- Question Title -->
+			<div class="px-4 pt-4">
 				<h3>{data.question.data.preview}</h3>
+			</div>
 
-				<div class="flex flex-col gap-1">
-					<ToggleStatus {visibility} {toggleVisibility} disabled={!connectionDetails.responseId} />
-				</div>
-
-				<!-- Position save status absolutely to prevent layout shifts -->
-				<div class="absolute top-4 right-4">
-					<SaveStatus status={privacySaveStatus} error={privacySaveError} />
-				</div>
+			<!-- Privacy Section -->
+			<div>
+				<ToggleStatus
+					{visibility}
+					{toggleVisibility}
+					disabled={!connectionDetails.responseId}
+					saveStatus={privacySaveStatus}
+					saveError={privacySaveError}
+				/>
 			</div>
 
 			<div id="question-{questionId}-response" class="card-content flex flex-col">
@@ -303,15 +316,13 @@
 							disabled={!hasChanges || isSaving}
 							class="btn-submit btn-sm"
 						>
-							{#if isSaving}
-								<span class="loading loading-spinner loading-xs"></span>
-								Saving...
-							{:else}
-								OK
-							{/if}
+							Save
 						</button>
 					</Tooltip>
 					<UndoButton {canUndo} onclick={handleUndo} />
+					{#if saveSuccess}
+						<span class="text-success text-sm font-medium">Saved</span>
+					{/if}
 				</div>
 				{#if saveError}
 					<div class="text-error mt-2 text-sm">
@@ -327,11 +338,8 @@
 			{#if connectionDetails.responseId}
 				<div class="mx-4 mt-2 mb-4 flex justify-end">
 					<Tooltip text="Delete this response and all related actions" position="left">
-						<button
-							onclick={openDeleteModal}
-							class="btn btn-error btn-sm"
-						>
-							Delete Response & Actions
+						<button onclick={openDeleteModal} class="btn btn-error btn-sm">
+							Delete response and actions
 						</button>
 					</Tooltip>
 				</div>
