@@ -402,7 +402,29 @@ When running locally, you can access:
    - When prompted if you want to set up Edge Functions with Deno, answer "No"
    - After initialization is complete, run `supabase start` again
 
-7. **Docker Architecture Mismatch**
+7. **Magic link authentication callback not working**
+
+   - If magic link emails are not including the `/auth/callback` redirect URL correctly, you may need to update the Supabase CLI
+
+   ```bash
+   # Update Supabase CLI to latest version
+   npm install supabase@latest --save-dev
+
+   # Restart Supabase to apply config changes
+   supabase stop
+   supabase start
+   ```
+
+   - Ensure your `supabase/config.toml` has the correct redirect URLs:
+
+   ```toml
+   site_url = "http://127.0.0.1:5173"
+   additional_redirect_urls = ["http://127.0.0.1:5173/auth/callback","http://localhost:5173/auth/callback"]
+   ```
+
+   - After updating the config or CLI, always restart Supabase for changes to take effect
+
+8. **Docker Architecture Mismatch**
 
    - If you see errors like `exec /usr/bin/sh: exec format error`, it means you're trying to run Docker containers built for a different CPU architecture
 

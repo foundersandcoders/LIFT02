@@ -49,7 +49,7 @@
 	<div id="dash-tiles" class="view-content">
 		{#if app.profile.id == null}
 			<div class="dash-grid-1">
-				<DashTile title="Loading Profile..." loading={true} disabled />
+				<DashTile title="Loading profile..." loading={true} disabled />
 			</div>
 		{:else}
 			<!-- Actions Section -->
@@ -58,23 +58,23 @@
 					<h3 class="card-title text-base opacity-70 mb-0">Actions</h3>
 					<div class="dash-vertical-container">
 						{#await queryActions}
-							<DashTile title="Loading Actions..." loading={true} disabled />
+							<DashTile title="Loading actions..." loading={true} disabled />
 						{:then result}
 							{#if result && result.data}
 								{@const table = 'actions'}
 								{@const category = { raw: 'actions', format: 'Actions' }}
 								{@const num = result.data.length}
 								{@const any = result.data.length > 0}
-								{@const name = "Active Actions"}
+								{@const name = "Active actions"}
 								<DashTile
 									title={any ? `${num} ${name}` : `No ${name}`}
 									onclick={() => onclick(table, category)}
 								/>
 							{:else}
-								<DashTile title="No Active Actions" disabled />
+								<DashTile title="No active actions" disabled />
 							{/if}
 						{:catch error}
-							<DashTile title="Error Getting Actions" error={error.message} disabled />
+							<DashTile title="Error getting actions" error={error.message} disabled />
 						{/await}
 					</div>
 				</div>
@@ -127,7 +127,7 @@
 					<h3 class="card-title text-base opacity-70 mb-0">Resources</h3>
 					<div class="dash-vertical-container">
 						{#await queryResources}
-							<DashTile title="Loading Resources..." loading={true} disabled />
+							<DashTile title="Loading resources..." loading={true} disabled />
 						{:then}
 							{@const table = 'resources'}
 							{@const category = { raw: 'resources', format: 'Resources' }}
@@ -136,16 +136,16 @@
 								onclick={() => onclick(table, category)}
 							/>
 							<DashTile
-								title={'Terms of Use'}
+								title={'Terms of use'}
 								onclick={() => (showTermsModal = true)}
 							/>
 							<DashTile
-								title={'Privacy Policy'}
+								title={'Privacy policy'}
 								onclick={() => (showPrivacyModal = true)}
 							/>
 						{:catch error}
 							<DashTile
-								title="Error Getting Resources"
+								title="Error getting resources"
 								error={error.message}
 								disabled
 							/>

@@ -67,7 +67,7 @@
 </script>
 
 <div id="email-view" class="view">
-	<ViewHeader title="Email Preview" onclick={onBackClick} />
+	<ViewHeader title="Email preview" onclick={onBackClick} />
 
 	<div id="email-content" class="view-content">
 		<div class="flex-1 overflow-y-auto">
@@ -77,7 +77,7 @@
 
 					<!-- Custom Notes Input - Inside Email Preview -->
 					<div class="custom-notes-input mt-6 mb-4 p-4 bg-base-100 rounded border-l-4 border-accent">
-						<label for="custom-notes" class="form-label block mb-2">Additional Notes (Optional)</label>
+						<label for="custom-notes" class="form-label block mb-2">Additional notes (optional)</label>
 						<textarea
 							id="custom-notes"
 							bind:value={customNotes}
@@ -105,7 +105,7 @@
 
 <ConfirmModal
 	show={showModal}
-	title="Send Email"
+	title="Send email"
 	message="This will send the email to your line manager. This action cannot be undone."
 	onConfirm={handleConfirmSend}
 	onCancel={() => (showModal = false)}

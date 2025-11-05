@@ -159,7 +159,7 @@
 						onclick={onEmailClick}
 						class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group"
 						type="button"
-						aria-label="Send Email to Line Manager"
+						aria-label="Send email to line manager"
 						disabled={isDisabled}
 					>
 						<Icon

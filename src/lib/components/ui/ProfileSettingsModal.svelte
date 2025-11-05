@@ -93,13 +93,13 @@
 {#if show}
 	<div class="modal modal-open">
 		<div class="modal-box modal-box-custom mx-auto">
-			<h3 class="text-lg font-bold mb-4 text-center text-base-content">Profile Settings</h3>
+			<h3 class="text-lg font-bold mb-4 text-center text-base-content">Profile settings</h3>
 
 			<form onsubmit={handleSubmit} class="space-y-4">
 				<!-- Name (required) -->
 				<div class="form-control">
 					<label for="settings-name" class="label">
-						<span class="label-text text-base-content">Your Name *</span>
+						<span class="label-text text-base-content">Your name *</span>
 					</label>
 					<input
 						id="settings-name"
@@ -129,7 +129,7 @@
 				<!-- Line Manager Name (optional) -->
 				<div class="form-control">
 					<label for="settings-line-manager-name" class="label">
-						<span class="label-text text-base-content">Line Manager Name (optional)</span>
+						<span class="label-text text-base-content">Line manager name (optional)</span>
 					</label>
 					<input
 						id="settings-line-manager-name"
@@ -144,7 +144,7 @@
 				<!-- Line Manager Email (optional) -->
 				<div class="form-control">
 					<label for="settings-line-manager-email" class="label">
-						<span class="label-text text-base-content">Line Manager Email (optional)</span>
+						<span class="label-text text-base-content">Line manager email (optional)</span>
 					</label>
 					<input
 						id="settings-line-manager-email"
@@ -186,7 +186,7 @@
 							<span class="loading loading-spinner"></span>
 							Saving...
 						{:else}
-							Save Changes
+							Save changes
 						{/if}
 					</button>
 				</div>

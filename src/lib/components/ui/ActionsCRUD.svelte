@@ -192,7 +192,7 @@
 
 <ConfirmModal
 	show={showDeleteModal}
-	title="Delete Action"
+	title="Delete action"
 	message="Are you sure you want to delete this action? This action cannot be undone."
 	onConfirm={handleDeleteAction}
 	onCancel={closeDeleteModal}
@@ -304,7 +304,7 @@
 						<span class="loading loading-spinner loading-xs"></span>
 						Creating...
 					{:else}
-						Add Action
+						Add action
 					{/if}
 				</button>
 				<button
@@ -330,7 +330,7 @@
 				class="btn-submit btn-sm"
 				disabled={!responseId}
 			>
-				Add Action
+				Add action
 			</button>
 		</Tooltip>
 		{#if !responseId}

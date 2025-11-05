@@ -151,6 +151,24 @@ Track testing issues and their resolution status. Work through these one by one,
 
 ---
 
+### Issue #16 - Sentence case for all titles and buttons
+- [x] **Status**: ✅ Fixed
+- **Description**: Please make all titles sentence case rather than title case. This includes buttons e.g. 'Select Test User' should be 'Select test user'
+- **Location**: All pages
+- **Files affected**:
+  - `src/lib/components/ui/ProfileCompletionModal.svelte` (lines 64, 73, 89, 104, 128)
+  - `src/lib/components/ui/ProfileSettingsModal.svelte` (lines 96, 102, 132, 147, 189)
+  - `src/lib/components/ui/ActionsCRUD.svelte` (lines 195, 307, 333)
+  - `src/lib/components/cards/QuestionCard.svelte` (lines 267, 342)
+  - `src/lib/components/views/Email.svelte` (lines 70, 80, 108)
+  - `src/lib/components/views/Dash.svelte` (lines 52, 61, 68, 74, 77, 130, 139, 143, 148)
+  - `src/lib/components/ui/FontSizeControl.svelte` (lines 25, 29, 125)
+  - `src/lib/components/views/Detail.svelte` (line 30)
+  - `src/lib/components/layouts/Header.svelte` (line 162)
+- **Solution**: Converted all modal titles, button labels, form field labels, loading messages, and navigation labels from Title Case to sentence case throughout the application
+
+---
+
 ### Issue #20 - Manager actions field text
 - [x] **Status**: Not started
 - **Description**: Change the field on manager actions to 'The actions you'd like your manager to take in response to this question.'

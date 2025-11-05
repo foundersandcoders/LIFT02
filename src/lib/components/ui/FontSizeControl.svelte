@@ -22,11 +22,11 @@
 	let showModal = $state(false);
 
 	const fontSizeLabels = {
-		'extra-small': 'Extra Small',
+		'extra-small': 'Extra small',
 		'small': 'Small',
 		'medium': 'Medium',
 		'large': 'Large',
-		'extra-large': 'Extra Large'
+		'extra-large': 'Extra large'
 	};
 
 	// Helper function to update both local state and appState preferences
@@ -122,7 +122,7 @@
 
 		<div class="absolute bottom-12 right-0 bg-white rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.3)] border-2 border-gray-400 p-4 min-w-48 z-50">
 			<div class="flex flex-col space-y-3">
-				<h3 class="font-medium text-gray-900 mb-2">Font Size</h3>
+				<h3 class="font-medium text-gray-900 mb-2">Font size</h3>
 
 				<div class="flex items-center justify-between">
 					<button
