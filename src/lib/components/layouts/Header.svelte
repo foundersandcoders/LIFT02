@@ -20,9 +20,9 @@
 	// Re-check responses whenever view changes, profile loads, or responses change
 	$effect(() => {
 		// Track view name, profile id, and responses trigger to re-check
-		const viewName = app.view.name;
+		app.view.name; // Watch view name changes
 		const profileId = app.profile.id;
-		const trigger = app.responsesChangedTrigger; // Watch for response changes
+		app.responsesChangedTrigger; // Watch for response changes
 
 		if (profileId) {
 			getUserResponses(profileId).then((result) => {
@@ -34,10 +34,6 @@
 			hasAnsweredQuestions = false;
 		}
 	});
-	const onProfileClick = () => {
-		// setViewName('profile');
-		console.log('Profile Clicked');
-	};
 	const onEmailClick = () => {
 		setViewName('email');
 		// Move focus to back button after navigation
@@ -55,7 +51,7 @@
 	let showVersion = $state(false);
 	let longPressTimer: ReturnType<typeof setTimeout> | null = null;
 
-	const onLogoTouchStart = (e: TouchEvent) => {
+	const onLogoTouchStart = () => {
 		longPressTimer = setTimeout(() => {
 			showVersion = true;
 		}, 500);

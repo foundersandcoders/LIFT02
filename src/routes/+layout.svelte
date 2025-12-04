@@ -22,17 +22,14 @@
 		RowId,
 		TableName,
 		View,
-		ViewName,
-		UserPreferences
+		ViewName
 	} from '$lib/types/appState';
-	import { inspectPrefixDev as preDev, inspectPrefixApp as preApp } from '$lib/utils/inspector';
 	import Header from '$lib/components/layouts/Header.svelte';
 	import Footer from '$lib/components/layouts/Footer.svelte';
 
 
 	// Dev Mode
 	let devMode = $state<boolean>(false);
-	$inspect(devMode).with((type, value) => console.log(`${preDev}${type} devMode: ${value}`));
 	setContext('getDevMode', () => devMode);
 	setContext('setDevMode', () => {
 		devMode = !devMode;
@@ -81,27 +78,28 @@
 		}
 	});
 
-	// =2 App State Inspectors (only initialize once)
-	if (shouldInitialize) {
-		$inspect(appState.profile.id).with((type, value) =>
-			console.log(`${preApp}${type} profile.id: ${value}`)
-		);
-		$inspect(appState.view.name).with((type, value) =>
-			console.log(`${preApp}${type} view.name: ${value}`)
-		);
-		$inspect(appState.list.table).with((type, value) =>
-			console.log(`${preApp}${type} list.table: ${value}`)
-		);
-		$inspect(appState.list.category.raw).with((type, value) =>
-			console.log(`${preApp}${type} list.cat.raw: ${value}`)
-		);
-		$inspect(appState.list.category.format).with((type, value) =>
-			console.log(`${preApp}${type} list.cat.format: ${value}`)
-		);
-		$inspect(appState.detail.table).with((type, value) =>
-			console.log(`${preApp}${type} detail.table: ${value}`)
-		);
-	}
+	// =2 App State Inspectors disabled for production
+	// Enable these during debugging by uncommenting
+	// if (shouldInitialize) {
+	// 	$inspect(appState.profile.id).with((type, value) =>
+	// 		console.log(`${preApp}${type} profile.id: ${value}`)
+	// 	);
+	// 	$inspect(appState.view.name).with((type, value) =>
+	// 		console.log(`${preApp}${type} view.name: ${value}`)
+	// 	);
+	// 	$inspect(appState.list.table).with((type, value) =>
+	// 		console.log(`${preApp}${type} list.table: ${value}`)
+	// 	);
+	// 	$inspect(appState.list.category.raw).with((type, value) =>
+	// 		console.log(`${preApp}${type} list.cat.raw: ${value}`)
+	// 	);
+	// 	$inspect(appState.list.category.format).with((type, value) =>
+	// 		console.log(`${preApp}${type} list.cat.format: ${value}`)
+	// 	);
+	// 	$inspect(appState.detail.table).with((type, value) =>
+	// 		console.log(`${preApp}${type} detail.table: ${value}`)
+	// 	);
+	// }
 
 	// =1 App Context
 	setContext('getApp', () => appState);

@@ -132,15 +132,15 @@
 							{@const table = 'resources'}
 							{@const category = { raw: 'resources', format: 'Resources' }}
 							<DashTile
-								title={'Resources'}
+								title="Resources"
 								onclick={() => onclick(table, category)}
 							/>
 							<DashTile
-								title={'Terms of use'}
+								title="Terms of use"
 								onclick={() => (showTermsModal = true)}
 							/>
 							<DashTile
-								title={'Privacy policy'}
+								title="Privacy policy"
 								onclick={() => (showPrivacyModal = true)}
 							/>
 						{:catch error}
