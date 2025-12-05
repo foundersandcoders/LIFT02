@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
@@ -6,17 +7,24 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 	const type = url.searchParams.get('type');
 	const code = url.searchParams.get('code');
 
-	console.log('🔐 Auth callback triggered');
-	console.log('📝 URL params:', { token_hash: !!token_hash, type, code: !!code });
+	if (dev) {
+		console.log('🔐 Auth callback triggered');
+		console.log('📝 URL params:', { token_hash: !!token_hash, type, code: !!code });
+	}
 
 	// Handle PKCE flow (code)
 	if (code) {
 		const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-		console.log('🔄 PKCE exchange result:', { session: !!data.session, error });
+
+		if (dev) {
+			console.log('🔄 PKCE exchange result:', { session: !!data.session, error });
+		}
 
 		if (error) {
-			console.error('❌ PKCE exchange error:', error);
-			throw redirect(303, '/dashboard#error=' + error.message);
+			if (dev) {
+				console.error('❌ PKCE exchange error:', error);
+			}
+			throw redirect(303, '/dashboard#error=authentication_failed');
 		}
 	}
 	// Handle magic link flow (token_hash)
@@ -25,14 +33,21 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 			token_hash,
 			type: type as any
 		});
-		console.log('🔄 OTP verify result:', { session: !!data.session, error });
+
+		if (dev) {
+			console.log('🔄 OTP verify result:', { session: !!data.session, error });
+		}
 
 		if (error) {
-			console.error('❌ OTP verify error:', error);
-			throw redirect(303, `/dashboard#error=access_denied&error_code=${error.code || 'unknown'}&error_description=${encodeURIComponent(error.message)}`);
+			if (dev) {
+				console.error('❌ OTP verify error:', error);
+			}
+			throw redirect(303, '/dashboard#error=authentication_failed');
 		}
 	}
 
-	console.log('✅ Redirecting to dashboard');
+	if (dev) {
+		console.log('✅ Redirecting to dashboard');
+	}
 	throw redirect(303, '/dashboard');
 };
