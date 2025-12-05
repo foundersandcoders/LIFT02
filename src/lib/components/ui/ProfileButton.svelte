@@ -25,11 +25,11 @@
 		<button
 			id="profile-button"
 			onclick={handleClick}
-			class="hover:bg-opacity-20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-transparent text-white transition-colors hover:bg-white"
+			class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-transparent text-white group"
 			type="button"
 			aria-label="Profile Settings"
 		>
-			<Icon src={User} solid class="h-5 w-5" />
+			<Icon src={User} solid class="h-5 w-5 transition-transform group-hover:scale-125" />
 		</button>
 	</Tooltip>
 

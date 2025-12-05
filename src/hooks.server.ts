@@ -10,6 +10,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			cookies: {
 				get: (key) => event.cookies.get(key),
 				set: (key, value, options) => {
+					// Preserve Supabase's security flags (httpOnly, secure, sameSite)
+					// while ensuring cookies are accessible app-wide
 					event.cookies.set(key, value, { ...options, path: '/' });
 				},
 				remove: (key, options) => {

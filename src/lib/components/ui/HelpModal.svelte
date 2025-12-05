@@ -82,7 +82,7 @@
 									</p>
 								</div>
 								{#if section.screenshot.caption}
-									<p class="text-sm text-base-content/70 mt-2 italic text-center">{section.screenshot.caption}</p>
+									<p class="text-sm text-base-content/70 mt-2 text-center">{section.screenshot.caption}</p>
 								{/if}
 							</div>
 						{/if}

@@ -192,7 +192,7 @@
 
 <ConfirmModal
 	show={showDeleteModal}
-	title="Delete Action"
+	title="Delete action"
 	message="Are you sure you want to delete this action? This action cannot be undone."
 	onConfirm={handleDeleteAction}
 	onCancel={closeDeleteModal}
@@ -201,7 +201,7 @@
 <div class="actions-crud">
 	<div class="actions-header">
 		<h4 class="form-label">
-			Manage actions you'd like your manager to take in response to this question.
+			The actions you'd like your manager to take in response to this question.
 		</h4>
 	</div>
 
@@ -304,7 +304,7 @@
 						<span class="loading loading-spinner loading-xs"></span>
 						Creating...
 					{:else}
-						Add Action
+						Add action
 					{/if}
 				</button>
 				<button
@@ -321,19 +321,20 @@
 			</div>
 		</div>
 	{:else}
-		<Tooltip text={!responseId ? "Save your response first to add actions" : "Add a new action"} position="top_right">
+		<Tooltip
+			text={!responseId ? 'Save your response first to add actions' : 'Add a new action'}
+			position="top_right"
+		>
 			<button
 				onclick={() => (showNewActionForm = true)}
 				class="btn-submit btn-sm"
 				disabled={!responseId}
 			>
-				Add Action
+				Add action
 			</button>
 		</Tooltip>
 		{#if !responseId}
-			<p class="text-sm text-base-content/70 mt-2">
-				💡 Save your response first to add actions
-			</p>
+			<p class="text-base-content/70 mt-2 text-sm">💡 Save your response first to add actions</p>
 		{/if}
 	{/if}
 </div>

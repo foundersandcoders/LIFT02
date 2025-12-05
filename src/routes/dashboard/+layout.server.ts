@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { getProfile } from '$lib/services/database/profiles';
+import type { UserPreferences } from '$lib/types/appState';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ locals: { getSession } }) => {
@@ -26,7 +27,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession } }) => {
 				id: result.data.user_id,
 				name: result.data.name,
 				is_line_manager: result.data.is_line_manager,
-				preferences: (result.data.preferences as import('$lib/types/appState').UserPreferences) || {}
+				preferences: (result.data.preferences as UserPreferences) || {}
 			};
 			console.log('✅ Profile loaded:', profile);
 		} else if (result.error) {

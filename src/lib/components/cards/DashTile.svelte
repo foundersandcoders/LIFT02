@@ -24,8 +24,8 @@
 		variant = 'default',
 		showStatus = false,
 		completed = 0,
-		total = 0,
-		completionText = ''
+		total = 0
+		// completionText = '' // Reserved for future use
 	}: Props = $props();
 
 	const isComplete = $derived(completed === total && total > 0);

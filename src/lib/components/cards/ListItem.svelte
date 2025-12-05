@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { AppState, Detail, List, TableName, ViewName } from '$lib/types/appState';
-	import type { Action, Question, Resource, Response } from '$lib/types/tableMain';
-	import { randomNum } from '$lib/utils/random';
+	import type { Action, Question, Resource } from '$lib/types/tableMain';
 	import { updateActionStatus as updateActionStatusDB } from '$lib/services/database/actions';
 	import { getLatestResponses } from '$lib/services/database/responses';
-	import { getActionsByResponseIds } from '$lib/services/database/actions';
 	import { getQuestionById } from '$lib/services/database/questions';
 	import { makePretty } from '$lib/utils/textTools';
 	import ActionStatusToggle from '../ui/ActionStatusToggle.svelte';
@@ -13,8 +11,9 @@
 	import Tooltip from '../ui/Tooltip.svelte';
 	import ProgressIndicator from '../ui/ProgressIndicator.svelte';
 
-	const getDevMode = getContext<() => boolean>('getDevMode');
-	const devMode = $derived(getDevMode());
+	// Development mode context - available for future debugging
+	// const getDevMode = getContext<() => boolean>('getDevMode');
+	// const devMode = $derived(getDevMode());
 
 	// App State
 	const getApp = getContext<() => AppState>('getApp');
@@ -54,15 +53,14 @@
 		});
 	});
 
-	// Get actions for the user's response
-	let responseActions = $derived.by(() => {
-		if (table !== 'questions' || !app.profile.id || !questionResponse) return null;
-
-		return questionResponse.then((response) => {
-			if (!response) return null;
-			return getActionsByResponseIds([response.id!]);
-		});
-	});
+	// Get actions for the user's response (available for future use)
+	// let responseActions = $derived.by(() => {
+	// 	if (table !== 'questions' || !app.profile.id || !questionResponse) return null;
+	// 	return questionResponse.then((response) => {
+	// 		if (!response) return null;
+	// 		return getActionsByResponseIds([response.id!]);
+	// 	});
+	// });
 
 	// Context Pulls
 	const setDetail = getContext<(detail: Detail) => void>('setDetail');
@@ -109,7 +107,7 @@
 		setViewName('detail');
 	};
 
-	const handleListItemClick = (event: MouseEvent) => {
+	const handleListItemClick = () => {
 		if (table === 'questions') {
 			onclick(table, item as Question);
 			return;
@@ -264,8 +262,8 @@
 						</a>
 					{/if}
 				{:else}
-					{@const table = null}
-					{@const item = { id: null }}
+					{@const _table = null}
+					{@const _item = { id: null }}
 					<p>NULL</p>
 				{/if}
 			</div>

@@ -27,7 +27,7 @@
 
 	const setViewName = getContext<(view: ViewName) => void>('setViewName');
 
-	const title = $derived(table === 'questions' ? 'Your Response' : 'Your Actions');
+	const title = $derived(table === 'questions' ? 'Your response' : 'Your actions');
 
 	const onclick = () => {
 		setViewName('list');

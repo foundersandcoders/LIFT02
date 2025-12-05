@@ -1,0 +1,18 @@
+﻿ID,Issue description,Page/section
+1,The LIFT logo in the header should not have a hover effect and should not appear transluscent. ,Header
+2,"The icons in these three buttons should turn pink when hovered: generate an email summary, get help, font size settings. Otherwise, they will disappear with a white hover background. ",All pages
+3,"When on the dashboard page, 'Dashboard' in breadcrumb should be bold, not underlined, and not clickable, because it is the current page the user is on. ",Dashboard
+4,Each button should have a hover effect. It can be thicker border. ,Dashboard
+5,"The 'back' button should be on the left side of the breadcrumb, on the same line. ",All pages
+6,"It is not intuitive to use 'active' and 'inactive' to describe actions. Using 'to do' and 'done' should be clearer. So the toggle module can be: [Link button] To do [toggle] Done. At the same time, the 'Show Inactive' toggle at the top should change to 'Show done actions'.",Actions
+8,The website should have a proper page title as displayed in the browser tab. ,All pages
+9,The OK button should have text 'Save' instead. ,All forms
+10,"After editing and saving a field, there should be a confirmation message to let users know the changes have been saved. ",All forms
+11,This line of text should be black instead of grey and it misses a full stop: 'Visibility to employer. This answer and actions will be included on the email',All forms
+12,"When switching the 'Visibility to employer' toggle on mobile, 'Saved' message overlaps with section heading. ",All forms
+13,"When sending an email to the manager, in the email preview, actions fields should not have hover effect as they are not editable. ",Email Preview
+14,"On the email preview page, the email button at the top-right corner in the header should not be transluscent. It should be removed on this page. ",Email Preview
+17,Please replace all ampersands with 'and' in full,All pages
+18,Remove all use of italics across the site,All pages
+20,Change the field on manager actions to 'The actions you'd like your manager to take in response to this question.',All forms
+21,"In My workplace adjustments, it says 'What do you need to thrive in your role here at Islington?' Is this right, at Islington suggest the council when this is for wider use and I guess this will be available to the other LIFT boroughs? ",My workplace adjustments

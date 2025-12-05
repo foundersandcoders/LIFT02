@@ -153,7 +153,7 @@ export async function generateEmailData(
 
 export function renderEmailToHTML(emailData: EmailData): string {
 	let emailHTML = `
-		<div class="email-container max-w-4xl mx-auto bg-base-100">
+		<div class="email-container bg-base-100">
 			<!-- Email Header -->
 			<div class="email-header mb-6 p-4">
 				${

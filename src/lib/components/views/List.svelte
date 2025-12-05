@@ -56,9 +56,6 @@
 	let filteredActions = $derived(
 		actionsData.filter((action) => showArchived || action.status === 'active')
 	);
-	$inspect(filteredActions).with((type, value) =>
-		console.log(`🔍 Filtered Actions: ${type} ${value}`)
-	);
 
 	// DB Queries
 	let queryResources = $derived(table == 'resources' ? getResources() : null);

@@ -22,11 +22,11 @@
 	let showModal = $state(false);
 
 	const fontSizeLabels = {
-		'extra-small': 'Extra Small',
+		'extra-small': 'Extra small',
 		'small': 'Small',
 		'medium': 'Medium',
 		'large': 'Large',
-		'extra-large': 'Extra Large'
+		'extra-large': 'Extra large'
 	};
 
 	// Helper function to update both local state and appState preferences
@@ -95,16 +95,16 @@
 		<button
 			onclick={toggleModal}
 			disabled={!isUserLoaded}
-			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center hover:bg-white hover:bg-opacity-20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+			class="w-10 h-10 rounded-full border-2 border-white bg-transparent flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group"
 			type="button"
 			aria-label="Font size settings"
 		>
-			<div class="flex items-center text-white leading-none gap-1">
+			<div class="flex items-center text-white leading-none gap-1 transition-transform group-hover:scale-125">
 				<div class="flex flex-col items-center leading-none -space-y-1">
 					<span class="text-sm leading-none">+</span>
 					<span class="text-sm leading-none">-</span>
 				</div>
-				<span class="italic font-serif text-lg leading-none">A</span>
+				<span class="font-serif text-lg leading-none">A</span>
 			</div>
 		</button>
 	</Tooltip>
@@ -122,7 +122,7 @@
 
 		<div class="absolute bottom-12 right-0 bg-white rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.3)] border-2 border-gray-400 p-4 min-w-48 z-50">
 			<div class="flex flex-col space-y-3">
-				<h3 class="font-medium text-gray-900 mb-2">Font Size</h3>
+				<h3 class="font-medium text-gray-900 mb-2">Font size</h3>
 
 				<div class="flex items-center justify-between">
 					<button

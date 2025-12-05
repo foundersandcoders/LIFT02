@@ -40,7 +40,7 @@
 		"prettier-plugin-sql": "^0.19.1",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.12",
-		"supabase": "^2.53.6",
+		"supabase": "^2.54.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"svelte-hero-icons": "^5.2.0",

@@ -13,12 +13,13 @@
 	};
 </script>
 
-<label class="flex items-center gap-1">
+<label class="flex items-center gap-2">
+	<span class="text-sm">To do</span>
 	<input
 		type="checkbox"
 		class="toggle border-accent-dark bg-accent checked:border-gray-500 checked:bg-gray-400 checked:text-gray-800"
 		{checked}
 		onchange={handleToggle}
 	/>
-	<span class="w-16 text-sm">{status === 'active' ? 'Active' : 'Inactive'}</span>
+	<span class="text-sm">Done</span>
 </label>

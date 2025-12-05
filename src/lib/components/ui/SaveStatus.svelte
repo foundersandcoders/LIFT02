@@ -7,26 +7,28 @@
 	let { status, error = null }: Props = $props();
 
 	const statusText = $derived(
-		status === 'saving' ? 'Saving...' :
 		status === 'saved' ? 'Saved' :
 		status === 'error' ? 'Save failed' : ''
 	);
 
 	const statusClass = $derived(
-		status === 'saving' ? 'text-blue-600' :
-		status === 'saved' ? 'text-green-600' :
-		status === 'error' ? 'text-red-600' : ''
+		status === 'saved' ? 'text-success' :
+		status === 'error' ? 'text-error' : ''
 	);
 </script>
 
-{#if status !== 'idle'}
-	<div class="text-xs {statusClass} flex items-center gap-1">
-		{#if status === 'saving'}
-			<div class="loading loading-spinner loading-xs"></div>
+{#if status !== 'idle' && status !== 'saving'}
+	<div class="text-xs font-medium {statusClass}">
+		<!-- Commented out "Saved" message - keeping error messages visible -->
+		{#if status === 'error'}
+			{statusText}
+			{#if error}
+				<span class="text-gray-500">({error})</span>
+			{/if}
 		{/if}
-		{statusText}
-		{#if status === 'error' && error}
-			<span class="text-gray-500">({error})</span>
-		{/if}
+		<!-- Uncomment below to show "Saved" message -->
+		<!-- {#if status === 'saved'}
+			{statusText}
+		{/if} -->
 	</div>
 {/if}
