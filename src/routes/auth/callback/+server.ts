@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
+import type { EmailOtpType } from '@supabase/supabase-js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
@@ -29,9 +30,18 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 	}
 	// Handle magic link flow (token_hash)
 	else if (token_hash && type) {
+		// Validate OTP type from URL params
+		const validOtpTypes: EmailOtpType[] = ['signup', 'invite', 'magiclink', 'recovery', 'email_change'];
+		if (!validOtpTypes.includes(type as EmailOtpType)) {
+			if (dev) {
+				console.error('❌ Invalid OTP type:', type);
+			}
+			throw redirect(303, '/dashboard#error=authentication_failed');
+		}
+
 		const { data, error } = await supabase.auth.verifyOtp({
 			token_hash,
-			type: type as any
+			type: type as EmailOtpType
 		});
 
 		if (dev) {
